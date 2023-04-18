@@ -112,7 +112,8 @@ const ValidatorTable = ({selectedStatus, address}: Props) => {
             const delegation = delegations.find(({delegation}) => delegation.validator_address === validator.validator_addr)
             return !!delegation ? "active" : "inactive"
         }
-        return validators?.map((validator) => ({
+        // Shuffle the validators before returning
+        return validators?.sort(() => Math.random() - 0.5).map((validator) => ({
             name: validator?.description?.moniker,
             // @ts-ignore
             votingPower: validator.votingPower,
