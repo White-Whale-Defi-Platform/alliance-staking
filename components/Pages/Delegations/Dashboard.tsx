@@ -209,7 +209,7 @@ const Dashboard = () => {
                 <CardComponent
                     isWalletConnected={isWalletConnected}
                     isLoading={isLoading}
-                    title={'Balances'}
+                    title={'Alliance Token Balances'}
                     tokenData={updatedData?.liquid}/>
                 <CardComponent
                     isWalletConnected={isWalletConnected}
