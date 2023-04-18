@@ -12,7 +12,7 @@ function DisplayBalance() {
         <Spinner color="white" size="xs" />
       ) : (
         <Text fontSize="16px" fontWeight="bold" display={['none', 'flex']}>
-          {balance?.toFixed(0)}
+          {balance?.toFixed(1)}
         </Text>
       )}
     </>
