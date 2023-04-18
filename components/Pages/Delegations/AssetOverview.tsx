@@ -1,9 +1,6 @@
 import {Box, HStack, Text, VStack,} from '@chakra-ui/react'
-
 import {Cell, Pie, PieChart} from 'recharts'
-
 import Loader from '../../Loader'
-
 
 export enum Token {
     WHALE, ampLUNA, bLUNA
@@ -79,11 +76,18 @@ const AssetOverview = ({
                         Delegated Assets
                     </Text>
                     {data?.map(e => {
-                        const apr = aprs.find(apr=>apr.name === e.tokenSymbol)
-                        return (<VStack key={`tokenBox-${e.token}`} alignItems={"flex-start"}  >
-                            <TokenBox  token={e.token}/>
-                            <Text paddingBottom={4} color={"#1C1C1C"}>{`APR ≈${apr?.apr.toFixed(1)}%`}</Text>
-                            </VStack>)})}
+                        const apr = aprs.find(apr => apr.name === e.tokenSymbol)
+                        return (<VStack
+                            key={`tokenBox-${e.token}`}
+                            alignItems={"flex-start"}>
+                            <TokenBox token={e.token}/>
+                            <Text
+                                paddingBottom={4}
+                                color={"gray"}>
+                                {`APR ≈${apr?.apr.toFixed(1)}%`}
+                            </Text>
+                        </VStack>)
+                    })}
                 </VStack>
                 <VStack
                     alignItems="start"

@@ -1,17 +1,13 @@
 import React from 'react'
 
-import { HStack } from '@chakra-ui/react'
+import {HStack, Text} from '@chakra-ui/react'
 import DisplayBalance from 'components/Wallet/ChainSelectWithBalance/DisplayBalance'
 
-function ChainSelectWithBalance({
-  connected,
-  denom,
-  onChainChange,
-  currentWalletState,
-}) {
+function ChainSelectWithBalance() {
   return (
-    <HStack spacing="4">
+    <HStack spacing="3">
       <DisplayBalance />
+        <Text fontWeight={"bold"}>WHALE</Text>
     </HStack>
   )
 }

@@ -11,8 +11,8 @@ function DisplayBalance() {
       {isLoading ? (
         <Spinner color="white" size="xs" />
       ) : (
-        <Text fontSize="16px" display={['none', 'flex']}>
-          {balance?.toFixed(1)}
+        <Text fontSize="16px" fontWeight="bold" display={['none', 'flex']}>
+          {balance?.toFixed(0)}
         </Text>
       )}
     </>

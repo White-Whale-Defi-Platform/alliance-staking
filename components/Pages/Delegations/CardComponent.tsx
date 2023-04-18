@@ -10,10 +10,10 @@ interface CardComponentProps {
     tokenData: TokenData[];
     isLoading: boolean;
     isWalletConnected: boolean;
-    isUndelegations: boolean;
+    isUndelegations?: boolean;
 }
 
-const CardComponent: FC<CardComponentProps> = ({title, tokenData,isLoading, isWalletConnected,isUndelegations }) => {
+const CardComponent: FC<CardComponentProps> = ({title, tokenData,isLoading, isWalletConnected,isUndelegations= false }) => {
 
     const sumAndMultiplyValues = useMemo(() => {
         return isLoading? 0: tokenData?.reduce((total, item) => {
@@ -60,14 +60,14 @@ const CardComponent: FC<CardComponentProps> = ({title, tokenData,isLoading, isWa
                     {isUndelegations && <Tooltip
                         label={
                             <Box
-                                width="300px"
-                                height="80px"
+                                width="230px"
+                                height="50px"
                                 borderRadius="10px"
                                 bg="black"
                                 color="white"
                                 fontSize={14}
                                 p={4}>
-                                Cannot be displayed at the moment. We apologize for the inconvenience...
+                                Unbonding period of 21 days
                             </Box>
                         }
                         bg="transparent"
@@ -76,7 +76,7 @@ const CardComponent: FC<CardComponentProps> = ({title, tokenData,isLoading, isWa
                         closeOnClick={false}
                         arrowSize={0}>
                         <Box>
-                            <InfoIcon color={"white"}cursor="pointer" />
+                            <InfoIcon color={"white"} cursor="pointer" />
                         </Box>
                     </Tooltip>}
                 </HStack>

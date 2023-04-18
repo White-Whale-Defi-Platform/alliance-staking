@@ -4,11 +4,13 @@ import {useQuery} from "react-query";
 import {LCDClient} from "@terra-money/feather.js";
 import whiteListedTokens from "public/mainnet/white_listed_token_info.json"
 import {AllianceAsset} from "@terra-money/feather.js/dist/client/lcd/api/AllianceAPI";
+import {convertMicroDenomToDenom} from "util/conversion";
 
 export interface Alliance {
     name: string,
     weight: number,
     totalDollarAmount: number,
+    totalTokens: number,
 
     takeRate: number
 }
@@ -31,10 +33,12 @@ const fetchAlliances = async (client : LCDClient, priceList)=>{
     const alliances : Alliance[] = whiteListedTokens.map(token => {
 
         const alliance = allianceAssets?.find(asset=>asset.denom===token.denom)
+
     return {
         name: token.symbol,
-        weight: 2.5/6,
-        totalDollarAmount: Number(alliance?.total_tokens) * priceList[token.name],
+        weight: Number(alliance?.reward_weight),
+        totalDollarAmount: convertMicroDenomToDenom(alliance?.total_tokens, token.decimals) * priceList[token.name],
+        totalTokens: convertMicroDenomToDenom(alliance?.total_tokens, token.decimals),
         takeRate: Number(alliance?.take_rate)
     }})
 

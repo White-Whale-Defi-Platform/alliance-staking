@@ -4,15 +4,13 @@ import {FC, useMemo} from "react";
 import {useRecoilState} from "recoil";
 import {walletState} from "state/atoms/walletAtoms";
 import WalletModal from "components/Wallet/Modal/Modal";
-import {TokenData} from "components/Pages/Delegations/Dashboard";
-import {Token} from "components/Pages/Delegations/AssetOverview";
 import ClaimButton from "components/Pages/Delegations/ClaimButton";
 
 interface UndelegationsProps {
     isWalletConnected: boolean,
     isLoading: boolean,
     address: string,
-    data: TokenData[]
+    data: any
 }
 
 const RewardsComponent: FC<UndelegationsProps> = ({isWalletConnected, isLoading, data}) => {
@@ -88,15 +86,15 @@ const RewardsComponent: FC<UndelegationsProps> = ({isWalletConnected, isLoading,
                         px="4"
                         borderRadius="10px"
                         marginBottom="20px">
-                        {data?.map((tokenData, index) => (
+                        {data?.map((reward, index) => (
                             <Box key={index} marginY={3}>
                                 <HStack justifyContent="space-between" width="100%" pr={3}>
-                                    <Text>{Token[tokenData.token]}</Text>
-                                    <Text>{isWalletConnected ? `${tokenData.value === 0 ? 0 : (tokenData.value)?.toFixed(6)}` : "n/a"}</Text>
+                                    <Text>{reward.symbol}</Text>
+                                    <Text>{isWalletConnected ? `${reward.amount === 0 ? 0 : (reward.amount)?.toFixed(6)}` : "n/a"}</Text>
                                 </HStack>
                                 <HStack justifyContent="flex-end" pr={3}>
                                     <Text marginBottom={1} fontSize={11}
-                                          color={isWalletConnected ? "grey" : "black"}>{`≈$${(tokenData.dollarValue)?.toLocaleString()}`}</Text>
+                                          color={isWalletConnected ? "grey" : "black"}>{`≈$${(reward.dollarValue)?.toLocaleString()}`}</Text>
                                 </HStack>
                                 {index < data.length - 1 && <Divider/>}
                             </Box>

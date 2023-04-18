@@ -9,7 +9,7 @@ import {
     getSortedRowModel,
     useReactTable
 } from '@tanstack/react-table'
-import React, {useMemo, useState} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import useValidators from 'hooks/useValidators';
 import useDelegations from 'hooks/useDelegations';
 import {TriangleDownIcon, TriangleUpIcon} from '@chakra-ui/icons';
@@ -19,7 +19,7 @@ import {Validator} from "@terra-money/feather.js";
 import Commission = Validator.Commission;
 
 type Props = {
-    columnFilters: any;
+    selectedStatus: any;
     address: string
 
 }
@@ -54,7 +54,6 @@ const columns: ColumnDef<TableProps, any>[] = [
     }),
     columnHelper.accessor('commission', {
         enableSorting: true,
-
         header: () => (
             <Text as="span" color="brand.50" minW="200px" fontSize="sm" textTransform="capitalize">
                 Commission
@@ -73,8 +72,7 @@ const columns: ColumnDef<TableProps, any>[] = [
     columnHelper.accessor('status', {}),
 ];
 
-const ValidatorTable = ({columnFilters, address}: Props) => {
-
+const ValidatorTable = ({selectedStatus, address}: Props) => {
 
     const [sorting, setSorting] = useState<any>([{
         desc: false,
@@ -86,11 +84,8 @@ const ValidatorTable = ({columnFilters, address}: Props) => {
 
     const {data: {delegations = []} = {}} = useDelegations({address})
 
-
     const tableData = useMemo(() => {
-
         if (!validators?.length) return []
-
         const onClick = async (action: ActionType, validatorAddress: string) => {
             const tokenSymbol = "ampLUNA"
             if (action === ActionType.delegate) {
@@ -115,7 +110,7 @@ const ValidatorTable = ({columnFilters, address}: Props) => {
         };
         const getIsActive = (validator) => {
             const delegation = delegations.find(({delegation}) => delegation.validator_address === validator.validator_addr)
-            return !!delegation ? "active" : "all"
+            return !!delegation ? "active" : "inactive"
         }
         return validators?.map((validator) => ({
             name: validator?.description?.moniker,
@@ -130,18 +125,21 @@ const ValidatorTable = ({columnFilters, address}: Props) => {
                         onClick={() => onClick(ActionType.redelegate, validator.operator_address)}>Redelegate</Button>
                 <Button variant="outline" size="sm"
                         onClick={() => onClick(ActionType.undelegate, validator.operator_address)}>Undelegate</Button>
-            </HStack>
-        }))
-
+            </HStack>}))
     }, [validators])
 
+    const dataRows = useMemo(() => {
+        if (selectedStatus === "all") {
+            return tableData;
+        }
+        return tableData.filter(item => item.status === selectedStatus);
+    }, [selectedStatus, tableData]);
 
     const table = useReactTable({
-        data: tableData,
+        data: dataRows,
         columns,
         state: {
             sorting,
-            columnFilters,
             columnVisibility: {
                 duration: true,
                 value: true,
@@ -156,15 +154,9 @@ const ValidatorTable = ({columnFilters, address}: Props) => {
         getFilteredRowModel: getFilteredRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
     })
-
-
-    // <Tr key={headerGroup.id} >
-    // {headerGroup.headers.map((header) => (
-    //     <Th
-    //         key={header.id} color="brand.50"
-    //         cursor={header.column.getCanSort() ? "pointer" : "default"}
-    //         onClick={header.column.getToggleSortingHandler()}
-    //     >
+    useEffect(() => {
+        table.setColumnFilters(selectedStatus!=="all" ? [{ id: 'status', value: selectedStatus }]: []);
+    }, [selectedStatus, table]);
 
     return (
         <VStack width="full" minW="800px" overflowX="auto">
@@ -173,21 +165,16 @@ const ValidatorTable = ({columnFilters, address}: Props) => {
                     {headerGroup.headers.map((header, index) => (
                         <Box
                             key={header.id}
-                            // as={index == 3 ? Box : 'span'}
                             flex={index == 0 || index == 3 ? 1 : 'unset'}
                             minW={index == 1 || index == 2 ? "200px" : 'unset'}
                             cursor={header.column.getCanSort() ? "pointer" : "default"}
                             onClick={header.column.getToggleSortingHandler()}>
                             <HStack>
-                                <Box>
-                                    {
-                                        flexRender(
+                                <Box>{
+                                    flexRender(
                                             header.column.columnDef.header,
-                                            header.getContext()
-                                        )
-                                    }
+                                            header.getContext())}
                                 </Box>
-
                                 {header?.column?.columnDef?.enableSorting && (
                                     <VStack width="fit-content" p="0" m="0" spacing="0">
                                         <TriangleUpIcon fontSize="8px"
@@ -202,7 +189,6 @@ const ValidatorTable = ({columnFilters, address}: Props) => {
                     ))}
                 </HStack>
             ))}
-
             {table.getRowModel().rows.map((row, index) => (
                 <HStack key={row.id} width="full" borderRadius="30px" backgroundColor="rgba(0, 0, 0, 0.5)" py="5"
                         px="8">
@@ -212,50 +198,45 @@ const ValidatorTable = ({columnFilters, address}: Props) => {
                                 key={cell.id}
                                 as={index == 3 ? HStack : 'span'}
                                 flex={index == 0 || index == 3 ? 1 : 'unset'}
-                                minW={index == 1 || index == 2 ? "200px" : 'unset'}
-                            >
+                                minW={index == 1 || index == 2 ? "200px" : 'unset'}>
                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            </Text>
-                        )
+                            </Text>)
                     })}
                 </HStack>
             ))}
-
             {!tableData?.length && (
-                <Text color="brand.50" fontSize="sm" textTransform="capitalize">No validators found</Text>
-            )}
-
-            {
-                !!tableData?.length && (
-
-                    <HStack w="full" justifyContent="space-between" pt="3">
-
+                <Text
+                    color="brand.50"
+                    fontSize="sm"
+                    textTransform="capitalize">
+                    No validators found
+                </Text>)}
+            {!!tableData?.length && (
+                    <HStack
+                        w="full"
+                        justifyContent="space-between"
+                        pt="3">
                         <Text>
                             Showing {table.getState().pagination.pageIndex + 1} of{' '}
                             {table.getPageCount()} pages
                         </Text>
-
                         <HStack gap="2">
                             <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => table.previousPage()}
-                                isDisabled={!table.getCanPreviousPage()}
-                            > Previous </Button>
+                                isDisabled={!table.getCanPreviousPage()}>
+                                Previous
+                            </Button>
                             <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => table.nextPage()}
-                                isDisabled={!table.getCanNextPage()}
-                            > Next </Button>
+                                isDisabled={!table.getCanNextPage()}>
+                                Next
+                            </Button>
                         </HStack>
-
-                    </HStack>
-
-                )
-            }
-
-
+                    </HStack>)}
         </VStack>
     )
 }

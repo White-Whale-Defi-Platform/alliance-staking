@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState} from 'react';
 import {HStack, Text, VStack} from '@chakra-ui/react';
-import { useRecoilState} from 'recoil';
+import {useRecoilState} from 'recoil';
 import {walletState, WalletStatusType} from 'state/atoms/walletAtoms';
 import CardComponent from 'components/Pages/Delegations/CardComponent';
 import AssetOverview, {Token, TokenType} from './AssetOverview';
@@ -12,9 +12,16 @@ import useDelegations from 'hooks/useDelegations';
 import {TOKENS_TO_EXCLUDE_BY_SYMBOL} from 'constants/staking';
 import usePrice from 'hooks/usePrice';
 import {useAlliances} from "hooks/useAlliances";
-import {useTotalWhaleEmission} from "hooks/useMigaloo";
+import {useTotalYearlyWhaleEmission} from "hooks/useMigaloo";
 import {useWhalePrice} from "queries/useGetTokenDollarValueQuery";
+import useUndelegations from "hooks/useUndelegations";
 
+
+interface Reward {
+    amount: number,
+    denom: string,
+    dollarValue: number
+}
 export enum ActionType {
     delegate,
     redelegate,
@@ -34,7 +41,7 @@ export interface DelegationData {
     delegated: TokenData[];
     undelegated: TokenData[];
     liquid: TokenData[];
-    rewards: TokenData[];
+    rewards: any;
 }
 
 const Dashboard = () => {
@@ -64,7 +71,8 @@ const Dashboard = () => {
             name: t.name,
             dollarValue: 0,
             value: 0,
-            color: t.color,
+            totalRewardDollarValue: 0,
+            rewards: [],
         }));
     }, []);
 
@@ -74,18 +82,22 @@ const Dashboard = () => {
     const {data: balances } = useMultipleTokenBalance(filteredTokens.map((e) => e.symbol));
 
     const {alliances: allianceData} = useAlliances()
-    const {totalWhaleEmission} = useTotalWhaleEmission()
+    const {totalYearlyWhaleEmission} = useTotalYearlyWhaleEmission()
+
     const price = useWhalePrice()
     const alliances = useMemo(() => allianceData?.alliances || [], [allianceData?.alliances]);
+    const  {data: undelegationData}  = useUndelegations({address})
+    const undelegations = useMemo(() => undelegationData?.undelegations || [], [undelegationData]);
 
     const allianceAPRs = useMemo(() => {
         return alliances?.map(alliance => {
             return ({
                 name: alliance.name,
-                apr: !isNaN(alliance.totalDollarAmount) ? ((totalWhaleEmission * price * alliance.weight) / alliance.totalDollarAmount) * 100 : 0,
+                apr: !isNaN(alliance.totalDollarAmount) ?
+                    ((totalYearlyWhaleEmission * price * alliance?.weight) / alliance?.totalDollarAmount)*100 : 0,
             })
         });
-    }, [alliances, totalWhaleEmission, price]);
+        }, [alliances, totalYearlyWhaleEmission, price]);
 
 
     const [updatedData, setData] = useState<DelegationData>({
@@ -110,10 +122,10 @@ const Dashboard = () => {
             };
         });
 
-        const calculateDelegationData = (tokenData: any, isRewards: boolean) => {
+        const calculateDelegationData = (tokenData: any) => {
             const allDelegations = delegations.filter((d) => d.token.symbol === tokenData.tokenSymbol);
-            const aggregatedDollarValue = allDelegations.reduce((acc, e) => acc + Number(isRewards ? e?.rewards.dollarValue ?? 0 : e?.token.dollarValue ?? 0), 0);
-            const aggregatedAmount = allDelegations.reduce((acc, e) => acc + Number(isRewards ? e?.rewards?.amount ?? 0 : e?.token?.amount ?? 0), 0);
+            const aggregatedDollarValue = allDelegations.reduce((acc, e) => acc + Number( e?.token.dollarValue ?? 0), 0);
+            const aggregatedAmount = allDelegations.reduce((acc, e) => acc + Number( e?.token?.amount ?? 0), 0);
 
             return {
                 ...tokenData,
@@ -121,13 +133,10 @@ const Dashboard = () => {
                 value: Number(aggregatedAmount),
             };
         };
-        const calculateRewardData = (tokenData: any) => {
-
-            const denom = whiteListedTokens.find(t=>t.symbol===tokenData.tokenSymbol).denom
-            const allDelegations = delegations.filter((d) => d?.reward?.denom === denom);
-
-            const aggregatedDollarValue = allDelegations.reduce((acc, e) => acc + Number(e?.reward.dollarValue ?? 0 ), 0);
-            const aggregatedAmount = allDelegations.reduce((acc, e) => acc + Number(e?.reward?.amount ?? 0), 0);
+        const calculateUndelegationData = (tokenData: any) => {
+            const allUndelegations = undelegations.filter((d) => d.symbol === tokenData.tokenSymbol);
+            const aggregatedDollarValue = allUndelegations.reduce((acc, e) => acc + Number( e?.dollarValue ?? 0) , 0);
+            const aggregatedAmount = allUndelegations.reduce((acc, e) => acc + Number(e?.amount ?? 0), 0);
 
             return {
                 ...tokenData,
@@ -135,16 +144,36 @@ const Dashboard = () => {
                 value: Number(aggregatedAmount),
             };
         };
+        const calculateRewardData = () => {
+            const allRewards = delegations.map(d=>d.rewards);
 
-        const delegatedData = rawTokenData.map((tokenData) => calculateDelegationData(tokenData, false));
+            const concatenatedRewards: Reward[] = allRewards.reduce((acc: Reward[], currList: Reward[]) => {
+                return acc.concat(currList);
+            }, []);
 
-        const undelegatedData = rawTokenData.map((token, index) => ({
-            ...token,
-            dollarValue: 1,
-            value: balances?.[index],
-        }));
+            const aggregatedRewards = whiteListedTokens.map(t=> {
 
-        const rewardsData = rewardsTokenData.map((tokenData) => calculateRewardData(tokenData));
+               const sameTokenRewards =  concatenatedRewards.filter(r => r.denom === t.denom)
+
+               const amount = sameTokenRewards?.reduce((acc, e) =>
+                    acc + (Number(e?.amount) ?? 0), 0)
+                const dollarValue = sameTokenRewards?.reduce((acc, e) =>
+                    acc + (Number(e?.dollarValue) ?? 0), 0)
+                return {
+                   symbol: t.symbol,
+                    amount: amount,
+                    dollarValue: dollarValue
+                }
+
+            })
+            return aggregatedRewards;
+        };
+
+        const delegatedData = rawTokenData.map((tokenData) => calculateDelegationData(tokenData));
+
+        const undelegatedData = rawTokenData.map((tokenData) => calculateUndelegationData(tokenData));
+
+        const rewardsData = calculateRewardData();
 
         const delegationData: DelegationData = {
             delegated: delegatedData,
@@ -155,32 +184,43 @@ const Dashboard = () => {
 
         setData(delegationData);
 
-    }, [balances, delegations, rawTokenData, rewardsTokenData]);
+    }, [balances, delegations, rawTokenData, rewardsTokenData, undelegations]);
 
     useEffect(() => {
         setLoading(balances === null || isDelegationsLoading || updatedData === null || !priceList);
     }, [balances, isDelegationsLoading, updatedData, priceList]);
 
     return (
-        <VStack pt={12} minW={1270} alignSelf="center" alignItems={'flex-start'} spacing={6}>
-            <Text fontSize={35} fontWeight={'bold'}>
+        <VStack
+            pt={12}
+            minW={1270}
+            alignSelf="center"
+            alignItems={'flex-start'}
+            spacing={6}>
+            <Text
+                fontSize={35}
+                fontWeight={'bold'}>
                 Dashboard
             </Text>
-            <HStack width="full" paddingY={5} spacing={10}>
+            <HStack
+                width="full"
+                paddingY={5}
+                spacing={10}>
                 <CardComponent
                     isWalletConnected={isWalletConnected}
                     isLoading={isLoading}
-                    isUndelegations={false}
                     title={'Balances'}
                     tokenData={updatedData?.liquid}/>
                 <CardComponent
                     isWalletConnected={isWalletConnected}
-                    isUndelegations={false}
                     isLoading={isLoading}
                     title={'Delegations'}
                     tokenData={updatedData?.delegated}/>
-                <CardComponent isWalletConnected={false} isUndelegations={true} isLoading={isLoading}
-                               title={'Undelegations'} tokenData={updatedData?.undelegated}/>
+                <CardComponent
+                    isWalletConnected={isWalletConnected}
+                    isUndelegations={true}
+                    isLoading={isLoading}
+                    title={'Undelegations'} tokenData={updatedData?.undelegated}/>
             </HStack>
             <HStack width="full" spacing={10}>
                 <AssetOverview

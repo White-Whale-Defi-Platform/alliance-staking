@@ -1,3 +1,5 @@
+import {convertMicroDenomToDenom} from "util/conversion";
+
 type Token = {
     denom: string;
     amount: string;
@@ -9,7 +11,7 @@ export async function fetchTotalSupply() :Promise<number> {
         const data = await response.json();
 
         const uwhale = data.supply.find((item: Token) => item.denom === 'uwhale');
-        return uwhale ? uwhale.amount : null;
+        return uwhale ? convertMicroDenomToDenom(uwhale.amount, 6) : null;
     } catch (error) {
         console.error('Error fetching data:', error);
         return null;

@@ -3,7 +3,7 @@ import { useState } from "react"
 import ValidatorTable from "./ValidatorTable"
 
 
-const Topbar = ({setColumnFilters}) => {
+const TopBar = ({setSelectedStatus}) => {
     const [activeButton, setActiveButton] = useState("all")
 
     return (
@@ -31,10 +31,8 @@ const Topbar = ({setColumnFilters}) => {
                             size="sm"
                             onClick={() => {
                                 setActiveButton(item)
-                                setColumnFilters(item === "all" ? [] : [{
-                                    id: "status",
-                                    value: item
-                                }])
+                                setSelectedStatus(item === "all" ? "all" :
+                                    item)
                             }}
                             textTransform="capitalize"
                         >
@@ -50,11 +48,11 @@ const Topbar = ({setColumnFilters}) => {
 }
 
 const Validators = ({address}) => {
-    const [columnFilters, setColumnFilters] = useState([])
+    const [selectedStatus, setSelectedStatus] = useState("all");
     return (
         <VStack width="full">
-            <Topbar setColumnFilters={setColumnFilters} />
-            <ValidatorTable columnFilters={columnFilters}  address={address} />
+            <TopBar setSelectedStatus={setSelectedStatus} />
+            <ValidatorTable selectedStatus={selectedStatus}  address={address} />
         </VStack>
 
     )

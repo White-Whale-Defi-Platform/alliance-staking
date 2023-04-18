@@ -38,8 +38,7 @@ const Header = () => {
                 mx="auto"
                 maxWidth="container.xl"
                 display={{ base: 'none', md: 'flex' }}
-                alignItems="center"
-            >
+                alignItems="center">
                 <Box flex="1">
                     <Logo />
                 </Box>

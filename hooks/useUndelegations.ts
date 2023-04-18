@@ -1,113 +1,116 @@
-import { LCDClient, Coins } from "@terra-money/feather.js"
+import {LCDClient} from "@terra-money/feather.js"
 import useClient from "hooks/useClient"
 import tokens from "public/mainnet/white_listed_token_info.json"
 import usePrice from "./usePrice"
-import {num} from "libs/num";
 import {useQuery} from "react-query";
-import useValidators from "hooks/useValidators";
-
-const getUndelegations = async (client: LCDClient | null, priceList: any, delegatorAddress: string,validatorAddress: string): Promise<any> => {
+import {convertMicroDenomToDenom} from "util/conversion";
 
 
-    //const undelegations = await client.staking.validators("migaloo-1")//.then(data=>client.staking.unbondingDelegations(null,data[0][0].operator_address))
+interface RawTxData {
+    txs: any[]
+    tx_responses: TxResponse[];
+    pagination: null;
+    total: string;
+}
 
+interface TxResponse {
+    height: string;
+    txhash: string;
+    codespace: string;
+    code: number;
+    data: string;
+    raw_log: string;
+    logs: any[]; // You may replace 'any' with a more specific type if needed
+    info: string;
+    gas_wanted: string;
+    gas_used: string;
+    events: Event[];
+    timestamp: string;
+    tx: Tx;
+}
 
-    if (!client) return Promise.resolve([])
+interface Event {
+    // Define the properties for the Event object
+}
 
-    const mockResponse = {
-        delegations: [
-            {
-                delegation: {
-                    delegator_address: "migaloo1luw6vqtnxx96s094t5hchu6xx9t3fw9g4cpr53",
-                    validator_address: "migaloovaloper1rqvctgdpafvc0k9fx4ng8ckt94x723zmp3g0jv",
-                    denom: "ibc/40C29143BF4153B365089E40E437B7AA819672646C45BB0A5F1E10915A0B6708"
-                },
-                balance: {
-                    denom: "ibc/40C29143BF4153B365089E40E437B7AA819672646C45BB0A5F1E10915A0B6708",
-                    amount: "10000000",
-                }
-            },
-            {
-                delegation: {
-                    delegator_address: "migaloo1luw6vqtnxx96s094t5hchu6xx9t3fw9g4cpr53",
-                    validator_address: "migaloovaloper1fc4kjfau480nr503yl0r8ml7vvn07d2rvn0750",
-                    denom: "ibc/05238E98A143496C8AF2B6067BABC84503909ECE9E45FBCBAC2CBA5C889FD82A"
-                },
-                balance: {
-                    denom: "ibc/05238E98A143496C8AF2B6067BABC84503909ECE9E45FBCBAC2CBA5C889FD82A",
-                    amount: "20000000",
+interface Tx {
+    '@type': string;
+    auth_info: AuthInfo;
+    body: Body;
+    signatures: string[];
+}
 
-                }
-            }
-        ]
-    }
-
-
-
-
-    // const allianceDelegation = await client?.alliance.alliancesDelegation(delegatorAddress)
-    //
-    // return getRewards(allianceDelegation?.delegations)
-    //     .then((data) => {
-    //         return data?.map((item) => {
-    //             const token = tokens.find((token) => token.denom === item.balance?.denom)
-    //             //delegation amount
-    //             const amount = token ? num(item.balance?.amount).div(10 ** token.decimals).toNumber() : 0
-    //             const dollarValue = token ? num(amount).times(priceList[token.name]).dp(2).toNumber() : 0
-    //             //rewards amount
-    //             const rewardsAmount = token ? num(item.rewards?.amount).div(10 ** token.decimals).dp(token.decimals).toNumber() : 0
-    //             const rewardsDollarValue = token ? num(rewardsAmount).times(priceList[token.name]).dp(2).toNumber() : 0
-    //
-    //             return {
-    //                 ...item,
-    //                 rewards: {
-    //                     amount: rewardsAmount,
-    //                     dollarValue: rewardsDollarValue
-    //                 },
-    //                 token: {
-    //                     ...token,
-    //                     amount,
-    //                     dollarValue
-    //                 }
-    //             }
-    //         })
-    //     })
-    //     .then((data) => {
-    //         // sum to total delegation
-    //         const totalDelegation = data.reduce((acc, item) => {
-    //             const { dollarValue } = item.token
-    //             return {
-    //                 dollarValue: acc.dollarValue + dollarValue
-    //             }
-    //
-    //         }, { dollarValue: 0 })
-    //         const totalRewards = data.reduce((acc, item) => {
-    //             const { dollarValue } = item.rewards
-    //             return {
-    //                 dollarValue: acc.dollarValue + dollarValue
-    //             }
-    //         }, { dollarValue: 0 })
-    //         return {
-    //             delegations: data,
-    //             totalDelegation: totalDelegation?.dollarValue?.toFixed(2),
-    //             totalRewards: totalRewards?.dollarValue?.toFixed(2)
-    //         }
-    //
-    //     })
-
+interface AuthInfo {
+    signer_infos: any[]; // You may replace 'any' with a more specific type if needed
+    fee: any;
+    tip: null;
 }
 
 
+interface Body {
+    extension_options: any[]; // You may replace 'any' with a more specific type if needed
+    memo: string;
+    messages: Message[];
+    non_critical_extension_options: any[]; // You may replace 'any' with a more specific type if needed
+    timeout_height: string;
+}
+
+interface Message {
+    amount: Amount,
+    validator_address: string,
+    delegator_address: string
+}
+export interface Undelegation {
+    amount: number,
+    dollarValue: number,
+    symbol: string,
+    validatorAddress: string,
+    delegatorAddress: string
+}
+
+interface Amount {
+    amount: string,
+    denom: string
+}
+
+const getUndelegations = async (client: LCDClient | null, priceList: any, delegatorAddress: string): Promise<any> => {
+
+    const queryParams = new URLSearchParams();
+    queryParams.append('events', `message.action='/alliance.alliance.MsgUndelegate'`);
+    queryParams.append('events', `coin_received.receiver='${delegatorAddress}'`);
+    queryParams.append('pagination.limit', '100');
+    queryParams.append('order_by', '2');
+
+    const res = await client?.alliance.getReqFromAddress(delegatorAddress).get(`/cosmos/tx/v1beta1/txs`,
+        queryParams) as RawTxData
+
+    const undelegations: Undelegation[] = res.tx_responses.map(res => res.tx.body.messages[0])
+        .map(undelegation=> {
+            const token = tokens.find(t=>t.denom === undelegation.amount.denom)
+            const amount = convertMicroDenomToDenom(undelegation.amount.amount, token.decimals)
+            const dollarValue = priceList[token.name] * amount
+            return ({
+                    validatorAddress: undelegation.validator_address,
+                    delegatorAddress: undelegation.delegator_address,
+                    amount: amount,
+                    dollarValue: dollarValue,
+                    symbol: token.symbol
+            })
+        })
+
+    return {undelegations}
+}
+
 const useUndelegations = ({address}) => {
     const client = useClient()
-    const { data: { validators = [] } = {} } = useValidators({address})
-    const [priceList, timestamp] = usePrice() || []
+    const [priceList] = usePrice() || []
     return useQuery({
-        queryKey: ['undelegations', priceList, address],
-        queryFn: () => getUndelegations(client,priceList,address, validators[0].operator_address),
-        enabled: !!client && !!address && !!priceList && !!validators,
+        queryKey: ['undelegations', address],
+        queryFn: () => getUndelegations(client, priceList, address),
+        enabled: !!address && !!priceList,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
+        refetchInterval: 5000
     })
 
 }
