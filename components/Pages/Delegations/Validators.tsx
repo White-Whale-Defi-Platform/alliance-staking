@@ -36,7 +36,8 @@ const TopBar = ({setSelectedStatus}) => {
                             }}
                             textTransform="capitalize"
                         >
-                            {item}
+                            {/* The items here are '"all", "active", "inactive"' but these don't make descriptive labels for a user. Instead we want a tertiary operator which if item is 'all' its 'All Validators', if its 'active' we want 'Delegated To' and if 'inactive' we want 'Other Validators'*/}
+                            {item === "all" ? "All Validators" : item === "active" ? "Delegated To" : "Other Validators"} 
                         </Button>
                     ))
 
