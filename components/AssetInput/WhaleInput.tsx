@@ -91,7 +91,6 @@ const AssetInput: FC<AssetInputProps> = forwardRef(
     },
     ref
   ) => {
-     console.log(edgeTokenList)
       const tokenInfo = getTokenInfoFromTokenList(token?.tokenSymbol,tokens)
 
     return (

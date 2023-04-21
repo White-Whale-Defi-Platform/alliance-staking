@@ -157,7 +157,6 @@ export class TerraStationWallet implements Wallet {
     memo: string | undefined
   ): Promise<number> {
 
-    console.log(this.lcdClient.config)
     let tx = {
       msgs: messages
         .map((msg) =>

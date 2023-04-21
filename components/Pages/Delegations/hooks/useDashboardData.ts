@@ -51,11 +51,9 @@ const fetchRewards = async (client: LCDClient, chainId: string, address: string,
    
     // Combine both staking and alliance rewards
     const stakingRewards = await client.distribution.rewards(address);
-    console.log(stakingRewards)
     const allianceRewards = await client.alliance.delegatorRewards(address, validatorAddress, denom);
     // Add an entry to alliance rewards for each staking reward
     allianceRewards["uwhale"] = stakingRewards.total;
-    console.log("stakingRewards", stakingRewards);
 
     return allianceRewards;
 

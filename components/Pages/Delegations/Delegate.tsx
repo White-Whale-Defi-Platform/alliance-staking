@@ -109,7 +109,6 @@ const Delegate: FC<ActionProps> = ({balance, validatorDestAddress, tokenSymbol})
                     onChange={async (value, isTokenChange) => {
                         field.onChange(value)
                         if (isTokenChange) {
-                            console.log(tokenList)
                             const denom = tokenList.find(t => t.symbol === value.tokenSymbol).denom
                             await setCurrentDelegationState({
                                 ...currentDelegationState,
