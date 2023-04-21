@@ -27,7 +27,7 @@ const getLCDClient = (chainId: string) => {
             prefix: 'migaloo',
         },
         'phoenix-1': {
-            lcd: 'https://phoenix-lcd.terra.dev',
+            lcd: 'https://ww-terra-rest.polkachu.com/',
             chainID: 'phoenix-1',
             gasAdjustment: 1.75,
             gasPrices: { uluna: 0.015 },

@@ -42,7 +42,6 @@ const AssetSelectModal: FC<AssetSelectModalProps> = ({
     onChange(newAsset, isTokenChange)
     onClose()
   }
-
   return (
     <>
       <HStack

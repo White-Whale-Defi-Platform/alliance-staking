@@ -20,7 +20,7 @@ const RewardsComponent: FC<UndelegationsProps> = ({isWalletConnected, isLoading,
         onOpen: onOpenModal,
         onClose: onCloseModal,
     } = useDisclosure()
-
+    // console.log(data);
     const claimableRewards = useMemo(() =>
         data?.reduce((acc, e) =>
             acc + (Number(e?.dollarValue) ?? 0), 0), [data]);

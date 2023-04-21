@@ -77,6 +77,7 @@ const Dashboard = () => {
     }, []);
 
     const [priceList] = usePrice() || [];
+    // TODO: useDelegations should return 1 list of delegations which includes both native staking and alliance staking entries for the given address
     const {data, isLoading: isDelegationsLoading} = useDelegations({address});
     const delegations = useMemo(() => data?.delegations || [], [data]);
     const {data: balances } = useMultipleTokenBalance(filteredTokens.map((e) => e.symbol));
@@ -123,6 +124,7 @@ const Dashboard = () => {
         });
 
         const calculateDelegationData = (tokenData: any) => {
+            
             const allDelegations = delegations.filter((d) => d.token.symbol === tokenData.tokenSymbol);
             const aggregatedDollarValue = allDelegations.reduce((acc, e) => acc + Number( e?.token.dollarValue ?? 0), 0);
             const aggregatedAmount = allDelegations.reduce((acc, e) => acc + Number( e?.token?.amount ?? 0), 0);
@@ -146,7 +148,6 @@ const Dashboard = () => {
         };
         const calculateRewardData = () => {
             const allRewards = delegations.map(d=>d.rewards);
-
             const concatenatedRewards: Reward[] = allRewards.reduce((acc: Reward[], currList: Reward[]) => {
                 return acc.concat(currList);
             }, []);
