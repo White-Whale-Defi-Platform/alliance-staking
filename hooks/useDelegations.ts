@@ -123,7 +123,7 @@ const getDelegation = async (client: LCDClient | null, priceList: any, delegator
                 //delegation amount
                 const amount = delegatedToken ? num(item.balance?.amount).div(10 ** delegatedToken.decimals).toNumber() : 0
                 const dollarValue = delegatedToken ? num(amount).times(priceList[delegatedToken.name]).dp(2).toNumber() : 0
-                console.log(`amount: ${amount} dollarValue: ${dollarValue} for ${delegatedToken.name}`)
+                // console.log(`amount: ${amount} dollarValue: ${dollarValue} for ${delegatedToken.name}`)
                 //rewards amount
                 const rewards = rewardTokens.map((rt)=> {
                     const amount = num(rt.amount).div(10 ** rt.decimals).dp(rt.decimals).toNumber()

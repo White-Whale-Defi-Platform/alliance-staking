@@ -1,5 +1,5 @@
 import { TerraStationWallet } from 'util/wallet-adapters/terraStationWallet';
-import { MsgClaimDelegationRewards} from '@terra-money/feather.js';
+import { MsgWithdrawDelegatorReward, MsgClaimDelegationRewards} from '@terra-money/feather.js';
 
 export const claimRewards = async (
     wallet: TerraStationWallet,
@@ -7,11 +7,21 @@ export const claimRewards = async (
     address: string,
 ) => {
     const msgs = delegations.map(({ delegation }) => {
-            return new MsgClaimDelegationRewards(
-                delegation.delegator_address,
-                delegation.validator_address,
-                delegation.denom
-            )})
+            if (delegation.denom == 'uwhale'){
+                return new MsgWithdrawDelegatorReward(
+                    delegation.delegator_address,
+                    delegation.validator_address,
+                )
+            }
+            else{
+                return new MsgClaimDelegationRewards(
+                    delegation.delegator_address,
+                    delegation.validator_address,
+                    delegation.denom
+                )
+            }
+        });
+            
 
     return await wallet.client.post({ chainID: 'migaloo-1', msgs: msgs });
 };

@@ -92,6 +92,13 @@ const Dashboard = () => {
 
     const allianceAPRs = useMemo(() => {
         return alliances?.map(alliance => {
+            if (alliance.name === "WHALE") {
+                // TODO: APR here is static which is hacky and should be changed
+                return ({
+                    name: alliance.name,
+                    apr: 9.70
+                })
+            }
             return ({
                 name: alliance.name,
                 apr: !isNaN(alliance.totalDollarAmount) ?
