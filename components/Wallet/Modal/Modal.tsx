@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Modal,
@@ -8,11 +8,11 @@ import {
   ModalHeader,
   ModalOverlay,
   VStack,
-} from '@chakra-ui/react'
-import KeplrConnectButton from './KeplrConnectButton'
-import CosmostationConnectButton from './CosmostationConnectButton'
-import TerraStationConnectButton from './TerraStationConnectButton'
-import LeapConnectButton from './LeapConnectButton'
+} from '@chakra-ui/react';
+import KeplrConnectButton from './KeplrConnectButton';
+import CosmostationConnectButton from './CosmostationConnectButton';
+import TerraStationConnectButton from './TerraStationConnectButton';
+import LeapConnectButton from './LeapConnectButton';
 
 function WalletModal({ isOpenModal, onCloseModal, chainId }) {
   return (
@@ -23,7 +23,7 @@ function WalletModal({ isOpenModal, onCloseModal, chainId }) {
         <ModalCloseButton />
         <ModalBody>
           <VStack justify="center" align="center" textAlign="center">
-            {(chainId !== 'comdex-1' && chainId !== 'injective-1') && (
+            {chainId !== 'comdex-1' && chainId !== 'injective-1' && (
               <TerraStationConnectButton onCloseModal={onCloseModal} />
             )}
             {/*<KeplrConnectButton onCloseModal={onCloseModal} />*/}
@@ -33,7 +33,7 @@ function WalletModal({ isOpenModal, onCloseModal, chainId }) {
         </ModalBody>
       </ModalContent>
     </Modal>
-  )
+  );
 }
 
-export default React.memo(WalletModal)
+export default React.memo(WalletModal);

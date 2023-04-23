@@ -1,16 +1,16 @@
-import React, { useCallback } from 'react'
+import React, { useCallback } from 'react';
 
-import { Button, HStack, Text } from '@chakra-ui/react'
-import KeplrWalletIcon from 'components/icons/KeplrWalletIcon'
-import useConnectKeplr from 'hooks/useConnectKeplr'
+import { Button, HStack, Text } from '@chakra-ui/react';
+import KeplrWalletIcon from 'components/icons/KeplrWalletIcon';
+import useConnectKeplr from 'hooks/useConnectKeplr';
 
 function KeplrConnectButton({ onCloseModal }) {
-  const { setKeplrAndConnect } = useConnectKeplr()
+  const { setKeplrAndConnect } = useConnectKeplr();
 
   const setKeplrMemo = useCallback(() => {
-    setKeplrAndConnect()
-    onCloseModal()
-  }, [onCloseModal, setKeplrAndConnect])
+    setKeplrAndConnect();
+    onCloseModal();
+  }, [onCloseModal, setKeplrAndConnect]);
 
   return (
     <Button variant="wallet" onClick={() => setKeplrMemo()} colorScheme="black">
@@ -19,7 +19,7 @@ function KeplrConnectButton({ onCloseModal }) {
         <KeplrWalletIcon />
       </HStack>
     </Button>
-  )
+  );
 }
 
-export default KeplrConnectButton
+export default KeplrConnectButton;

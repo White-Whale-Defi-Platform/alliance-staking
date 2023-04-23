@@ -1,4 +1,4 @@
-import { getColor } from '@chakra-ui/theme-tools'
+import { getColor } from '@chakra-ui/theme-tools';
 
 const styles = {
   baseStyle: {
@@ -18,7 +18,7 @@ const styles = {
   },
   variants: {
     brand: (props: Record<string, any>) => {
-      const { theme } = props
+      const { theme } = props;
 
       return {
         field: {
@@ -40,9 +40,9 @@ const styles = {
             boxShadow: `0 0 0 1px ${getColor(theme, 'brand.500')}`,
           },
         },
-      }
+      };
     },
   },
-}
+};
 
-export default styles
+export default styles;

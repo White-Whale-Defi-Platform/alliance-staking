@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC } from 'react';
 
-import { ChevronDownIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   forwardRef,
   HStack,
@@ -8,34 +8,32 @@ import {
   Image,
   Input,
   Stack,
-  Text
-} from '@chakra-ui/react'
-import FallbackImage from 'components/FallbackImage'
-import tokens from "public/mainnet/white_listed_token_info.json"
+  Text,
+} from '@chakra-ui/react';
+import FallbackImage from 'components/FallbackImage';
+import tokens from 'public/mainnet/white_listed_token_info.json';
 
-import AssetSelectModal from './AssetSelectModal'
-import {getTokenInfoFromTokenList} from "hooks/useTokenInfo";
+import AssetSelectModal from './AssetSelectModal';
+import { getTokenInfoFromTokenList } from 'hooks/useTokenInfo';
 
 interface AssetInputProps {
-  image?: boolean
-  token: any
-  value: any
-  onChange: (value: any, isTokenChange?: boolean) => void
-  showList?: boolean
-  onInputFocus?: () => void
-  balance?: number
-  disabled?: boolean
-  minMax?: boolean
-  isSingleInput?: boolean
-  hideToken?: string
-  edgeTokenList?: string[]
-  ignoreSlack?: boolean
+  image?: boolean;
+  token: any;
+  value: any;
+  onChange: (value: any, isTokenChange?: boolean) => void;
+  showList?: boolean;
+  onInputFocus?: () => void;
+  balance?: number;
+  disabled?: boolean;
+  minMax?: boolean;
+  isSingleInput?: boolean;
+  hideToken?: string;
+  edgeTokenList?: string[];
+  ignoreSlack?: boolean;
 }
 
-
 const AssetSelectTrigger = ({ tokenInfo, showIcon, symbol }) => {
-
-  const formatSymbol = symbol?.replace('-', '/')
+  const formatSymbol = symbol?.replace('-', '/');
 
   // if (!tokenInfo && !symbol) return null
 
@@ -50,7 +48,7 @@ const AssetSelectTrigger = ({ tokenInfo, showIcon, symbol }) => {
       >
         Select Token
       </Text>
-    )
+    );
 
   return (
     <HStack gap={[1]} px={2}>
@@ -70,8 +68,8 @@ const AssetSelectTrigger = ({ tokenInfo, showIcon, symbol }) => {
         {tokenInfo?.symbol || formatSymbol || 'Select Token'}
       </Text>
     </HStack>
-  )
-}
+  );
+};
 
 const AssetInput: FC<AssetInputProps> = forwardRef(
   (
@@ -89,9 +87,9 @@ const AssetInput: FC<AssetInputProps> = forwardRef(
       edgeTokenList,
       ignoreSlack = false,
     },
-    ref
+    ref,
   ) => {
-      const tokenInfo = getTokenInfoFromTokenList(token?.tokenSymbol,tokens)
+    const tokenInfo = getTokenInfoFromTokenList(token?.tokenSymbol, tokens);
 
     return (
       <Stack
@@ -117,12 +115,11 @@ const AssetInput: FC<AssetInputProps> = forwardRef(
               variant="unstyled"
               color="brand.500"
               placeholder="0.00"
-              disabled={false}//disabled || (!isSingleInput && !tokenInfo?.symbol
-              onChange={({ target }) =>{
+              disabled={false} //disabled || (!isSingleInput && !tokenInfo?.symbol
+              onChange={({ target }) => {
                 //console.log({ ...token, amount: target.value })
-                onChange({ ...token, amount: target.value })
-              }
-              }
+                onChange({ ...token, amount: target.value });
+              }}
             />
           </HStack>
         </HStack>
@@ -159,13 +156,14 @@ const AssetInput: FC<AssetInputProps> = forwardRef(
                   aria-label="go back"
                   icon={<ChevronDownIcon />}
                   style={{ margin: 'unset' }}
-                />)}
+                />
+              )}
             </AssetSelectModal>
           </HStack>
         </HStack>
-      </Stack >
-    )
-  }
-)
+      </Stack>
+    );
+  },
+);
 
-export default AssetInput
+export default AssetInput;

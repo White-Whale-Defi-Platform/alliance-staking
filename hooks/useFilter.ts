@@ -1,15 +1,15 @@
-import { useMemo } from 'react'
+import { useMemo } from 'react';
 
 const useFilter = <T>(
   list: T[] = [],
   filterKey: string,
-  filterValue: string
+  filterValue: string,
 ): T[] => {
   return useMemo(() => {
     return list?.filter((item) =>
-      item[filterKey]?.toLowerCase()?.includes(filterValue)
-    )
-  }, [list, filterKey, filterValue])
-}
+      item[filterKey]?.toLowerCase()?.includes(filterValue),
+    );
+  }, [list, filterKey, filterValue]);
+};
 
-export default useFilter
+export default useFilter;

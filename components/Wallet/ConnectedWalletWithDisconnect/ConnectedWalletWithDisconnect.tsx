@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import { IconButton } from '@chakra-ui/react'
-import LogoutIcon from 'components/icons/LogoutIcon'
-import ConnectedWallet from 'components/Wallet/ConnectedWalletWithDisconnect/ConnectedWallet/ConnectedWallet'
+import { IconButton } from '@chakra-ui/react';
+import LogoutIcon from 'components/icons/LogoutIcon';
+import ConnectedWallet from 'components/Wallet/ConnectedWalletWithDisconnect/ConnectedWallet/ConnectedWallet';
 
 function ConnectedWalletWithDisconnect({ connected, onDisconnect }) {
   return (
@@ -22,7 +22,7 @@ function ConnectedWalletWithDisconnect({ connected, onDisconnect }) {
         onClick={onDisconnect}
       />
     </>
-  )
+  );
 }
 
-export default ConnectedWalletWithDisconnect
+export default ConnectedWalletWithDisconnect;

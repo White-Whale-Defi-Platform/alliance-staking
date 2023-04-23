@@ -18,6 +18,6 @@ const drawer = {
       },
     },
   },
-}
+};
 
-export default drawer
+export default drawer;

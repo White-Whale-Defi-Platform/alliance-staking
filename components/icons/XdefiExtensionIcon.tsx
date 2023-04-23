@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { SVGProps } from 'react'
+import * as React from 'react';
+import { SVGProps } from 'react';
 
 const XdefiExtensionIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -23,6 +23,6 @@ const XdefiExtensionIcon = (props: SVGProps<SVGSVGElement>) => (
       fill="#FFF"
     />
   </svg>
-)
+);
 
-export default XdefiExtensionIcon
+export default XdefiExtensionIcon;

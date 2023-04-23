@@ -1,30 +1,30 @@
-import {useMemo} from 'react'
-import {useQuery} from 'react-query'
-import {useRecoilValue} from 'recoil'
-import {convertMicroDenomToDenom} from 'util/conversion'
+import { useMemo } from 'react';
+import { useQuery } from 'react-query';
+import { useRecoilValue } from 'recoil';
+import { convertMicroDenomToDenom } from 'util/conversion';
 
-import {walletState, WalletStatusType} from 'state/atoms/walletAtoms'
-import {DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL} from 'util/constants'
-import {Wallet} from '../util/wallet-adapters'
+import { walletState, WalletStatusType } from 'state/atoms/walletAtoms';
+import { DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL } from 'util/constants';
+import { Wallet } from '../util/wallet-adapters';
 //import { getIBCAssetInfoFromList, useIBCAssetInfo } from './useIBCAssetInfo'
 //import { IBCAssetInfo, useIBCAssetList } from './useIbcAssetList'
-import {getTokenInfoFromTokenList} from './useTokenInfo'
-import {useTokenList} from './useTokenList'
-import {useConnectedWallet} from '@terra-money/wallet-provider'
+import { getTokenInfoFromTokenList } from './useTokenInfo';
+import { useTokenList } from './useTokenList';
+import { useConnectedWallet } from '@terra-money/wallet-provider';
 
 async function fetchTokenBalance({
-                                   client,
-                                   token = {},
-                                   address,
-                                 }: {
-  client: Wallet
-  token: any
-  address: string
+  client,
+  token = {},
+  address,
+}: {
+  client: Wallet;
+  token: any;
+  address: string;
 }) {
-  const { denom, native, token_address, decimals } = token || {}
+  const { denom, native, token_address, decimals } = token || {};
 
   if (!denom && !token_address) {
-    return 0
+    return 0;
     // throw new Error(
     //   `No denom or token_address were provided to fetch the balance.`
     // )
@@ -34,9 +34,9 @@ async function fetchTokenBalance({
    * if this is a native asset or an ibc asset that has juno_denom
    *  */
   if (native && !!client) {
-    const coin = await client.getBalance(address, denom)
-    const amount = coin ? Number(coin.amount) : 0
-    return convertMicroDenomToDenom(amount, decimals)
+    const coin = await client.getBalance(address, denom);
+    const amount = coin ? Number(coin.amount) : 0;
+    return convertMicroDenomToDenom(amount, decimals);
     // return {
     //   balance : convertMicroDenomToDenom(amount, decimals),
     //   ...token
@@ -59,7 +59,7 @@ async function fetchTokenBalance({
   //   // }
   // }
 
-  return 0
+  return 0;
 }
 
 // const mapIbcTokenToNative = (ibcToken?: IBCAssetInfo) => {
@@ -74,9 +74,8 @@ async function fetchTokenBalance({
 // }
 
 export const useTokenBalance = (tokenSymbol: string) => {
-  const { address, network, client, chainId } =
-      useRecoilValue(walletState)
-  const connectedWallet = useConnectedWallet()
+  const { address, network, client, chainId } = useRecoilValue(walletState);
+  const connectedWallet = useConnectedWallet();
   const selectedAddr = connectedWallet?.addresses[chainId] || address;
   // TODO: Adding this fixes the issue where refresh means no client
   // const { connectKeplr } = useConnectKeplr()
@@ -88,84 +87,82 @@ export const useTokenBalance = (tokenSymbol: string) => {
   //     connectKeplr()
   //   }
   // }
-  const {tokens} = useTokenList()
-    const tokenInfo = tokens?.filter(e=>e.symbol===tokenSymbol)[0]
+  const { tokens } = useTokenList();
+  const tokenInfo = tokens?.filter((e) => e.symbol === tokenSymbol)[0];
   //const ibcAssetInfo = useIBCAssetInfo(tokenSymbol)
   const {
     data: balance = 0,
     isLoading,
     refetch,
   } = useQuery(
-      ['tokenBalance', tokenSymbol, selectedAddr, network],
-      async () => {
-        // if (tokenSymbol && client && (tokenInfo || ibcAssetInfo)) {
-        return await fetchTokenBalance({
-          client,
-          address,
-          token: tokenInfo // || ibcAssetInfo,
-        })
-        // }
-      },
-      {
-        enabled:
-            !!tokenSymbol &&
-            !!address &&
-            !!client &&
-            (!!tokenInfo),//(!!tokenInfo || !!ibcAssetInfo),
-        refetchOnMount: 'always',
-        refetchInterval: DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL,
-        refetchIntervalInBackground: true,
-      }
-  )
+    ['tokenBalance', tokenSymbol, selectedAddr, network],
+    async () => {
+      // if (tokenSymbol && client && (tokenInfo || ibcAssetInfo)) {
+      return await fetchTokenBalance({
+        client,
+        address,
+        token: tokenInfo, // || ibcAssetInfo,
+      });
+      // }
+    },
+    {
+      enabled: !!tokenSymbol && !!address && !!client && !!tokenInfo, //(!!tokenInfo || !!ibcAssetInfo),
+      refetchOnMount: 'always',
+      refetchInterval: DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL,
+      refetchIntervalInBackground: true,
+    },
+  );
 
-  return { balance, isLoading: isLoading, refetch }
-}
+  return { balance, isLoading: isLoading, refetch };
+};
 
 export const useMultipleTokenBalance = (tokenSymbols?: Array<string>) => {
-  const { address, status, client, chainId, network } = useRecoilValue(walletState)
-  const {tokens}= useTokenList()
+  const { address, status, client, chainId, network } =
+    useRecoilValue(walletState);
+  const { tokens } = useTokenList();
   //const [ibcAssetsList] = useIBCAssetList()
   const queryKey = useMemo(
-      () => `multipleTokenBalances/${tokenSymbols?.join('+')}`,
-      [tokenSymbols]
-  )
+    () => `multipleTokenBalances/${tokenSymbols?.join('+')}`,
+    [tokenSymbols],
+  );
 
   const { data, isLoading } = useQuery(
-      [queryKey, address, chainId, network],
-      async () => {
-          return await Promise.all(
-            tokenSymbols
-                // .filter(Boolean)
-                .map((tokenSymbol) => {
-                    return fetchTokenBalance({
-                        client,
-                        address,
-                        token:
-                            getTokenInfoFromTokenList(tokenSymbol, tokens) ||
-                            // mapIbcTokenToNative(
-                            //     getIBCAssetInfoFromList(tokenSymbol, ibcAssetsList?.tokens)
-                            // ) ||
-                            {},
-                    })
-                })
-        )
+    [queryKey, address, chainId, network],
+    async () => {
+      return await Promise.all(
+        tokenSymbols
+          // .filter(Boolean)
+          .map((tokenSymbol) => {
+            return fetchTokenBalance({
+              client,
+              address,
+              token:
+                getTokenInfoFromTokenList(tokenSymbol, tokens) ||
+                // mapIbcTokenToNative(
+                //     getIBCAssetInfoFromList(tokenSymbol, ibcAssetsList?.tokens)
+                // ) ||
+                {},
+            });
+          }),
+      );
+    },
+    {
+      enabled: Boolean(
+        status === WalletStatusType.connected &&
+          tokenSymbols?.length &&
+          tokens &&
+          !!address,
+      ),
+
+      refetchOnMount: 'always',
+      refetchInterval: DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL,
+      refetchIntervalInBackground: true,
+
+      onError(error) {
+        console.error('Cannot fetch token balance bc:', error);
       },
-      {
-        enabled: Boolean(
-            status === WalletStatusType.connected &&
-            tokenSymbols?.length &&
-            tokens && !!address
-        ),
+    },
+  );
 
-        refetchOnMount: 'always',
-        refetchInterval: DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL,
-        refetchIntervalInBackground: true,
-
-        onError(error) {
-          console.error('Cannot fetch token balance bc:', error)
-        },
-      }
-  )
-
-  return {data, isLoading} as const
-}
+  return { data, isLoading } as const;
+};

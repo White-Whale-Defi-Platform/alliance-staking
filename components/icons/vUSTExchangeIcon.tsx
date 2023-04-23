@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 export default function VUSTExchangeIcon(props) {
   return (
@@ -85,5 +85,5 @@ export default function VUSTExchangeIcon(props) {
         d="M15.89 29.965a57.857 57.857 0 0 0 7.52-.777c3.942-.696 5.875-1.09 6.05-.668.173.418-.034 1.32-13.57 1.445Zm0 0"
       />
     </svg>
-  )
+  );
 }

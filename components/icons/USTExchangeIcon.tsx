@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 
 export default function USTExchangeIcon(props) {
   return (
@@ -67,5 +67,5 @@ export default function USTExchangeIcon(props) {
         d="M14.71 32.469a72.962 72.962 0 0 0 9.583-.996c5.023-.883 7.492-1.387 7.71-.852.224.54-.042 1.684-17.292 1.848Zm0 0"
       />
     </svg>
-  )
+  );
 }

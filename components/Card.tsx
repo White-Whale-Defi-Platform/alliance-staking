@@ -1,9 +1,9 @@
-import { FC, ReactNode } from 'react'
+import { FC, ReactNode } from 'react';
 
-import { Flex, FlexProps } from '@chakra-ui/react'
+import { Flex, FlexProps } from '@chakra-ui/react';
 
 interface Props extends FlexProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const Card: FC<Props> = ({ children, ...props }) => {
@@ -18,7 +18,7 @@ const Card: FC<Props> = ({ children, ...props }) => {
     >
       {children}{' '}
     </Flex>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

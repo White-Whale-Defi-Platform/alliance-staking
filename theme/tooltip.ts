@@ -6,4 +6,4 @@ export default {
     borderRadius: 'full',
     color: 'white',
   },
-}
+};

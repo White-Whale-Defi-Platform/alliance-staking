@@ -1,26 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-import CosmostationWalletIcon from 'components/icons/CosmostationWalletIcon'
-import KeplrWalletIcon from 'components/icons/KeplrWalletIcon'
-import LeapWalletIcon from 'components/icons/LeapWalletIcon'
-import TerraExtensionIcon from 'components/icons/TerraExtensionIcon'
-import { useRecoilState } from 'recoil'
-import { walletState } from 'state/atoms/walletAtoms'
+import CosmostationWalletIcon from 'components/icons/CosmostationWalletIcon';
+import KeplrWalletIcon from 'components/icons/KeplrWalletIcon';
+import LeapWalletIcon from 'components/icons/LeapWalletIcon';
+import TerraExtensionIcon from 'components/icons/TerraExtensionIcon';
+import { useRecoilState } from 'recoil';
+import { walletState } from 'state/atoms/walletAtoms';
 
 function ConnectedWalletIcon({ connected }) {
-  const [currentWalletState, setCurrentWalletState] = useRecoilState(walletState)
+  const [currentWalletState, setCurrentWalletState] =
+    useRecoilState(walletState);
   switch (currentWalletState?.activeWallet) {
     case 'keplr':
-      return <KeplrWalletIcon />
+      return <KeplrWalletIcon />;
     case 'leap':
-      return <LeapWalletIcon />
+      return <LeapWalletIcon />;
     case 'cosmostation':
-      return <CosmostationWalletIcon />
+      return <CosmostationWalletIcon />;
     case 'station':
-      return <TerraExtensionIcon />
+      return <TerraExtensionIcon />;
     default:
-      return <></>
+      return <></>;
   }
 }
 
-export default ConnectedWalletIcon
+export default ConnectedWalletIcon;

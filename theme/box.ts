@@ -32,6 +32,6 @@ const div = {
       },
     },
   },
-}
+};
 
-export default div
+export default div;

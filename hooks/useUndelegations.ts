@@ -1,118 +1,126 @@
-import {LCDClient} from "@terra-money/feather.js"
-import useClient from "hooks/useClient"
-import tokens from "public/mainnet/white_listed_token_info.json"
-import usePrice from "./usePrice"
-import {useQuery} from "react-query";
-import {convertMicroDenomToDenom} from "util/conversion";
-
+import { LCDClient } from '@terra-money/feather.js';
+import useClient from 'hooks/useClient';
+import tokens from 'public/mainnet/white_listed_token_info.json';
+import usePrice from './usePrice';
+import { useQuery } from 'react-query';
+import { convertMicroDenomToDenom } from 'util/conversion';
 
 interface RawTxData {
-    txs: any[]
-    tx_responses: TxResponse[];
-    pagination: null;
-    total: string;
+  txs: any[];
+  tx_responses: TxResponse[];
+  pagination: null;
+  total: string;
 }
 
 interface TxResponse {
-    height: string;
-    txhash: string;
-    codespace: string;
-    code: number;
-    data: string;
-    raw_log: string;
-    logs: any[]; // You may replace 'any' with a more specific type if needed
-    info: string;
-    gas_wanted: string;
-    gas_used: string;
-    events: Event[];
-    timestamp: string;
-    tx: Tx;
+  height: string;
+  txhash: string;
+  codespace: string;
+  code: number;
+  data: string;
+  raw_log: string;
+  logs: any[]; // You may replace 'any' with a more specific type if needed
+  info: string;
+  gas_wanted: string;
+  gas_used: string;
+  events: Event[];
+  timestamp: string;
+  tx: Tx;
 }
 
 interface Event {
-    // Define the properties for the Event object
+  // Define the properties for the Event object
 }
 
 interface Tx {
-    '@type': string;
-    auth_info: AuthInfo;
-    body: Body;
-    signatures: string[];
+  '@type': string;
+  auth_info: AuthInfo;
+  body: Body;
+  signatures: string[];
 }
 
 interface AuthInfo {
-    signer_infos: any[]; // You may replace 'any' with a more specific type if needed
-    fee: any;
-    tip: null;
+  signer_infos: any[]; // You may replace 'any' with a more specific type if needed
+  fee: any;
+  tip: null;
 }
 
-
 interface Body {
-    extension_options: any[]; // You may replace 'any' with a more specific type if needed
-    memo: string;
-    messages: Message[];
-    non_critical_extension_options: any[]; // You may replace 'any' with a more specific type if needed
-    timeout_height: string;
+  extension_options: any[]; // You may replace 'any' with a more specific type if needed
+  memo: string;
+  messages: Message[];
+  non_critical_extension_options: any[]; // You may replace 'any' with a more specific type if needed
+  timeout_height: string;
 }
 
 interface Message {
-    amount: Amount,
-    validator_address: string,
-    delegator_address: string
+  amount: Amount;
+  validator_address: string;
+  delegator_address: string;
 }
 export interface Undelegation {
-    amount: number,
-    dollarValue: number,
-    symbol: string,
-    validatorAddress: string,
-    delegatorAddress: string
+  amount: number;
+  dollarValue: number;
+  symbol: string;
+  validatorAddress: string;
+  delegatorAddress: string;
 }
 
 interface Amount {
-    amount: string,
-    denom: string
+  amount: string;
+  denom: string;
 }
 
-const getUndelegations = async (client: LCDClient | null, priceList: any, delegatorAddress: string): Promise<any> => {
+const getUndelegations = async (
+  client: LCDClient | null,
+  priceList: any,
+  delegatorAddress: string,
+): Promise<any> => {
+  const queryParams = new URLSearchParams();
+  queryParams.append(
+    'events',
+    `message.action='/alliance.alliance.MsgUndelegate'`,
+  );
+  queryParams.append('events', `coin_received.receiver='${delegatorAddress}'`);
+  queryParams.append('pagination.limit', '100');
+  queryParams.append('order_by', '2');
 
-    const queryParams = new URLSearchParams();
-    queryParams.append('events', `message.action='/alliance.alliance.MsgUndelegate'`);
-    queryParams.append('events', `coin_received.receiver='${delegatorAddress}'`);
-    queryParams.append('pagination.limit', '100');
-    queryParams.append('order_by', '2');
+  const res = (await client?.alliance
+    .getReqFromAddress(delegatorAddress)
+    .get(`/cosmos/tx/v1beta1/txs`, queryParams)) as RawTxData;
 
-    const res = await client?.alliance.getReqFromAddress(delegatorAddress).get(`/cosmos/tx/v1beta1/txs`,
-        queryParams) as RawTxData
+  const undelegations: Undelegation[] = res.tx_responses
+    .map((res) => res.tx.body.messages[0])
+    .map((undelegation) => {
+      const token = tokens.find((t) => t.denom === undelegation.amount.denom);
+      const amount = convertMicroDenomToDenom(
+        undelegation.amount.amount,
+        token.decimals,
+      );
+      const dollarValue = priceList[token.name] * amount;
+      return {
+        validatorAddress: undelegation.validator_address,
+        delegatorAddress: undelegation.delegator_address,
+        amount: amount,
+        dollarValue: dollarValue,
+        symbol: token.symbol,
+      };
+    });
 
-    const undelegations: Undelegation[] = res.tx_responses.map(res => res.tx.body.messages[0])
-        .map(undelegation=> {
-            const token = tokens.find(t=>t.denom === undelegation.amount.denom)
-            const amount = convertMicroDenomToDenom(undelegation.amount.amount, token.decimals)
-            const dollarValue = priceList[token.name] * amount
-            return ({
-                    validatorAddress: undelegation.validator_address,
-                    delegatorAddress: undelegation.delegator_address,
-                    amount: amount,
-                    dollarValue: dollarValue,
-                    symbol: token.symbol
-            })
-        })
+  return { undelegations };
+};
 
-    return {undelegations}
-}
-
-const useUndelegations = ({address}) => {
-    const client = useClient()
-    const [priceList] = usePrice() || []
-    return useQuery({
-        queryKey: ['undelegations', address],
-        queryFn: () => getUndelegations(client, priceList, address),
-        enabled: !!address && !!priceList,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-        refetchInterval: 5000
-    })
-
-}
+const useUndelegations = ({ address }) => {
+  const client = useClient();
+  const [priceList] = usePrice() || [];
+  return useQuery({
+    queryKey: ['undelegations', address],
+    queryFn: () => getUndelegations(client, priceList, address),
+    enabled: !!address && !!priceList,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchInterval: 5000,
+  });
+};
 
 export default useUndelegations;

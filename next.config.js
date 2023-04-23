@@ -8,7 +8,7 @@ const nextConfig = {
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-}
+};
 
 /**
  * @0xFable - Suppress errant recoil errors which seem to occur due to hot reloading
@@ -18,17 +18,17 @@ const nextConfig = {
  * possible because the state/pages are being loaded with hot module replacement
  * For more info go here: https://github.com/facebookexperimental/Recoil/issues/733
  */
-const intercept = require('intercept-stdout')
+const intercept = require('intercept-stdout');
 
 // safely ignore recoil stdout warning messages
 function interceptStdout(text) {
   if (text.includes('Duplicate atom key')) {
-    return ''
+    return '';
   }
-  return text
+  return text;
 }
 
 // Intercept in dev and prod
-intercept(interceptStdout)
+intercept(interceptStdout);
 
-module.exports = nextConfig
+module.exports = nextConfig;

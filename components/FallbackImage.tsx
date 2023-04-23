@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react';
 
 const FallbackImage = ({
   width = '6',
@@ -11,6 +11,6 @@ const FallbackImage = ({
     borderRadius="full"
     bgGradient={`radial-gradient(circle at top, ${color?.[0]}, transparent),radial-gradient(circle at bottom, ${color?.[1]}, transparent)`}
   />
-)
+);
 
-export default FallbackImage
+export default FallbackImage;

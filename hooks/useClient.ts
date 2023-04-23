@@ -1,7 +1,6 @@
 import { LCDClient } from '@terra-money/feather.js';
 import { useMemo } from 'react';
 const useClient = () => {
-
   return useMemo(() => {
     return new LCDClient({
       'migaloo-1': {
@@ -10,9 +9,9 @@ const useClient = () => {
         gasAdjustment: 1.75,
         gasPrices: { uwhale: 0.25 },
         prefix: 'migaloo',
-      }
+      },
     });
-  }, [])
-}
+  }, []);
+};
 
-export default useClient
+export default useClient;

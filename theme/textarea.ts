@@ -1,9 +1,9 @@
-import { getColor } from '@chakra-ui/theme-tools'
+import { getColor } from '@chakra-ui/theme-tools';
 
 const styles = {
   variants: {
     brand: (props: Record<string, any>) => {
-      const { theme } = props
+      const { theme } = props;
 
       return {
         border: '1px solid',
@@ -24,9 +24,9 @@ const styles = {
           borderColor: 'brand.500',
           boxShadow: `0 0 0 1px ${getColor(theme, 'brand.500')}`,
         },
-      }
+      };
     },
   },
-}
+};
 
-export default styles
+export default styles;

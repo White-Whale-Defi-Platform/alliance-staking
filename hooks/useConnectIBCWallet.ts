@@ -1,39 +1,39 @@
-import { useEffect } from 'react'
-import { useMutation } from 'react-query'
+import { useEffect } from 'react';
+import { useMutation } from 'react-query';
 
-import { GasPrice, SigningStargateClient } from '@cosmjs/stargate'
-import { useRecoilState } from 'recoil'
+import { GasPrice, SigningStargateClient } from '@cosmjs/stargate';
+import { useRecoilState } from 'recoil';
 
-import { ibcWalletState, WalletStatusType } from '../state/atoms/walletAtoms'
-import { GAS_PRICE } from 'util/constants'
-import { useIBCAssetInfo } from './useIBCAssetInfo'
+import { ibcWalletState, WalletStatusType } from '../state/atoms/walletAtoms';
+import { GAS_PRICE } from 'util/constants';
+import { useIBCAssetInfo } from './useIBCAssetInfo';
 
 /* shares very similar logic with `useConnectWallet` and is a subject to refactor */
 export const useConnectIBCWallet = (
   tokenSymbol: string,
-  mutationOptions?: Parameters<typeof useMutation>[2]
+  mutationOptions?: Parameters<typeof useMutation>[2],
 ) => {
   const [{ status, tokenSymbol: storedTokenSymbol }, setWalletState] =
-    useRecoilState(ibcWalletState)
+    useRecoilState(ibcWalletState);
 
-  const assetInfo = useIBCAssetInfo(tokenSymbol || storedTokenSymbol)
+  const assetInfo = useIBCAssetInfo(tokenSymbol || storedTokenSymbol);
 
   const mutation = useMutation(async () => {
     if (window && !window?.keplr) {
-      alert('Please install Keplr extension and refresh the page.')
-      return
+      alert('Please install Keplr extension and refresh the page.');
+      return;
     }
 
     if (!tokenSymbol && !storedTokenSymbol) {
       throw new Error(
-        'You must provide `tokenSymbol` before connecting to the wallet.'
-      )
+        'You must provide `tokenSymbol` before connecting to the wallet.',
+      );
     }
 
     if (!assetInfo) {
       throw new Error(
-        'Asset info for the provided `tokenSymbol` was not found. Check your internet connection.'
-      )
+        'Asset info for the provided `tokenSymbol` was not found. Check your internet connection.',
+      );
     }
 
     /* set the fetching state */
@@ -42,67 +42,71 @@ export const useConnectIBCWallet = (
       tokenSymbol,
       client: null,
       state: WalletStatusType.connecting,
-    }))
+    }));
 
     try {
-      const { chain_id, rpc } = assetInfo
+      const { chain_id, rpc } = assetInfo;
 
-      await window.keplr.enable(chain_id)
-      const offlineSigner = await window.getOfflineSignerAuto(chain_id)
+      await window.keplr.enable(chain_id);
+      const offlineSigner = await window.getOfflineSignerAuto(chain_id);
 
       const wasmChainClient = await SigningStargateClient.connectWithSigner(
         rpc,
         offlineSigner,
         {
           gasPrice: GasPrice.fromString(GAS_PRICE),
-        }
-      )
+        },
+      );
 
-      const [{ address }] = await offlineSigner.getAccounts()
+      const [{ address }] = await offlineSigner.getAccounts();
 
       /* successfully update the wallet state */
       setWalletState({
-        activeWallet: "", chainId: "", network: undefined,
+        activeWallet: '',
+        chainId: '',
+        network: undefined,
         tokenSymbol,
         address,
         client: wasmChainClient,
-        status: WalletStatusType.connected
-      })
+        status: WalletStatusType.connected,
+      });
     } catch (e) {
       /* set the error state */
       setWalletState({
-        activeWallet: "", chainId: "", network: undefined,
+        activeWallet: '',
+        chainId: '',
+        network: undefined,
         tokenSymbol: null,
         address: '',
         client: null,
-        status: WalletStatusType.error
-      })
+        status: WalletStatusType.error,
+      });
 
-      throw e
+      throw e;
     }
-  }, mutationOptions)
+  }, mutationOptions);
 
-  const connectWallet = mutation.mutate
+  const connectWallet = mutation.mutate;
 
   useEffect(() => {
     /* restore wallet connection */
     if (status === WalletStatusType.restored && assetInfo) {
-      connectWallet(null)
+      connectWallet(null);
     }
-  }, [status, connectWallet, assetInfo])
+  }, [status, connectWallet, assetInfo]);
 
   useEffect(() => {
     function reconnectWallet() {
       if (assetInfo && status === WalletStatusType.connected) {
-        connectWallet(null)
+        connectWallet(null);
       }
     }
 
-    window.addEventListener('keplr_keystorechange', reconnectWallet)
+    window.addEventListener('keplr_keystorechange', reconnectWallet);
     return () => {
-      window.removeEventListener('keplr_keystorechange', reconnectWallet)
-    }
-  }, [connectWallet, status, assetInfo])
+      window.removeEventListener('keplr_keystorechange', reconnectWallet);
+    };
+  }, [connectWallet, status, assetInfo]);
 
-  return mutation
-}
+  return mutation;
+};

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import {
   Modal,
@@ -6,7 +6,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
 function MobileNotSupportedModal() {
   return (
@@ -18,7 +18,7 @@ function MobileNotSupportedModal() {
         </ModalHeader>
       </ModalContent>
     </Modal>
-  )
+  );
 }
 
-export default React.memo(MobileNotSupportedModal)
+export default React.memo(MobileNotSupportedModal);

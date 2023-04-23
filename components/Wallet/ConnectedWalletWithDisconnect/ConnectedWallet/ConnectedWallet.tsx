@@ -1,28 +1,28 @@
-import React from 'react'
+import React from 'react';
 
-import { Button, HStack, useToast } from '@chakra-ui/react'
-import ConnectedWalletIcon from 'components/Wallet/ConnectedWalletWithDisconnect/ConnectedWallet/ConnectedWalletIcon'
-import TruncatedAddress from 'components/Wallet/ConnectedWalletWithDisconnect/ConnectedWallet/TruncatedAddress'
-import { useRecoilValue } from 'recoil'
-import { walletState } from 'state/atoms/walletAtoms'
+import { Button, HStack, useToast } from '@chakra-ui/react';
+import ConnectedWalletIcon from 'components/Wallet/ConnectedWalletWithDisconnect/ConnectedWallet/ConnectedWalletIcon';
+import TruncatedAddress from 'components/Wallet/ConnectedWalletWithDisconnect/ConnectedWallet/TruncatedAddress';
+import { useRecoilValue } from 'recoil';
+import { walletState } from 'state/atoms/walletAtoms';
 
 function ConnectedWallet({ connected }) {
-  const toast = useToast()
-  const { address } = useRecoilValue(walletState)
+  const toast = useToast();
+  const { address } = useRecoilValue(walletState);
   const copyToClipboard = () => {
     try {
-      navigator.clipboard.writeText(address)
+      navigator.clipboard.writeText(address);
       toast({
         title: 'Address copied to clipboard',
         status: 'success',
         duration: 1000,
         position: 'top-right',
         isClosable: true,
-      })
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   return (
     <HStack
       padding="0"
@@ -34,7 +34,7 @@ function ConnectedWallet({ connected }) {
       <ConnectedWalletIcon connected={connected} />
       <TruncatedAddress connected={connected} />
     </HStack>
-  )
+  );
 }
 
-export default ConnectedWallet
+export default ConnectedWallet;

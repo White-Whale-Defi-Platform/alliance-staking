@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-import { Button, HStack, Image, Text } from '@chakra-ui/react'
-import { useWallet } from '@terra-money/wallet-provider'
-import { useTerraStation } from 'hooks/useTerraStation'
+import { Button, HStack, Image, Text } from '@chakra-ui/react';
+import { useWallet } from '@terra-money/wallet-provider';
+import { useTerraStation } from 'hooks/useTerraStation';
 
 function TerraStationConnectButton({ onCloseModal }) {
-  const { availableConnections, availableInstallations } = useWallet()
+  const { availableConnections, availableInstallations } = useWallet();
   const { connectTerraAndCloseModal, filterForStation } =
-    useTerraStation(onCloseModal)
+    useTerraStation(onCloseModal);
 
   return (
     <>
@@ -42,7 +42,7 @@ function TerraStationConnectButton({ onCloseModal }) {
           </Button>
         ))}
     </>
-  )
+  );
 }
 
-export default TerraStationConnectButton
+export default TerraStationConnectButton;

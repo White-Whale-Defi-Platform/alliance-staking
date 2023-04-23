@@ -1,34 +1,39 @@
-import { GasPrice } from '@cosmjs/stargate'
-import { useRecoilState } from 'recoil'
-import { useConnectedWallet, useWallet } from '@terra-money/wallet-provider'
+import { GasPrice } from '@cosmjs/stargate';
+import { useRecoilState } from 'recoil';
+import { useConnectedWallet, useWallet } from '@terra-money/wallet-provider';
 
-import { walletState, WalletStatusType } from 'state/atoms/walletAtoms'
-import { OfflineSigningWallet } from 'util/wallet-adapters'
-import { useChainInfo } from 'hooks/useChainInfo'
+import { walletState, WalletStatusType } from 'state/atoms/walletAtoms';
+import { OfflineSigningWallet } from 'util/wallet-adapters';
+import { useChainInfo } from 'hooks/useChainInfo';
 
 export default function useConnectCosmostation() {
   const [currentWalletState, setCurrentWalletState] =
-    useRecoilState(walletState)
-  let [chainInfo] = useChainInfo(currentWalletState.chainId)
-  const connectedWallet = useConnectedWallet()
-  const { disconnect } = useWallet()
+    useRecoilState(walletState);
+  let [chainInfo] = useChainInfo(currentWalletState.chainId);
+  const connectedWallet = useConnectedWallet();
+  const { disconnect } = useWallet();
 
   const connectCosmostation = async () => {
     if (connectedWallet) {
-      disconnect()
+      disconnect();
     }
     if (window && !window?.cosmostation) {
-      alert('Please install Cosmostation extension and refresh the page.')
-      return
+      alert('Please install Cosmostation extension and refresh the page.');
+      return;
     }
 
     try {
       if (chainInfo !== undefined) {
-        await window.cosmostation.providers.keplr?.experimentalSuggestChain(chainInfo)
-        await window.cosmostation.providers.keplr.enable(currentWalletState.chainId)
-        const offlineSigner = await window.cosmostation.providers.keplr.getOfflineSigner(
-          currentWalletState.chainId
-        )
+        await window.cosmostation.providers.keplr?.experimentalSuggestChain(
+          chainInfo,
+        );
+        await window.cosmostation.providers.keplr.enable(
+          currentWalletState.chainId,
+        );
+        const offlineSigner =
+          await window.cosmostation.providers.keplr.getOfflineSigner(
+            currentWalletState.chainId,
+          );
         const wasmChainClient = await OfflineSigningWallet.connectWithSigner(
           currentWalletState.chainId,
           chainInfo.rpc,
@@ -36,13 +41,15 @@ export default function useConnectCosmostation() {
           currentWalletState.network,
           {
             gasPrice: GasPrice.fromString(
-              `${chainInfo?.gasPriceStep?.low}${chainInfo?.feeCurrencies?.[0].coinMinimalDenom}`
+              `${chainInfo?.gasPriceStep?.low}${chainInfo?.feeCurrencies?.[0].coinMinimalDenom}`,
             ),
           },
-          'cosmostation'
-        )
-        const [{ address }] = await offlineSigner.getAccounts()
-        const key = await window.cosmostation.providers.keplr.getKey(currentWalletState.chainId)
+          'cosmostation',
+        );
+        const [{ address }] = await offlineSigner.getAccounts();
+        const key = await window.cosmostation.providers.keplr.getKey(
+          currentWalletState.chainId,
+        );
         /* successfully update the wallet state */
         setCurrentWalletState({
           key,
@@ -52,18 +59,21 @@ export default function useConnectCosmostation() {
           network: currentWalletState.network,
           status: WalletStatusType.connected,
           activeWallet: 'cosmostation',
-        })
+        });
       }
     } catch (e) {
-      throw e
+      throw e;
     }
-  }
+  };
 
   const setCosmostationAndConnect = () => {
-    setCurrentWalletState({ ...currentWalletState, activeWallet: 'cosmostation' })
-    localStorage.removeItem('__terra_extension_router_session__')
-    connectCosmostation()
-  }
+    setCurrentWalletState({
+      ...currentWalletState,
+      activeWallet: 'cosmostation',
+    });
+    localStorage.removeItem('__terra_extension_router_session__');
+    connectCosmostation();
+  };
 
-  return { connectCosmostation, setCosmostationAndConnect }
+  return { connectCosmostation, setCosmostationAndConnect };
 }

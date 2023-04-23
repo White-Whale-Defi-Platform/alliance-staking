@@ -1,8 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC } from 'react';
 
-import { Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react';
 
-import Loader from './Loader'
+import Loader from './Loader';
 
 const AppLoading: FC = () => {
   return (
@@ -19,7 +19,7 @@ const AppLoading: FC = () => {
     >
       <Loader />
     </Flex>
-  )
-}
+  );
+};
 
-export default AppLoading
+export default AppLoading;

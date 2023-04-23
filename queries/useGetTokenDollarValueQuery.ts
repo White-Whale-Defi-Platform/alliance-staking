@@ -3,42 +3,43 @@
  * and calculates the dollar value of the provided token
  * */
 //import { useCosmwasmClient } from 'hooks/useCosmwasmClient'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue } from 'recoil';
 
 //import { useTokenDollarValue } from '../hooks/useTokenDollarValue'
 //import { useBaseTokenInfo } from '../hooks/useTokenInfo'
-import { walletState } from '../state/atoms/walletAtoms'
-import request, { gql } from 'graphql-request'
-import { useCallback, useMemo } from 'react'
-import { num } from 'libs/num'
-import { useQuery } from 'react-query'
+import { walletState } from '../state/atoms/walletAtoms';
+import request, { gql } from 'graphql-request';
+import { useCallback, useMemo } from 'react';
+import { num } from 'libs/num';
+import { useQuery } from 'react-query';
 
 export const useWhalePrice = () => {
-
-  const GRAPHQL_URL = 'https://tfm-multi-stage.tfm.dev/graphql'
+  const GRAPHQL_URL = 'https://tfm-multi-stage.tfm.dev/graphql';
 
   const query = gql`
-  query ($chain: String!,  $tokenList: String!) {
-    priceByTokenList(chain: $chain, tokenList: $tokenList) {
-      content {
-        priceInvertedUsd
+    query ($chain: String!, $tokenList: String!) {
+      priceByTokenList(chain: $chain, tokenList: $tokenList) {
+        content {
+          priceInvertedUsd
+        }
       }
     }
-  }
-`;
+  `;
 
-  const { data } = useQuery("whale-price", async () => {
+  const { data } = useQuery('whale-price', async () => {
     return await request(GRAPHQL_URL, query, {
-      "chain": "terra2",
-      "tokenList": "ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB,ibc/B3504E092456BA618CC28AC671A71FB08C6CA0FD0BE7C8A5B5A3E2DD933CC9E4"
+      chain: 'terra2',
+      tokenList:
+        'ibc/36A02FFC4E74DF4F64305130C3DFA1B06BEAC775648927AA44467C76A77AB8DB,ibc/B3504E092456BA618CC28AC671A71FB08C6CA0FD0BE7C8A5B5A3E2DD933CC9E4',
     });
   });
 
   return useMemo(() => {
-    return num(data?.priceByTokenList?.content?.[1]?.priceInvertedUsd).toNumber()
-  }, [data])
-
-}
+    return num(
+      data?.priceByTokenList?.content?.[1]?.priceInvertedUsd,
+    ).toNumber();
+  }, [data]);
+};
 
 // export const useGetTokenDollarValueQuery = () => {
 //   const baseToken = useBaseTokenInfo()

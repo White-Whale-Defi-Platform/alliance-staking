@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { FC, ReactNode } from 'react'
+import React, { useState } from 'react';
+import { FC, ReactNode } from 'react';
 
 import {
   HStack,
@@ -10,38 +10,38 @@ import {
   ModalOverlay,
   useDisclosure,
   VStack,
-} from '@chakra-ui/react'
-import { Asset } from 'types/blockchain'
+} from '@chakra-ui/react';
+import { Asset } from 'types/blockchain';
 
-import AssetList from './AssetList'
-import SearchInput from './SearchInput'
+import AssetList from './AssetList';
+import SearchInput from './SearchInput';
 
 interface AssetSelectModalProps {
-  children: ReactNode
-  currentTokenSymbol: string
-  edgeTokenList: string[]
-  onChange: (asset: Asset, isTokenChange?: boolean) => void
-  disabled: boolean
-  amount?: number
+  children: ReactNode;
+  currentTokenSymbol: string;
+  edgeTokenList: string[];
+  onChange: (asset: Asset, isTokenChange?: boolean) => void;
+  disabled: boolean;
+  amount?: number;
 }
 
 const AssetSelectModal: FC<AssetSelectModalProps> = ({
   children,
   onChange,
-  currentTokenSymbol ,
+  currentTokenSymbol,
   edgeTokenList = [],
   disabled,
   amount,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [search, setSearch] = useState<string>('')
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [search, setSearch] = useState<string>('');
 
   const onAssetChange = (asset, isTokenChange) => {
-    setSearch(asset?.asset)
-    const newAsset = { ...asset, amount }
-    onChange(newAsset, isTokenChange)
-    onClose()
-  }
+    setSearch(asset?.asset);
+    const newAsset = { ...asset, amount };
+    onChange(newAsset, isTokenChange);
+    onClose();
+  };
   return (
     <>
       <HStack
@@ -81,7 +81,7 @@ const AssetSelectModal: FC<AssetSelectModalProps> = ({
         </ModalContent>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default AssetSelectModal
+export default AssetSelectModal;
