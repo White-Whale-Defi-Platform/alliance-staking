@@ -31,11 +31,9 @@ const CardComponent: FC<CardComponentProps> = ({
         }, 0);
   }, [tokenData, isLoading]);
 
-  const summedAndMultipliedValues = useMemo(() => {
-    return isWalletConnected
-      ? `$${sumAndMultiplyValues.toLocaleString()}`
-      : 'n/a';
-  }, [isWalletConnected, sumAndMultiplyValues]);
+    const summedAndMultipliedValues = useMemo(() => {
+        return isWalletConnected ? `$${sumAndMultiplyValues.toFixed(2).toString()}` : "n/a";
+    }, [isWalletConnected, sumAndMultiplyValues]);
 
   return (
     <VStack
