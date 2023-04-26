@@ -76,20 +76,57 @@ const getUndelegations = async (
   priceList: any,
   delegatorAddress: string,
 ): Promise<any> => {
-  const queryParams = new URLSearchParams();
-  queryParams.append(
+  // This is the search params for gathering undelegations from alliance module 
+  const allianceParams = new URLSearchParams();
+  // This is the search params for gathering undelegations from native module
+  const nativeParams = new URLSearchParams();
+  // For Alliance we add their Undelegete message action
+  allianceParams.append(
     'events',
     `message.action='/alliance.alliance.MsgUndelegate'`,
   );
-  queryParams.append('events', `coin_received.receiver='${delegatorAddress}'`);
-  queryParams.append('pagination.limit', '100');
-  queryParams.append('order_by', '2');
+  // And same for native 
+  nativeParams.append(
+    'events',
+    `message.action='/cosmos.staking.v1beta1.MsgUndelegate'`,
+  );
+  // Next 3 params we can just add to both they are the same 
+  allianceParams.append('events', `coin_received.receiver='${delegatorAddress}'`);
+  allianceParams.append('pagination.limit', '100');
+  allianceParams.append('order_by', '2');
 
+  nativeParams.append('events', `coin_received.receiver='${delegatorAddress}'`);
+  nativeParams.append('pagination.limit', '100');
+  nativeParams.append('order_by', '2');
+  // Make the request for alliance undelegations
   const res = (await client?.alliance
     .getReqFromAddress(delegatorAddress)
-    .get(`/cosmos/tx/v1beta1/txs`, queryParams)) as RawTxData;
-
-  const undelegations: Undelegation[] = res.tx_responses
+    .get(`/cosmos/tx/v1beta1/txs`, allianceParams)) as RawTxData;
+  // Map the response to our undelegation object
+  let undelegations: Undelegation[] = res.tx_responses
+    .map((res) => res.tx.body.messages[0])
+    .map((undelegation) => {
+      console.log(undelegation)
+      const token = tokens.find((t) => t.denom === undelegation.amount.denom);
+      const amount = convertMicroDenomToDenom(
+        undelegation.amount.amount,
+        token.decimals,
+      );
+      const dollarValue = priceList[token.name] * amount;
+      return {
+        validatorAddress: undelegation.validator_address,
+        delegatorAddress: undelegation.delegator_address,
+        amount: amount,
+        dollarValue: dollarValue,
+        symbol: token.symbol,
+      };
+    });
+  
+  // Do the same for native undelegations
+  const nativeRes = (await client?.staking
+    .getReqFromAddress(delegatorAddress)
+    .get(`/cosmos/tx/v1beta1/txs`, nativeParams)) as RawTxData;
+  let native_undelegations: Undelegation[] = nativeRes.tx_responses
     .map((res) => res.tx.body.messages[0])
     .map((undelegation) => {
       const token = tokens.find((t) => t.denom === undelegation.amount.denom);
@@ -106,6 +143,8 @@ const getUndelegations = async (
         symbol: token.symbol,
       };
     });
+    // And finally merge them up and return
+    undelegations = undelegations.concat(native_undelegations);
 
   return { undelegations };
 };
