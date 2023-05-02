@@ -100,7 +100,7 @@ const CardComponent: FC<CardComponentProps> = ({
             isWalletConnected={isWalletConnected}
             data={tokenData}
             label={`${summedAndMultipliedValues}`}
-            labelColor={isUndelegations === 'total' ? "green" : "white"}
+            labelColor={isUndelegations === 'total' ? "brand.500" : "white"}
           />
         </>
       )}
