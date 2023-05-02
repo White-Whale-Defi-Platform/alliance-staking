@@ -41,6 +41,7 @@ export interface DelegationData {
   undelegated: TokenData[];
   liquid: TokenData[];
   rewards: any;
+  total?: TokenData[];
 }
 
 const Dashboard = () => {
@@ -125,6 +126,7 @@ const Dashboard = () => {
     undelegated: rawTokenData,
     liquid: rawTokenData,
     rewards: rewardsTokenData,
+    total: rawTokenData,
   });
 
   const [isLoading, setLoading] = useState<boolean>(true);
@@ -224,11 +226,34 @@ const Dashboard = () => {
 
     const rewardsData = calculateRewardData();
 
+    const total = delegatedData.map((tokenData, index) => { 
+      const undelegatedTokenData = undelegatedData[index] 
+      const liquidTokenData = liquidData[index] 
+      const rewardsTokenData = rewardsData[index]
+      const totalDollarValue = tokenData.dollarValue + undelegatedTokenData.dollarValue + liquidTokenData.dollarValue + rewardsTokenData.dollarValue
+      const totalValue = tokenData.value + undelegatedTokenData.value + liquidTokenData.value
+      return {
+        ...tokenData,
+        dollarValue: totalDollarValue,
+        value: totalValue
+      }
+    })
+
+
+
+
+    console.log({liquidData: liquidData, total: total})
+    console.log('total', total)
+    
+
+
+
     const delegationData: DelegationData = {
       delegated: delegatedData,
       undelegated: undelegatedData,
       liquid: liquidData,
       rewards: rewardsData,
+      total
     };
 
     setData(delegationData);
@@ -255,21 +280,28 @@ const Dashboard = () => {
         Dashboard
       </Text>
       <HStack width="full" paddingY={5} spacing={10}>
+      <CardComponent
+          isWalletConnected={isWalletConnected}
+          isLoading={isLoading}
+          isUndelegations='total'
+          title={'Total Alliance Balances'}
+          tokenData={updatedData?.total}
+        />
         <CardComponent
           isWalletConnected={isWalletConnected}
           isLoading={isLoading}
-          title={'Alliance Token Balances'}
+          title={'Liquid Alliance Balances'}
           tokenData={updatedData?.liquid}
         />
         <CardComponent
           isWalletConnected={isWalletConnected}
           isLoading={isLoading}
-          title={'Delegations'}
+          title={'Staked Alliance Balances'}
           tokenData={updatedData?.delegated}
         />
         <CardComponent
           isWalletConnected={isWalletConnected}
-          isUndelegations={true}
+          isUndelegations={"undelegations"}
           isLoading={isLoading}
           title={'Undelegations'}
           tokenData={updatedData?.undelegated}

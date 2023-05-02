@@ -8,12 +8,14 @@ export interface TooltipProps {
   data: TokenData[];
   label: string;
   isWalletConnected: boolean;
+  labelColor?: string;
 }
 
 export const CustomTooltip = ({
   data,
   label,
   isWalletConnected,
+  labelColor = 'whiteAlpha.600',
 }: TooltipProps) => {
   const TokenDetail = ({ tokenType, value }) => {
     return (
@@ -74,7 +76,7 @@ export const CustomTooltip = ({
           fontWeight={'bold'}
           ref={textRef}
           mb="-0.3rem"
-          color="white"
+          color={labelColor}
         >
           {label}
         </Text>
