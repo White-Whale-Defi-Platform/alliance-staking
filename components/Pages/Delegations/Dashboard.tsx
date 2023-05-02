@@ -284,19 +284,19 @@ const Dashboard = () => {
           isWalletConnected={isWalletConnected}
           isLoading={isLoading}
           isUndelegations='total'
-          title={'Total Alliance Balances'}
+          title={'Total Alliance Assets'}
           tokenData={updatedData?.total}
         />
         <CardComponent
           isWalletConnected={isWalletConnected}
           isLoading={isLoading}
-          title={'Liquid Alliance Balances'}
+          title={'Liquid Alliance Assets'}
           tokenData={updatedData?.liquid}
         />
         <CardComponent
           isWalletConnected={isWalletConnected}
           isLoading={isLoading}
-          title={'Staked Alliance Balances'}
+          title={'Staked Alliance Assets'}
           tokenData={updatedData?.delegated}
         />
         <CardComponent
