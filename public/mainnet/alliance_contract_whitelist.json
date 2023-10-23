@@ -1,0 +1,38 @@
+[
+    {
+      "chainId": "migaloo-1",
+      "token_address": "migaloo10nucfm2zqgzqmy7y7ls398t58pjt9cwjsvpy88y2nvamtl34rgmqt5em2v",
+      "symbol": "mUSDC",
+      "name": "Ginkou USDC",
+      "decimals": 6,
+      "logoURI": "/logos/USDC.png",
+      "tags": [],
+      "denom": "migaloo10nucfm2zqgzqmy7y7ls398t58pjt9cwjsvpy88y2nvamtl34rgmqt5em2v",
+      "native": false,
+      "color": "#244228"
+    },
+    {
+      "chainId": "migaloo-1",
+      "token_address": "factory/migaloo1nha6qlam4p92cf9j64qv9he40xyf3akl2m9w5dukftmf2ryrxz5qy650zh/uLP",
+      "symbol": "USDC-WHALE-LP",
+      "name": "USDC-WHALE LP",
+      "decimals": 6,
+      "logoURI": "/logos/whale.svg",
+      "tags": ["native"],
+      "denom": "factory/migaloo1nha6qlam4p92cf9j64qv9he40xyf3akl2m9w5dukftmf2ryrxz5qy650zh/uLP",
+      "native": true,
+      "color": "#7CFB7D"
+    },
+    {
+      "chainId": "migaloo-1",
+      "token_address": "factory/migaloo1erul6xyq0gk6ws98ncj7lnq9l4jn4gnnu9we73gdz78yyl2lr7qqrvcgup/ash",
+      "symbol": "ASH",
+      "name": "ASH",
+      "decimals": 6,
+      "logoURI": "/logos/ash.svg",
+      "tags": ["native"],
+      "denom": "factory/migaloo1erul6xyq0gk6ws98ncj7lnq9l4jn4gnnu9we73gdz78yyl2lr7qqrvcgup/ash",
+      "native": true,
+      "color": "#3273F6"
+    }
+  ]
