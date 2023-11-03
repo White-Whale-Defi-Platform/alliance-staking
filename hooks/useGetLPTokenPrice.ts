@@ -1,8 +1,9 @@
 import {useQuery} from "react-query";
 import {convertMicroDenomToDenom} from "util/conversion";
 import usePrices from "hooks/usePrices";
-import {LCDClient} from "@terra-money/feather.js/dist/client/lcd/LCDClient";
-import useClient from "hooks/useClient";
+import {useClients} from "hooks/useClients";
+import {CosmWasmClient} from "@cosmjs/cosmwasm-stargate";
+import {WHALE_USDC_MIGALOO_POOL_ADDRESS} from "constants/common";
 
 interface Asset {
     amount: string;
@@ -17,11 +18,11 @@ interface PoolInfo {
     assets: Asset[]
     total_share: number
 }
-export const fetchTotalPoolSupply = async (client: LCDClient, whalePrice: number) => {
+export const fetchTotalPoolSupply = async (client: CosmWasmClient, whalePrice: number) => {
     if (!client) {
         return null
     }
-    const poolInfo : PoolInfo = await client.wasm.contractQuery("migaloo1xv4ql6t6r8zawlqn2tyxqsrvjpmjfm6kvdfvytaueqe3qvcwyr7shtx0hj", {
+    const poolInfo : PoolInfo = await client.queryContractSmart(WHALE_USDC_MIGALOO_POOL_ADDRESS, {
         pool: {},
     })
     const totalDollarAmount = poolInfo?.assets.map((asset) => {
@@ -32,12 +33,10 @@ export const fetchTotalPoolSupply = async (client: LCDClient, whalePrice: number
         }
     }).reduce((a, b) => a + b, 0)
 
-
-
     return totalDollarAmount / convertMicroDenomToDenom(poolInfo.total_share, 6)
 }
 export const useGetLPTokenPrice = () => {
-    const client = useClient()
+    const {cosmWasmClient: client} = useClients()
     const [priceList] = usePrices() || []
     const whalePrice = priceList?.['Whale']
     const {data: lpTokenPrice, isLoading} = useQuery(['getLPInfo', whalePrice],

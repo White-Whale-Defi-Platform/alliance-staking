@@ -1,12 +1,12 @@
-import {Box, Divider, HStack, Text, useDisclosure, VStack,} from '@chakra-ui/react';
+import {Box, Divider, HStack, Text, VStack,} from '@chakra-ui/react';
 import Loader from 'components/Loader';
 import {FC, useMemo} from 'react';
 import {useRecoilValue} from 'recoil';
-import {walletState} from 'state/walletState';
-import WalletModal from 'components/Wallet/Modal/WalletModal';
 import ClaimButton from 'components/Pages/ClaimButton';
 import UpdateRewardsButton from "components/Pages/UpdateRewardsButton";
 import {tabState, TabType} from "state/tabState";
+import {useChain} from "@cosmos-kit/react-lite";
+import {MIGALOO_CHAIN_ID, MIGALOO_CHAIN_NAME} from "constants/common";
 
 interface UndelegationsProps {
     isWalletConnected: boolean;
@@ -20,13 +20,8 @@ const RewardsComponent: FC<UndelegationsProps> = ({
                                                       isLoading,
                                                       data,
                                                   }) => {
-    const {chainId, status} = useRecoilValue(walletState)
     const currentTabState = useRecoilValue(tabState)
-    const {
-        isOpen: isOpenModal,
-        onOpen: onOpenModal,
-        onClose: onCloseModal,
-    } = useDisclosure();
+    const { openView } = useChain(MIGALOO_CHAIN_NAME)
 
     const claimableRewards = useMemo(
         () => data?.reduce((acc, e) => acc + (Number(e?.dollarValue) ?? 0), 0),
@@ -79,19 +74,14 @@ const RewardsComponent: FC<UndelegationsProps> = ({
                             {(currentTabState !== TabType.alliance && isWalletConnected) &&
                              <UpdateRewardsButton
                               isWalletConnected={isWalletConnected}
-                              onOpenModal={onOpenModal}
+                              onOpenModal={openView}
                              />}
                             <ClaimButton
                                 isWalletConnected={isWalletConnected}
-                                onOpenModal={onOpenModal}
+                                onOpenModal={openView}
                                 totalRewards={claimableRewards}
                             />
                         </HStack>
-                        <WalletModal
-                            isOpenModal={isOpenModal}
-                            onCloseModal={onCloseModal}
-                            chainId={chainId}
-                        />
                     </HStack>
                     {data?.length > 0 && <Box
                      overflowY="scroll"

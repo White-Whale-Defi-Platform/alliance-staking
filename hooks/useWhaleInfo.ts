@@ -15,10 +15,10 @@ export const useTotalYearlyWhaleEmission = () => {
     },
   ]);
 
-  const [totalSupplyData, inflationData] = queries;
+  const [totalSupplyData, inflationData] = queries
   // 10% into community pool
   const totalYearlyWhaleEmission =
-    (totalSupplyData?.data ?? 0) * (inflationData?.data ?? 0) * 0.9;
+    (totalSupplyData?.data ?? 0) * (inflationData?.data ?? 0) * 0.9
   return {
     totalYearlyWhaleEmission,
   };

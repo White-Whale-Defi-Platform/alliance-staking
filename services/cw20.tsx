@@ -1,6 +1,7 @@
 import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate/build/signingcosmwasmclient'
 import { Coin } from '@cosmjs/launchpad'
 import {Wallet} from "util/wallet-adapters/index";
+import {CosmWasmClient} from "@cosmjs/cosmwasm-stargate";
 
 export type Expiration =
   | { readonly at_height: number }
@@ -106,7 +107,7 @@ export interface CW20Contract {
   use: (contractAddress: string) => CW20Instance
 }
 
-export const CW20 = (cosmWasmClient: Wallet,
+export const CW20 = (cosmWasmClient: CosmWasmClient,
   signingClient: SigningCosmWasmClient): CW20Contract => {
   const use = (contractAddress: string): CW20Instance => {
     const balance = async (address: string): Promise<string> => {

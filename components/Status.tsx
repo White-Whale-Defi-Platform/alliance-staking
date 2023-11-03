@@ -4,19 +4,17 @@ import { useQuery } from 'react-query'
 
 import { HStack, Icon, Text } from '@chakra-ui/react'
 import { useChains } from 'hooks/useChainInfo'
-import { useRecoilValue } from 'recoil'
-import { walletState } from 'state/walletState'
+import {MIGALOO_CHAIN_ID} from "constants/common";
 
 const Status = () => {
   const chains: Array<any> = useChains()
-  const { chainId } = useRecoilValue(walletState)
 
   const url = useMemo(() => {
-    return chains?.find((c) => c?.chainId === chainId)?.rpc;
-  }, [chainId, chains])
+    return chains?.find((c) => c?.chainId === MIGALOO_CHAIN_ID)?.rpc;
+  }, [chains])
 
   const { data: status } = useQuery(
-    ['status', chainId],
+    ['status', url],
     async () => {
       const res = await fetch(`${url}/status?`);
       const resJons = await res?.json();

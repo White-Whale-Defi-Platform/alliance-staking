@@ -1,8 +1,8 @@
-import {Wallet} from "util/wallet-adapters/index"
 import file from "public/mainnet/contract_addresses.json"
+import {SigningCosmWasmClient} from "@cosmjs/cosmwasm-stargate/build/signingcosmwasmclient";
 
 export const claimRewards = async (
-    client: Wallet,
+    client: SigningCosmWasmClient,
     address: string,
     denom: string,
     isNative: boolean,

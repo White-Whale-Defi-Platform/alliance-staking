@@ -2,22 +2,22 @@ import { HStack, IconButton, Text } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import ValidatorSelectModal from 'components/ValidatorInput/ValidatorSelectModal';
 import { FC } from 'react';
-import { useRecoilState } from 'recoil';
-import { walletState } from 'state/walletState';
+import {MIGALOO_CHAIN_ID, MIGALOO_CHAIN_NAME} from "constants/common";
+import {useChain} from "@cosmos-kit/react-lite";
 
 interface ValidatorInputProps {
-  image?: boolean;
-  onChange: (value: any, isTokenChange?: boolean) => void;
-  showList?: boolean;
-  onInputFocus?: () => void;
-  disabled?: boolean;
-  delegatedOnly: boolean;
-  ignoreSlack?: boolean;
-  validatorName?: string;
+  image?: boolean
+  onChange: (value: any, isTokenChange?: boolean) => void
+  showList?: boolean
+  onInputFocus?: () => void
+  disabled?: boolean
+  delegatedOnly: boolean
+  ignoreSlack?: boolean
+  validatorName?: string
 }
 
 const ValidatorInput: FC<ValidatorInputProps> = (props) => {
-  const [{ address }, _] = useRecoilState(walletState);
+  const { address } = useChain(MIGALOO_CHAIN_NAME)
   return (
     <HStack
       width={['full', '510px']}
@@ -34,8 +34,7 @@ const ValidatorInput: FC<ValidatorInputProps> = (props) => {
           delegatedOnly={props.delegatedOnly}
           currentValidator={'Validator'} //[tokenInfo?.symbol || hideToken]
           validatorList={[]}
-          disabled={false}
-        >
+          disabled={false}>
           {props.showList && (
             <HStack>
               <Text pl="4">{props.validatorName ?? 'Choose Validator'}</Text>

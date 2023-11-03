@@ -3,9 +3,10 @@ import {
   MsgWithdrawDelegatorReward,
   MsgClaimDelegationRewards,
 } from '@terra-money/feather.js';
+import {SigningCosmWasmClient} from "@cosmjs/cosmwasm-stargate/build/signingcosmwasmclient";
 
 export const claimAllRewards = async (
-  wallet: TerraStationWallet,
+  client: SigningCosmWasmClient,
   delegations: any,
 ) => {
   const msgs = delegations.map(({ delegation }) => {
@@ -21,7 +22,7 @@ export const claimAllRewards = async (
         delegation.denom,
       );
     }
-  });
+  })
 
-  return await wallet.client.post({ chainID: 'migaloo-1', msgs: msgs });
+  return await client.signAndBroadcast()
 };

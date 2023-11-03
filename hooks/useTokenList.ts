@@ -1,24 +1,22 @@
 import {useRecoilValue} from 'recoil';
-import {walletState} from 'state/walletState';
 import {useQuery} from 'react-query';
 import {TokenInfo} from 'hooks/useTokenInfo';
 import {tabState, TabType} from "state/tabState";
+import {NetworkType} from "types/common";
 
 export const useTokenList = () => {
-    const {chainId, network} = useRecoilValue(walletState)
     const tabType = useRecoilValue(tabState)
     let tokenInfoList: TokenInfo[]
     let isLoading: boolean
     if (tabType === TabType.alliance) {
         const {data, isLoading: loading} = useQuery<TokenInfo[]>(
-            ['tokenInfo-alliance', chainId, network],
+            ['tokenInfo-alliance'],
             async () => {
-                const url = `/${network}/white_listed_alliance_token_info.json`;
+                const url = `/${NetworkType.mainnet}/white_listed_alliance_token_info.json`;
                 const response = await fetch(url);
                 return await response?.json();
             },
             {
-                enabled: !!chainId && !!network,
                 refetchOnMount: false,
             },
         )
@@ -26,14 +24,13 @@ export const useTokenList = () => {
         isLoading = loading
     } else if (tabType === TabType.ecosystem) {
         const {data, isLoading: loading} = useQuery<TokenInfo[]>(
-            ['tokenInfo-ecosystem', chainId, network],
+            ['tokenInfo-ecosystem'],
             async () => {
-                const url = `/${network}/white_listed_ecosystem_token_info.json`;
+                const url = `/${NetworkType.mainnet}/white_listed_ecosystem_token_info.json`;
                 const response = await fetch(url);
                 return await response?.json();
             },
             {
-                enabled: !!chainId && !!network,
                 refetchOnMount: false,
             },
         )
@@ -41,14 +38,13 @@ export const useTokenList = () => {
         isLoading = loading
     } else {
         const {data, isLoading: loading} = useQuery<TokenInfo[]>(
-            ['tokenInfo-liquidity', chainId, network],
+            ['tokenInfo-liquidity'],
             async () => {
-                const url = `/${network}/white_listed_liquidity_token_info.json`;
+                const url = `/${NetworkType.mainnet}/white_listed_liquidity_token_info.json`;
                 const response = await fetch(url);
                 return await response?.json();
             },
             {
-                enabled: !!chainId && !!network,
                 refetchOnMount: false,
             },
         )

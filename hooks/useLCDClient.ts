@@ -1,6 +1,6 @@
 import { LCDClient } from '@terra-money/feather.js';
 import { useMemo } from 'react';
-const useClient = () => {
+const useLCDClient = () => {
   return useMemo(() => {
     return new LCDClient({
       'migaloo-1': {
@@ -14,4 +14,4 @@ const useClient = () => {
   }, []);
 };
 
-export default useClient;
+export default useLCDClient

@@ -2,9 +2,9 @@ import React, {useEffect, useMemo} from 'react';
 
 import {
     HStack, IconButton,
-    Text, useDisclosure, VStack,
+    Text, VStack,
 } from '@chakra-ui/react';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState} from 'recoil';
 import {Controller, useForm} from "react-hook-form";
 import AssetInput from "components/AssetInput/index";
 import {delegationState, DelegationState} from "state/delegationState";
@@ -20,16 +20,16 @@ import {tabState, TabType} from "state/tabState";
 import {useQueryStakedBalances} from "hooks/useQueryStakedBalances";
 import {ActionType} from "components/Pages/Dashboard";
 import useTransaction from "hooks/useTransaction";
-import WalletModal from "components/Wallet/Modal/WalletModal";
-import {walletState, WalletStatusType} from "state/walletState";
 import {TxStep} from "types/blockchain";
 import {useGetLPTokenPrice} from "hooks/useGetLPTokenPrice";
+import {useChain} from "@cosmos-kit/react-lite";
+import {MIGALOO_CHAIN_ID, MIGALOO_CHAIN_NAME} from "constants/common";
 
 export const Undelegate = ({tokenSymbol}) => {
     const [currentDelegationState, setCurrentDelegationState] =
         useRecoilState<DelegationState>(delegationState)
-    const {status, chainId} = useRecoilValue(walletState)
-    const isWalletConnected: boolean = status === WalletStatusType.connected
+    const {isWalletConnected,openView} = useChain(MIGALOO_CHAIN_NAME)
+
     const router = useRouter()
     const {control} = useForm({
         mode: 'onChange',
@@ -38,11 +38,7 @@ export const Undelegate = ({tokenSymbol}) => {
         },
     })
     const {submit, txStep} = useTransaction()
-    const {
-        isOpen: isOpenModal,
-        onOpen: onOpenModal,
-        onClose: onCloseModal,
-    } = useDisclosure()
+
     const tabFromUrl = router.pathname.split('/')?.[1].split('/')?.[0]
     const [_, setTabType] = useRecoilState(tabState)
 
@@ -197,7 +193,7 @@ export const Undelegate = ({tokenSymbol}) => {
                                 currentDelegationState.denom,
                             )
                         } else {
-                            onOpenModal()
+                            openView()
                         }
                     }}
                     disabled={
@@ -215,11 +211,6 @@ export const Undelegate = ({tokenSymbol}) => {
                     width="600px"
                 />
             </VStack>
-            <WalletModal
-                isOpenModal={isOpenModal}
-                onCloseModal={onCloseModal}
-                chainId={chainId}
-            />
         </VStack>
     );
 }

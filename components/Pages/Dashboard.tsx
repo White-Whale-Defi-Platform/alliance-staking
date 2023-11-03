@@ -1,7 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import { Tab, TabList, TabPanel, TabPanels, Tabs, VStack} from '@chakra-ui/react';
-import {useRecoilState, useRecoilValue} from 'recoil';
-import {walletState, WalletStatusType} from 'state/walletState';
+import {useRecoilState} from 'recoil';
 import {Token} from 'components/Pages/AssetOverview';
 import {useMultipleTokenBalance} from 'hooks/useTokenBalance';
 import whiteListedAllianceTokens from 'public/mainnet/white_listed_alliance_token_info.json'
@@ -23,6 +22,8 @@ import {calculateAllianceData} from "components/Pages/Alliance/hooks/alliance/ca
 import {calculateEcosystemData} from "components/Pages/Ecosystem/calculateEcosystemData";
 import {calculateLiquidityData} from "components/Pages/Liquidity/calculateLiquidityData";
 import {useGetLPTokenPrice} from "hooks/useGetLPTokenPrice";
+import {useChain} from "@cosmos-kit/react-lite";
+import {MIGALOO_CHAIN_ID, MIGALOO_CHAIN_NAME} from "constants/common";
 
 export interface Reward {
     amount: number;
@@ -55,8 +56,7 @@ export interface DelegationData {
 }
 
 const Dashboard = () => {
-    const {status, address} = useRecoilValue(walletState)
-    const isWalletConnected: boolean = status === WalletStatusType.connected
+    const {isWalletConnected, address} = useChain(MIGALOO_CHAIN_NAME)
 
     const rawAllianceTokenData = useMemo(() => {
         return whiteListedAllianceTokens.map((t) => ({

@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo} from 'react';
 
-import {HStack, IconButton, Text, useDisclosure, VStack,} from '@chakra-ui/react';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {HStack, IconButton, Text, VStack,} from '@chakra-ui/react';
+import {useRecoilState} from 'recoil';
 import {Controller, useForm} from "react-hook-form";
 import AssetInput from "components/AssetInput/index";
 import {delegationState, DelegationState} from "state/delegationState";
@@ -10,7 +10,6 @@ import {TokenBalance} from "components/Pages/Alliance/Delegate";
 import CustomButton from "components/CustomButton";
 import {useRouter} from "next/router";
 import {ArrowBackIcon} from "@chakra-ui/icons";
-import {walletState, WalletStatusType} from "state/walletState";
 import useTransaction from "hooks/useTransaction";
 import {TxStep} from "types/blockchain";
 import whiteListedEcosystemTokens from "public/mainnet/white_listed_ecosystem_token_info.json";
@@ -18,16 +17,16 @@ import whiteListedLiquidityTokens from "public/mainnet/white_listed_liquidity_to
 import {useMultipleTokenBalance} from "hooks/useTokenBalance";
 import {ActionType} from "components/Pages/Dashboard";
 import {tabState, TabType} from "state/tabState";
-import WalletModal from "components/Wallet/Modal/WalletModal";
 import {useGetLPTokenPrice} from "hooks/useGetLPTokenPrice";
+import {useChain} from "@cosmos-kit/react-lite";
+import {MIGALOO_CHAIN_NAME} from "constants/common";
 
 
 export const Delegate = ({tokenSymbol}) => {
     const [currentDelegationState, setCurrentDelegationState] =
         useRecoilState<DelegationState>(delegationState)
     const [_, setTabType] = useRecoilState(tabState)
-    const {status, chainId} = useRecoilValue(walletState)
-    const isWalletConnected: boolean = status === WalletStatusType.connected
+    const {isWalletConnected,openView} = useChain(MIGALOO_CHAIN_NAME)
     const {submit, txStep} = useTransaction()
     const router = useRouter()
     const tabFromUrl = router.pathname.split('/')?.[1].split('/')?.[0]
@@ -37,11 +36,6 @@ export const Delegate = ({tokenSymbol}) => {
             currentDelegationState,
         },
     })
-    const {
-        isOpen: isOpenModal,
-        onOpen: onOpenModal,
-        onClose: onCloseModal,
-    } = useDisclosure()
 
     const whiteListedTokens = useMemo(() => {
         if (tabFromUrl === TabType.ecosystem) {
@@ -200,7 +194,7 @@ export const Delegate = ({tokenSymbol}) => {
                                 currentDelegationState.denom,
                             )
                         } else {
-                            onOpenModal()
+                            openView()
                         }
                     }}
                     disabled={
@@ -218,11 +212,6 @@ export const Delegate = ({tokenSymbol}) => {
                     width="600px"
                 />
             </VStack>
-            <WalletModal
-                isOpenModal={isOpenModal}
-                onCloseModal={onCloseModal}
-                chainId={chainId}
-            />
         </VStack>
     );
 }

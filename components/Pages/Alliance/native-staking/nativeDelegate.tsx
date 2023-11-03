@@ -1,22 +1,11 @@
-import { TerraStationWallet } from 'util/wallet-adapters/terraStationWallet';
-import { Coin, MsgDelegate } from '@terra-money/feather.js';
+import {SigningCosmWasmClient} from "@cosmjs/cosmwasm-stargate/build/signingcosmwasmclient";
+import {coin} from "@cosmjs/amino";
 
 export const nativeDelegate = async (
-  wallet: TerraStationWallet,
-  destBlockchain: string,
-  valAddress: string,
-  address: string,
-  amount: number,
-  allianceDenom: string,
-) => {
-  const handleMsg = new MsgDelegate(
-    address,
-    valAddress,
-    new Coin(allianceDenom, amount),
-  );
+    client: SigningCosmWasmClient,
+    valAddress: string,
+    address: string,
+    amount: string,
+    allianceDenom: string,
+) => await client.delegateTokens(address, valAddress, coin(amount, allianceDenom), 'auto', null)
 
-  return await wallet.client.post({
-    chainID: destBlockchain,
-    msgs: [handleMsg],
-  });
-};

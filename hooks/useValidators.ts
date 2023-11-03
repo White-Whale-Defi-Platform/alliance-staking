@@ -1,10 +1,11 @@
 import { LCDClient, Validator } from '@terra-money/feather.js';
 import { Pagination } from '@terra-money/feather.js/dist/client/lcd/APIRequester';
 import useDelegations from './useDelegations';
-import useClient from 'hooks/useClient';
+import useLCDClient from 'hooks/useLCDClient';
 import { num } from 'libs/num';
 import { useQuery } from 'react-query';
 import { convertMicroDenomToDenom } from 'util/conversion';
+import {MIGALOO_CHAIN_ID} from "constants/common";
 
 type GetValidatorsParams = {
   client: LCDClient | null;
@@ -25,8 +26,7 @@ const getValidators = ({
     return !!delegation;
   };
 
-  return client?.alliance
-    .alliancesValidators('migaloo-1')
+  return client?.alliance.alliancesByValidators(MIGALOO_CHAIN_ID)
     .then((data) => {
       const [validators = [], pagination] = validatorInfo || [];
 
@@ -70,7 +70,7 @@ const getValidators = ({
 };
 const getStakedWhale = async ({ client }) => {
   let sum = 0;
-  await client?.staking.validators('migaloo-1').then((data) => {
+  await client?.staking.validators(MIGALOO_CHAIN_ID).then((data) => {
     data[0].forEach((validator) => {
       sum = sum + Number(validator.tokens.toString());
     });
@@ -87,7 +87,7 @@ type UseValidatorsResult = {
 };
 
 const useValidators = ({ address }): UseValidatorsResult => {
-  const client = useClient();
+  const client = useLCDClient();
 
   const { data: { delegations = [] } = {}, isFetched } = useDelegations({
     address,
@@ -95,7 +95,7 @@ const useValidators = ({ address }): UseValidatorsResult => {
 
   const { data: validatorInfo } = useQuery({
     queryKey: ['validatorInfo'],
-    queryFn: () => client?.staking.validators('migaloo-1'),
+    queryFn: () => client?.staking.validators(MIGALOO_CHAIN_ID),
     enabled: !!client,
   });
   const { data, isFetching } = useQuery({

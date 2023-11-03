@@ -1,7 +1,7 @@
-import { TerraStationWallet } from 'util/wallet-adapters/terraStationWallet';
 import { Coin, MsgBeginRedelegate } from '@terra-money/feather.js';
+import {SigningCosmWasmClient} from "@cosmjs/cosmwasm-stargate/build/signingcosmwasmclient";
 export const nativeRedelegate = async (
-  wallet: TerraStationWallet,
+  client: SigningCosmWasmClient,
   destBlockchain: string,
   validatorSrcAddress: string,
   validatorDstAddress: string,

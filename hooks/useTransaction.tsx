@@ -3,26 +3,26 @@ import {useMutation, useQuery} from 'react-query';
 
 import {useToast} from '@chakra-ui/react';
 import Finder from 'components/Finder';
-import {useRecoilValue} from 'recoil';
-import {walletState} from 'state/walletState';
 import {convertDenomToMicroDenom} from 'util/conversion';
 import {ActionType} from 'components/Pages/Dashboard';
-import useClient from 'hooks/useTerraStationClient';
 import {TxStep} from 'types/blockchain';
 import {delegate} from "hooks/delegate";
 import {undelegate} from "hooks/undelegate";
 import {claimRewards} from "hooks/claimRewards";
 import {isNativeToken} from "util/isNative";
+import {useChain} from "@cosmos-kit/react-lite";
+import {MIGALOO_CHAIN_ID, MIGALOO_CHAIN_NAME} from "constants/common";
+import {useClients} from "hooks/useClients";
 
 export const useTransaction = () => {
     const toast = useToast();
-    const {chainId, address} = useRecoilValue(walletState);
+    const { address} = useChain(MIGALOO_CHAIN_NAME)
+    const { signingClient: client } = useClients()
     const [txStep, setTxStep] = useState<TxStep>(TxStep.Idle);
     const [delegationAction, setDelegationAction] = useState<ActionType>(ActionType.delegate)
     const [txHash, setTxHash] = useState<string>(null)
     const [error, setError] = useState(null)
     const [buttonLabel, setButtonLabel] = useState(null)
-    const client = useClient()
 
     const {data: fee} = useQuery(
         ['fee', error],
@@ -111,7 +111,7 @@ export const useTransaction = () => {
                 ) {
                     setError(e?.toString());
                     message = (
-                        <Finder txHash={txInfo?.txhash} chainId={chainId}>
+                        <Finder txHash={txInfo?.hash} chainId={MIGALOO_CHAIN_ID}>
                             {' '}
                         </Finder>
                     );
@@ -154,7 +154,7 @@ export const useTransaction = () => {
                             }
                         })(),
                         description: (
-                            <Finder txHash={data?.transactionHash ?? data?.result?.txhash} chainId={chainId}>
+                            <Finder txHash={data?.transactionHash ?? data?.result?.txhash} chainId={MIGALOO_CHAIN_ID}>
                                 {' '}
                             </Finder>
                         ),

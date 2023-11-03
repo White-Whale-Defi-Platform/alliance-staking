@@ -1,9 +1,9 @@
-import {useRecoilValue} from "recoil";
-import {walletState} from "state/walletState";
-import {useConnectedWallet} from "@terra-money/wallet-provider";
 import {useQuery} from "react-query";
 import {DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL} from "util/constants";
 import {convertMicroDenomToDenom} from "util/conversion";
+import {useChain} from "@cosmos-kit/react-lite";
+import {MIGALOO_CHAIN_ID, MIGALOO_CHAIN_NAME} from "constants/common";
+import {useClients} from "hooks/useClients";
 
 
 const fetchWhaleBalance = async ({client, address}) => {
@@ -12,16 +12,15 @@ const fetchWhaleBalance = async ({client, address}) => {
     return convertMicroDenomToDenom(amount, 6)
 }
 export const useGetWhaleBalance = () => {
-    const {address, client, chainId} = useRecoilValue(walletState);
-    const connectedWallet = useConnectedWallet();
-    const selectedAddr = connectedWallet?.addresses[chainId] || address;
+    const {address} = useChain(MIGALOO_CHAIN_NAME)
+    const {cosmWasmClient: client} = useClients()
 
     const {
         data: balance = 0,
         isLoading,
         refetch,
     } = useQuery(
-        ['tokenBalance', selectedAddr],
+        ['tokenBalance', address],
         async () => {
             return await fetchWhaleBalance({
                 client,

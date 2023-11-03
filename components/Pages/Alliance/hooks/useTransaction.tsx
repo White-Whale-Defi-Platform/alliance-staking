@@ -3,8 +3,6 @@ import { useMutation, useQuery } from 'react-query';
 
 import { useToast } from '@chakra-ui/react';
 import Finder from 'components/Finder';
-import { useRecoilValue } from 'recoil';
-import { walletState } from 'state/walletState';
 import { convertDenomToMicroDenom } from 'util/conversion';
 import { ActionType } from 'components/Pages/Dashboard';
 import { allianceDelegate } from 'components/Pages/Alliance/hooks/alliance/allianceDelegate';
@@ -15,21 +13,23 @@ import { nativeDelegate } from 'components/Pages/Alliance/native-staking/nativeD
 import { nativeUndelegate } from 'components/Pages/Alliance/native-staking/nativeUndelegate';
 import { nativeRedelegate } from 'components/Pages/Alliance/native-staking/nativeRedelegate';
 import { claimAllRewards } from 'components/Pages/Alliance/hooks/claimRewards';
-import useClient from 'hooks/useTerraStationClient';
 import useDelegations from 'hooks/useDelegations';
 import {TxStep} from "types/blockchain";
 import {updateRewards} from "hooks/updateRewards";
+import {useChain} from "@cosmos-kit/react-lite";
+import {MIGALOO_CHAIN_ID, MIGALOO_CHAIN_NAME} from "constants/common";
+import {useClients} from "hooks/useClients";
 
 
 export const useTransaction = () => {
   const toast = useToast();
-  const { chainId, address } = useRecoilValue(walletState)
+  const { address } = useChain(MIGALOO_CHAIN_NAME)
   const [txStep, setTxStep] = useState<TxStep>(TxStep.Idle);
   const [delegationAction, setDelegationAction] = useState<ActionType>(null);
   const [txHash, setTxHash] = useState<string>(null);
   const [error, setError] = useState(null);
   const [buttonLabel, setButtonLabel] = useState<string>(null);
-  const client = useClient();
+  const {signingClient: client} = useClients()
   const { data: { delegations = [] } = {} } = useDelegations({ address });
 
   const { data: fee } = useQuery(
@@ -41,7 +41,7 @@ export const useTransaction = () => {
         const response = 0; //await client.simulate(address, [delegationMsg], '')
 
         if (!!buttonLabel) setButtonLabel(null);
-        setTxStep(TxStep.Ready);
+        setTxStep(TxStep.Ready)
         return response;
       } catch (error) {
         if (
@@ -81,12 +81,11 @@ export const useTransaction = () => {
 
   const { mutate } = useMutation(
     (data: any) => {
-      const adjustedAmount = convertDenomToMicroDenom(data.amount, 6);
+      const adjustedAmount = convertDenomToMicroDenom(data.amount, 6).toString();
       if (data.action === ActionType.delegate) {
         return data.denom == 'uwhale'
           ? nativeDelegate(
               client,
-              'migaloo-1',
               data.validatorDestAddress,
               address,
               adjustedAmount,
@@ -94,7 +93,6 @@ export const useTransaction = () => {
             )
           : allianceDelegate(
               client,
-              'migaloo-1',
               data.validatorDestAddress,
               address,
               adjustedAmount,
@@ -104,7 +102,6 @@ export const useTransaction = () => {
         return data.denom == 'uwhale'
           ? nativeUndelegate(
               client,
-              'migaloo-1',
               data.validatorSrcAddress,
               address,
               adjustedAmount,
@@ -139,7 +136,7 @@ export const useTransaction = () => {
               data.denom,
             );
       } else if(data.action === ActionType.claim) {
-        return claimAllRewards(client, delegations);
+        return claimAllRewards(client, delegations)
       } else {
         return updateRewards(client, address)
       }
@@ -174,7 +171,7 @@ export const useTransaction = () => {
         ) {
           setError(e?.toString());
           message = (
-            <Finder txHash={txInfo?.txhash} chainId={chainId}>
+            <Finder txHash={txInfo?.hash} chainId={MIGALOO_CHAIN_ID}>
               {' '}
             </Finder>
           );
@@ -231,7 +228,7 @@ export const useTransaction = () => {
               }
             })(),
             description: (
-              <Finder txHash={hash} chainId={chainId}>
+              <Finder txHash={hash} chainId={MIGALOO_CHAIN_ID}>
                 {' '}
               </Finder>
             ),

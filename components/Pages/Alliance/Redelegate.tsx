@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { Text, VStack } from '@chakra-ui/react';
 import AssetInput from 'components/AssetInput/index';
-import {useRecoilState, useRecoilValue} from 'recoil';
-import { walletState } from 'state/walletState';
+import {useRecoilState} from 'recoil';
 import { Controller, useForm } from 'react-hook-form';
 import { delegationState, DelegationState } from 'state/delegationState';
 import ValidatorInput from 'components/ValidatorInput/ValidatorInput';
@@ -11,6 +10,8 @@ import useValidators from 'hooks/useValidators';
 import usePrices from 'hooks/usePrices';
 import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
 import { useRouter } from 'next/router';
+import {useChain} from "@cosmos-kit/react-lite";
+import {MIGALOO_CHAIN_NAME} from "constants/common";
 
 const Redelegate = ({
   validatorDestAddress,
@@ -18,7 +19,7 @@ const Redelegate = ({
   delegations,
   tokenSymbol,
 }) => {
-  const { address } = useRecoilValue(walletState);
+  const { address } = useChain(MIGALOO_CHAIN_NAME)
   const [currentDelegationState, setCurrentDelegationState] =
     useRecoilState<DelegationState>(delegationState);
 

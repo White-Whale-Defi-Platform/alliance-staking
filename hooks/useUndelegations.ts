@@ -1,5 +1,5 @@
 import { LCDClient } from '@terra-money/feather.js';
-import useClient from 'hooks/useClient';
+import useLCDClient from 'hooks/useLCDClient';
 import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
 import usePrices from 'hooks/usePrices';
 import { useQuery } from 'react-query';
@@ -151,7 +151,7 @@ const getUndelegations = async (
 }
 
 const useUndelegations = ({ address }) => {
-  const client = useClient();
+  const client = useLCDClient();
   const [priceList] = usePrices() || [];
 
   return useQuery({

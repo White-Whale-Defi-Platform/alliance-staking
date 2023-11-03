@@ -1,4 +1,4 @@
-import useClient from 'hooks/useClient';
+import useLCDClient from 'hooks/useLCDClient';
 import usePrices from 'hooks/usePrices';
 import { useQuery } from 'react-query';
 import { LCDClient } from '@terra-money/feather.js';
@@ -15,7 +15,7 @@ export interface Alliance {
   takeRate: number;
 }
 export const useAlliances = () => {
-  const client = useClient();
+  const client = useLCDClient();
   const [priceList] = usePrices() || [];
 
 

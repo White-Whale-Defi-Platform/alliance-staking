@@ -1,63 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Divider } from '@chakra-ui/react';
-import { useConnectedWallet, useWallet } from '@terra-money/wallet-provider';
 import Card from 'components/Card';
 import WalletIcon from 'components/icons/WalletIcon';
 import ChainSelectWithBalance from 'components/Wallet/ChainSelectWithBalance/ChainSelectWithBalance';
-import ConnectedWalletWithDisconnect from 'components/Wallet/ConnectedWalletWithDisconnect/ConnectedWalletWithDisconnect';
-import { useTerraStation } from 'hooks/useTerraStation';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
-import { walletState } from 'state/walletState';
-import WalletModal from 'components/Wallet/Modal/WalletModal';
+import {COSMOS_KIT_WALLET_KEY, MIGALOO_CHAIN_ID, MIGALOO_CHAIN_NAME} from "constants/common";
+import {useChain} from "@cosmos-kit/react-lite";
+import {WalletType} from "components/Wallet/Modal/WalletModal";
+import {queryClient} from "services/queryClient";
+import {
+  ConnectedWalletWithDisconnect
+} from "components/Wallet/ConnectedWalletWithDisconnect/ConnectedWalletWithDisconnect";
 
-const Wallet: any = ({
-  connected,
-  onDisconnect,
-  onOpenModal,
-  isOpenModal,
-  onCloseModal,
-}) => {
+const Wallet: any = () => {
   const [isInitialized, setInitialized] = useState(false);
-  const [currentWalletState, setCurrentWalletState] =
-    useRecoilState(walletState);
+  const {openView, disconnect, isWalletConnected} = useChain(MIGALOO_CHAIN_NAME);
 
   const router = useRouter();
+  const walletType = window.localStorage.getItem(COSMOS_KIT_WALLET_KEY)
+  const resetWallet = async () => {
+    queryClient.clear()
+    await disconnect()
+  }
+  useEffect(() => {
+    if (walletType === WalletType.leapExtension || walletType === WalletType.leapMobile) {
+      // Window.leap.defaultOptions
+      window.leap.defaultOptions = {
+        sign: {
+          preferNoSetFee: true,
+        },
+      }
+    }
+  }, [walletType]);
 
-  const connectedWallet = useConnectedWallet();
-
-  const { connectTerraAndCloseModal, filterForStation } = useTerraStation(
-    () => {},
-  );
-  const { availableConnections } = useWallet();
 
   useEffect(() => {
     if (router.pathname === '/') return;
-
-    const defaultChainId =
-      currentWalletState.network === 'mainnet' ? 'migaloo-1' : 'narwhal-1';
-
-    setCurrentWalletState({
-      ...currentWalletState,
-      chainId: defaultChainId,
-    });
     setInitialized(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (!isInitialized) return;
-    if (!currentWalletState.chainId) return;
-    if (currentWalletState.activeWallet === 'station') {
-      const [{ type = null, identifier = null } = {}] =
-        availableConnections.filter(filterForStation);
-      if (type && identifier) connectTerraAndCloseModal(type, identifier);
-    }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentWalletState.chainId, isInitialized, availableConnections]);
-
-  if (!connected && !connectedWallet) {
+  if (!isWalletConnected) {
     return (
       <>
         <Button
@@ -67,16 +50,11 @@ const Wallet: any = ({
           color="white"
           border={"1px solid rgba(255, 255, 255, 0.5)"}
           borderRadius="full"
-          onClick={onOpenModal}
+          onClick={openView}
         >
           <WalletIcon />
           Connect wallet
         </Button>
-        <WalletModal
-          isOpenModal={isOpenModal}
-          onCloseModal={onCloseModal}
-          chainId={currentWalletState.chainId}
-        />
       </>
     );
   }
@@ -92,8 +70,7 @@ const Wallet: any = ({
           />
         </Box>
         <ConnectedWalletWithDisconnect
-          connected={connected}
-          onDisconnect={onDisconnect}
+          onDisconnect={resetWallet}
         />
       </Card>
     </>

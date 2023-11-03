@@ -1,18 +1,16 @@
 import { FC, ReactNode } from 'react';
 import { isMobile } from 'react-device-detect';
 import { Flex, useMediaQuery } from '@chakra-ui/react';
-import { useRecoilValue } from 'recoil';
-import { walletState } from 'state/walletState';
 import MobileNotSupportedModal from '../Wallet/Modal/MobileNotSupportedModal';
 import RadialGradient from './RadialGradient';
 import Header from 'components/Header/Header';
 import Status from 'components/Status';
+import {MIGALOO_CHAIN_ID} from "constants/common";
 
 interface Props {
   children: ReactNode;
 }
 const AppLayout: FC<Props> = ({ children }) => {
-  const { chainId } = useRecoilValue(walletState);
   const [isMobileView] = useMediaQuery('(max-width: 480px)');
 
   return (
@@ -28,7 +26,7 @@ const AppLayout: FC<Props> = ({ children }) => {
           <RadialGradient />
           <Header />
           <Flex
-            key={chainId}
+            key={MIGALOO_CHAIN_ID}
             justifyContent="center"
             mx="auto"
             maxWidth="container.xl"

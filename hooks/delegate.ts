@@ -3,48 +3,53 @@ import {coin} from "@cosmjs/amino";
 import {isNativeToken} from "util/isNative";
 import {MsgExecuteContract} from "@terra-money/feather.js";
 import {toBase64} from "util/toBase64";
+import {SigningCosmWasmClient} from "@cosmjs/cosmwasm-stargate/build/signingcosmwasmclient";
+import {createExecuteMessage} from "util/createExecutionMessage";
 export const delegate = async (
-    client: any,
+    client: SigningCosmWasmClient,
     address: string,
     amount: string,
     denom: string,
 ) => {
+    const stakeMessage = {
+        stake: {}
+    }
     if (isNativeToken(denom)) {
-        const msg = {
-            stake: {}
-        }
-        return await client.execute(address, file.alliance_contract, msg, [coin(amount, denom)])
-
+        const msg = createExecuteMessage({senderAddress: address,contractAddress: file.alliance_contract,
+        message:stakeMessage, funds: [coin(amount, denom)]})
+        return await client.signAndBroadcast(address, [msg], 'auto', null)
     } else {
-        const stakeMessage = {
-            stake: {}
-        }
-
         const msgs = [
-            new MsgExecuteContract(
-                address,
-                denom,
-                {
-                    "increase_allowance": {
-                        "amount": amount,
-                        "spender": file.alliance_contract
-                    }
-                }, []
-            ),
-            new MsgExecuteContract(
-                address,
-                denom,
-                {
-                    "send": {
-                        "amount": amount,
-                        "contract": file.alliance_contract,
-                        "msg": toBase64(stakeMessage)
-                    }
-                },
-                [],
-            )]
+            {
+                typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+                value: new MsgExecuteContract(
+                    address,
+                    denom,
+                    {
+                        increase_allowance: {
+                            amount: amount,
+                            spender: file.alliance_contract
+                        }
+                    }, []
+                )
+            },
+            {
+            typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+            value: new MsgExecuteContract(
+                    address,
+                    denom,
+                    {
+                        send: {
+                            amount: amount,
+                            contract: file.alliance_contract,
+                            msg: toBase64(stakeMessage)
+                        }
+                    },
+                    [],
+                )
+            }]
 
-        return await client.client.post({chainID: 'migaloo-1', msgs: msgs});
+        return await client.signAndBroadcast(address, msgs, 'auto', null)
     }
 
 }

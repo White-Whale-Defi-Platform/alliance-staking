@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 
 export default function LeapWalletIcon() {
   return (
@@ -62,5 +62,5 @@ export default function LeapWalletIcon() {
         </clipPath>
       </defs>
     </svg>
-  );
+  )
 }
