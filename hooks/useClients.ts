@@ -1,17 +1,24 @@
 import { useQueries } from 'react-query'
 
-import { GasPrice, SigningStargateClient } from '@cosmjs/stargate';
+import { GeneratedType, Registry } from '@cosmjs/proto-signing';
+import { SigningStargateClient } from '@cosmjs/stargate';
+import { AminoTypes } from '@cosmjs/stargate';
 import { useChain } from '@cosmos-kit/react-lite'
-import { MsgClaimDelegationRewards } from 'components/Pages/Alliance/types/MsgClaimDelegationRewards';
-import { MsgWithdrawDelegatorReward } from 'components/Pages/Alliance/types/MsgWithdrawDelegatorReward';
 import { MIGALOO_CHAIN_NAME } from 'constants/common';
-import { MsgDelegate, MsgUndelegate, MsgBeginRedelegate } from 'cosmjs-types/cosmos/staking/v1beta1/tx';
+import {
+  cosmosAminoConverters,
+  cosmosProtoRegistry,
+  allianceAminoConverters,
+  allianceProtoRegistry,
+  cosmwasmAminoConverters,
+  cosmwasmProtoRegistry
+} from 'util/alliance_aminos';
 
 export const useClients = () => {
   const {
     getCosmWasmClient,
     getSigningCosmWasmClient,
-    getOfflineSignerDirect,
+    getOfflineSigner,
     isWalletConnected,
     setDefaultSignOptions,
     wallet,
@@ -40,15 +47,28 @@ export const useClients = () => {
     {
       queryKey: ['offlineSignerDirect'],
       queryFn: async () => {
-        const offlineSigner = getOfflineSignerDirect()
+        const offlineSigner = await getOfflineSigner()
+
+        const protoRegistry: ReadonlyArray<[string, GeneratedType]> = [
+          ...cosmosProtoRegistry,
+          ...allianceProtoRegistry,
+          ...cosmwasmProtoRegistry,
+        ];
+
+        const aminoConverters = {
+          ...cosmosAminoConverters,
+          ...allianceAminoConverters,
+          ...cosmwasmAminoConverters,
+        };
+        const registry = new Registry(protoRegistry);
+        const aminoTypes = new AminoTypes(aminoConverters);
+
         const stargateClient = await SigningStargateClient.connectWithSigner(
-          'https://migaloo-rpc.polkachu.com:443', offlineSigner, { gasPrice: GasPrice.fromString('2uwhale') },
-        )
-        stargateClient.registry.register('/alliance.alliance.MsgDelegate', MsgDelegate)
-        stargateClient.registry.register('/alliance.alliance.MsgUndelegate', MsgUndelegate)
-        stargateClient.registry.register('/alliance.alliance.MsgRedelegate', MsgBeginRedelegate)
-        stargateClient.registry.register('/alliance.alliance.MsgClaimDelegationRewards', MsgClaimDelegationRewards)
-        stargateClient.registry.register('/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward', MsgWithdrawDelegatorReward)
+          'https://migaloo-rpc.polkachu.com:443', offlineSigner, {
+            registry,
+            aminoTypes,
+          },
+        );
         return stargateClient
       },
       enabled: isWalletConnected,

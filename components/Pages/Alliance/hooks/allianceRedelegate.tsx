@@ -1,6 +1,7 @@
 import { SigningStargateClient } from '@cosmjs/stargate';
-import { Coin } from '@terra-money/feather.js';
-import { MsgBeginRedelegate } from 'cosmjs-types/cosmos/staking/v1beta1/tx';
+import { alliance } from 'util/alliance_aminos';
+import { createGasFee } from 'util/createGasFees'
+
 export const allianceRedelegate = async (
   client: SigningStargateClient,
   validatorSrcAddress: string,
@@ -8,14 +9,9 @@ export const allianceRedelegate = async (
   address: string,
   amount: string,
   allianceDenom: string,
-) => await client.signAndBroadcast(
-  address, [({
-    typeUrl: '/alliance.alliance.MsgRedelegate',
-    value: MsgBeginRedelegate.fromJSON({
-      delegatorAddress: address,
-      validatorSrcAddress,
-      validatorDstAddress,
-      amount: new Coin(allianceDenom, amount),
-    }),
-  })], 'auto',
-)
+) => { 
+  const redelegate = alliance.alliance.MessageComposer.fromPartial.redelegate
+  const message = redelegate({delegatorAddress: address, validatorSrcAddress, validatorDstAddress, amount: {denom: allianceDenom, amount}})
+  return await client.signAndBroadcast(
+  address, [message], await createGasFee(client, address, [message]))
+}

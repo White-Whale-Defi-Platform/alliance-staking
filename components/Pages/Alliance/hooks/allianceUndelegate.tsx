@@ -1,6 +1,6 @@
 import { SigningStargateClient } from '@cosmjs/stargate';
-import { Coin } from '@terra-money/feather.js';
-import { MsgUndelegate } from 'cosmjs-types/cosmos/staking/v1beta1/tx';
+import { alliance } from 'util/alliance_aminos';
+import { createGasFee } from 'util/createGasFees'
 
 export const allianceUndelegate = async (
   client: SigningStargateClient,
@@ -8,13 +8,9 @@ export const allianceUndelegate = async (
   address: string,
   amount: string,
   allianceDenom: string,
-) => await client.signAndBroadcast(
-  address, [({
-    typeUrl: '/alliance.alliance.MsgUndelegate',
-    value: MsgUndelegate.fromJSON({
-      delegatorAddress: address,
-      validatorAddress: valAddress,
-      amount: new Coin(allianceDenom, amount),
-    }),
-  })], 'auto',
-)
+) => { 
+  const undelegate = alliance.alliance.MessageComposer.fromPartial.undelegate
+  const message = undelegate({delegatorAddress: address, validatorAddress:valAddress, amount: {denom: allianceDenom, amount}})
+  return await client.signAndBroadcast(
+  address, [message], await createGasFee(client, address, [message]))
+}
