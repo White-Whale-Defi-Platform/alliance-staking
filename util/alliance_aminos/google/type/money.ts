@@ -1,5 +1,5 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
 /** Represents an amount of money with its currency type. */
 export interface Money {
   /** The three-letter currency code defined in ISO 4217. */
@@ -20,7 +20,7 @@ export interface Money {
   nanos: number;
 }
 export interface MoneyProtoMsg {
-  typeUrl: "/google.type.Money";
+  typeUrl: '/google.type.Money';
   value: Uint8Array;
 }
 /** Represents an amount of money with its currency type. */
@@ -43,7 +43,7 @@ export interface MoneyAmino {
   nanos?: number;
 }
 export interface MoneyAminoMsg {
-  type: "/google.type.Money";
+  type: '/google.type.Money';
   value: MoneyAmino;
 }
 /** Represents an amount of money with its currency type. */
@@ -54,15 +54,15 @@ export interface MoneySDKType {
 }
 function createBaseMoney(): Money {
   return {
-    currencyCode: "",
+    currencyCode: '',
     units: BigInt(0),
-    nanos: 0
+    nanos: 0,
   };
 }
 export const Money = {
-  typeUrl: "/google.type.Money",
+  typeUrl: '/google.type.Money',
   encode(message: Money, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.currencyCode !== "") {
+    if (message.currencyCode !== '') {
       writer.uint32(10).string(message.currencyCode);
     }
     if (message.units !== BigInt(0)) {
@@ -75,7 +75,7 @@ export const Money = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Money {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMoney();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -98,7 +98,7 @@ export const Money = {
   },
   fromPartial(object: DeepPartial<Money>): Money {
     const message = createBaseMoney();
-    message.currencyCode = object.currencyCode ?? "";
+    message.currencyCode = object.currencyCode ?? '';
     message.units = object.units !== undefined && object.units !== null ? BigInt(object.units.toString()) : BigInt(0);
     message.nanos = object.nanos ?? 0;
     return message;
@@ -118,7 +118,7 @@ export const Money = {
   },
   toAmino(message: Money): MoneyAmino {
     const obj: any = {};
-    obj.currency_code = message.currencyCode === "" ? undefined : message.currencyCode;
+    obj.currency_code = message.currencyCode === '' ? undefined : message.currencyCode;
     obj.units = message.units !== BigInt(0) ? message.units.toString() : undefined;
     obj.nanos = message.nanos === 0 ? undefined : message.nanos;
     return obj;
@@ -134,8 +134,8 @@ export const Money = {
   },
   toProtoMsg(message: Money): MoneyProtoMsg {
     return {
-      typeUrl: "/google.type.Money",
-      value: Money.encode(message).finish()
+      typeUrl: '/google.type.Money',
+      value: Money.encode(message).finish(),
     };
-  }
+  },
 };

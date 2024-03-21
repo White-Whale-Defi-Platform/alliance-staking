@@ -1,29 +1,29 @@
-import { Duration, DurationAmino, DurationSDKType } from "../protobuf/duration";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
+import { Duration, DurationAmino, DurationSDKType } from '../protobuf/duration';
 /**
  * Represents civil time (or occasionally physical time).
- * 
+ *
  * This type can represent a civil time in one of a few possible ways:
- * 
+ *
  *  * When utc_offset is set and time_zone is unset: a civil time on a calendar
  *    day with a particular offset from UTC.
  *  * When time_zone is set and utc_offset is unset: a civil time on a calendar
  *    day in a particular time zone.
  *  * When neither time_zone nor utc_offset is set: a civil time on a calendar
  *    day in local time.
- * 
+ *
  * The date is relative to the Proleptic Gregorian Calendar.
- * 
+ *
  * If year is 0, the DateTime is considered not to have a specific year. month
  * and day must have valid, non-zero values.
- * 
+ *
  * This type may also be used to represent a physical time if all the date and
  * time fields are set and either case of the `time_offset` oneof is set.
  * Consider using `Timestamp` message for physical time instead. If your use
  * case also would like to store the user's timezone, that can be done in
  * another field.
- * 
+ *
  * This type is more flexible than some applications may want. Make sure to
  * document and validate your application's limitations.
  */
@@ -68,32 +68,32 @@ export interface DateTime {
   timeZone?: TimeZone;
 }
 export interface DateTimeProtoMsg {
-  typeUrl: "/google.type.DateTime";
+  typeUrl: '/google.type.DateTime';
   value: Uint8Array;
 }
 /**
  * Represents civil time (or occasionally physical time).
- * 
+ *
  * This type can represent a civil time in one of a few possible ways:
- * 
+ *
  *  * When utc_offset is set and time_zone is unset: a civil time on a calendar
  *    day with a particular offset from UTC.
  *  * When time_zone is set and utc_offset is unset: a civil time on a calendar
  *    day in a particular time zone.
  *  * When neither time_zone nor utc_offset is set: a civil time on a calendar
  *    day in local time.
- * 
+ *
  * The date is relative to the Proleptic Gregorian Calendar.
- * 
+ *
  * If year is 0, the DateTime is considered not to have a specific year. month
  * and day must have valid, non-zero values.
- * 
+ *
  * This type may also be used to represent a physical time if all the date and
  * time fields are set and either case of the `time_offset` oneof is set.
  * Consider using `Timestamp` message for physical time instead. If your use
  * case also would like to store the user's timezone, that can be done in
  * another field.
- * 
+ *
  * This type is more flexible than some applications may want. Make sure to
  * document and validate your application's limitations.
  */
@@ -138,32 +138,32 @@ export interface DateTimeAmino {
   time_zone?: TimeZoneAmino;
 }
 export interface DateTimeAminoMsg {
-  type: "/google.type.DateTime";
+  type: '/google.type.DateTime';
   value: DateTimeAmino;
 }
 /**
  * Represents civil time (or occasionally physical time).
- * 
+ *
  * This type can represent a civil time in one of a few possible ways:
- * 
+ *
  *  * When utc_offset is set and time_zone is unset: a civil time on a calendar
  *    day with a particular offset from UTC.
  *  * When time_zone is set and utc_offset is unset: a civil time on a calendar
  *    day in a particular time zone.
  *  * When neither time_zone nor utc_offset is set: a civil time on a calendar
  *    day in local time.
- * 
+ *
  * The date is relative to the Proleptic Gregorian Calendar.
- * 
+ *
  * If year is 0, the DateTime is considered not to have a specific year. month
  * and day must have valid, non-zero values.
- * 
+ *
  * This type may also be used to represent a physical time if all the date and
  * time fields are set and either case of the `time_offset` oneof is set.
  * Consider using `Timestamp` message for physical time instead. If your use
  * case also would like to store the user's timezone, that can be done in
  * another field.
- * 
+ *
  * This type is more flexible than some applications may want. Make sure to
  * document and validate your application's limitations.
  */
@@ -189,7 +189,7 @@ export interface TimeZone {
   version: string;
 }
 export interface TimeZoneProtoMsg {
-  typeUrl: "/google.type.TimeZone";
+  typeUrl: '/google.type.TimeZone';
   value: Uint8Array;
 }
 /**
@@ -203,7 +203,7 @@ export interface TimeZoneAmino {
   version?: string;
 }
 export interface TimeZoneAminoMsg {
-  type: "/google.type.TimeZone";
+  type: '/google.type.TimeZone';
   value: TimeZoneAmino;
 }
 /**
@@ -224,11 +224,11 @@ function createBaseDateTime(): DateTime {
     seconds: 0,
     nanos: 0,
     utcOffset: undefined,
-    timeZone: undefined
+    timeZone: undefined,
   };
 }
 export const DateTime = {
-  typeUrl: "/google.type.DateTime",
+  typeUrl: '/google.type.DateTime',
   encode(message: DateTime, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.year !== 0) {
       writer.uint32(8).int32(message.year);
@@ -261,7 +261,7 @@ export const DateTime = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): DateTime {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDateTime();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -368,31 +368,31 @@ export const DateTime = {
   },
   toProtoMsg(message: DateTime): DateTimeProtoMsg {
     return {
-      typeUrl: "/google.type.DateTime",
-      value: DateTime.encode(message).finish()
+      typeUrl: '/google.type.DateTime',
+      value: DateTime.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseTimeZone(): TimeZone {
   return {
-    id: "",
-    version: ""
+    id: '',
+    version: '',
   };
 }
 export const TimeZone = {
-  typeUrl: "/google.type.TimeZone",
+  typeUrl: '/google.type.TimeZone',
   encode(message: TimeZone, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.id !== "") {
+    if (message.id !== '') {
       writer.uint32(10).string(message.id);
     }
-    if (message.version !== "") {
+    if (message.version !== '') {
       writer.uint32(18).string(message.version);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): TimeZone {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTimeZone();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -412,8 +412,8 @@ export const TimeZone = {
   },
   fromPartial(object: DeepPartial<TimeZone>): TimeZone {
     const message = createBaseTimeZone();
-    message.id = object.id ?? "";
-    message.version = object.version ?? "";
+    message.id = object.id ?? '';
+    message.version = object.version ?? '';
     return message;
   },
   fromAmino(object: TimeZoneAmino): TimeZone {
@@ -428,8 +428,8 @@ export const TimeZone = {
   },
   toAmino(message: TimeZone): TimeZoneAmino {
     const obj: any = {};
-    obj.id = message.id === "" ? undefined : message.id;
-    obj.version = message.version === "" ? undefined : message.version;
+    obj.id = message.id === '' ? undefined : message.id;
+    obj.version = message.version === '' ? undefined : message.version;
     return obj;
   },
   fromAminoMsg(object: TimeZoneAminoMsg): TimeZone {
@@ -443,8 +443,8 @@ export const TimeZone = {
   },
   toProtoMsg(message: TimeZone): TimeZoneProtoMsg {
     return {
-      typeUrl: "/google.type.TimeZone",
-      value: TimeZone.encode(message).finish()
+      typeUrl: '/google.type.TimeZone',
+      value: TimeZone.encode(message).finish(),
     };
-  }
+  },
 };

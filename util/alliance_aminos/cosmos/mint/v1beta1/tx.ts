@@ -1,47 +1,47 @@
-import { Params, ParamsAmino, ParamsSDKType } from "./mint";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../binary';
+import { DeepPartial } from '../../../helpers';
+import { Params, ParamsAmino, ParamsSDKType } from './mint';
 /**
  * MsgUpdateParams is the Msg/UpdateParams request type.
- * 
+ *
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParams {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /** Authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
   /**
-   * params defines the x/mint parameters to update.
-   * 
+   * Params defines the x/mint parameters to update.
+   *
    * NOTE: All parameters must be supplied.
    */
   params: Params;
 }
 export interface MsgUpdateParamsProtoMsg {
-  typeUrl: "/cosmos.mint.v1beta1.MsgUpdateParams";
+  typeUrl: '/cosmos.mint.v1beta1.MsgUpdateParams';
   value: Uint8Array;
 }
 /**
  * MsgUpdateParams is the Msg/UpdateParams request type.
- * 
+ *
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /** Authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority?: string;
   /**
-   * params defines the x/mint parameters to update.
-   * 
+   * Params defines the x/mint parameters to update.
+   *
    * NOTE: All parameters must be supplied.
    */
   params: ParamsAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
-  type: "cosmos-sdk/x/mint/MsgUpdateParams";
+  type: 'cosmos-sdk/x/mint/MsgUpdateParams';
   value: MsgUpdateParamsAmino;
 }
 /**
  * MsgUpdateParams is the Msg/UpdateParams request type.
- * 
+ *
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsSDKType {
@@ -51,43 +51,43 @@ export interface MsgUpdateParamsSDKType {
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
- * 
+ *
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
-  typeUrl: "/cosmos.mint.v1beta1.MsgUpdateParamsResponse";
+  typeUrl: '/cosmos.mint.v1beta1.MsgUpdateParamsResponse';
   value: Uint8Array;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
- * 
+ *
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
-  type: "cosmos-sdk/MsgUpdateParamsResponse";
+  type: 'cosmos-sdk/MsgUpdateParamsResponse';
   value: MsgUpdateParamsResponseAmino;
 }
 /**
  * MsgUpdateParamsResponse defines the response structure for executing a
  * MsgUpdateParams message.
- * 
+ *
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParamsResponseSDKType {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
-    authority: "",
-    params: Params.fromPartial({})
+    authority: '',
+    params: Params.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {
-  typeUrl: "/cosmos.mint.v1beta1.MsgUpdateParams",
-  aminoType: "cosmos-sdk/x/mint/MsgUpdateParams",
+  typeUrl: '/cosmos.mint.v1beta1.MsgUpdateParams',
+  aminoType: 'cosmos-sdk/x/mint/MsgUpdateParams',
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.authority !== "") {
+    if (message.authority !== '') {
       writer.uint32(10).string(message.authority);
     }
     if (message.params !== undefined) {
@@ -97,7 +97,7 @@ export const MsgUpdateParams = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParams {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -117,7 +117,7 @@ export const MsgUpdateParams = {
   },
   fromPartial(object: DeepPartial<MsgUpdateParams>): MsgUpdateParams {
     const message = createBaseMsgUpdateParams();
-    message.authority = object.authority ?? "";
+    message.authority = object.authority ?? '';
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
@@ -133,7 +133,7 @@ export const MsgUpdateParams = {
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.authority = message.authority === '' ? undefined : message.authority;
     obj.params = message.params ? Params.toAmino(message.params) : Params.toAmino(Params.fromPartial({}));
     return obj;
   },
@@ -142,8 +142,8 @@ export const MsgUpdateParams = {
   },
   toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
     return {
-      type: "cosmos-sdk/x/mint/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message)
+      type: 'cosmos-sdk/x/mint/MsgUpdateParams',
+      value: MsgUpdateParams.toAmino(message),
     };
   },
   fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams {
@@ -154,23 +154,23 @@ export const MsgUpdateParams = {
   },
   toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
     return {
-      typeUrl: "/cosmos.mint.v1beta1.MsgUpdateParams",
-      value: MsgUpdateParams.encode(message).finish()
+      typeUrl: '/cosmos.mint.v1beta1.MsgUpdateParams',
+      value: MsgUpdateParams.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 export const MsgUpdateParamsResponse = {
-  typeUrl: "/cosmos.mint.v1beta1.MsgUpdateParamsResponse",
-  aminoType: "cosmos-sdk/MsgUpdateParamsResponse",
+  typeUrl: '/cosmos.mint.v1beta1.MsgUpdateParamsResponse',
+  aminoType: 'cosmos-sdk/MsgUpdateParamsResponse',
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParamsResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -199,8 +199,8 @@ export const MsgUpdateParamsResponse = {
   },
   toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
     return {
-      type: "cosmos-sdk/MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.toAmino(message)
+      type: 'cosmos-sdk/MsgUpdateParamsResponse',
+      value: MsgUpdateParamsResponse.toAmino(message),
     };
   },
   fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse {
@@ -211,8 +211,8 @@ export const MsgUpdateParamsResponse = {
   },
   toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
     return {
-      typeUrl: "/cosmos.mint.v1beta1.MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.encode(message).finish()
+      typeUrl: '/cosmos.mint.v1beta1.MsgUpdateParamsResponse',
+      value: MsgUpdateParamsResponse.encode(message).finish(),
     };
-  }
+  },
 };

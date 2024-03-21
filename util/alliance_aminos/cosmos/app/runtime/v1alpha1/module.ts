@@ -1,79 +1,79 @@
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { DeepPartial } from '../../../../helpers';
 /** Module is the config object for the runtime module. */
 export interface Module {
-  /** app_name is the name of the app. */
+  /** App_name is the name of the app. */
   appName: string;
   /**
-   * begin_blockers specifies the module names of begin blockers
+   * Begin_blockers specifies the module names of begin blockers
    * to call in the order in which they should be called. If this is left empty
    * no begin blocker will be registered.
    */
   beginBlockers: string[];
   /**
-   * end_blockers specifies the module names of the end blockers
+   * End_blockers specifies the module names of the end blockers
    * to call in the order in which they should be called. If this is left empty
    * no end blocker will be registered.
    */
   endBlockers: string[];
   /**
-   * init_genesis specifies the module names of init genesis functions
+   * Init_genesis specifies the module names of init genesis functions
    * to call in the order in which they should be called. If this is left empty
    * no init genesis function will be registered.
    */
   initGenesis: string[];
   /**
-   * export_genesis specifies the order in which to export module genesis data.
+   * Export_genesis specifies the order in which to export module genesis data.
    * If this is left empty, the init_genesis order will be used for export genesis
    * if it is specified.
    */
   exportGenesis: string[];
   /**
-   * override_store_keys is an optional list of overrides for the module store keys
+   * Override_store_keys is an optional list of overrides for the module store keys
    * to be used in keeper construction.
    */
   overrideStoreKeys: StoreKeyConfig[];
 }
 export interface ModuleProtoMsg {
-  typeUrl: "/cosmos.app.runtime.v1alpha1.Module";
+  typeUrl: '/cosmos.app.runtime.v1alpha1.Module';
   value: Uint8Array;
 }
 /** Module is the config object for the runtime module. */
 export interface ModuleAmino {
-  /** app_name is the name of the app. */
+  /** App_name is the name of the app. */
   app_name?: string;
   /**
-   * begin_blockers specifies the module names of begin blockers
+   * Begin_blockers specifies the module names of begin blockers
    * to call in the order in which they should be called. If this is left empty
    * no begin blocker will be registered.
    */
   begin_blockers?: string[];
   /**
-   * end_blockers specifies the module names of the end blockers
+   * End_blockers specifies the module names of the end blockers
    * to call in the order in which they should be called. If this is left empty
    * no end blocker will be registered.
    */
   end_blockers?: string[];
   /**
-   * init_genesis specifies the module names of init genesis functions
+   * Init_genesis specifies the module names of init genesis functions
    * to call in the order in which they should be called. If this is left empty
    * no init genesis function will be registered.
    */
   init_genesis?: string[];
   /**
-   * export_genesis specifies the order in which to export module genesis data.
+   * Export_genesis specifies the order in which to export module genesis data.
    * If this is left empty, the init_genesis order will be used for export genesis
    * if it is specified.
    */
   export_genesis?: string[];
   /**
-   * override_store_keys is an optional list of overrides for the module store keys
+   * Override_store_keys is an optional list of overrides for the module store keys
    * to be used in keeper construction.
    */
   override_store_keys?: StoreKeyConfigAmino[];
 }
 export interface ModuleAminoMsg {
-  type: "cosmos-sdk/Module";
+  type: 'cosmos-sdk/Module';
   value: ModuleAmino;
 }
 /** Module is the config object for the runtime module. */
@@ -90,13 +90,13 @@ export interface ModuleSDKType {
  * is the module name.
  */
 export interface StoreKeyConfig {
-  /** name of the module to override the store key of */
+  /** Name of the module to override the store key of */
   moduleName: string;
-  /** the kv store key to use instead of the module name. */
+  /** The kv store key to use instead of the module name. */
   kvStoreKey: string;
 }
 export interface StoreKeyConfigProtoMsg {
-  typeUrl: "/cosmos.app.runtime.v1alpha1.StoreKeyConfig";
+  typeUrl: '/cosmos.app.runtime.v1alpha1.StoreKeyConfig';
   value: Uint8Array;
 }
 /**
@@ -104,13 +104,13 @@ export interface StoreKeyConfigProtoMsg {
  * is the module name.
  */
 export interface StoreKeyConfigAmino {
-  /** name of the module to override the store key of */
+  /** Name of the module to override the store key of */
   module_name?: string;
-  /** the kv store key to use instead of the module name. */
+  /** The kv store key to use instead of the module name. */
   kv_store_key?: string;
 }
 export interface StoreKeyConfigAminoMsg {
-  type: "cosmos-sdk/StoreKeyConfig";
+  type: 'cosmos-sdk/StoreKeyConfig';
   value: StoreKeyConfigAmino;
 }
 /**
@@ -123,19 +123,19 @@ export interface StoreKeyConfigSDKType {
 }
 function createBaseModule(): Module {
   return {
-    appName: "",
+    appName: '',
     beginBlockers: [],
     endBlockers: [],
     initGenesis: [],
     exportGenesis: [],
-    overrideStoreKeys: []
+    overrideStoreKeys: [],
   };
 }
 export const Module = {
-  typeUrl: "/cosmos.app.runtime.v1alpha1.Module",
-  aminoType: "cosmos-sdk/Module",
+  typeUrl: '/cosmos.app.runtime.v1alpha1.Module',
+  aminoType: 'cosmos-sdk/Module',
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.appName !== "") {
+    if (message.appName !== '') {
       writer.uint32(10).string(message.appName);
     }
     for (const v of message.beginBlockers) {
@@ -157,7 +157,7 @@ export const Module = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Module {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModule();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -189,12 +189,12 @@ export const Module = {
   },
   fromPartial(object: DeepPartial<Module>): Module {
     const message = createBaseModule();
-    message.appName = object.appName ?? "";
-    message.beginBlockers = object.beginBlockers?.map(e => e) || [];
-    message.endBlockers = object.endBlockers?.map(e => e) || [];
-    message.initGenesis = object.initGenesis?.map(e => e) || [];
-    message.exportGenesis = object.exportGenesis?.map(e => e) || [];
-    message.overrideStoreKeys = object.overrideStoreKeys?.map(e => StoreKeyConfig.fromPartial(e)) || [];
+    message.appName = object.appName ?? '';
+    message.beginBlockers = object.beginBlockers?.map((e) => e) || [];
+    message.endBlockers = object.endBlockers?.map((e) => e) || [];
+    message.initGenesis = object.initGenesis?.map((e) => e) || [];
+    message.exportGenesis = object.exportGenesis?.map((e) => e) || [];
+    message.overrideStoreKeys = object.overrideStoreKeys?.map((e) => StoreKeyConfig.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: ModuleAmino): Module {
@@ -202,38 +202,38 @@ export const Module = {
     if (object.app_name !== undefined && object.app_name !== null) {
       message.appName = object.app_name;
     }
-    message.beginBlockers = object.begin_blockers?.map(e => e) || [];
-    message.endBlockers = object.end_blockers?.map(e => e) || [];
-    message.initGenesis = object.init_genesis?.map(e => e) || [];
-    message.exportGenesis = object.export_genesis?.map(e => e) || [];
-    message.overrideStoreKeys = object.override_store_keys?.map(e => StoreKeyConfig.fromAmino(e)) || [];
+    message.beginBlockers = object.begin_blockers?.map((e) => e) || [];
+    message.endBlockers = object.end_blockers?.map((e) => e) || [];
+    message.initGenesis = object.init_genesis?.map((e) => e) || [];
+    message.exportGenesis = object.export_genesis?.map((e) => e) || [];
+    message.overrideStoreKeys = object.override_store_keys?.map((e) => StoreKeyConfig.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: Module): ModuleAmino {
     const obj: any = {};
-    obj.app_name = message.appName === "" ? undefined : message.appName;
+    obj.app_name = message.appName === '' ? undefined : message.appName;
     if (message.beginBlockers) {
-      obj.begin_blockers = message.beginBlockers.map(e => e);
+      obj.begin_blockers = message.beginBlockers.map((e) => e);
     } else {
       obj.begin_blockers = message.beginBlockers;
     }
     if (message.endBlockers) {
-      obj.end_blockers = message.endBlockers.map(e => e);
+      obj.end_blockers = message.endBlockers.map((e) => e);
     } else {
       obj.end_blockers = message.endBlockers;
     }
     if (message.initGenesis) {
-      obj.init_genesis = message.initGenesis.map(e => e);
+      obj.init_genesis = message.initGenesis.map((e) => e);
     } else {
       obj.init_genesis = message.initGenesis;
     }
     if (message.exportGenesis) {
-      obj.export_genesis = message.exportGenesis.map(e => e);
+      obj.export_genesis = message.exportGenesis.map((e) => e);
     } else {
       obj.export_genesis = message.exportGenesis;
     }
     if (message.overrideStoreKeys) {
-      obj.override_store_keys = message.overrideStoreKeys.map(e => e ? StoreKeyConfig.toAmino(e) : undefined);
+      obj.override_store_keys = message.overrideStoreKeys.map((e) => (e ? StoreKeyConfig.toAmino(e) : undefined));
     } else {
       obj.override_store_keys = message.overrideStoreKeys;
     }
@@ -244,8 +244,8 @@ export const Module = {
   },
   toAminoMsg(message: Module): ModuleAminoMsg {
     return {
-      type: "cosmos-sdk/Module",
-      value: Module.toAmino(message)
+      type: 'cosmos-sdk/Module',
+      value: Module.toAmino(message),
     };
   },
   fromProtoMsg(message: ModuleProtoMsg): Module {
@@ -256,32 +256,32 @@ export const Module = {
   },
   toProtoMsg(message: Module): ModuleProtoMsg {
     return {
-      typeUrl: "/cosmos.app.runtime.v1alpha1.Module",
-      value: Module.encode(message).finish()
+      typeUrl: '/cosmos.app.runtime.v1alpha1.Module',
+      value: Module.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseStoreKeyConfig(): StoreKeyConfig {
   return {
-    moduleName: "",
-    kvStoreKey: ""
+    moduleName: '',
+    kvStoreKey: '',
   };
 }
 export const StoreKeyConfig = {
-  typeUrl: "/cosmos.app.runtime.v1alpha1.StoreKeyConfig",
-  aminoType: "cosmos-sdk/StoreKeyConfig",
+  typeUrl: '/cosmos.app.runtime.v1alpha1.StoreKeyConfig',
+  aminoType: 'cosmos-sdk/StoreKeyConfig',
   encode(message: StoreKeyConfig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.moduleName !== "") {
+    if (message.moduleName !== '') {
       writer.uint32(10).string(message.moduleName);
     }
-    if (message.kvStoreKey !== "") {
+    if (message.kvStoreKey !== '') {
       writer.uint32(18).string(message.kvStoreKey);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): StoreKeyConfig {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStoreKeyConfig();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -301,8 +301,8 @@ export const StoreKeyConfig = {
   },
   fromPartial(object: DeepPartial<StoreKeyConfig>): StoreKeyConfig {
     const message = createBaseStoreKeyConfig();
-    message.moduleName = object.moduleName ?? "";
-    message.kvStoreKey = object.kvStoreKey ?? "";
+    message.moduleName = object.moduleName ?? '';
+    message.kvStoreKey = object.kvStoreKey ?? '';
     return message;
   },
   fromAmino(object: StoreKeyConfigAmino): StoreKeyConfig {
@@ -317,8 +317,8 @@ export const StoreKeyConfig = {
   },
   toAmino(message: StoreKeyConfig): StoreKeyConfigAmino {
     const obj: any = {};
-    obj.module_name = message.moduleName === "" ? undefined : message.moduleName;
-    obj.kv_store_key = message.kvStoreKey === "" ? undefined : message.kvStoreKey;
+    obj.module_name = message.moduleName === '' ? undefined : message.moduleName;
+    obj.kv_store_key = message.kvStoreKey === '' ? undefined : message.kvStoreKey;
     return obj;
   },
   fromAminoMsg(object: StoreKeyConfigAminoMsg): StoreKeyConfig {
@@ -326,8 +326,8 @@ export const StoreKeyConfig = {
   },
   toAminoMsg(message: StoreKeyConfig): StoreKeyConfigAminoMsg {
     return {
-      type: "cosmos-sdk/StoreKeyConfig",
-      value: StoreKeyConfig.toAmino(message)
+      type: 'cosmos-sdk/StoreKeyConfig',
+      value: StoreKeyConfig.toAmino(message),
     };
   },
   fromProtoMsg(message: StoreKeyConfigProtoMsg): StoreKeyConfig {
@@ -338,8 +338,8 @@ export const StoreKeyConfig = {
   },
   toProtoMsg(message: StoreKeyConfig): StoreKeyConfigProtoMsg {
     return {
-      typeUrl: "/cosmos.app.runtime.v1alpha1.StoreKeyConfig",
-      value: StoreKeyConfig.encode(message).finish()
+      typeUrl: '/cosmos.app.runtime.v1alpha1.StoreKeyConfig',
+      value: StoreKeyConfig.encode(message).finish(),
     };
-  }
+  },
 };

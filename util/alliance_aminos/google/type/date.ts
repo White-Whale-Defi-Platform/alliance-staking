@@ -1,17 +1,17 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
 /**
  * Represents a whole or partial calendar date, such as a birthday. The time of
  * day and time zone are either specified elsewhere or are insignificant. The
  * date is relative to the Gregorian Calendar. This can represent one of the
  * following:
- * 
+ *
  * * A full date, with non-zero year, month, and day values
  * * A month and day value, with a zero year, such as an anniversary
  * * A year on its own, with zero month and day values
  * * A year and month value, with a zero day, such as a credit card expiration
  * date
- * 
+ *
  * Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and `google.protobuf.Timestamp`.
  */
 export interface Date {
@@ -33,7 +33,7 @@ export interface Date {
   day: number;
 }
 export interface DateProtoMsg {
-  typeUrl: "/google.type.Date";
+  typeUrl: '/google.type.Date';
   value: Uint8Array;
 }
 /**
@@ -41,13 +41,13 @@ export interface DateProtoMsg {
  * day and time zone are either specified elsewhere or are insignificant. The
  * date is relative to the Gregorian Calendar. This can represent one of the
  * following:
- * 
+ *
  * * A full date, with non-zero year, month, and day values
  * * A month and day value, with a zero year, such as an anniversary
  * * A year on its own, with zero month and day values
  * * A year and month value, with a zero day, such as a credit card expiration
  * date
- * 
+ *
  * Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and `google.protobuf.Timestamp`.
  */
 export interface DateAmino {
@@ -69,7 +69,7 @@ export interface DateAmino {
   day?: number;
 }
 export interface DateAminoMsg {
-  type: "/google.type.Date";
+  type: '/google.type.Date';
   value: DateAmino;
 }
 /**
@@ -77,13 +77,13 @@ export interface DateAminoMsg {
  * day and time zone are either specified elsewhere or are insignificant. The
  * date is relative to the Gregorian Calendar. This can represent one of the
  * following:
- * 
+ *
  * * A full date, with non-zero year, month, and day values
  * * A month and day value, with a zero year, such as an anniversary
  * * A year on its own, with zero month and day values
  * * A year and month value, with a zero day, such as a credit card expiration
  * date
- * 
+ *
  * Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and `google.protobuf.Timestamp`.
  */
 export interface DateSDKType {
@@ -95,11 +95,11 @@ function createBaseDate(): Date {
   return {
     year: 0,
     month: 0,
-    day: 0
+    day: 0,
   };
 }
 export const Date = {
-  typeUrl: "/google.type.Date",
+  typeUrl: '/google.type.Date',
   encode(message: Date, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.year !== 0) {
       writer.uint32(8).int32(message.year);
@@ -114,7 +114,7 @@ export const Date = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Date {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -173,8 +173,8 @@ export const Date = {
   },
   toProtoMsg(message: Date): DateProtoMsg {
     return {
-      typeUrl: "/google.type.Date",
-      value: Date.encode(message).finish()
+      typeUrl: '/google.type.Date',
+      value: Date.encode(message).finish(),
     };
-  }
+  },
 };

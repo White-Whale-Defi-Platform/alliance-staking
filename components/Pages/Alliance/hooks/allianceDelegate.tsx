@@ -8,9 +8,15 @@ export const allianceDelegate = async (
   address: string,
   amount: string,
   allianceDenom: string,
-) =>{ 
-  const delegate = alliance.alliance.MessageComposer.fromPartial.delegate
-  const message = delegate({delegatorAddress: address, validatorAddress:valAddress, amount: {denom: allianceDenom, amount}})
+) => {
+  const { delegate } = alliance.alliance.MessageComposer.fromPartial
+  const message = delegate({ delegatorAddress: address,
+    validatorAddress: valAddress,
+    amount: { denom: allianceDenom,
+      amount } })
   return await client.signAndBroadcast(
-  address, [message], await createGasFee(client, address, [message]))
+    address, [message], await createGasFee(
+      client, address, [message],
+    ),
+  )
 }

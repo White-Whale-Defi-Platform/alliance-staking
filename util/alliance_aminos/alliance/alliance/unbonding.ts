@@ -1,30 +1,30 @@
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { toTimestamp, fromTimestamp, DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { Timestamp } from '../../google/protobuf/timestamp';
+import { toTimestamp, fromTimestamp, DeepPartial } from '../../helpers';
 /** UnbondingDelegation defines an unbonding object with relevant metadata. */
 export interface UnbondingDelegation {
-  /** completion_time is the unix time for unbonding completion. */
+  /** Completion_time is the unix time for unbonding completion. */
   completionTime: Date;
-  /** validator_address is the bech32-encoded address of the validator. */
+  /** Validator_address is the bech32-encoded address of the validator. */
   validatorAddress: string;
-  /** amount defines the tokens to receive at completion. */
+  /** Amount defines the tokens to receive at completion. */
   amount: string;
 }
 export interface UnbondingDelegationProtoMsg {
-  typeUrl: "/alliance.alliance.UnbondingDelegation";
+  typeUrl: '/alliance.alliance.UnbondingDelegation';
   value: Uint8Array;
 }
 /** UnbondingDelegation defines an unbonding object with relevant metadata. */
 export interface UnbondingDelegationAmino {
-  /** completion_time is the unix time for unbonding completion. */
+  /** Completion_time is the unix time for unbonding completion. */
   completion_time?: string;
-  /** validator_address is the bech32-encoded address of the validator. */
+  /** Validator_address is the bech32-encoded address of the validator. */
   validator_address?: string;
-  /** amount defines the tokens to receive at completion. */
+  /** Amount defines the tokens to receive at completion. */
   amount?: string;
 }
 export interface UnbondingDelegationAminoMsg {
-  type: "/alliance.alliance.UnbondingDelegation";
+  type: '/alliance.alliance.UnbondingDelegation';
   value: UnbondingDelegationAmino;
 }
 /** UnbondingDelegation defines an unbonding object with relevant metadata. */
@@ -36,27 +36,27 @@ export interface UnbondingDelegationSDKType {
 function createBaseUnbondingDelegation(): UnbondingDelegation {
   return {
     completionTime: new Date(),
-    validatorAddress: "",
-    amount: ""
+    validatorAddress: '',
+    amount: '',
   };
 }
 export const UnbondingDelegation = {
-  typeUrl: "/alliance.alliance.UnbondingDelegation",
+  typeUrl: '/alliance.alliance.UnbondingDelegation',
   encode(message: UnbondingDelegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.completionTime !== undefined) {
       Timestamp.encode(toTimestamp(message.completionTime), writer.uint32(10).fork()).ldelim();
     }
-    if (message.validatorAddress !== "") {
+    if (message.validatorAddress !== '') {
       writer.uint32(18).string(message.validatorAddress);
     }
-    if (message.amount !== "") {
+    if (message.amount !== '') {
       writer.uint32(26).string(message.amount);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): UnbondingDelegation {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUnbondingDelegation();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -80,8 +80,8 @@ export const UnbondingDelegation = {
   fromPartial(object: DeepPartial<UnbondingDelegation>): UnbondingDelegation {
     const message = createBaseUnbondingDelegation();
     message.completionTime = object.completionTime ?? undefined;
-    message.validatorAddress = object.validatorAddress ?? "";
-    message.amount = object.amount ?? "";
+    message.validatorAddress = object.validatorAddress ?? '';
+    message.amount = object.amount ?? '';
     return message;
   },
   fromAmino(object: UnbondingDelegationAmino): UnbondingDelegation {
@@ -100,8 +100,8 @@ export const UnbondingDelegation = {
   toAmino(message: UnbondingDelegation): UnbondingDelegationAmino {
     const obj: any = {};
     obj.completion_time = message.completionTime ? Timestamp.toAmino(toTimestamp(message.completionTime)) : undefined;
-    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
-    obj.amount = message.amount === "" ? undefined : message.amount;
+    obj.validator_address = message.validatorAddress === '' ? undefined : message.validatorAddress;
+    obj.amount = message.amount === '' ? undefined : message.amount;
     return obj;
   },
   fromAminoMsg(object: UnbondingDelegationAminoMsg): UnbondingDelegation {
@@ -115,8 +115,8 @@ export const UnbondingDelegation = {
   },
   toProtoMsg(message: UnbondingDelegation): UnbondingDelegationProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.UnbondingDelegation",
-      value: UnbondingDelegation.encode(message).finish()
+      typeUrl: '/alliance.alliance.UnbondingDelegation',
+      value: UnbondingDelegation.encode(message).finish(),
     };
-  }
+  },
 };

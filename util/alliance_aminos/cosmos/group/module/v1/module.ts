@@ -1,38 +1,38 @@
-import { Duration, DurationAmino, DurationSDKType } from "../../../../google/protobuf/duration";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { Duration, DurationAmino, DurationSDKType } from '../../../../google/protobuf/duration';
+import { DeepPartial } from '../../../../helpers';
 /** Module is the config object of the group module. */
 export interface Module {
   /**
-   * max_execution_period defines the max duration after a proposal's voting period ends that members can send a MsgExec
+   * Max_execution_period defines the max duration after a proposal's voting period ends that members can send a MsgExec
    * to execute the proposal.
    */
   maxExecutionPeriod: Duration;
   /**
-   * max_metadata_len defines the max length of the metadata bytes field for various entities within the group module.
+   * Max_metadata_len defines the max length of the metadata bytes field for various entities within the group module.
    * Defaults to 255 if not explicitly set.
    */
   maxMetadataLen: bigint;
 }
 export interface ModuleProtoMsg {
-  typeUrl: "/cosmos.group.module.v1.Module";
+  typeUrl: '/cosmos.group.module.v1.Module';
   value: Uint8Array;
 }
 /** Module is the config object of the group module. */
 export interface ModuleAmino {
   /**
-   * max_execution_period defines the max duration after a proposal's voting period ends that members can send a MsgExec
+   * Max_execution_period defines the max duration after a proposal's voting period ends that members can send a MsgExec
    * to execute the proposal.
    */
   max_execution_period: DurationAmino;
   /**
-   * max_metadata_len defines the max length of the metadata bytes field for various entities within the group module.
+   * Max_metadata_len defines the max length of the metadata bytes field for various entities within the group module.
    * Defaults to 255 if not explicitly set.
    */
   max_metadata_len?: string;
 }
 export interface ModuleAminoMsg {
-  type: "cosmos-sdk/Module";
+  type: 'cosmos-sdk/Module';
   value: ModuleAmino;
 }
 /** Module is the config object of the group module. */
@@ -43,12 +43,12 @@ export interface ModuleSDKType {
 function createBaseModule(): Module {
   return {
     maxExecutionPeriod: Duration.fromPartial({}),
-    maxMetadataLen: BigInt(0)
+    maxMetadataLen: BigInt(0),
   };
 }
 export const Module = {
-  typeUrl: "/cosmos.group.module.v1.Module",
-  aminoType: "cosmos-sdk/Module",
+  typeUrl: '/cosmos.group.module.v1.Module',
+  aminoType: 'cosmos-sdk/Module',
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.maxExecutionPeriod !== undefined) {
       Duration.encode(message.maxExecutionPeriod, writer.uint32(10).fork()).ldelim();
@@ -60,7 +60,7 @@ export const Module = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Module {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModule();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -105,8 +105,8 @@ export const Module = {
   },
   toAminoMsg(message: Module): ModuleAminoMsg {
     return {
-      type: "cosmos-sdk/Module",
-      value: Module.toAmino(message)
+      type: 'cosmos-sdk/Module',
+      value: Module.toAmino(message),
     };
   },
   fromProtoMsg(message: ModuleProtoMsg): Module {
@@ -117,8 +117,8 @@ export const Module = {
   },
   toProtoMsg(message: Module): ModuleProtoMsg {
     return {
-      typeUrl: "/cosmos.group.module.v1.Module",
-      value: Module.encode(message).finish()
+      typeUrl: '/cosmos.group.module.v1.Module',
+      value: Module.encode(message).finish(),
     };
-  }
+  },
 };

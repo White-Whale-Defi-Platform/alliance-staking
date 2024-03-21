@@ -1,37 +1,37 @@
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { DeepPartial } from '../../../../helpers';
 /** Config is the config object of the x/auth/tx package. */
 export interface Config {
   /**
-   * skip_ante_handler defines whether the ante handler registration should be skipped in case an app wants to override
+   * Skip_ante_handler defines whether the ante handler registration should be skipped in case an app wants to override
    * this functionality.
    */
   skipAnteHandler: boolean;
   /**
-   * skip_post_handler defines whether the post handler registration should be skipped in case an app wants to override
+   * Skip_post_handler defines whether the post handler registration should be skipped in case an app wants to override
    * this functionality.
    */
   skipPostHandler: boolean;
 }
 export interface ConfigProtoMsg {
-  typeUrl: "/cosmos.tx.config.v1.Config";
+  typeUrl: '/cosmos.tx.config.v1.Config';
   value: Uint8Array;
 }
 /** Config is the config object of the x/auth/tx package. */
 export interface ConfigAmino {
   /**
-   * skip_ante_handler defines whether the ante handler registration should be skipped in case an app wants to override
+   * Skip_ante_handler defines whether the ante handler registration should be skipped in case an app wants to override
    * this functionality.
    */
   skip_ante_handler?: boolean;
   /**
-   * skip_post_handler defines whether the post handler registration should be skipped in case an app wants to override
+   * Skip_post_handler defines whether the post handler registration should be skipped in case an app wants to override
    * this functionality.
    */
   skip_post_handler?: boolean;
 }
 export interface ConfigAminoMsg {
-  type: "cosmos-sdk/Config";
+  type: 'cosmos-sdk/Config';
   value: ConfigAmino;
 }
 /** Config is the config object of the x/auth/tx package. */
@@ -42,12 +42,12 @@ export interface ConfigSDKType {
 function createBaseConfig(): Config {
   return {
     skipAnteHandler: false,
-    skipPostHandler: false
+    skipPostHandler: false,
   };
 }
 export const Config = {
-  typeUrl: "/cosmos.tx.config.v1.Config",
-  aminoType: "cosmos-sdk/Config",
+  typeUrl: '/cosmos.tx.config.v1.Config',
+  aminoType: 'cosmos-sdk/Config',
   encode(message: Config, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.skipAnteHandler === true) {
       writer.uint32(8).bool(message.skipAnteHandler);
@@ -59,7 +59,7 @@ export const Config = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Config {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConfig();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -104,8 +104,8 @@ export const Config = {
   },
   toAminoMsg(message: Config): ConfigAminoMsg {
     return {
-      type: "cosmos-sdk/Config",
-      value: Config.toAmino(message)
+      type: 'cosmos-sdk/Config',
+      value: Config.toAmino(message),
     };
   },
   fromProtoMsg(message: ConfigProtoMsg): Config {
@@ -116,8 +116,8 @@ export const Config = {
   },
   toProtoMsg(message: Config): ConfigProtoMsg {
     return {
-      typeUrl: "/cosmos.tx.config.v1.Config",
-      value: Config.encode(message).finish()
+      typeUrl: '/cosmos.tx.config.v1.Config',
+      value: Config.encode(message).finish(),
     };
-  }
+  },
 };

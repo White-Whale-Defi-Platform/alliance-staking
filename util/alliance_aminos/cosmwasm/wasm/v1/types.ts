@@ -1,7 +1,9 @@
-import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from "../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
-import { toUtf8, fromUtf8 } from "@cosmjs/encoding";
+import { toUtf8, fromUtf8 } from '@cosmjs/encoding';
+
+import { BinaryReader, BinaryWriter } from '../../../binary';
+import { Any, AnyProtoMsg, AnyAmino, AnySDKType } from '../../../google/protobuf/any';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../../helpers';
+
 /** AccessType permission types */
 export enum AccessType {
   /** ACCESS_TYPE_UNSPECIFIED - AccessTypeUnspecified placeholder for empty value */
@@ -19,19 +21,19 @@ export const AccessTypeAmino = AccessType;
 export function accessTypeFromJSON(object: any): AccessType {
   switch (object) {
     case 0:
-    case "ACCESS_TYPE_UNSPECIFIED":
+    case 'ACCESS_TYPE_UNSPECIFIED':
       return AccessType.ACCESS_TYPE_UNSPECIFIED;
     case 1:
-    case "ACCESS_TYPE_NOBODY":
+    case 'ACCESS_TYPE_NOBODY':
       return AccessType.ACCESS_TYPE_NOBODY;
     case 3:
-    case "ACCESS_TYPE_EVERYBODY":
+    case 'ACCESS_TYPE_EVERYBODY':
       return AccessType.ACCESS_TYPE_EVERYBODY;
     case 4:
-    case "ACCESS_TYPE_ANY_OF_ADDRESSES":
+    case 'ACCESS_TYPE_ANY_OF_ADDRESSES':
       return AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return AccessType.UNRECOGNIZED;
   }
@@ -39,16 +41,16 @@ export function accessTypeFromJSON(object: any): AccessType {
 export function accessTypeToJSON(object: AccessType): string {
   switch (object) {
     case AccessType.ACCESS_TYPE_UNSPECIFIED:
-      return "ACCESS_TYPE_UNSPECIFIED";
+      return 'ACCESS_TYPE_UNSPECIFIED';
     case AccessType.ACCESS_TYPE_NOBODY:
-      return "ACCESS_TYPE_NOBODY";
+      return 'ACCESS_TYPE_NOBODY';
     case AccessType.ACCESS_TYPE_EVERYBODY:
-      return "ACCESS_TYPE_EVERYBODY";
+      return 'ACCESS_TYPE_EVERYBODY';
     case AccessType.ACCESS_TYPE_ANY_OF_ADDRESSES:
-      return "ACCESS_TYPE_ANY_OF_ADDRESSES";
+      return 'ACCESS_TYPE_ANY_OF_ADDRESSES';
     case AccessType.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 /** ContractCodeHistoryOperationType actions that caused a code change */
@@ -68,19 +70,19 @@ export const ContractCodeHistoryOperationTypeAmino = ContractCodeHistoryOperatio
 export function contractCodeHistoryOperationTypeFromJSON(object: any): ContractCodeHistoryOperationType {
   switch (object) {
     case 0:
-    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED":
+    case 'CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED':
       return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED;
     case 1:
-    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT":
+    case 'CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT':
       return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT;
     case 2:
-    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE":
+    case 'CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE':
       return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE;
     case 3:
-    case "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS":
+    case 'CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS':
       return ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return ContractCodeHistoryOperationType.UNRECOGNIZED;
   }
@@ -88,16 +90,16 @@ export function contractCodeHistoryOperationTypeFromJSON(object: any): ContractC
 export function contractCodeHistoryOperationTypeToJSON(object: ContractCodeHistoryOperationType): string {
   switch (object) {
     case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED:
-      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED";
+      return 'CONTRACT_CODE_HISTORY_OPERATION_TYPE_UNSPECIFIED';
     case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT:
-      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT";
+      return 'CONTRACT_CODE_HISTORY_OPERATION_TYPE_INIT';
     case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE:
-      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE";
+      return 'CONTRACT_CODE_HISTORY_OPERATION_TYPE_MIGRATE';
     case ContractCodeHistoryOperationType.CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS:
-      return "CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS";
+      return 'CONTRACT_CODE_HISTORY_OPERATION_TYPE_GENESIS';
     case ContractCodeHistoryOperationType.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 /** AccessTypeParam */
@@ -105,7 +107,7 @@ export interface AccessTypeParam {
   value: AccessType;
 }
 export interface AccessTypeParamProtoMsg {
-  typeUrl: "/cosmwasm.wasm.v1.AccessTypeParam";
+  typeUrl: '/cosmwasm.wasm.v1.AccessTypeParam';
   value: Uint8Array;
 }
 /** AccessTypeParam */
@@ -113,7 +115,7 @@ export interface AccessTypeParamAmino {
   value?: AccessType;
 }
 export interface AccessTypeParamAminoMsg {
-  type: "wasm/AccessTypeParam";
+  type: 'wasm/AccessTypeParam';
   value: AccessTypeParamAmino;
 }
 /** AccessTypeParam */
@@ -126,7 +128,7 @@ export interface AccessConfig {
   addresses: string[];
 }
 export interface AccessConfigProtoMsg {
-  typeUrl: "/cosmwasm.wasm.v1.AccessConfig";
+  typeUrl: '/cosmwasm.wasm.v1.AccessConfig';
   value: Uint8Array;
 }
 /** AccessConfig access control type. */
@@ -135,7 +137,7 @@ export interface AccessConfigAmino {
   addresses?: string[];
 }
 export interface AccessConfigAminoMsg {
-  type: "wasm/AccessConfig";
+  type: 'wasm/AccessConfig';
   value: AccessConfigAmino;
 }
 /** AccessConfig access control type. */
@@ -149,7 +151,7 @@ export interface Params {
   instantiateDefaultPermission: AccessType;
 }
 export interface ParamsProtoMsg {
-  typeUrl: "/cosmwasm.wasm.v1.Params";
+  typeUrl: '/cosmwasm.wasm.v1.Params';
   value: Uint8Array;
 }
 /** Params defines the set of wasm parameters. */
@@ -158,7 +160,7 @@ export interface ParamsAmino {
   instantiate_default_permission?: AccessType;
 }
 export interface ParamsAminoMsg {
-  type: "wasm/Params";
+  type: 'wasm/Params';
   value: ParamsAmino;
 }
 /** Params defines the set of wasm parameters. */
@@ -176,7 +178,7 @@ export interface CodeInfo {
   instantiateConfig: AccessConfig;
 }
 export interface CodeInfoProtoMsg {
-  typeUrl: "/cosmwasm.wasm.v1.CodeInfo";
+  typeUrl: '/cosmwasm.wasm.v1.CodeInfo';
   value: Uint8Array;
 }
 /** CodeInfo is data for the uploaded contract WASM code */
@@ -189,7 +191,7 @@ export interface CodeInfoAmino {
   instantiate_config: AccessConfigAmino;
 }
 export interface CodeInfoAminoMsg {
-  type: "wasm/CodeInfo";
+  type: 'wasm/CodeInfo';
   value: CodeInfoAmino;
 }
 /** CodeInfo is data for the uploaded contract WASM code */
@@ -218,10 +220,10 @@ export interface ContractInfo {
   extension?: Any | undefined;
 }
 export interface ContractInfoProtoMsg {
-  typeUrl: "/cosmwasm.wasm.v1.ContractInfo";
+  typeUrl: '/cosmwasm.wasm.v1.ContractInfo';
   value: Uint8Array;
 }
-export type ContractInfoEncoded = Omit<ContractInfo, "extension"> & {
+export type ContractInfoEncoded = Omit<ContractInfo, 'extension'> & {
   /**
    * Extension is an extension point to store custom metadata within the
    * persistence model.
@@ -248,7 +250,7 @@ export interface ContractInfoAmino {
   extension?: AnyAmino;
 }
 export interface ContractInfoAminoMsg {
-  type: "wasm/ContractInfo";
+  type: 'wasm/ContractInfo';
   value: ContractInfoAmino;
 }
 /** ContractInfo stores a WASM contract instance */
@@ -271,7 +273,7 @@ export interface ContractCodeHistoryEntry {
   msg: Uint8Array;
 }
 export interface ContractCodeHistoryEntryProtoMsg {
-  typeUrl: "/cosmwasm.wasm.v1.ContractCodeHistoryEntry";
+  typeUrl: '/cosmwasm.wasm.v1.ContractCodeHistoryEntry';
   value: Uint8Array;
 }
 /** ContractCodeHistoryEntry metadata to a contract. */
@@ -284,7 +286,7 @@ export interface ContractCodeHistoryEntryAmino {
   msg?: any;
 }
 export interface ContractCodeHistoryEntryAminoMsg {
-  type: "wasm/ContractCodeHistoryEntry";
+  type: 'wasm/ContractCodeHistoryEntry';
   value: ContractCodeHistoryEntryAmino;
 }
 /** ContractCodeHistoryEntry metadata to a contract. */
@@ -308,7 +310,7 @@ export interface AbsoluteTxPosition {
   txIndex: bigint;
 }
 export interface AbsoluteTxPositionProtoMsg {
-  typeUrl: "/cosmwasm.wasm.v1.AbsoluteTxPosition";
+  typeUrl: '/cosmwasm.wasm.v1.AbsoluteTxPosition';
   value: Uint8Array;
 }
 /**
@@ -325,7 +327,7 @@ export interface AbsoluteTxPositionAmino {
   tx_index?: string;
 }
 export interface AbsoluteTxPositionAminoMsg {
-  type: "wasm/AbsoluteTxPosition";
+  type: 'wasm/AbsoluteTxPosition';
   value: AbsoluteTxPositionAmino;
 }
 /**
@@ -338,24 +340,24 @@ export interface AbsoluteTxPositionSDKType {
 }
 /** Model is a struct that holds a KV pair */
 export interface Model {
-  /** hex-encode key to read it better (this is often ascii) */
+  /** Hex-encode key to read it better (this is often ascii) */
   key: Uint8Array;
-  /** base64-encode raw value */
+  /** Base64-encode raw value */
   value: Uint8Array;
 }
 export interface ModelProtoMsg {
-  typeUrl: "/cosmwasm.wasm.v1.Model";
+  typeUrl: '/cosmwasm.wasm.v1.Model';
   value: Uint8Array;
 }
 /** Model is a struct that holds a KV pair */
 export interface ModelAmino {
-  /** hex-encode key to read it better (this is often ascii) */
+  /** Hex-encode key to read it better (this is often ascii) */
   key?: string;
-  /** base64-encode raw value */
+  /** Base64-encode raw value */
   value?: string;
 }
 export interface ModelAminoMsg {
-  type: "wasm/Model";
+  type: 'wasm/Model';
   value: ModelAmino;
 }
 /** Model is a struct that holds a KV pair */
@@ -365,12 +367,12 @@ export interface ModelSDKType {
 }
 function createBaseAccessTypeParam(): AccessTypeParam {
   return {
-    value: 0
+    value: 0,
   };
 }
 export const AccessTypeParam = {
-  typeUrl: "/cosmwasm.wasm.v1.AccessTypeParam",
-  aminoType: "wasm/AccessTypeParam",
+  typeUrl: '/cosmwasm.wasm.v1.AccessTypeParam',
+  aminoType: 'wasm/AccessTypeParam',
   encode(message: AccessTypeParam, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value !== 0) {
       writer.uint32(8).int32(message.value);
@@ -379,7 +381,7 @@ export const AccessTypeParam = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): AccessTypeParam {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAccessTypeParam();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -416,8 +418,8 @@ export const AccessTypeParam = {
   },
   toAminoMsg(message: AccessTypeParam): AccessTypeParamAminoMsg {
     return {
-      type: "wasm/AccessTypeParam",
-      value: AccessTypeParam.toAmino(message)
+      type: 'wasm/AccessTypeParam',
+      value: AccessTypeParam.toAmino(message),
     };
   },
   fromProtoMsg(message: AccessTypeParamProtoMsg): AccessTypeParam {
@@ -428,20 +430,20 @@ export const AccessTypeParam = {
   },
   toProtoMsg(message: AccessTypeParam): AccessTypeParamProtoMsg {
     return {
-      typeUrl: "/cosmwasm.wasm.v1.AccessTypeParam",
-      value: AccessTypeParam.encode(message).finish()
+      typeUrl: '/cosmwasm.wasm.v1.AccessTypeParam',
+      value: AccessTypeParam.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseAccessConfig(): AccessConfig {
   return {
     permission: 0,
-    addresses: []
+    addresses: [],
   };
 }
 export const AccessConfig = {
-  typeUrl: "/cosmwasm.wasm.v1.AccessConfig",
-  aminoType: "wasm/AccessConfig",
+  typeUrl: '/cosmwasm.wasm.v1.AccessConfig',
+  aminoType: 'wasm/AccessConfig',
   encode(message: AccessConfig, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.permission !== 0) {
       writer.uint32(8).int32(message.permission);
@@ -453,7 +455,7 @@ export const AccessConfig = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): AccessConfig {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAccessConfig();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -474,7 +476,7 @@ export const AccessConfig = {
   fromPartial(object: DeepPartial<AccessConfig>): AccessConfig {
     const message = createBaseAccessConfig();
     message.permission = object.permission ?? 0;
-    message.addresses = object.addresses?.map(e => e) || [];
+    message.addresses = object.addresses?.map((e) => e) || [];
     return message;
   },
   fromAmino(object: AccessConfigAmino): AccessConfig {
@@ -482,14 +484,14 @@ export const AccessConfig = {
     if (object.permission !== undefined && object.permission !== null) {
       message.permission = object.permission;
     }
-    message.addresses = object.addresses?.map(e => e) || [];
+    message.addresses = object.addresses?.map((e) => e) || [];
     return message;
   },
   toAmino(message: AccessConfig): AccessConfigAmino {
     const obj: any = {};
     obj.permission = message.permission === 0 ? undefined : message.permission;
     if (message.addresses) {
-      obj.addresses = message.addresses.map(e => e);
+      obj.addresses = message.addresses.map((e) => e);
     } else {
       obj.addresses = message.addresses;
     }
@@ -500,8 +502,8 @@ export const AccessConfig = {
   },
   toAminoMsg(message: AccessConfig): AccessConfigAminoMsg {
     return {
-      type: "wasm/AccessConfig",
-      value: AccessConfig.toAmino(message)
+      type: 'wasm/AccessConfig',
+      value: AccessConfig.toAmino(message),
     };
   },
   fromProtoMsg(message: AccessConfigProtoMsg): AccessConfig {
@@ -512,20 +514,20 @@ export const AccessConfig = {
   },
   toProtoMsg(message: AccessConfig): AccessConfigProtoMsg {
     return {
-      typeUrl: "/cosmwasm.wasm.v1.AccessConfig",
-      value: AccessConfig.encode(message).finish()
+      typeUrl: '/cosmwasm.wasm.v1.AccessConfig',
+      value: AccessConfig.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseParams(): Params {
   return {
     codeUploadAccess: AccessConfig.fromPartial({}),
-    instantiateDefaultPermission: 0
+    instantiateDefaultPermission: 0,
   };
 }
 export const Params = {
-  typeUrl: "/cosmwasm.wasm.v1.Params",
-  aminoType: "wasm/Params",
+  typeUrl: '/cosmwasm.wasm.v1.Params',
+  aminoType: 'wasm/Params',
   encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeUploadAccess !== undefined) {
       AccessConfig.encode(message.codeUploadAccess, writer.uint32(10).fork()).ldelim();
@@ -537,7 +539,7 @@ export const Params = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Params {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -582,8 +584,8 @@ export const Params = {
   },
   toAminoMsg(message: Params): ParamsAminoMsg {
     return {
-      type: "wasm/Params",
-      value: Params.toAmino(message)
+      type: 'wasm/Params',
+      value: Params.toAmino(message),
     };
   },
   fromProtoMsg(message: ParamsProtoMsg): Params {
@@ -594,26 +596,26 @@ export const Params = {
   },
   toProtoMsg(message: Params): ParamsProtoMsg {
     return {
-      typeUrl: "/cosmwasm.wasm.v1.Params",
-      value: Params.encode(message).finish()
+      typeUrl: '/cosmwasm.wasm.v1.Params',
+      value: Params.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseCodeInfo(): CodeInfo {
   return {
     codeHash: new Uint8Array(),
-    creator: "",
-    instantiateConfig: AccessConfig.fromPartial({})
+    creator: '',
+    instantiateConfig: AccessConfig.fromPartial({}),
   };
 }
 export const CodeInfo = {
-  typeUrl: "/cosmwasm.wasm.v1.CodeInfo",
-  aminoType: "wasm/CodeInfo",
+  typeUrl: '/cosmwasm.wasm.v1.CodeInfo',
+  aminoType: 'wasm/CodeInfo',
   encode(message: CodeInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeHash.length !== 0) {
       writer.uint32(10).bytes(message.codeHash);
     }
-    if (message.creator !== "") {
+    if (message.creator !== '') {
       writer.uint32(18).string(message.creator);
     }
     if (message.instantiateConfig !== undefined) {
@@ -623,7 +625,7 @@ export const CodeInfo = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): CodeInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCodeInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -647,7 +649,7 @@ export const CodeInfo = {
   fromPartial(object: DeepPartial<CodeInfo>): CodeInfo {
     const message = createBaseCodeInfo();
     message.codeHash = object.codeHash ?? new Uint8Array();
-    message.creator = object.creator ?? "";
+    message.creator = object.creator ?? '';
     message.instantiateConfig = object.instantiateConfig !== undefined && object.instantiateConfig !== null ? AccessConfig.fromPartial(object.instantiateConfig) : undefined;
     return message;
   },
@@ -667,7 +669,7 @@ export const CodeInfo = {
   toAmino(message: CodeInfo): CodeInfoAmino {
     const obj: any = {};
     obj.code_hash = message.codeHash ? base64FromBytes(message.codeHash) : undefined;
-    obj.creator = message.creator === "" ? undefined : message.creator;
+    obj.creator = message.creator === '' ? undefined : message.creator;
     obj.instantiate_config = message.instantiateConfig ? AccessConfig.toAmino(message.instantiateConfig) : AccessConfig.toAmino(AccessConfig.fromPartial({}));
     return obj;
   },
@@ -676,8 +678,8 @@ export const CodeInfo = {
   },
   toAminoMsg(message: CodeInfo): CodeInfoAminoMsg {
     return {
-      type: "wasm/CodeInfo",
-      value: CodeInfo.toAmino(message)
+      type: 'wasm/CodeInfo',
+      value: CodeInfo.toAmino(message),
     };
   },
   fromProtoMsg(message: CodeInfoProtoMsg): CodeInfo {
@@ -688,42 +690,42 @@ export const CodeInfo = {
   },
   toProtoMsg(message: CodeInfo): CodeInfoProtoMsg {
     return {
-      typeUrl: "/cosmwasm.wasm.v1.CodeInfo",
-      value: CodeInfo.encode(message).finish()
+      typeUrl: '/cosmwasm.wasm.v1.CodeInfo',
+      value: CodeInfo.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseContractInfo(): ContractInfo {
   return {
     codeId: BigInt(0),
-    creator: "",
-    admin: "",
-    label: "",
+    creator: '',
+    admin: '',
+    label: '',
     created: undefined,
-    ibcPortId: "",
-    extension: undefined
+    ibcPortId: '',
+    extension: undefined,
   };
 }
 export const ContractInfo = {
-  typeUrl: "/cosmwasm.wasm.v1.ContractInfo",
-  aminoType: "wasm/ContractInfo",
+  typeUrl: '/cosmwasm.wasm.v1.ContractInfo',
+  aminoType: 'wasm/ContractInfo',
   encode(message: ContractInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.codeId !== BigInt(0)) {
       writer.uint32(8).uint64(message.codeId);
     }
-    if (message.creator !== "") {
+    if (message.creator !== '') {
       writer.uint32(18).string(message.creator);
     }
-    if (message.admin !== "") {
+    if (message.admin !== '') {
       writer.uint32(26).string(message.admin);
     }
-    if (message.label !== "") {
+    if (message.label !== '') {
       writer.uint32(34).string(message.label);
     }
     if (message.created !== undefined) {
       AbsoluteTxPosition.encode(message.created, writer.uint32(42).fork()).ldelim();
     }
-    if (message.ibcPortId !== "") {
+    if (message.ibcPortId !== '') {
       writer.uint32(50).string(message.ibcPortId);
     }
     if (message.extension !== undefined) {
@@ -733,7 +735,7 @@ export const ContractInfo = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ContractInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseContractInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -769,11 +771,11 @@ export const ContractInfo = {
   fromPartial(object: DeepPartial<ContractInfo>): ContractInfo {
     const message = createBaseContractInfo();
     message.codeId = object.codeId !== undefined && object.codeId !== null ? BigInt(object.codeId.toString()) : BigInt(0);
-    message.creator = object.creator ?? "";
-    message.admin = object.admin ?? "";
-    message.label = object.label ?? "";
+    message.creator = object.creator ?? '';
+    message.admin = object.admin ?? '';
+    message.label = object.label ?? '';
     message.created = object.created !== undefined && object.created !== null ? AbsoluteTxPosition.fromPartial(object.created) : undefined;
-    message.ibcPortId = object.ibcPortId ?? "";
+    message.ibcPortId = object.ibcPortId ?? '';
     message.extension = object.extension !== undefined && object.extension !== null ? Any.fromPartial(object.extension) : undefined;
     return message;
   },
@@ -805,11 +807,11 @@ export const ContractInfo = {
   toAmino(message: ContractInfo): ContractInfoAmino {
     const obj: any = {};
     obj.code_id = message.codeId !== BigInt(0) ? message.codeId.toString() : undefined;
-    obj.creator = message.creator === "" ? undefined : message.creator;
-    obj.admin = message.admin === "" ? undefined : message.admin;
-    obj.label = message.label === "" ? undefined : message.label;
+    obj.creator = message.creator === '' ? undefined : message.creator;
+    obj.admin = message.admin === '' ? undefined : message.admin;
+    obj.label = message.label === '' ? undefined : message.label;
     obj.created = message.created ? AbsoluteTxPosition.toAmino(message.created) : undefined;
-    obj.ibc_port_id = message.ibcPortId === "" ? undefined : message.ibcPortId;
+    obj.ibc_port_id = message.ibcPortId === '' ? undefined : message.ibcPortId;
     obj.extension = message.extension ? Cosmwasm_wasmv1ContractInfoExtension_ToAmino((message.extension as Any)) : undefined;
     return obj;
   },
@@ -818,8 +820,8 @@ export const ContractInfo = {
   },
   toAminoMsg(message: ContractInfo): ContractInfoAminoMsg {
     return {
-      type: "wasm/ContractInfo",
-      value: ContractInfo.toAmino(message)
+      type: 'wasm/ContractInfo',
+      value: ContractInfo.toAmino(message),
     };
   },
   fromProtoMsg(message: ContractInfoProtoMsg): ContractInfo {
@@ -830,22 +832,22 @@ export const ContractInfo = {
   },
   toProtoMsg(message: ContractInfo): ContractInfoProtoMsg {
     return {
-      typeUrl: "/cosmwasm.wasm.v1.ContractInfo",
-      value: ContractInfo.encode(message).finish()
+      typeUrl: '/cosmwasm.wasm.v1.ContractInfo',
+      value: ContractInfo.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseContractCodeHistoryEntry(): ContractCodeHistoryEntry {
   return {
     operation: 0,
     codeId: BigInt(0),
     updated: undefined,
-    msg: new Uint8Array()
+    msg: new Uint8Array(),
   };
 }
 export const ContractCodeHistoryEntry = {
-  typeUrl: "/cosmwasm.wasm.v1.ContractCodeHistoryEntry",
-  aminoType: "wasm/ContractCodeHistoryEntry",
+  typeUrl: '/cosmwasm.wasm.v1.ContractCodeHistoryEntry',
+  aminoType: 'wasm/ContractCodeHistoryEntry',
   encode(message: ContractCodeHistoryEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.operation !== 0) {
       writer.uint32(8).int32(message.operation);
@@ -863,7 +865,7 @@ export const ContractCodeHistoryEntry = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ContractCodeHistoryEntry {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseContractCodeHistoryEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -924,8 +926,8 @@ export const ContractCodeHistoryEntry = {
   },
   toAminoMsg(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryAminoMsg {
     return {
-      type: "wasm/ContractCodeHistoryEntry",
-      value: ContractCodeHistoryEntry.toAmino(message)
+      type: 'wasm/ContractCodeHistoryEntry',
+      value: ContractCodeHistoryEntry.toAmino(message),
     };
   },
   fromProtoMsg(message: ContractCodeHistoryEntryProtoMsg): ContractCodeHistoryEntry {
@@ -936,20 +938,20 @@ export const ContractCodeHistoryEntry = {
   },
   toProtoMsg(message: ContractCodeHistoryEntry): ContractCodeHistoryEntryProtoMsg {
     return {
-      typeUrl: "/cosmwasm.wasm.v1.ContractCodeHistoryEntry",
-      value: ContractCodeHistoryEntry.encode(message).finish()
+      typeUrl: '/cosmwasm.wasm.v1.ContractCodeHistoryEntry',
+      value: ContractCodeHistoryEntry.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseAbsoluteTxPosition(): AbsoluteTxPosition {
   return {
     blockHeight: BigInt(0),
-    txIndex: BigInt(0)
+    txIndex: BigInt(0),
   };
 }
 export const AbsoluteTxPosition = {
-  typeUrl: "/cosmwasm.wasm.v1.AbsoluteTxPosition",
-  aminoType: "wasm/AbsoluteTxPosition",
+  typeUrl: '/cosmwasm.wasm.v1.AbsoluteTxPosition',
+  aminoType: 'wasm/AbsoluteTxPosition',
   encode(message: AbsoluteTxPosition, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.blockHeight !== BigInt(0)) {
       writer.uint32(8).uint64(message.blockHeight);
@@ -961,7 +963,7 @@ export const AbsoluteTxPosition = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): AbsoluteTxPosition {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAbsoluteTxPosition();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1006,8 +1008,8 @@ export const AbsoluteTxPosition = {
   },
   toAminoMsg(message: AbsoluteTxPosition): AbsoluteTxPositionAminoMsg {
     return {
-      type: "wasm/AbsoluteTxPosition",
-      value: AbsoluteTxPosition.toAmino(message)
+      type: 'wasm/AbsoluteTxPosition',
+      value: AbsoluteTxPosition.toAmino(message),
     };
   },
   fromProtoMsg(message: AbsoluteTxPositionProtoMsg): AbsoluteTxPosition {
@@ -1018,20 +1020,20 @@ export const AbsoluteTxPosition = {
   },
   toProtoMsg(message: AbsoluteTxPosition): AbsoluteTxPositionProtoMsg {
     return {
-      typeUrl: "/cosmwasm.wasm.v1.AbsoluteTxPosition",
-      value: AbsoluteTxPosition.encode(message).finish()
+      typeUrl: '/cosmwasm.wasm.v1.AbsoluteTxPosition',
+      value: AbsoluteTxPosition.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseModel(): Model {
   return {
     key: new Uint8Array(),
-    value: new Uint8Array()
+    value: new Uint8Array(),
   };
 }
 export const Model = {
-  typeUrl: "/cosmwasm.wasm.v1.Model",
-  aminoType: "wasm/Model",
+  typeUrl: '/cosmwasm.wasm.v1.Model',
+  aminoType: 'wasm/Model',
   encode(message: Model, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
@@ -1043,7 +1045,7 @@ export const Model = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Model {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1088,8 +1090,8 @@ export const Model = {
   },
   toAminoMsg(message: Model): ModelAminoMsg {
     return {
-      type: "wasm/Model",
-      value: Model.toAmino(message)
+      type: 'wasm/Model',
+      value: Model.toAmino(message),
     };
   },
   fromProtoMsg(message: ModelProtoMsg): Model {
@@ -1100,10 +1102,10 @@ export const Model = {
   },
   toProtoMsg(message: Model): ModelProtoMsg {
     return {
-      typeUrl: "/cosmwasm.wasm.v1.Model",
-      value: Model.encode(message).finish()
+      typeUrl: '/cosmwasm.wasm.v1.Model',
+      value: Model.encode(message).finish(),
     };
-  }
+  },
 };
 export const Cosmwasm_wasmv1ContractInfoExtension_InterfaceDecoder = (input: BinaryReader | Uint8Array): Any => {
   const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
@@ -1113,9 +1115,5 @@ export const Cosmwasm_wasmv1ContractInfoExtension_InterfaceDecoder = (input: Bin
       return data;
   }
 };
-export const Cosmwasm_wasmv1ContractInfoExtension_FromAmino = (content: AnyAmino): Any => {
-  return Any.fromAmino(content);
-};
-export const Cosmwasm_wasmv1ContractInfoExtension_ToAmino = (content: Any) => {
-  return Any.toAmino(content);
-};
+export const Cosmwasm_wasmv1ContractInfoExtension_FromAmino = (content: AnyAmino): Any => Any.fromAmino(content);
+export const Cosmwasm_wasmv1ContractInfoExtension_ToAmino = (content: Any) => Any.toAmino(content);

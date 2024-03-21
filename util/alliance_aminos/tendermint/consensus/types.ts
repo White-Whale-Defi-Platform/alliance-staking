@@ -1,13 +1,13 @@
-import { PartSetHeader, PartSetHeaderAmino, PartSetHeaderSDKType, Part, PartAmino, PartSDKType, SignedMsgType, BlockID, BlockIDAmino, BlockIDSDKType } from "../types/types";
-import { Proposal as Proposal1 } from "../types/types";
-import { ProposalAmino as Proposal1Amino } from "../types/types";
-import { ProposalSDKType as Proposal1SDKType } from "../types/types";
-import { Vote as Vote1 } from "../types/types";
-import { VoteAmino as Vote1Amino } from "../types/types";
-import { VoteSDKType as Vote1SDKType } from "../types/types";
-import { BitArray, BitArrayAmino, BitArraySDKType } from "../libs/bits/types";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
+import { BitArray, BitArrayAmino, BitArraySDKType } from '../libs/bits/types';
+import { PartSetHeader, PartSetHeaderAmino, PartSetHeaderSDKType, Part, PartAmino, PartSDKType, SignedMsgType, BlockID, BlockIDAmino, BlockIDSDKType } from '../types/types';
+import { Proposal as Proposal1 } from '../types/types';
+import { ProposalAmino as Proposal1Amino } from '../types/types';
+import { ProposalSDKType as Proposal1SDKType } from '../types/types';
+import { Vote as Vote1 } from '../types/types';
+import { VoteAmino as Vote1Amino } from '../types/types';
+import { VoteSDKType as Vote1SDKType } from '../types/types';
 /**
  * NewRoundStep is sent for every step taken in the ConsensusState.
  * For every height/round/step transition
@@ -20,7 +20,7 @@ export interface NewRoundStep {
   lastCommitRound: number;
 }
 export interface NewRoundStepProtoMsg {
-  typeUrl: "/tendermint.consensus.NewRoundStep";
+  typeUrl: '/tendermint.consensus.NewRoundStep';
   value: Uint8Array;
 }
 /**
@@ -35,7 +35,7 @@ export interface NewRoundStepAmino {
   last_commit_round?: number;
 }
 export interface NewRoundStepAminoMsg {
-  type: "/tendermint.consensus.NewRoundStep";
+  type: '/tendermint.consensus.NewRoundStep';
   value: NewRoundStepAmino;
 }
 /**
@@ -62,7 +62,7 @@ export interface NewValidBlock {
   isCommit: boolean;
 }
 export interface NewValidBlockProtoMsg {
-  typeUrl: "/tendermint.consensus.NewValidBlock";
+  typeUrl: '/tendermint.consensus.NewValidBlock';
   value: Uint8Array;
 }
 /**
@@ -78,7 +78,7 @@ export interface NewValidBlockAmino {
   is_commit?: boolean;
 }
 export interface NewValidBlockAminoMsg {
-  type: "/tendermint.consensus.NewValidBlock";
+  type: '/tendermint.consensus.NewValidBlock';
   value: NewValidBlockAmino;
 }
 /**
@@ -98,7 +98,7 @@ export interface Proposal {
   proposal: Proposal1;
 }
 export interface ProposalProtoMsg {
-  typeUrl: "/tendermint.consensus.Proposal";
+  typeUrl: '/tendermint.consensus.Proposal';
   value: Uint8Array;
 }
 /** Proposal is sent when a new block is proposed. */
@@ -106,7 +106,7 @@ export interface ProposalAmino {
   proposal?: Proposal1Amino;
 }
 export interface ProposalAminoMsg {
-  type: "/tendermint.consensus.Proposal";
+  type: '/tendermint.consensus.Proposal';
   value: ProposalAmino;
 }
 /** Proposal is sent when a new block is proposed. */
@@ -120,7 +120,7 @@ export interface ProposalPOL {
   proposalPol: BitArray;
 }
 export interface ProposalPOLProtoMsg {
-  typeUrl: "/tendermint.consensus.ProposalPOL";
+  typeUrl: '/tendermint.consensus.ProposalPOL';
   value: Uint8Array;
 }
 /** ProposalPOL is sent when a previous proposal is re-proposed. */
@@ -130,7 +130,7 @@ export interface ProposalPOLAmino {
   proposal_pol?: BitArrayAmino;
 }
 export interface ProposalPOLAminoMsg {
-  type: "/tendermint.consensus.ProposalPOL";
+  type: '/tendermint.consensus.ProposalPOL';
   value: ProposalPOLAmino;
 }
 /** ProposalPOL is sent when a previous proposal is re-proposed. */
@@ -146,7 +146,7 @@ export interface BlockPart {
   part: Part;
 }
 export interface BlockPartProtoMsg {
-  typeUrl: "/tendermint.consensus.BlockPart";
+  typeUrl: '/tendermint.consensus.BlockPart';
   value: Uint8Array;
 }
 /** BlockPart is sent when gossipping a piece of the proposed block. */
@@ -156,7 +156,7 @@ export interface BlockPartAmino {
   part?: PartAmino;
 }
 export interface BlockPartAminoMsg {
-  type: "/tendermint.consensus.BlockPart";
+  type: '/tendermint.consensus.BlockPart';
   value: BlockPartAmino;
 }
 /** BlockPart is sent when gossipping a piece of the proposed block. */
@@ -170,7 +170,7 @@ export interface Vote {
   vote?: Vote1;
 }
 export interface VoteProtoMsg {
-  typeUrl: "/tendermint.consensus.Vote";
+  typeUrl: '/tendermint.consensus.Vote';
   value: Uint8Array;
 }
 /** Vote is sent when voting for a proposal (or lack thereof). */
@@ -178,7 +178,7 @@ export interface VoteAmino {
   vote?: Vote1Amino;
 }
 export interface VoteAminoMsg {
-  type: "/tendermint.consensus.Vote";
+  type: '/tendermint.consensus.Vote';
   value: VoteAmino;
 }
 /** Vote is sent when voting for a proposal (or lack thereof). */
@@ -193,7 +193,7 @@ export interface HasVote {
   index: number;
 }
 export interface HasVoteProtoMsg {
-  typeUrl: "/tendermint.consensus.HasVote";
+  typeUrl: '/tendermint.consensus.HasVote';
   value: Uint8Array;
 }
 /** HasVote is sent to indicate that a particular vote has been received. */
@@ -204,7 +204,7 @@ export interface HasVoteAmino {
   index?: number;
 }
 export interface HasVoteAminoMsg {
-  type: "/tendermint.consensus.HasVote";
+  type: '/tendermint.consensus.HasVote';
   value: HasVoteAmino;
 }
 /** HasVote is sent to indicate that a particular vote has been received. */
@@ -222,7 +222,7 @@ export interface VoteSetMaj23 {
   blockId: BlockID;
 }
 export interface VoteSetMaj23ProtoMsg {
-  typeUrl: "/tendermint.consensus.VoteSetMaj23";
+  typeUrl: '/tendermint.consensus.VoteSetMaj23';
   value: Uint8Array;
 }
 /** VoteSetMaj23 is sent to indicate that a given BlockID has seen +2/3 votes. */
@@ -233,7 +233,7 @@ export interface VoteSetMaj23Amino {
   block_id?: BlockIDAmino;
 }
 export interface VoteSetMaj23AminoMsg {
-  type: "/tendermint.consensus.VoteSetMaj23";
+  type: '/tendermint.consensus.VoteSetMaj23';
   value: VoteSetMaj23Amino;
 }
 /** VoteSetMaj23 is sent to indicate that a given BlockID has seen +2/3 votes. */
@@ -252,7 +252,7 @@ export interface VoteSetBits {
   votes: BitArray;
 }
 export interface VoteSetBitsProtoMsg {
-  typeUrl: "/tendermint.consensus.VoteSetBits";
+  typeUrl: '/tendermint.consensus.VoteSetBits';
   value: Uint8Array;
 }
 /** VoteSetBits is sent to communicate the bit-array of votes seen for the BlockID. */
@@ -264,7 +264,7 @@ export interface VoteSetBitsAmino {
   votes?: BitArrayAmino;
 }
 export interface VoteSetBitsAminoMsg {
-  type: "/tendermint.consensus.VoteSetBits";
+  type: '/tendermint.consensus.VoteSetBits';
   value: VoteSetBitsAmino;
 }
 /** VoteSetBits is sent to communicate the bit-array of votes seen for the BlockID. */
@@ -287,7 +287,7 @@ export interface Message {
   voteSetBits?: VoteSetBits;
 }
 export interface MessageProtoMsg {
-  typeUrl: "/tendermint.consensus.Message";
+  typeUrl: '/tendermint.consensus.Message';
   value: Uint8Array;
 }
 export interface MessageAmino {
@@ -302,7 +302,7 @@ export interface MessageAmino {
   vote_set_bits?: VoteSetBitsAmino;
 }
 export interface MessageAminoMsg {
-  type: "/tendermint.consensus.Message";
+  type: '/tendermint.consensus.Message';
   value: MessageAmino;
 }
 export interface MessageSDKType {
@@ -322,11 +322,11 @@ function createBaseNewRoundStep(): NewRoundStep {
     round: 0,
     step: 0,
     secondsSinceStartTime: BigInt(0),
-    lastCommitRound: 0
+    lastCommitRound: 0,
   };
 }
 export const NewRoundStep = {
-  typeUrl: "/tendermint.consensus.NewRoundStep",
+  typeUrl: '/tendermint.consensus.NewRoundStep',
   encode(message: NewRoundStep, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -347,7 +347,7 @@ export const NewRoundStep = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): NewRoundStep {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNewRoundStep();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -422,10 +422,10 @@ export const NewRoundStep = {
   },
   toProtoMsg(message: NewRoundStep): NewRoundStepProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.NewRoundStep",
-      value: NewRoundStep.encode(message).finish()
+      typeUrl: '/tendermint.consensus.NewRoundStep',
+      value: NewRoundStep.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseNewValidBlock(): NewValidBlock {
   return {
@@ -433,11 +433,11 @@ function createBaseNewValidBlock(): NewValidBlock {
     round: 0,
     blockPartSetHeader: PartSetHeader.fromPartial({}),
     blockParts: undefined,
-    isCommit: false
+    isCommit: false,
   };
 }
 export const NewValidBlock = {
-  typeUrl: "/tendermint.consensus.NewValidBlock",
+  typeUrl: '/tendermint.consensus.NewValidBlock',
   encode(message: NewValidBlock, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -458,7 +458,7 @@ export const NewValidBlock = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): NewValidBlock {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNewValidBlock();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -533,18 +533,18 @@ export const NewValidBlock = {
   },
   toProtoMsg(message: NewValidBlock): NewValidBlockProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.NewValidBlock",
-      value: NewValidBlock.encode(message).finish()
+      typeUrl: '/tendermint.consensus.NewValidBlock',
+      value: NewValidBlock.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseProposal(): Proposal {
   return {
-    proposal: Proposal1.fromPartial({})
+    proposal: Proposal1.fromPartial({}),
   };
 }
 export const Proposal = {
-  typeUrl: "/tendermint.consensus.Proposal",
+  typeUrl: '/tendermint.consensus.Proposal',
   encode(message: Proposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposal !== undefined) {
       Proposal1.encode(message.proposal, writer.uint32(10).fork()).ldelim();
@@ -553,7 +553,7 @@ export const Proposal = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Proposal {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -596,20 +596,20 @@ export const Proposal = {
   },
   toProtoMsg(message: Proposal): ProposalProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.Proposal",
-      value: Proposal.encode(message).finish()
+      typeUrl: '/tendermint.consensus.Proposal',
+      value: Proposal.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseProposalPOL(): ProposalPOL {
   return {
     height: BigInt(0),
     proposalPolRound: 0,
-    proposalPol: BitArray.fromPartial({})
+    proposalPol: BitArray.fromPartial({}),
   };
 }
 export const ProposalPOL = {
-  typeUrl: "/tendermint.consensus.ProposalPOL",
+  typeUrl: '/tendermint.consensus.ProposalPOL',
   encode(message: ProposalPOL, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -624,7 +624,7 @@ export const ProposalPOL = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ProposalPOL {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProposalPOL();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -683,20 +683,20 @@ export const ProposalPOL = {
   },
   toProtoMsg(message: ProposalPOL): ProposalPOLProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.ProposalPOL",
-      value: ProposalPOL.encode(message).finish()
+      typeUrl: '/tendermint.consensus.ProposalPOL',
+      value: ProposalPOL.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseBlockPart(): BlockPart {
   return {
     height: BigInt(0),
     round: 0,
-    part: Part.fromPartial({})
+    part: Part.fromPartial({}),
   };
 }
 export const BlockPart = {
-  typeUrl: "/tendermint.consensus.BlockPart",
+  typeUrl: '/tendermint.consensus.BlockPart',
   encode(message: BlockPart, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -711,7 +711,7 @@ export const BlockPart = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): BlockPart {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBlockPart();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -770,18 +770,18 @@ export const BlockPart = {
   },
   toProtoMsg(message: BlockPart): BlockPartProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.BlockPart",
-      value: BlockPart.encode(message).finish()
+      typeUrl: '/tendermint.consensus.BlockPart',
+      value: BlockPart.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseVote(): Vote {
   return {
-    vote: undefined
+    vote: undefined,
   };
 }
 export const Vote = {
-  typeUrl: "/tendermint.consensus.Vote",
+  typeUrl: '/tendermint.consensus.Vote',
   encode(message: Vote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.vote !== undefined) {
       Vote1.encode(message.vote, writer.uint32(10).fork()).ldelim();
@@ -790,7 +790,7 @@ export const Vote = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Vote {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVote();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -833,21 +833,21 @@ export const Vote = {
   },
   toProtoMsg(message: Vote): VoteProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.Vote",
-      value: Vote.encode(message).finish()
+      typeUrl: '/tendermint.consensus.Vote',
+      value: Vote.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseHasVote(): HasVote {
   return {
     height: BigInt(0),
     round: 0,
     type: 0,
-    index: 0
+    index: 0,
   };
 }
 export const HasVote = {
-  typeUrl: "/tendermint.consensus.HasVote",
+  typeUrl: '/tendermint.consensus.HasVote',
   encode(message: HasVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -865,7 +865,7 @@ export const HasVote = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): HasVote {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHasVote();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -932,21 +932,21 @@ export const HasVote = {
   },
   toProtoMsg(message: HasVote): HasVoteProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.HasVote",
-      value: HasVote.encode(message).finish()
+      typeUrl: '/tendermint.consensus.HasVote',
+      value: HasVote.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseVoteSetMaj23(): VoteSetMaj23 {
   return {
     height: BigInt(0),
     round: 0,
     type: 0,
-    blockId: BlockID.fromPartial({})
+    blockId: BlockID.fromPartial({}),
   };
 }
 export const VoteSetMaj23 = {
-  typeUrl: "/tendermint.consensus.VoteSetMaj23",
+  typeUrl: '/tendermint.consensus.VoteSetMaj23',
   encode(message: VoteSetMaj23, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -964,7 +964,7 @@ export const VoteSetMaj23 = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): VoteSetMaj23 {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVoteSetMaj23();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1031,10 +1031,10 @@ export const VoteSetMaj23 = {
   },
   toProtoMsg(message: VoteSetMaj23): VoteSetMaj23ProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.VoteSetMaj23",
-      value: VoteSetMaj23.encode(message).finish()
+      typeUrl: '/tendermint.consensus.VoteSetMaj23',
+      value: VoteSetMaj23.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseVoteSetBits(): VoteSetBits {
   return {
@@ -1042,11 +1042,11 @@ function createBaseVoteSetBits(): VoteSetBits {
     round: 0,
     type: 0,
     blockId: BlockID.fromPartial({}),
-    votes: BitArray.fromPartial({})
+    votes: BitArray.fromPartial({}),
   };
 }
 export const VoteSetBits = {
-  typeUrl: "/tendermint.consensus.VoteSetBits",
+  typeUrl: '/tendermint.consensus.VoteSetBits',
   encode(message: VoteSetBits, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -1067,7 +1067,7 @@ export const VoteSetBits = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): VoteSetBits {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVoteSetBits();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1142,10 +1142,10 @@ export const VoteSetBits = {
   },
   toProtoMsg(message: VoteSetBits): VoteSetBitsProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.VoteSetBits",
-      value: VoteSetBits.encode(message).finish()
+      typeUrl: '/tendermint.consensus.VoteSetBits',
+      value: VoteSetBits.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMessage(): Message {
   return {
@@ -1157,11 +1157,11 @@ function createBaseMessage(): Message {
     vote: undefined,
     hasVote: undefined,
     voteSetMaj23: undefined,
-    voteSetBits: undefined
+    voteSetBits: undefined,
   };
 }
 export const Message = {
-  typeUrl: "/tendermint.consensus.Message",
+  typeUrl: '/tendermint.consensus.Message',
   encode(message: Message, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.newRoundStep !== undefined) {
       NewRoundStep.encode(message.newRoundStep, writer.uint32(10).fork()).ldelim();
@@ -1194,7 +1194,7 @@ export const Message = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Message {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1301,8 +1301,8 @@ export const Message = {
   },
   toProtoMsg(message: Message): MessageProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.Message",
-      value: Message.encode(message).finish()
+      typeUrl: '/tendermint.consensus.Message',
+      value: Message.encode(message).finish(),
     };
-  }
+  },
 };

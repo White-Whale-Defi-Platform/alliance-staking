@@ -1,15 +1,17 @@
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
-import { RewardHistory, RewardHistoryAmino, RewardHistorySDKType } from "./params";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { Decimal } from "@cosmjs/math";
-import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
+import { Decimal } from '@cosmjs/math';
+
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { Duration, DurationAmino, DurationSDKType } from '../../google/protobuf/duration';
+import { Timestamp } from '../../google/protobuf/timestamp';
+import { DeepPartial, toTimestamp, fromTimestamp } from '../../helpers';
+import { RewardHistory, RewardHistoryAmino, RewardHistorySDKType } from './params';
+
 export interface RewardWeightRange {
   min: string;
   max: string;
 }
 export interface RewardWeightRangeProtoMsg {
-  typeUrl: "/alliance.alliance.RewardWeightRange";
+  typeUrl: '/alliance.alliance.RewardWeightRange';
   value: Uint8Array;
 }
 export interface RewardWeightRangeAmino {
@@ -17,14 +19,14 @@ export interface RewardWeightRangeAmino {
   max?: string;
 }
 export interface RewardWeightRangeAminoMsg {
-  type: "/alliance.alliance.RewardWeightRange";
+  type: '/alliance.alliance.RewardWeightRange';
   value: RewardWeightRangeAmino;
 }
 export interface RewardWeightRangeSDKType {
   min: string;
   max: string;
 }
-/** key: denom value: AllianceAsset */
+/** Key: denom value: AllianceAsset */
 export interface AllianceAsset {
   /** Denom of the asset. It could either be a native token or an IBC token */
   denom: string;
@@ -45,16 +47,16 @@ export interface AllianceAsset {
   rewardChangeRate: string;
   rewardChangeInterval: Duration;
   lastRewardChangeTime: Date;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   rewardWeightRange: RewardWeightRange;
-  /** flag to check if an asset has completed the initialization process after the reward delay */
+  /** Flag to check if an asset has completed the initialization process after the reward delay */
   isInitialized: boolean;
 }
 export interface AllianceAssetProtoMsg {
-  typeUrl: "/alliance.alliance.AllianceAsset";
+  typeUrl: '/alliance.alliance.AllianceAsset';
   value: Uint8Array;
 }
-/** key: denom value: AllianceAsset */
+/** Key: denom value: AllianceAsset */
 export interface AllianceAssetAmino {
   /** Denom of the asset. It could either be a native token or an IBC token */
   denom?: string;
@@ -75,16 +77,16 @@ export interface AllianceAssetAmino {
   reward_change_rate?: string;
   reward_change_interval?: DurationAmino;
   last_reward_change_time?: string;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   reward_weight_range?: RewardWeightRangeAmino;
-  /** flag to check if an asset has completed the initialization process after the reward delay */
+  /** Flag to check if an asset has completed the initialization process after the reward delay */
   is_initialized?: boolean;
 }
 export interface AllianceAssetAminoMsg {
-  type: "/alliance.alliance.AllianceAsset";
+  type: '/alliance.alliance.AllianceAsset';
   value: AllianceAssetAmino;
 }
-/** key: denom value: AllianceAsset */
+/** Key: denom value: AllianceAsset */
 export interface AllianceAssetSDKType {
   denom: string;
   reward_weight: string;
@@ -103,7 +105,7 @@ export interface RewardWeightChangeSnapshot {
   rewardHistories: RewardHistory[];
 }
 export interface RewardWeightChangeSnapshotProtoMsg {
-  typeUrl: "/alliance.alliance.RewardWeightChangeSnapshot";
+  typeUrl: '/alliance.alliance.RewardWeightChangeSnapshot';
   value: Uint8Array;
 }
 export interface RewardWeightChangeSnapshotAmino {
@@ -111,7 +113,7 @@ export interface RewardWeightChangeSnapshotAmino {
   reward_histories?: RewardHistoryAmino[];
 }
 export interface RewardWeightChangeSnapshotAminoMsg {
-  type: "/alliance.alliance.RewardWeightChangeSnapshot";
+  type: '/alliance.alliance.RewardWeightChangeSnapshot';
   value: RewardWeightChangeSnapshotAmino;
 }
 export interface RewardWeightChangeSnapshotSDKType {
@@ -120,24 +122,24 @@ export interface RewardWeightChangeSnapshotSDKType {
 }
 function createBaseRewardWeightRange(): RewardWeightRange {
   return {
-    min: "",
-    max: ""
+    min: '',
+    max: '',
   };
 }
 export const RewardWeightRange = {
-  typeUrl: "/alliance.alliance.RewardWeightRange",
+  typeUrl: '/alliance.alliance.RewardWeightRange',
   encode(message: RewardWeightRange, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.min !== "") {
+    if (message.min !== '') {
       writer.uint32(10).string(Decimal.fromUserInput(message.min, 18).atomics);
     }
-    if (message.max !== "") {
+    if (message.max !== '') {
       writer.uint32(18).string(Decimal.fromUserInput(message.max, 18).atomics);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): RewardWeightRange {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRewardWeightRange();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -157,8 +159,8 @@ export const RewardWeightRange = {
   },
   fromPartial(object: DeepPartial<RewardWeightRange>): RewardWeightRange {
     const message = createBaseRewardWeightRange();
-    message.min = object.min ?? "";
-    message.max = object.max ?? "";
+    message.min = object.min ?? '';
+    message.max = object.max ?? '';
     return message;
   },
   fromAmino(object: RewardWeightRangeAmino): RewardWeightRange {
@@ -173,8 +175,8 @@ export const RewardWeightRange = {
   },
   toAmino(message: RewardWeightRange): RewardWeightRangeAmino {
     const obj: any = {};
-    obj.min = message.min === "" ? undefined : message.min;
-    obj.max = message.max === "" ? undefined : message.max;
+    obj.min = message.min === '' ? undefined : message.min;
+    obj.max = message.max === '' ? undefined : message.max;
     return obj;
   },
   fromAminoMsg(object: RewardWeightRangeAminoMsg): RewardWeightRange {
@@ -188,48 +190,48 @@ export const RewardWeightRange = {
   },
   toProtoMsg(message: RewardWeightRange): RewardWeightRangeProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.RewardWeightRange",
-      value: RewardWeightRange.encode(message).finish()
+      typeUrl: '/alliance.alliance.RewardWeightRange',
+      value: RewardWeightRange.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseAllianceAsset(): AllianceAsset {
   return {
-    denom: "",
-    rewardWeight: "",
-    takeRate: "",
-    totalTokens: "",
-    totalValidatorShares: "",
+    denom: '',
+    rewardWeight: '',
+    takeRate: '',
+    totalTokens: '',
+    totalValidatorShares: '',
     rewardStartTime: new Date(),
-    rewardChangeRate: "",
+    rewardChangeRate: '',
     rewardChangeInterval: Duration.fromPartial({}),
     lastRewardChangeTime: new Date(),
     rewardWeightRange: RewardWeightRange.fromPartial({}),
-    isInitialized: false
+    isInitialized: false,
   };
 }
 export const AllianceAsset = {
-  typeUrl: "/alliance.alliance.AllianceAsset",
+  typeUrl: '/alliance.alliance.AllianceAsset',
   encode(message: AllianceAsset, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.denom !== "") {
+    if (message.denom !== '') {
       writer.uint32(10).string(message.denom);
     }
-    if (message.rewardWeight !== "") {
+    if (message.rewardWeight !== '') {
       writer.uint32(18).string(Decimal.fromUserInput(message.rewardWeight, 18).atomics);
     }
-    if (message.takeRate !== "") {
+    if (message.takeRate !== '') {
       writer.uint32(26).string(Decimal.fromUserInput(message.takeRate, 18).atomics);
     }
-    if (message.totalTokens !== "") {
+    if (message.totalTokens !== '') {
       writer.uint32(34).string(message.totalTokens);
     }
-    if (message.totalValidatorShares !== "") {
+    if (message.totalValidatorShares !== '') {
       writer.uint32(42).string(Decimal.fromUserInput(message.totalValidatorShares, 18).atomics);
     }
     if (message.rewardStartTime !== undefined) {
       Timestamp.encode(toTimestamp(message.rewardStartTime), writer.uint32(50).fork()).ldelim();
     }
-    if (message.rewardChangeRate !== "") {
+    if (message.rewardChangeRate !== '') {
       writer.uint32(58).string(Decimal.fromUserInput(message.rewardChangeRate, 18).atomics);
     }
     if (message.rewardChangeInterval !== undefined) {
@@ -248,7 +250,7 @@ export const AllianceAsset = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): AllianceAsset {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAllianceAsset();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -295,13 +297,13 @@ export const AllianceAsset = {
   },
   fromPartial(object: DeepPartial<AllianceAsset>): AllianceAsset {
     const message = createBaseAllianceAsset();
-    message.denom = object.denom ?? "";
-    message.rewardWeight = object.rewardWeight ?? "";
-    message.takeRate = object.takeRate ?? "";
-    message.totalTokens = object.totalTokens ?? "";
-    message.totalValidatorShares = object.totalValidatorShares ?? "";
+    message.denom = object.denom ?? '';
+    message.rewardWeight = object.rewardWeight ?? '';
+    message.takeRate = object.takeRate ?? '';
+    message.totalTokens = object.totalTokens ?? '';
+    message.totalValidatorShares = object.totalValidatorShares ?? '';
     message.rewardStartTime = object.rewardStartTime ?? undefined;
-    message.rewardChangeRate = object.rewardChangeRate ?? "";
+    message.rewardChangeRate = object.rewardChangeRate ?? '';
     message.rewardChangeInterval = object.rewardChangeInterval !== undefined && object.rewardChangeInterval !== null ? Duration.fromPartial(object.rewardChangeInterval) : undefined;
     message.lastRewardChangeTime = object.lastRewardChangeTime ?? undefined;
     message.rewardWeightRange = object.rewardWeightRange !== undefined && object.rewardWeightRange !== null ? RewardWeightRange.fromPartial(object.rewardWeightRange) : undefined;
@@ -347,13 +349,13 @@ export const AllianceAsset = {
   },
   toAmino(message: AllianceAsset): AllianceAssetAmino {
     const obj: any = {};
-    obj.denom = message.denom === "" ? undefined : message.denom;
-    obj.reward_weight = message.rewardWeight === "" ? undefined : message.rewardWeight;
-    obj.take_rate = message.takeRate === "" ? undefined : message.takeRate;
-    obj.total_tokens = message.totalTokens === "" ? undefined : message.totalTokens;
-    obj.total_validator_shares = message.totalValidatorShares === "" ? undefined : message.totalValidatorShares;
+    obj.denom = message.denom === '' ? undefined : message.denom;
+    obj.reward_weight = message.rewardWeight === '' ? undefined : message.rewardWeight;
+    obj.take_rate = message.takeRate === '' ? undefined : message.takeRate;
+    obj.total_tokens = message.totalTokens === '' ? undefined : message.totalTokens;
+    obj.total_validator_shares = message.totalValidatorShares === '' ? undefined : message.totalValidatorShares;
     obj.reward_start_time = message.rewardStartTime ? Timestamp.toAmino(toTimestamp(message.rewardStartTime)) : undefined;
-    obj.reward_change_rate = message.rewardChangeRate === "" ? undefined : message.rewardChangeRate;
+    obj.reward_change_rate = message.rewardChangeRate === '' ? undefined : message.rewardChangeRate;
     obj.reward_change_interval = message.rewardChangeInterval ? Duration.toAmino(message.rewardChangeInterval) : undefined;
     obj.last_reward_change_time = message.lastRewardChangeTime ? Timestamp.toAmino(toTimestamp(message.lastRewardChangeTime)) : undefined;
     obj.reward_weight_range = message.rewardWeightRange ? RewardWeightRange.toAmino(message.rewardWeightRange) : undefined;
@@ -371,21 +373,21 @@ export const AllianceAsset = {
   },
   toProtoMsg(message: AllianceAsset): AllianceAssetProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.AllianceAsset",
-      value: AllianceAsset.encode(message).finish()
+      typeUrl: '/alliance.alliance.AllianceAsset',
+      value: AllianceAsset.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseRewardWeightChangeSnapshot(): RewardWeightChangeSnapshot {
   return {
-    prevRewardWeight: "",
-    rewardHistories: []
+    prevRewardWeight: '',
+    rewardHistories: [],
   };
 }
 export const RewardWeightChangeSnapshot = {
-  typeUrl: "/alliance.alliance.RewardWeightChangeSnapshot",
+  typeUrl: '/alliance.alliance.RewardWeightChangeSnapshot',
   encode(message: RewardWeightChangeSnapshot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.prevRewardWeight !== "") {
+    if (message.prevRewardWeight !== '') {
       writer.uint32(10).string(Decimal.fromUserInput(message.prevRewardWeight, 18).atomics);
     }
     for (const v of message.rewardHistories) {
@@ -395,7 +397,7 @@ export const RewardWeightChangeSnapshot = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): RewardWeightChangeSnapshot {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRewardWeightChangeSnapshot();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -415,8 +417,8 @@ export const RewardWeightChangeSnapshot = {
   },
   fromPartial(object: DeepPartial<RewardWeightChangeSnapshot>): RewardWeightChangeSnapshot {
     const message = createBaseRewardWeightChangeSnapshot();
-    message.prevRewardWeight = object.prevRewardWeight ?? "";
-    message.rewardHistories = object.rewardHistories?.map(e => RewardHistory.fromPartial(e)) || [];
+    message.prevRewardWeight = object.prevRewardWeight ?? '';
+    message.rewardHistories = object.rewardHistories?.map((e) => RewardHistory.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: RewardWeightChangeSnapshotAmino): RewardWeightChangeSnapshot {
@@ -424,14 +426,14 @@ export const RewardWeightChangeSnapshot = {
     if (object.prev_reward_weight !== undefined && object.prev_reward_weight !== null) {
       message.prevRewardWeight = object.prev_reward_weight;
     }
-    message.rewardHistories = object.reward_histories?.map(e => RewardHistory.fromAmino(e)) || [];
+    message.rewardHistories = object.reward_histories?.map((e) => RewardHistory.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: RewardWeightChangeSnapshot): RewardWeightChangeSnapshotAmino {
     const obj: any = {};
-    obj.prev_reward_weight = message.prevRewardWeight === "" ? undefined : message.prevRewardWeight;
+    obj.prev_reward_weight = message.prevRewardWeight === '' ? undefined : message.prevRewardWeight;
     if (message.rewardHistories) {
-      obj.reward_histories = message.rewardHistories.map(e => e ? RewardHistory.toAmino(e) : undefined);
+      obj.reward_histories = message.rewardHistories.map((e) => (e ? RewardHistory.toAmino(e) : undefined));
     } else {
       obj.reward_histories = message.rewardHistories;
     }
@@ -448,8 +450,8 @@ export const RewardWeightChangeSnapshot = {
   },
   toProtoMsg(message: RewardWeightChangeSnapshot): RewardWeightChangeSnapshotProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.RewardWeightChangeSnapshot",
-      value: RewardWeightChangeSnapshot.encode(message).finish()
+      typeUrl: '/alliance.alliance.RewardWeightChangeSnapshot',
+      value: RewardWeightChangeSnapshot.encode(message).finish(),
     };
-  }
+  },
 };

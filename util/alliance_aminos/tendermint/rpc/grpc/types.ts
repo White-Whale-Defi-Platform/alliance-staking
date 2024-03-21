@@ -1,14 +1,14 @@
-import { ResponseCheckTx, ResponseCheckTxAmino, ResponseCheckTxSDKType, ResponseDeliverTx, ResponseDeliverTxAmino, ResponseDeliverTxSDKType } from "../../abci/types";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../binary';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../../helpers';
+import { ResponseCheckTx, ResponseCheckTxAmino, ResponseCheckTxSDKType, ResponseDeliverTx, ResponseDeliverTxAmino, ResponseDeliverTxSDKType } from '../../abci/types';
 export interface RequestPing {}
 export interface RequestPingProtoMsg {
-  typeUrl: "/tendermint.rpc.grpc.RequestPing";
+  typeUrl: '/tendermint.rpc.grpc.RequestPing';
   value: Uint8Array;
 }
 export interface RequestPingAmino {}
 export interface RequestPingAminoMsg {
-  type: "/tendermint.rpc.grpc.RequestPing";
+  type: '/tendermint.rpc.grpc.RequestPing';
   value: RequestPingAmino;
 }
 export interface RequestPingSDKType {}
@@ -16,14 +16,14 @@ export interface RequestBroadcastTx {
   tx: Uint8Array;
 }
 export interface RequestBroadcastTxProtoMsg {
-  typeUrl: "/tendermint.rpc.grpc.RequestBroadcastTx";
+  typeUrl: '/tendermint.rpc.grpc.RequestBroadcastTx';
   value: Uint8Array;
 }
 export interface RequestBroadcastTxAmino {
   tx?: string;
 }
 export interface RequestBroadcastTxAminoMsg {
-  type: "/tendermint.rpc.grpc.RequestBroadcastTx";
+  type: '/tendermint.rpc.grpc.RequestBroadcastTx';
   value: RequestBroadcastTxAmino;
 }
 export interface RequestBroadcastTxSDKType {
@@ -31,12 +31,12 @@ export interface RequestBroadcastTxSDKType {
 }
 export interface ResponsePing {}
 export interface ResponsePingProtoMsg {
-  typeUrl: "/tendermint.rpc.grpc.ResponsePing";
+  typeUrl: '/tendermint.rpc.grpc.ResponsePing';
   value: Uint8Array;
 }
 export interface ResponsePingAmino {}
 export interface ResponsePingAminoMsg {
-  type: "/tendermint.rpc.grpc.ResponsePing";
+  type: '/tendermint.rpc.grpc.ResponsePing';
   value: ResponsePingAmino;
 }
 export interface ResponsePingSDKType {}
@@ -45,7 +45,7 @@ export interface ResponseBroadcastTx {
   deliverTx?: ResponseDeliverTx;
 }
 export interface ResponseBroadcastTxProtoMsg {
-  typeUrl: "/tendermint.rpc.grpc.ResponseBroadcastTx";
+  typeUrl: '/tendermint.rpc.grpc.ResponseBroadcastTx';
   value: Uint8Array;
 }
 export interface ResponseBroadcastTxAmino {
@@ -53,7 +53,7 @@ export interface ResponseBroadcastTxAmino {
   deliver_tx?: ResponseDeliverTxAmino;
 }
 export interface ResponseBroadcastTxAminoMsg {
-  type: "/tendermint.rpc.grpc.ResponseBroadcastTx";
+  type: '/tendermint.rpc.grpc.ResponseBroadcastTx';
   value: ResponseBroadcastTxAmino;
 }
 export interface ResponseBroadcastTxSDKType {
@@ -64,13 +64,13 @@ function createBaseRequestPing(): RequestPing {
   return {};
 }
 export const RequestPing = {
-  typeUrl: "/tendermint.rpc.grpc.RequestPing",
+  typeUrl: '/tendermint.rpc.grpc.RequestPing',
   encode(_: RequestPing, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): RequestPing {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestPing();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -105,18 +105,18 @@ export const RequestPing = {
   },
   toProtoMsg(message: RequestPing): RequestPingProtoMsg {
     return {
-      typeUrl: "/tendermint.rpc.grpc.RequestPing",
-      value: RequestPing.encode(message).finish()
+      typeUrl: '/tendermint.rpc.grpc.RequestPing',
+      value: RequestPing.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseRequestBroadcastTx(): RequestBroadcastTx {
   return {
-    tx: new Uint8Array()
+    tx: new Uint8Array(),
   };
 }
 export const RequestBroadcastTx = {
-  typeUrl: "/tendermint.rpc.grpc.RequestBroadcastTx",
+  typeUrl: '/tendermint.rpc.grpc.RequestBroadcastTx',
   encode(message: RequestBroadcastTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.tx.length !== 0) {
       writer.uint32(10).bytes(message.tx);
@@ -125,7 +125,7 @@ export const RequestBroadcastTx = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): RequestBroadcastTx {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRequestBroadcastTx();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -168,22 +168,22 @@ export const RequestBroadcastTx = {
   },
   toProtoMsg(message: RequestBroadcastTx): RequestBroadcastTxProtoMsg {
     return {
-      typeUrl: "/tendermint.rpc.grpc.RequestBroadcastTx",
-      value: RequestBroadcastTx.encode(message).finish()
+      typeUrl: '/tendermint.rpc.grpc.RequestBroadcastTx',
+      value: RequestBroadcastTx.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseResponsePing(): ResponsePing {
   return {};
 }
 export const ResponsePing = {
-  typeUrl: "/tendermint.rpc.grpc.ResponsePing",
+  typeUrl: '/tendermint.rpc.grpc.ResponsePing',
   encode(_: ResponsePing, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ResponsePing {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponsePing();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -218,19 +218,19 @@ export const ResponsePing = {
   },
   toProtoMsg(message: ResponsePing): ResponsePingProtoMsg {
     return {
-      typeUrl: "/tendermint.rpc.grpc.ResponsePing",
-      value: ResponsePing.encode(message).finish()
+      typeUrl: '/tendermint.rpc.grpc.ResponsePing',
+      value: ResponsePing.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseResponseBroadcastTx(): ResponseBroadcastTx {
   return {
     checkTx: undefined,
-    deliverTx: undefined
+    deliverTx: undefined,
   };
 }
 export const ResponseBroadcastTx = {
-  typeUrl: "/tendermint.rpc.grpc.ResponseBroadcastTx",
+  typeUrl: '/tendermint.rpc.grpc.ResponseBroadcastTx',
   encode(message: ResponseBroadcastTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.checkTx !== undefined) {
       ResponseCheckTx.encode(message.checkTx, writer.uint32(10).fork()).ldelim();
@@ -242,7 +242,7 @@ export const ResponseBroadcastTx = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ResponseBroadcastTx {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseBroadcastTx();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -293,8 +293,8 @@ export const ResponseBroadcastTx = {
   },
   toProtoMsg(message: ResponseBroadcastTx): ResponseBroadcastTxProtoMsg {
     return {
-      typeUrl: "/tendermint.rpc.grpc.ResponseBroadcastTx",
-      value: ResponseBroadcastTx.encode(message).finish()
+      typeUrl: '/tendermint.rpc.grpc.ResponseBroadcastTx',
+      value: ResponseBroadcastTx.encode(message).finish(),
     };
-  }
+  },
 };

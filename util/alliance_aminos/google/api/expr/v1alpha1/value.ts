@@ -1,10 +1,10 @@
-import { NullValue } from "../../../protobuf/struct";
-import { Any, AnyAmino, AnySDKType } from "../../../protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../../../helpers';
+import { Any, AnyAmino, AnySDKType } from '../../../protobuf/any';
+import { NullValue } from '../../../protobuf/struct';
 /**
  * Represents a CEL value.
- * 
+ *
  * This is similar to `google.protobuf.Value`, but can represent CEL's full
  * range of values.
  */
@@ -35,12 +35,12 @@ export interface Value {
   typeValue?: string;
 }
 export interface ValueProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.Value";
+  typeUrl: '/google.api.expr.v1alpha1.Value';
   value: Uint8Array;
 }
 /**
  * Represents a CEL value.
- * 
+ *
  * This is similar to `google.protobuf.Value`, but can represent CEL's full
  * range of values.
  */
@@ -71,12 +71,12 @@ export interface ValueAmino {
   type_value?: string;
 }
 export interface ValueAminoMsg {
-  type: "/google.api.expr.v1alpha1.Value";
+  type: '/google.api.expr.v1alpha1.Value';
   value: ValueAmino;
 }
 /**
  * Represents a CEL value.
- * 
+ *
  * This is similar to `google.protobuf.Value`, but can represent CEL's full
  * range of values.
  */
@@ -102,7 +102,7 @@ export interface EnumValue {
   value: number;
 }
 export interface EnumValueProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.EnumValue";
+  typeUrl: '/google.api.expr.v1alpha1.EnumValue';
   value: Uint8Array;
 }
 /** An enum value. */
@@ -113,7 +113,7 @@ export interface EnumValueAmino {
   value?: number;
 }
 export interface EnumValueAminoMsg {
-  type: "/google.api.expr.v1alpha1.EnumValue";
+  type: '/google.api.expr.v1alpha1.EnumValue';
   value: EnumValueAmino;
 }
 /** An enum value. */
@@ -123,7 +123,7 @@ export interface EnumValueSDKType {
 }
 /**
  * A list.
- * 
+ *
  * Wrapped in a message so 'not set' and empty can be differentiated, which is
  * required for use in a 'oneof'.
  */
@@ -132,12 +132,12 @@ export interface ListValue {
   values: Value[];
 }
 export interface ListValueProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.ListValue";
+  typeUrl: '/google.api.expr.v1alpha1.ListValue';
   value: Uint8Array;
 }
 /**
  * A list.
- * 
+ *
  * Wrapped in a message so 'not set' and empty can be differentiated, which is
  * required for use in a 'oneof'.
  */
@@ -146,12 +146,12 @@ export interface ListValueAmino {
   values?: ValueAmino[];
 }
 export interface ListValueAminoMsg {
-  type: "/google.api.expr.v1alpha1.ListValue";
+  type: '/google.api.expr.v1alpha1.ListValue';
   value: ListValueAmino;
 }
 /**
  * A list.
- * 
+ *
  * Wrapped in a message so 'not set' and empty can be differentiated, which is
  * required for use in a 'oneof'.
  */
@@ -160,45 +160,45 @@ export interface ListValueSDKType {
 }
 /**
  * A map.
- * 
+ *
  * Wrapped in a message so 'not set' and empty can be differentiated, which is
  * required for use in a 'oneof'.
  */
 export interface MapValue {
   /**
    * The set of map entries.
-   * 
+   *
    * CEL has fewer restrictions on keys, so a protobuf map represenation
    * cannot be used.
    */
   entries: MapValue_Entry[];
 }
 export interface MapValueProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.MapValue";
+  typeUrl: '/google.api.expr.v1alpha1.MapValue';
   value: Uint8Array;
 }
 /**
  * A map.
- * 
+ *
  * Wrapped in a message so 'not set' and empty can be differentiated, which is
  * required for use in a 'oneof'.
  */
 export interface MapValueAmino {
   /**
    * The set of map entries.
-   * 
+   *
    * CEL has fewer restrictions on keys, so a protobuf map represenation
    * cannot be used.
    */
   entries?: MapValue_EntryAmino[];
 }
 export interface MapValueAminoMsg {
-  type: "/google.api.expr.v1alpha1.MapValue";
+  type: '/google.api.expr.v1alpha1.MapValue';
   value: MapValueAmino;
 }
 /**
  * A map.
- * 
+ *
  * Wrapped in a message so 'not set' and empty can be differentiated, which is
  * required for use in a 'oneof'.
  */
@@ -209,7 +209,7 @@ export interface MapValueSDKType {
 export interface MapValue_Entry {
   /**
    * The key.
-   * 
+   *
    * Must be unique with in the map.
    * Currently only boolean, int, uint, and string values can be keys.
    */
@@ -218,14 +218,14 @@ export interface MapValue_Entry {
   value?: Value;
 }
 export interface MapValue_EntryProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.Entry";
+  typeUrl: '/google.api.expr.v1alpha1.Entry';
   value: Uint8Array;
 }
 /** An entry in the map. */
 export interface MapValue_EntryAmino {
   /**
    * The key.
-   * 
+   *
    * Must be unique with in the map.
    * Currently only boolean, int, uint, and string values can be keys.
    */
@@ -234,7 +234,7 @@ export interface MapValue_EntryAmino {
   value?: ValueAmino;
 }
 export interface MapValue_EntryAminoMsg {
-  type: "/google.api.expr.v1alpha1.Entry";
+  type: '/google.api.expr.v1alpha1.Entry';
   value: MapValue_EntryAmino;
 }
 /** An entry in the map. */
@@ -255,11 +255,11 @@ function createBaseValue(): Value {
     objectValue: undefined,
     mapValue: undefined,
     listValue: undefined,
-    typeValue: undefined
+    typeValue: undefined,
   };
 }
 export const Value = {
-  typeUrl: "/google.api.expr.v1alpha1.Value",
+  typeUrl: '/google.api.expr.v1alpha1.Value',
   encode(message: Value, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.nullValue !== undefined) {
       writer.uint32(8).int32(message.nullValue);
@@ -301,7 +301,7 @@ export const Value = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Value {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -432,21 +432,21 @@ export const Value = {
   },
   toProtoMsg(message: Value): ValueProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.Value",
-      value: Value.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.Value',
+      value: Value.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseEnumValue(): EnumValue {
   return {
-    type: "",
-    value: 0
+    type: '',
+    value: 0,
   };
 }
 export const EnumValue = {
-  typeUrl: "/google.api.expr.v1alpha1.EnumValue",
+  typeUrl: '/google.api.expr.v1alpha1.EnumValue',
   encode(message: EnumValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.type !== "") {
+    if (message.type !== '') {
       writer.uint32(10).string(message.type);
     }
     if (message.value !== 0) {
@@ -456,7 +456,7 @@ export const EnumValue = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): EnumValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEnumValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -476,7 +476,7 @@ export const EnumValue = {
   },
   fromPartial(object: DeepPartial<EnumValue>): EnumValue {
     const message = createBaseEnumValue();
-    message.type = object.type ?? "";
+    message.type = object.type ?? '';
     message.value = object.value ?? 0;
     return message;
   },
@@ -492,7 +492,7 @@ export const EnumValue = {
   },
   toAmino(message: EnumValue): EnumValueAmino {
     const obj: any = {};
-    obj.type = message.type === "" ? undefined : message.type;
+    obj.type = message.type === '' ? undefined : message.type;
     obj.value = message.value === 0 ? undefined : message.value;
     return obj;
   },
@@ -507,18 +507,18 @@ export const EnumValue = {
   },
   toProtoMsg(message: EnumValue): EnumValueProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.EnumValue",
-      value: EnumValue.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.EnumValue',
+      value: EnumValue.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseListValue(): ListValue {
   return {
-    values: []
+    values: [],
   };
 }
 export const ListValue = {
-  typeUrl: "/google.api.expr.v1alpha1.ListValue",
+  typeUrl: '/google.api.expr.v1alpha1.ListValue',
   encode(message: ListValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.values) {
       Value.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -527,7 +527,7 @@ export const ListValue = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ListValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -544,18 +544,18 @@ export const ListValue = {
   },
   fromPartial(object: DeepPartial<ListValue>): ListValue {
     const message = createBaseListValue();
-    message.values = object.values?.map(e => Value.fromPartial(e)) || [];
+    message.values = object.values?.map((e) => Value.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: ListValueAmino): ListValue {
     const message = createBaseListValue();
-    message.values = object.values?.map(e => Value.fromAmino(e)) || [];
+    message.values = object.values?.map((e) => Value.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: ListValue): ListValueAmino {
     const obj: any = {};
     if (message.values) {
-      obj.values = message.values.map(e => e ? Value.toAmino(e) : undefined);
+      obj.values = message.values.map((e) => (e ? Value.toAmino(e) : undefined));
     } else {
       obj.values = message.values;
     }
@@ -572,18 +572,18 @@ export const ListValue = {
   },
   toProtoMsg(message: ListValue): ListValueProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.ListValue",
-      value: ListValue.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.ListValue',
+      value: ListValue.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMapValue(): MapValue {
   return {
-    entries: []
+    entries: [],
   };
 }
 export const MapValue = {
-  typeUrl: "/google.api.expr.v1alpha1.MapValue",
+  typeUrl: '/google.api.expr.v1alpha1.MapValue',
   encode(message: MapValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.entries) {
       MapValue_Entry.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -592,7 +592,7 @@ export const MapValue = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MapValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMapValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -609,18 +609,18 @@ export const MapValue = {
   },
   fromPartial(object: DeepPartial<MapValue>): MapValue {
     const message = createBaseMapValue();
-    message.entries = object.entries?.map(e => MapValue_Entry.fromPartial(e)) || [];
+    message.entries = object.entries?.map((e) => MapValue_Entry.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: MapValueAmino): MapValue {
     const message = createBaseMapValue();
-    message.entries = object.entries?.map(e => MapValue_Entry.fromAmino(e)) || [];
+    message.entries = object.entries?.map((e) => MapValue_Entry.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: MapValue): MapValueAmino {
     const obj: any = {};
     if (message.entries) {
-      obj.entries = message.entries.map(e => e ? MapValue_Entry.toAmino(e) : undefined);
+      obj.entries = message.entries.map((e) => (e ? MapValue_Entry.toAmino(e) : undefined));
     } else {
       obj.entries = message.entries;
     }
@@ -637,19 +637,19 @@ export const MapValue = {
   },
   toProtoMsg(message: MapValue): MapValueProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.MapValue",
-      value: MapValue.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.MapValue',
+      value: MapValue.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMapValue_Entry(): MapValue_Entry {
   return {
     key: undefined,
-    value: undefined
+    value: undefined,
   };
 }
 export const MapValue_Entry = {
-  typeUrl: "/google.api.expr.v1alpha1.Entry",
+  typeUrl: '/google.api.expr.v1alpha1.Entry',
   encode(message: MapValue_Entry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key !== undefined) {
       Value.encode(message.key, writer.uint32(10).fork()).ldelim();
@@ -661,7 +661,7 @@ export const MapValue_Entry = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MapValue_Entry {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMapValue_Entry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -712,8 +712,8 @@ export const MapValue_Entry = {
   },
   toProtoMsg(message: MapValue_Entry): MapValue_EntryProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.Entry",
-      value: MapValue_Entry.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.Entry',
+      value: MapValue_Entry.encode(message).finish(),
     };
-  }
+  },
 };

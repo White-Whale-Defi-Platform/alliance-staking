@@ -1,10 +1,10 @@
-import { CompactBitArray, CompactBitArrayAmino, CompactBitArraySDKType } from "../../../crypto/multisig/v1beta1/multisig";
-import { Any, AnyAmino, AnySDKType } from "../../../../google/protobuf/any";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { Any, AnyAmino, AnySDKType } from '../../../../google/protobuf/any';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../../../helpers';
+import { CompactBitArray, CompactBitArrayAmino, CompactBitArraySDKType } from '../../../crypto/multisig/v1beta1/multisig';
 /**
  * SignMode represents a signing mode with its own security guarantees.
- * 
+ *
  * This enum should be considered a registry of all known sign modes
  * in the Cosmos ecosystem. Apps are not expected to support all known
  * sign modes. Apps that would like to support custom  sign modes are
@@ -34,7 +34,7 @@ export enum SignMode {
    * SignDocDirectAux. As opposed to SIGN_MODE_DIRECT, this sign mode does not
    * require signers signing over other signers' `signer_info`. It also allows
    * for adding Tips in transactions.
-   * 
+   *
    * Since: cosmos-sdk 0.46
    */
   SIGN_MODE_DIRECT_AUX = 3,
@@ -46,13 +46,13 @@ export enum SignMode {
   /**
    * SIGN_MODE_EIP_191 - SIGN_MODE_EIP_191 specifies the sign mode for EIP 191 signing on the Cosmos
    * SDK. Ref: https://eips.ethereum.org/EIPS/eip-191
-   * 
+   *
    * Currently, SIGN_MODE_EIP_191 is registered as a SignMode enum variant,
    * but is not implemented on the SDK by default. To enable EIP-191, you need
    * to pass a custom `TxConfig` that has an implementation of
    * `SignModeHandler` for EIP-191. The SDK may decide to fully support
    * EIP-191 in the future.
-   * 
+   *
    * Since: cosmos-sdk 0.45.2
    */
   SIGN_MODE_EIP_191 = 191,
@@ -63,25 +63,25 @@ export const SignModeAmino = SignMode;
 export function signModeFromJSON(object: any): SignMode {
   switch (object) {
     case 0:
-    case "SIGN_MODE_UNSPECIFIED":
+    case 'SIGN_MODE_UNSPECIFIED':
       return SignMode.SIGN_MODE_UNSPECIFIED;
     case 1:
-    case "SIGN_MODE_DIRECT":
+    case 'SIGN_MODE_DIRECT':
       return SignMode.SIGN_MODE_DIRECT;
     case 2:
-    case "SIGN_MODE_TEXTUAL":
+    case 'SIGN_MODE_TEXTUAL':
       return SignMode.SIGN_MODE_TEXTUAL;
     case 3:
-    case "SIGN_MODE_DIRECT_AUX":
+    case 'SIGN_MODE_DIRECT_AUX':
       return SignMode.SIGN_MODE_DIRECT_AUX;
     case 127:
-    case "SIGN_MODE_LEGACY_AMINO_JSON":
+    case 'SIGN_MODE_LEGACY_AMINO_JSON':
       return SignMode.SIGN_MODE_LEGACY_AMINO_JSON;
     case 191:
-    case "SIGN_MODE_EIP_191":
+    case 'SIGN_MODE_EIP_191':
       return SignMode.SIGN_MODE_EIP_191;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return SignMode.UNRECOGNIZED;
   }
@@ -89,38 +89,38 @@ export function signModeFromJSON(object: any): SignMode {
 export function signModeToJSON(object: SignMode): string {
   switch (object) {
     case SignMode.SIGN_MODE_UNSPECIFIED:
-      return "SIGN_MODE_UNSPECIFIED";
+      return 'SIGN_MODE_UNSPECIFIED';
     case SignMode.SIGN_MODE_DIRECT:
-      return "SIGN_MODE_DIRECT";
+      return 'SIGN_MODE_DIRECT';
     case SignMode.SIGN_MODE_TEXTUAL:
-      return "SIGN_MODE_TEXTUAL";
+      return 'SIGN_MODE_TEXTUAL';
     case SignMode.SIGN_MODE_DIRECT_AUX:
-      return "SIGN_MODE_DIRECT_AUX";
+      return 'SIGN_MODE_DIRECT_AUX';
     case SignMode.SIGN_MODE_LEGACY_AMINO_JSON:
-      return "SIGN_MODE_LEGACY_AMINO_JSON";
+      return 'SIGN_MODE_LEGACY_AMINO_JSON';
     case SignMode.SIGN_MODE_EIP_191:
-      return "SIGN_MODE_EIP_191";
+      return 'SIGN_MODE_EIP_191';
     case SignMode.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 /** SignatureDescriptors wraps multiple SignatureDescriptor's. */
 export interface SignatureDescriptors {
-  /** signatures are the signature descriptors */
+  /** Signatures are the signature descriptors */
   signatures: SignatureDescriptor[];
 }
 export interface SignatureDescriptorsProtoMsg {
-  typeUrl: "/cosmos.tx.signing.v1beta1.SignatureDescriptors";
+  typeUrl: '/cosmos.tx.signing.v1beta1.SignatureDescriptors';
   value: Uint8Array;
 }
 /** SignatureDescriptors wraps multiple SignatureDescriptor's. */
 export interface SignatureDescriptorsAmino {
-  /** signatures are the signature descriptors */
+  /** Signatures are the signature descriptors */
   signatures?: SignatureDescriptorAmino[];
 }
 export interface SignatureDescriptorsAminoMsg {
-  type: "cosmos-sdk/SignatureDescriptors";
+  type: 'cosmos-sdk/SignatureDescriptors';
   value: SignatureDescriptorsAmino;
 }
 /** SignatureDescriptors wraps multiple SignatureDescriptor's. */
@@ -134,18 +134,18 @@ export interface SignatureDescriptorsSDKType {
  * clients.
  */
 export interface SignatureDescriptor {
-  /** public_key is the public key of the signer */
+  /** Public_key is the public key of the signer */
   publicKey?: Any;
   data?: SignatureDescriptor_Data;
   /**
-   * sequence is the sequence of the account, which describes the
+   * Sequence is the sequence of the account, which describes the
    * number of committed transactions signed by a given address. It is used to prevent
    * replay attacks.
    */
   sequence: bigint;
 }
 export interface SignatureDescriptorProtoMsg {
-  typeUrl: "/cosmos.tx.signing.v1beta1.SignatureDescriptor";
+  typeUrl: '/cosmos.tx.signing.v1beta1.SignatureDescriptor';
   value: Uint8Array;
 }
 /**
@@ -155,18 +155,18 @@ export interface SignatureDescriptorProtoMsg {
  * clients.
  */
 export interface SignatureDescriptorAmino {
-  /** public_key is the public key of the signer */
+  /** Public_key is the public key of the signer */
   public_key?: AnyAmino;
   data?: SignatureDescriptor_DataAmino;
   /**
-   * sequence is the sequence of the account, which describes the
+   * Sequence is the sequence of the account, which describes the
    * number of committed transactions signed by a given address. It is used to prevent
    * replay attacks.
    */
   sequence?: string;
 }
 export interface SignatureDescriptorAminoMsg {
-  type: "cosmos-sdk/SignatureDescriptor";
+  type: 'cosmos-sdk/SignatureDescriptor';
   value: SignatureDescriptorAmino;
 }
 /**
@@ -182,24 +182,24 @@ export interface SignatureDescriptorSDKType {
 }
 /** Data represents signature data */
 export interface SignatureDescriptor_Data {
-  /** single represents a single signer */
+  /** Single represents a single signer */
   single?: SignatureDescriptor_Data_Single;
-  /** multi represents a multisig signer */
+  /** Multi represents a multisig signer */
   multi?: SignatureDescriptor_Data_Multi;
 }
 export interface SignatureDescriptor_DataProtoMsg {
-  typeUrl: "/cosmos.tx.signing.v1beta1.Data";
+  typeUrl: '/cosmos.tx.signing.v1beta1.Data';
   value: Uint8Array;
 }
 /** Data represents signature data */
 export interface SignatureDescriptor_DataAmino {
-  /** single represents a single signer */
+  /** Single represents a single signer */
   single?: SignatureDescriptor_Data_SingleAmino;
-  /** multi represents a multisig signer */
+  /** Multi represents a multisig signer */
   multi?: SignatureDescriptor_Data_MultiAmino;
 }
 export interface SignatureDescriptor_DataAminoMsg {
-  type: "cosmos-sdk/Data";
+  type: 'cosmos-sdk/Data';
   value: SignatureDescriptor_DataAmino;
 }
 /** Data represents signature data */
@@ -209,24 +209,24 @@ export interface SignatureDescriptor_DataSDKType {
 }
 /** Single is the signature data for a single signer */
 export interface SignatureDescriptor_Data_Single {
-  /** mode is the signing mode of the single signer */
+  /** Mode is the signing mode of the single signer */
   mode: SignMode;
-  /** signature is the raw signature bytes */
+  /** Signature is the raw signature bytes */
   signature: Uint8Array;
 }
 export interface SignatureDescriptor_Data_SingleProtoMsg {
-  typeUrl: "/cosmos.tx.signing.v1beta1.Single";
+  typeUrl: '/cosmos.tx.signing.v1beta1.Single';
   value: Uint8Array;
 }
 /** Single is the signature data for a single signer */
 export interface SignatureDescriptor_Data_SingleAmino {
-  /** mode is the signing mode of the single signer */
+  /** Mode is the signing mode of the single signer */
   mode?: SignMode;
-  /** signature is the raw signature bytes */
+  /** Signature is the raw signature bytes */
   signature?: string;
 }
 export interface SignatureDescriptor_Data_SingleAminoMsg {
-  type: "cosmos-sdk/Single";
+  type: 'cosmos-sdk/Single';
   value: SignatureDescriptor_Data_SingleAmino;
 }
 /** Single is the signature data for a single signer */
@@ -236,24 +236,24 @@ export interface SignatureDescriptor_Data_SingleSDKType {
 }
 /** Multi is the signature data for a multisig public key */
 export interface SignatureDescriptor_Data_Multi {
-  /** bitarray specifies which keys within the multisig are signing */
+  /** Bitarray specifies which keys within the multisig are signing */
   bitarray?: CompactBitArray;
-  /** signatures is the signatures of the multi-signature */
+  /** Signatures is the signatures of the multi-signature */
   signatures: SignatureDescriptor_Data[];
 }
 export interface SignatureDescriptor_Data_MultiProtoMsg {
-  typeUrl: "/cosmos.tx.signing.v1beta1.Multi";
+  typeUrl: '/cosmos.tx.signing.v1beta1.Multi';
   value: Uint8Array;
 }
 /** Multi is the signature data for a multisig public key */
 export interface SignatureDescriptor_Data_MultiAmino {
-  /** bitarray specifies which keys within the multisig are signing */
+  /** Bitarray specifies which keys within the multisig are signing */
   bitarray?: CompactBitArrayAmino;
-  /** signatures is the signatures of the multi-signature */
+  /** Signatures is the signatures of the multi-signature */
   signatures?: SignatureDescriptor_DataAmino[];
 }
 export interface SignatureDescriptor_Data_MultiAminoMsg {
-  type: "cosmos-sdk/Multi";
+  type: 'cosmos-sdk/Multi';
   value: SignatureDescriptor_Data_MultiAmino;
 }
 /** Multi is the signature data for a multisig public key */
@@ -263,12 +263,12 @@ export interface SignatureDescriptor_Data_MultiSDKType {
 }
 function createBaseSignatureDescriptors(): SignatureDescriptors {
   return {
-    signatures: []
+    signatures: [],
   };
 }
 export const SignatureDescriptors = {
-  typeUrl: "/cosmos.tx.signing.v1beta1.SignatureDescriptors",
-  aminoType: "cosmos-sdk/SignatureDescriptors",
+  typeUrl: '/cosmos.tx.signing.v1beta1.SignatureDescriptors',
+  aminoType: 'cosmos-sdk/SignatureDescriptors',
   encode(message: SignatureDescriptors, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.signatures) {
       SignatureDescriptor.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -277,7 +277,7 @@ export const SignatureDescriptors = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SignatureDescriptors {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignatureDescriptors();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -294,18 +294,18 @@ export const SignatureDescriptors = {
   },
   fromPartial(object: DeepPartial<SignatureDescriptors>): SignatureDescriptors {
     const message = createBaseSignatureDescriptors();
-    message.signatures = object.signatures?.map(e => SignatureDescriptor.fromPartial(e)) || [];
+    message.signatures = object.signatures?.map((e) => SignatureDescriptor.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: SignatureDescriptorsAmino): SignatureDescriptors {
     const message = createBaseSignatureDescriptors();
-    message.signatures = object.signatures?.map(e => SignatureDescriptor.fromAmino(e)) || [];
+    message.signatures = object.signatures?.map((e) => SignatureDescriptor.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: SignatureDescriptors): SignatureDescriptorsAmino {
     const obj: any = {};
     if (message.signatures) {
-      obj.signatures = message.signatures.map(e => e ? SignatureDescriptor.toAmino(e) : undefined);
+      obj.signatures = message.signatures.map((e) => (e ? SignatureDescriptor.toAmino(e) : undefined));
     } else {
       obj.signatures = message.signatures;
     }
@@ -316,8 +316,8 @@ export const SignatureDescriptors = {
   },
   toAminoMsg(message: SignatureDescriptors): SignatureDescriptorsAminoMsg {
     return {
-      type: "cosmos-sdk/SignatureDescriptors",
-      value: SignatureDescriptors.toAmino(message)
+      type: 'cosmos-sdk/SignatureDescriptors',
+      value: SignatureDescriptors.toAmino(message),
     };
   },
   fromProtoMsg(message: SignatureDescriptorsProtoMsg): SignatureDescriptors {
@@ -328,21 +328,21 @@ export const SignatureDescriptors = {
   },
   toProtoMsg(message: SignatureDescriptors): SignatureDescriptorsProtoMsg {
     return {
-      typeUrl: "/cosmos.tx.signing.v1beta1.SignatureDescriptors",
-      value: SignatureDescriptors.encode(message).finish()
+      typeUrl: '/cosmos.tx.signing.v1beta1.SignatureDescriptors',
+      value: SignatureDescriptors.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSignatureDescriptor(): SignatureDescriptor {
   return {
     publicKey: undefined,
     data: undefined,
-    sequence: BigInt(0)
+    sequence: BigInt(0),
   };
 }
 export const SignatureDescriptor = {
-  typeUrl: "/cosmos.tx.signing.v1beta1.SignatureDescriptor",
-  aminoType: "cosmos-sdk/SignatureDescriptor",
+  typeUrl: '/cosmos.tx.signing.v1beta1.SignatureDescriptor',
+  aminoType: 'cosmos-sdk/SignatureDescriptor',
   encode(message: SignatureDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.publicKey !== undefined) {
       Any.encode(message.publicKey, writer.uint32(10).fork()).ldelim();
@@ -357,7 +357,7 @@ export const SignatureDescriptor = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SignatureDescriptor {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignatureDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -410,8 +410,8 @@ export const SignatureDescriptor = {
   },
   toAminoMsg(message: SignatureDescriptor): SignatureDescriptorAminoMsg {
     return {
-      type: "cosmos-sdk/SignatureDescriptor",
-      value: SignatureDescriptor.toAmino(message)
+      type: 'cosmos-sdk/SignatureDescriptor',
+      value: SignatureDescriptor.toAmino(message),
     };
   },
   fromProtoMsg(message: SignatureDescriptorProtoMsg): SignatureDescriptor {
@@ -422,20 +422,20 @@ export const SignatureDescriptor = {
   },
   toProtoMsg(message: SignatureDescriptor): SignatureDescriptorProtoMsg {
     return {
-      typeUrl: "/cosmos.tx.signing.v1beta1.SignatureDescriptor",
-      value: SignatureDescriptor.encode(message).finish()
+      typeUrl: '/cosmos.tx.signing.v1beta1.SignatureDescriptor',
+      value: SignatureDescriptor.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSignatureDescriptor_Data(): SignatureDescriptor_Data {
   return {
     single: undefined,
-    multi: undefined
+    multi: undefined,
   };
 }
 export const SignatureDescriptor_Data = {
-  typeUrl: "/cosmos.tx.signing.v1beta1.Data",
-  aminoType: "cosmos-sdk/Data",
+  typeUrl: '/cosmos.tx.signing.v1beta1.Data',
+  aminoType: 'cosmos-sdk/Data',
   encode(message: SignatureDescriptor_Data, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.single !== undefined) {
       SignatureDescriptor_Data_Single.encode(message.single, writer.uint32(10).fork()).ldelim();
@@ -447,7 +447,7 @@ export const SignatureDescriptor_Data = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SignatureDescriptor_Data {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignatureDescriptor_Data();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -492,8 +492,8 @@ export const SignatureDescriptor_Data = {
   },
   toAminoMsg(message: SignatureDescriptor_Data): SignatureDescriptor_DataAminoMsg {
     return {
-      type: "cosmos-sdk/Data",
-      value: SignatureDescriptor_Data.toAmino(message)
+      type: 'cosmos-sdk/Data',
+      value: SignatureDescriptor_Data.toAmino(message),
     };
   },
   fromProtoMsg(message: SignatureDescriptor_DataProtoMsg): SignatureDescriptor_Data {
@@ -504,20 +504,20 @@ export const SignatureDescriptor_Data = {
   },
   toProtoMsg(message: SignatureDescriptor_Data): SignatureDescriptor_DataProtoMsg {
     return {
-      typeUrl: "/cosmos.tx.signing.v1beta1.Data",
-      value: SignatureDescriptor_Data.encode(message).finish()
+      typeUrl: '/cosmos.tx.signing.v1beta1.Data',
+      value: SignatureDescriptor_Data.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSignatureDescriptor_Data_Single(): SignatureDescriptor_Data_Single {
   return {
     mode: 0,
-    signature: new Uint8Array()
+    signature: new Uint8Array(),
   };
 }
 export const SignatureDescriptor_Data_Single = {
-  typeUrl: "/cosmos.tx.signing.v1beta1.Single",
-  aminoType: "cosmos-sdk/Single",
+  typeUrl: '/cosmos.tx.signing.v1beta1.Single',
+  aminoType: 'cosmos-sdk/Single',
   encode(message: SignatureDescriptor_Data_Single, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.mode !== 0) {
       writer.uint32(8).int32(message.mode);
@@ -529,7 +529,7 @@ export const SignatureDescriptor_Data_Single = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SignatureDescriptor_Data_Single {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignatureDescriptor_Data_Single();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -574,8 +574,8 @@ export const SignatureDescriptor_Data_Single = {
   },
   toAminoMsg(message: SignatureDescriptor_Data_Single): SignatureDescriptor_Data_SingleAminoMsg {
     return {
-      type: "cosmos-sdk/Single",
-      value: SignatureDescriptor_Data_Single.toAmino(message)
+      type: 'cosmos-sdk/Single',
+      value: SignatureDescriptor_Data_Single.toAmino(message),
     };
   },
   fromProtoMsg(message: SignatureDescriptor_Data_SingleProtoMsg): SignatureDescriptor_Data_Single {
@@ -586,20 +586,20 @@ export const SignatureDescriptor_Data_Single = {
   },
   toProtoMsg(message: SignatureDescriptor_Data_Single): SignatureDescriptor_Data_SingleProtoMsg {
     return {
-      typeUrl: "/cosmos.tx.signing.v1beta1.Single",
-      value: SignatureDescriptor_Data_Single.encode(message).finish()
+      typeUrl: '/cosmos.tx.signing.v1beta1.Single',
+      value: SignatureDescriptor_Data_Single.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSignatureDescriptor_Data_Multi(): SignatureDescriptor_Data_Multi {
   return {
     bitarray: undefined,
-    signatures: []
+    signatures: [],
   };
 }
 export const SignatureDescriptor_Data_Multi = {
-  typeUrl: "/cosmos.tx.signing.v1beta1.Multi",
-  aminoType: "cosmos-sdk/Multi",
+  typeUrl: '/cosmos.tx.signing.v1beta1.Multi',
+  aminoType: 'cosmos-sdk/Multi',
   encode(message: SignatureDescriptor_Data_Multi, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.bitarray !== undefined) {
       CompactBitArray.encode(message.bitarray, writer.uint32(10).fork()).ldelim();
@@ -611,7 +611,7 @@ export const SignatureDescriptor_Data_Multi = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SignatureDescriptor_Data_Multi {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignatureDescriptor_Data_Multi();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -632,7 +632,7 @@ export const SignatureDescriptor_Data_Multi = {
   fromPartial(object: DeepPartial<SignatureDescriptor_Data_Multi>): SignatureDescriptor_Data_Multi {
     const message = createBaseSignatureDescriptor_Data_Multi();
     message.bitarray = object.bitarray !== undefined && object.bitarray !== null ? CompactBitArray.fromPartial(object.bitarray) : undefined;
-    message.signatures = object.signatures?.map(e => SignatureDescriptor_Data.fromPartial(e)) || [];
+    message.signatures = object.signatures?.map((e) => SignatureDescriptor_Data.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: SignatureDescriptor_Data_MultiAmino): SignatureDescriptor_Data_Multi {
@@ -640,14 +640,14 @@ export const SignatureDescriptor_Data_Multi = {
     if (object.bitarray !== undefined && object.bitarray !== null) {
       message.bitarray = CompactBitArray.fromAmino(object.bitarray);
     }
-    message.signatures = object.signatures?.map(e => SignatureDescriptor_Data.fromAmino(e)) || [];
+    message.signatures = object.signatures?.map((e) => SignatureDescriptor_Data.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: SignatureDescriptor_Data_Multi): SignatureDescriptor_Data_MultiAmino {
     const obj: any = {};
     obj.bitarray = message.bitarray ? CompactBitArray.toAmino(message.bitarray) : undefined;
     if (message.signatures) {
-      obj.signatures = message.signatures.map(e => e ? SignatureDescriptor_Data.toAmino(e) : undefined);
+      obj.signatures = message.signatures.map((e) => (e ? SignatureDescriptor_Data.toAmino(e) : undefined));
     } else {
       obj.signatures = message.signatures;
     }
@@ -658,8 +658,8 @@ export const SignatureDescriptor_Data_Multi = {
   },
   toAminoMsg(message: SignatureDescriptor_Data_Multi): SignatureDescriptor_Data_MultiAminoMsg {
     return {
-      type: "cosmos-sdk/Multi",
-      value: SignatureDescriptor_Data_Multi.toAmino(message)
+      type: 'cosmos-sdk/Multi',
+      value: SignatureDescriptor_Data_Multi.toAmino(message),
     };
   },
   fromProtoMsg(message: SignatureDescriptor_Data_MultiProtoMsg): SignatureDescriptor_Data_Multi {
@@ -670,8 +670,8 @@ export const SignatureDescriptor_Data_Multi = {
   },
   toProtoMsg(message: SignatureDescriptor_Data_Multi): SignatureDescriptor_Data_MultiProtoMsg {
     return {
-      typeUrl: "/cosmos.tx.signing.v1beta1.Multi",
-      value: SignatureDescriptor_Data_Multi.encode(message).finish()
+      typeUrl: '/cosmos.tx.signing.v1beta1.Multi',
+      value: SignatureDescriptor_Data_Multi.encode(message).finish(),
     };
-  }
+  },
 };

@@ -1,17 +1,19 @@
-import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
-import { Params, ParamsAmino, ParamsSDKType } from "./params";
-import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
-import { RewardWeightRange, RewardWeightRangeAmino, RewardWeightRangeSDKType } from "./alliance";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
-import { Decimal } from "@cosmjs/math";
+import { Decimal } from '@cosmjs/math';
+
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { Coin, CoinAmino, CoinSDKType } from '../../cosmos/base/v1beta1/coin';
+import { Duration, DurationAmino, DurationSDKType } from '../../google/protobuf/duration';
+import { DeepPartial } from '../../helpers';
+import { RewardWeightRange, RewardWeightRangeAmino, RewardWeightRangeSDKType } from './alliance';
+import { Params, ParamsAmino, ParamsSDKType } from './params';
+
 export interface MsgDelegate {
   delegatorAddress: string;
   validatorAddress: string;
   amount: Coin;
 }
 export interface MsgDelegateProtoMsg {
-  typeUrl: "/alliance.alliance.MsgDelegate";
+  typeUrl: '/alliance.alliance.MsgDelegate';
   value: Uint8Array;
 }
 export interface MsgDelegateAmino {
@@ -20,7 +22,7 @@ export interface MsgDelegateAmino {
   amount?: CoinAmino;
 }
 export interface MsgDelegateAminoMsg {
-  type: "alliance/MsgDelegate";
+  type: 'alliance/MsgDelegate';
   value: MsgDelegateAmino;
 }
 export interface MsgDelegateSDKType {
@@ -30,12 +32,12 @@ export interface MsgDelegateSDKType {
 }
 export interface MsgDelegateResponse {}
 export interface MsgDelegateResponseProtoMsg {
-  typeUrl: "/alliance.alliance.MsgDelegateResponse";
+  typeUrl: '/alliance.alliance.MsgDelegateResponse';
   value: Uint8Array;
 }
 export interface MsgDelegateResponseAmino {}
 export interface MsgDelegateResponseAminoMsg {
-  type: "/alliance.alliance.MsgDelegateResponse";
+  type: '/alliance.alliance.MsgDelegateResponse';
   value: MsgDelegateResponseAmino;
 }
 export interface MsgDelegateResponseSDKType {}
@@ -45,7 +47,7 @@ export interface MsgUndelegate {
   amount: Coin;
 }
 export interface MsgUndelegateProtoMsg {
-  typeUrl: "/alliance.alliance.MsgUndelegate";
+  typeUrl: '/alliance.alliance.MsgUndelegate';
   value: Uint8Array;
 }
 export interface MsgUndelegateAmino {
@@ -54,7 +56,7 @@ export interface MsgUndelegateAmino {
   amount?: CoinAmino;
 }
 export interface MsgUndelegateAminoMsg {
-  type: "alliance/MsgUndelegate";
+  type: 'alliance/MsgUndelegate';
   value: MsgUndelegateAmino;
 }
 export interface MsgUndelegateSDKType {
@@ -64,12 +66,12 @@ export interface MsgUndelegateSDKType {
 }
 export interface MsgUndelegateResponse {}
 export interface MsgUndelegateResponseProtoMsg {
-  typeUrl: "/alliance.alliance.MsgUndelegateResponse";
+  typeUrl: '/alliance.alliance.MsgUndelegateResponse';
   value: Uint8Array;
 }
 export interface MsgUndelegateResponseAmino {}
 export interface MsgUndelegateResponseAminoMsg {
-  type: "/alliance.alliance.MsgUndelegateResponse";
+  type: '/alliance.alliance.MsgUndelegateResponse';
   value: MsgUndelegateResponseAmino;
 }
 export interface MsgUndelegateResponseSDKType {}
@@ -80,7 +82,7 @@ export interface MsgRedelegate {
   amount: Coin;
 }
 export interface MsgRedelegateProtoMsg {
-  typeUrl: "/alliance.alliance.MsgRedelegate";
+  typeUrl: '/alliance.alliance.MsgRedelegate';
   value: Uint8Array;
 }
 export interface MsgRedelegateAmino {
@@ -90,7 +92,7 @@ export interface MsgRedelegateAmino {
   amount?: CoinAmino;
 }
 export interface MsgRedelegateAminoMsg {
-  type: "alliance/MsgRedelegate";
+  type: 'alliance/MsgRedelegate';
   value: MsgRedelegateAmino;
 }
 export interface MsgRedelegateSDKType {
@@ -101,12 +103,12 @@ export interface MsgRedelegateSDKType {
 }
 export interface MsgRedelegateResponse {}
 export interface MsgRedelegateResponseProtoMsg {
-  typeUrl: "/alliance.alliance.MsgRedelegateResponse";
+  typeUrl: '/alliance.alliance.MsgRedelegateResponse';
   value: Uint8Array;
 }
 export interface MsgRedelegateResponseAmino {}
 export interface MsgRedelegateResponseAminoMsg {
-  type: "/alliance.alliance.MsgRedelegateResponse";
+  type: '/alliance.alliance.MsgRedelegateResponse';
   value: MsgRedelegateResponseAmino;
 }
 export interface MsgRedelegateResponseSDKType {}
@@ -116,7 +118,7 @@ export interface MsgClaimDelegationRewards {
   denom: string;
 }
 export interface MsgClaimDelegationRewardsProtoMsg {
-  typeUrl: "/alliance.alliance.MsgClaimDelegationRewards";
+  typeUrl: '/alliance.alliance.MsgClaimDelegationRewards';
   value: Uint8Array;
 }
 export interface MsgClaimDelegationRewardsAmino {
@@ -125,7 +127,7 @@ export interface MsgClaimDelegationRewardsAmino {
   denom?: string;
 }
 export interface MsgClaimDelegationRewardsAminoMsg {
-  type: "alliance/MsgClaimDelegationRewards";
+  type: 'alliance/MsgClaimDelegationRewards';
   value: MsgClaimDelegationRewardsAmino;
 }
 export interface MsgClaimDelegationRewardsSDKType {
@@ -135,12 +137,12 @@ export interface MsgClaimDelegationRewardsSDKType {
 }
 export interface MsgClaimDelegationRewardsResponse {}
 export interface MsgClaimDelegationRewardsResponseProtoMsg {
-  typeUrl: "/alliance.alliance.MsgClaimDelegationRewardsResponse";
+  typeUrl: '/alliance.alliance.MsgClaimDelegationRewardsResponse';
   value: Uint8Array;
 }
 export interface MsgClaimDelegationRewardsResponseAmino {}
 export interface MsgClaimDelegationRewardsResponseAminoMsg {
-  type: "/alliance.alliance.MsgClaimDelegationRewardsResponse";
+  type: '/alliance.alliance.MsgClaimDelegationRewardsResponse';
   value: MsgClaimDelegationRewardsResponseAmino;
 }
 export interface MsgClaimDelegationRewardsResponseSDKType {}
@@ -149,7 +151,7 @@ export interface MsgUpdateParams {
   params: Params;
 }
 export interface MsgUpdateParamsProtoMsg {
-  typeUrl: "/alliance.alliance.MsgUpdateParams";
+  typeUrl: '/alliance.alliance.MsgUpdateParams';
   value: Uint8Array;
 }
 export interface MsgUpdateParamsAmino {
@@ -157,7 +159,7 @@ export interface MsgUpdateParamsAmino {
   params?: ParamsAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
-  type: "/alliance.alliance.MsgUpdateParams";
+  type: '/alliance.alliance.MsgUpdateParams';
   value: MsgUpdateParamsAmino;
 }
 export interface MsgUpdateParamsSDKType {
@@ -166,12 +168,12 @@ export interface MsgUpdateParamsSDKType {
 }
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
-  typeUrl: "/alliance.alliance.MsgUpdateParamsResponse";
+  typeUrl: '/alliance.alliance.MsgUpdateParamsResponse';
   value: Uint8Array;
 }
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
-  type: "/alliance.alliance.MsgUpdateParamsResponse";
+  type: '/alliance.alliance.MsgUpdateParamsResponse';
   value: MsgUpdateParamsResponseAmino;
 }
 export interface MsgUpdateParamsResponseSDKType {}
@@ -192,11 +194,11 @@ export interface MsgCreateAlliance {
   takeRate: string;
   rewardChangeRate: string;
   rewardChangeInterval: Duration;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   rewardWeightRange: RewardWeightRange;
 }
 export interface MsgCreateAllianceProtoMsg {
-  typeUrl: "/alliance.alliance.MsgCreateAlliance";
+  typeUrl: '/alliance.alliance.MsgCreateAlliance';
   value: Uint8Array;
 }
 export interface MsgCreateAllianceAmino {
@@ -216,11 +218,11 @@ export interface MsgCreateAllianceAmino {
   take_rate?: string;
   reward_change_rate?: string;
   reward_change_interval?: DurationAmino;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   reward_weight_range?: RewardWeightRangeAmino;
 }
 export interface MsgCreateAllianceAminoMsg {
-  type: "/alliance.alliance.MsgCreateAlliance";
+  type: '/alliance.alliance.MsgCreateAlliance';
   value: MsgCreateAllianceAmino;
 }
 export interface MsgCreateAllianceSDKType {
@@ -234,12 +236,12 @@ export interface MsgCreateAllianceSDKType {
 }
 export interface MsgCreateAllianceResponse {}
 export interface MsgCreateAllianceResponseProtoMsg {
-  typeUrl: "/alliance.alliance.MsgCreateAllianceResponse";
+  typeUrl: '/alliance.alliance.MsgCreateAllianceResponse';
   value: Uint8Array;
 }
 export interface MsgCreateAllianceResponseAmino {}
 export interface MsgCreateAllianceResponseAminoMsg {
-  type: "/alliance.alliance.MsgCreateAllianceResponse";
+  type: '/alliance.alliance.MsgCreateAllianceResponse';
   value: MsgCreateAllianceResponseAmino;
 }
 export interface MsgCreateAllianceResponseSDKType {}
@@ -256,11 +258,11 @@ export interface MsgUpdateAlliance {
   takeRate: string;
   rewardChangeRate: string;
   rewardChangeInterval: Duration;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   rewardWeightRange: RewardWeightRange;
 }
 export interface MsgUpdateAllianceProtoMsg {
-  typeUrl: "/alliance.alliance.MsgUpdateAlliance";
+  typeUrl: '/alliance.alliance.MsgUpdateAlliance';
   value: Uint8Array;
 }
 export interface MsgUpdateAllianceAmino {
@@ -276,11 +278,11 @@ export interface MsgUpdateAllianceAmino {
   take_rate?: string;
   reward_change_rate?: string;
   reward_change_interval?: DurationAmino;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   reward_weight_range?: RewardWeightRangeAmino;
 }
 export interface MsgUpdateAllianceAminoMsg {
-  type: "/alliance.alliance.MsgUpdateAlliance";
+  type: '/alliance.alliance.MsgUpdateAlliance';
   value: MsgUpdateAllianceAmino;
 }
 export interface MsgUpdateAllianceSDKType {
@@ -294,12 +296,12 @@ export interface MsgUpdateAllianceSDKType {
 }
 export interface MsgUpdateAllianceResponse {}
 export interface MsgUpdateAllianceResponseProtoMsg {
-  typeUrl: "/alliance.alliance.MsgUpdateAllianceResponse";
+  typeUrl: '/alliance.alliance.MsgUpdateAllianceResponse';
   value: Uint8Array;
 }
 export interface MsgUpdateAllianceResponseAmino {}
 export interface MsgUpdateAllianceResponseAminoMsg {
-  type: "/alliance.alliance.MsgUpdateAllianceResponse";
+  type: '/alliance.alliance.MsgUpdateAllianceResponse';
   value: MsgUpdateAllianceResponseAmino;
 }
 export interface MsgUpdateAllianceResponseSDKType {}
@@ -308,7 +310,7 @@ export interface MsgDeleteAlliance {
   denom: string;
 }
 export interface MsgDeleteAllianceProtoMsg {
-  typeUrl: "/alliance.alliance.MsgDeleteAlliance";
+  typeUrl: '/alliance.alliance.MsgDeleteAlliance';
   value: Uint8Array;
 }
 export interface MsgDeleteAllianceAmino {
@@ -316,7 +318,7 @@ export interface MsgDeleteAllianceAmino {
   denom?: string;
 }
 export interface MsgDeleteAllianceAminoMsg {
-  type: "/alliance.alliance.MsgDeleteAlliance";
+  type: '/alliance.alliance.MsgDeleteAlliance';
   value: MsgDeleteAllianceAmino;
 }
 export interface MsgDeleteAllianceSDKType {
@@ -325,30 +327,30 @@ export interface MsgDeleteAllianceSDKType {
 }
 export interface MsgDeleteAllianceResponse {}
 export interface MsgDeleteAllianceResponseProtoMsg {
-  typeUrl: "/alliance.alliance.MsgDeleteAllianceResponse";
+  typeUrl: '/alliance.alliance.MsgDeleteAllianceResponse';
   value: Uint8Array;
 }
 export interface MsgDeleteAllianceResponseAmino {}
 export interface MsgDeleteAllianceResponseAminoMsg {
-  type: "/alliance.alliance.MsgDeleteAllianceResponse";
+  type: '/alliance.alliance.MsgDeleteAllianceResponse';
   value: MsgDeleteAllianceResponseAmino;
 }
 export interface MsgDeleteAllianceResponseSDKType {}
 function createBaseMsgDelegate(): MsgDelegate {
   return {
-    delegatorAddress: "",
-    validatorAddress: "",
-    amount: Coin.fromPartial({})
+    delegatorAddress: '',
+    validatorAddress: '',
+    amount: Coin.fromPartial({}),
   };
 }
 export const MsgDelegate = {
-  typeUrl: "/alliance.alliance.MsgDelegate",
-  aminoType: "alliance/MsgDelegate",
+  typeUrl: '/alliance.alliance.MsgDelegate',
+  aminoType: 'alliance/MsgDelegate',
   encode(message: MsgDelegate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.delegatorAddress !== "") {
+    if (message.delegatorAddress !== '') {
       writer.uint32(10).string(message.delegatorAddress);
     }
-    if (message.validatorAddress !== "") {
+    if (message.validatorAddress !== '') {
       writer.uint32(18).string(message.validatorAddress);
     }
     if (message.amount !== undefined) {
@@ -358,7 +360,7 @@ export const MsgDelegate = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgDelegate {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDelegate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -381,8 +383,8 @@ export const MsgDelegate = {
   },
   fromPartial(object: DeepPartial<MsgDelegate>): MsgDelegate {
     const message = createBaseMsgDelegate();
-    message.delegatorAddress = object.delegatorAddress ?? "";
-    message.validatorAddress = object.validatorAddress ?? "";
+    message.delegatorAddress = object.delegatorAddress ?? '';
+    message.validatorAddress = object.validatorAddress ?? '';
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     return message;
   },
@@ -401,8 +403,8 @@ export const MsgDelegate = {
   },
   toAmino(message: MsgDelegate): MsgDelegateAmino {
     const obj: any = {};
-    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
-    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
+    obj.delegator_address = message.delegatorAddress === '' ? undefined : message.delegatorAddress;
+    obj.validator_address = message.validatorAddress === '' ? undefined : message.validatorAddress;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
     return obj;
   },
@@ -411,8 +413,8 @@ export const MsgDelegate = {
   },
   toAminoMsg(message: MsgDelegate): MsgDelegateAminoMsg {
     return {
-      type: "alliance/MsgDelegate",
-      value: MsgDelegate.toAmino(message)
+      type: 'alliance/MsgDelegate',
+      value: MsgDelegate.toAmino(message),
     };
   },
   fromProtoMsg(message: MsgDelegateProtoMsg): MsgDelegate {
@@ -423,22 +425,22 @@ export const MsgDelegate = {
   },
   toProtoMsg(message: MsgDelegate): MsgDelegateProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgDelegate",
-      value: MsgDelegate.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgDelegate',
+      value: MsgDelegate.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgDelegateResponse(): MsgDelegateResponse {
   return {};
 }
 export const MsgDelegateResponse = {
-  typeUrl: "/alliance.alliance.MsgDelegateResponse",
+  typeUrl: '/alliance.alliance.MsgDelegateResponse',
   encode(_: MsgDelegateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgDelegateResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDelegateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -473,26 +475,26 @@ export const MsgDelegateResponse = {
   },
   toProtoMsg(message: MsgDelegateResponse): MsgDelegateResponseProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgDelegateResponse",
-      value: MsgDelegateResponse.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgDelegateResponse',
+      value: MsgDelegateResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgUndelegate(): MsgUndelegate {
   return {
-    delegatorAddress: "",
-    validatorAddress: "",
-    amount: Coin.fromPartial({})
+    delegatorAddress: '',
+    validatorAddress: '',
+    amount: Coin.fromPartial({}),
   };
 }
 export const MsgUndelegate = {
-  typeUrl: "/alliance.alliance.MsgUndelegate",
-  aminoType: "alliance/MsgUndelegate",
+  typeUrl: '/alliance.alliance.MsgUndelegate',
+  aminoType: 'alliance/MsgUndelegate',
   encode(message: MsgUndelegate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.delegatorAddress !== "") {
+    if (message.delegatorAddress !== '') {
       writer.uint32(10).string(message.delegatorAddress);
     }
-    if (message.validatorAddress !== "") {
+    if (message.validatorAddress !== '') {
       writer.uint32(18).string(message.validatorAddress);
     }
     if (message.amount !== undefined) {
@@ -502,7 +504,7 @@ export const MsgUndelegate = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUndelegate {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUndelegate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -525,8 +527,8 @@ export const MsgUndelegate = {
   },
   fromPartial(object: DeepPartial<MsgUndelegate>): MsgUndelegate {
     const message = createBaseMsgUndelegate();
-    message.delegatorAddress = object.delegatorAddress ?? "";
-    message.validatorAddress = object.validatorAddress ?? "";
+    message.delegatorAddress = object.delegatorAddress ?? '';
+    message.validatorAddress = object.validatorAddress ?? '';
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     return message;
   },
@@ -545,8 +547,8 @@ export const MsgUndelegate = {
   },
   toAmino(message: MsgUndelegate): MsgUndelegateAmino {
     const obj: any = {};
-    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
-    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
+    obj.delegator_address = message.delegatorAddress === '' ? undefined : message.delegatorAddress;
+    obj.validator_address = message.validatorAddress === '' ? undefined : message.validatorAddress;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
     return obj;
   },
@@ -555,8 +557,8 @@ export const MsgUndelegate = {
   },
   toAminoMsg(message: MsgUndelegate): MsgUndelegateAminoMsg {
     return {
-      type: "alliance/MsgUndelegate",
-      value: MsgUndelegate.toAmino(message)
+      type: 'alliance/MsgUndelegate',
+      value: MsgUndelegate.toAmino(message),
     };
   },
   fromProtoMsg(message: MsgUndelegateProtoMsg): MsgUndelegate {
@@ -567,22 +569,22 @@ export const MsgUndelegate = {
   },
   toProtoMsg(message: MsgUndelegate): MsgUndelegateProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgUndelegate",
-      value: MsgUndelegate.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgUndelegate',
+      value: MsgUndelegate.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgUndelegateResponse(): MsgUndelegateResponse {
   return {};
 }
 export const MsgUndelegateResponse = {
-  typeUrl: "/alliance.alliance.MsgUndelegateResponse",
+  typeUrl: '/alliance.alliance.MsgUndelegateResponse',
   encode(_: MsgUndelegateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUndelegateResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUndelegateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -617,30 +619,30 @@ export const MsgUndelegateResponse = {
   },
   toProtoMsg(message: MsgUndelegateResponse): MsgUndelegateResponseProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgUndelegateResponse",
-      value: MsgUndelegateResponse.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgUndelegateResponse',
+      value: MsgUndelegateResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgRedelegate(): MsgRedelegate {
   return {
-    delegatorAddress: "",
-    validatorSrcAddress: "",
-    validatorDstAddress: "",
-    amount: Coin.fromPartial({})
+    delegatorAddress: '',
+    validatorSrcAddress: '',
+    validatorDstAddress: '',
+    amount: Coin.fromPartial({}),
   };
 }
 export const MsgRedelegate = {
-  typeUrl: "/alliance.alliance.MsgRedelegate",
-  aminoType: "alliance/MsgRedelegate",
+  typeUrl: '/alliance.alliance.MsgRedelegate',
+  aminoType: 'alliance/MsgRedelegate',
   encode(message: MsgRedelegate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.delegatorAddress !== "") {
+    if (message.delegatorAddress !== '') {
       writer.uint32(10).string(message.delegatorAddress);
     }
-    if (message.validatorSrcAddress !== "") {
+    if (message.validatorSrcAddress !== '') {
       writer.uint32(18).string(message.validatorSrcAddress);
     }
-    if (message.validatorDstAddress !== "") {
+    if (message.validatorDstAddress !== '') {
       writer.uint32(26).string(message.validatorDstAddress);
     }
     if (message.amount !== undefined) {
@@ -650,7 +652,7 @@ export const MsgRedelegate = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgRedelegate {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRedelegate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -676,9 +678,9 @@ export const MsgRedelegate = {
   },
   fromPartial(object: DeepPartial<MsgRedelegate>): MsgRedelegate {
     const message = createBaseMsgRedelegate();
-    message.delegatorAddress = object.delegatorAddress ?? "";
-    message.validatorSrcAddress = object.validatorSrcAddress ?? "";
-    message.validatorDstAddress = object.validatorDstAddress ?? "";
+    message.delegatorAddress = object.delegatorAddress ?? '';
+    message.validatorSrcAddress = object.validatorSrcAddress ?? '';
+    message.validatorDstAddress = object.validatorDstAddress ?? '';
     message.amount = object.amount !== undefined && object.amount !== null ? Coin.fromPartial(object.amount) : undefined;
     return message;
   },
@@ -700,9 +702,9 @@ export const MsgRedelegate = {
   },
   toAmino(message: MsgRedelegate): MsgRedelegateAmino {
     const obj: any = {};
-    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
-    obj.validator_src_address = message.validatorSrcAddress === "" ? undefined : message.validatorSrcAddress;
-    obj.validator_dst_address = message.validatorDstAddress === "" ? undefined : message.validatorDstAddress;
+    obj.delegator_address = message.delegatorAddress === '' ? undefined : message.delegatorAddress;
+    obj.validator_src_address = message.validatorSrcAddress === '' ? undefined : message.validatorSrcAddress;
+    obj.validator_dst_address = message.validatorDstAddress === '' ? undefined : message.validatorDstAddress;
     obj.amount = message.amount ? Coin.toAmino(message.amount) : undefined;
     return obj;
   },
@@ -711,8 +713,8 @@ export const MsgRedelegate = {
   },
   toAminoMsg(message: MsgRedelegate): MsgRedelegateAminoMsg {
     return {
-      type: "alliance/MsgRedelegate",
-      value: MsgRedelegate.toAmino(message)
+      type: 'alliance/MsgRedelegate',
+      value: MsgRedelegate.toAmino(message),
     };
   },
   fromProtoMsg(message: MsgRedelegateProtoMsg): MsgRedelegate {
@@ -723,22 +725,22 @@ export const MsgRedelegate = {
   },
   toProtoMsg(message: MsgRedelegate): MsgRedelegateProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgRedelegate",
-      value: MsgRedelegate.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgRedelegate',
+      value: MsgRedelegate.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgRedelegateResponse(): MsgRedelegateResponse {
   return {};
 }
 export const MsgRedelegateResponse = {
-  typeUrl: "/alliance.alliance.MsgRedelegateResponse",
+  typeUrl: '/alliance.alliance.MsgRedelegateResponse',
   encode(_: MsgRedelegateResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgRedelegateResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgRedelegateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -773,36 +775,36 @@ export const MsgRedelegateResponse = {
   },
   toProtoMsg(message: MsgRedelegateResponse): MsgRedelegateResponseProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgRedelegateResponse",
-      value: MsgRedelegateResponse.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgRedelegateResponse',
+      value: MsgRedelegateResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgClaimDelegationRewards(): MsgClaimDelegationRewards {
   return {
-    delegatorAddress: "",
-    validatorAddress: "",
-    denom: ""
+    delegatorAddress: '',
+    validatorAddress: '',
+    denom: '',
   };
 }
 export const MsgClaimDelegationRewards = {
-  typeUrl: "/alliance.alliance.MsgClaimDelegationRewards",
-  aminoType: "alliance/MsgClaimDelegationRewards",
+  typeUrl: '/alliance.alliance.MsgClaimDelegationRewards',
+  aminoType: 'alliance/MsgClaimDelegationRewards',
   encode(message: MsgClaimDelegationRewards, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.delegatorAddress !== "") {
+    if (message.delegatorAddress !== '') {
       writer.uint32(10).string(message.delegatorAddress);
     }
-    if (message.validatorAddress !== "") {
+    if (message.validatorAddress !== '') {
       writer.uint32(18).string(message.validatorAddress);
     }
-    if (message.denom !== "") {
+    if (message.denom !== '') {
       writer.uint32(26).string(message.denom);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgClaimDelegationRewards {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgClaimDelegationRewards();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -825,9 +827,9 @@ export const MsgClaimDelegationRewards = {
   },
   fromPartial(object: DeepPartial<MsgClaimDelegationRewards>): MsgClaimDelegationRewards {
     const message = createBaseMsgClaimDelegationRewards();
-    message.delegatorAddress = object.delegatorAddress ?? "";
-    message.validatorAddress = object.validatorAddress ?? "";
-    message.denom = object.denom ?? "";
+    message.delegatorAddress = object.delegatorAddress ?? '';
+    message.validatorAddress = object.validatorAddress ?? '';
+    message.denom = object.denom ?? '';
     return message;
   },
   fromAmino(object: MsgClaimDelegationRewardsAmino): MsgClaimDelegationRewards {
@@ -845,9 +847,9 @@ export const MsgClaimDelegationRewards = {
   },
   toAmino(message: MsgClaimDelegationRewards): MsgClaimDelegationRewardsAmino {
     const obj: any = {};
-    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
-    obj.validator_address = message.validatorAddress === "" ? undefined : message.validatorAddress;
-    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.delegator_address = message.delegatorAddress === '' ? undefined : message.delegatorAddress;
+    obj.validator_address = message.validatorAddress === '' ? undefined : message.validatorAddress;
+    obj.denom = message.denom === '' ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: MsgClaimDelegationRewardsAminoMsg): MsgClaimDelegationRewards {
@@ -855,8 +857,8 @@ export const MsgClaimDelegationRewards = {
   },
   toAminoMsg(message: MsgClaimDelegationRewards): MsgClaimDelegationRewardsAminoMsg {
     return {
-      type: "alliance/MsgClaimDelegationRewards",
-      value: MsgClaimDelegationRewards.toAmino(message)
+      type: 'alliance/MsgClaimDelegationRewards',
+      value: MsgClaimDelegationRewards.toAmino(message),
     };
   },
   fromProtoMsg(message: MsgClaimDelegationRewardsProtoMsg): MsgClaimDelegationRewards {
@@ -867,22 +869,22 @@ export const MsgClaimDelegationRewards = {
   },
   toProtoMsg(message: MsgClaimDelegationRewards): MsgClaimDelegationRewardsProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgClaimDelegationRewards",
-      value: MsgClaimDelegationRewards.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgClaimDelegationRewards',
+      value: MsgClaimDelegationRewards.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgClaimDelegationRewardsResponse(): MsgClaimDelegationRewardsResponse {
   return {};
 }
 export const MsgClaimDelegationRewardsResponse = {
-  typeUrl: "/alliance.alliance.MsgClaimDelegationRewardsResponse",
+  typeUrl: '/alliance.alliance.MsgClaimDelegationRewardsResponse',
   encode(_: MsgClaimDelegationRewardsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgClaimDelegationRewardsResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgClaimDelegationRewardsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -917,21 +919,21 @@ export const MsgClaimDelegationRewardsResponse = {
   },
   toProtoMsg(message: MsgClaimDelegationRewardsResponse): MsgClaimDelegationRewardsResponseProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgClaimDelegationRewardsResponse",
-      value: MsgClaimDelegationRewardsResponse.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgClaimDelegationRewardsResponse',
+      value: MsgClaimDelegationRewardsResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
-    authority: "",
-    params: Params.fromPartial({})
+    authority: '',
+    params: Params.fromPartial({}),
   };
 }
 export const MsgUpdateParams = {
-  typeUrl: "/alliance.alliance.MsgUpdateParams",
+  typeUrl: '/alliance.alliance.MsgUpdateParams',
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.authority !== "") {
+    if (message.authority !== '') {
       writer.uint32(10).string(message.authority);
     }
     if (message.params !== undefined) {
@@ -941,7 +943,7 @@ export const MsgUpdateParams = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParams {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -961,7 +963,7 @@ export const MsgUpdateParams = {
   },
   fromPartial(object: DeepPartial<MsgUpdateParams>): MsgUpdateParams {
     const message = createBaseMsgUpdateParams();
-    message.authority = object.authority ?? "";
+    message.authority = object.authority ?? '';
     message.params = object.params !== undefined && object.params !== null ? Params.fromPartial(object.params) : undefined;
     return message;
   },
@@ -977,7 +979,7 @@ export const MsgUpdateParams = {
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.authority = message.authority === '' ? undefined : message.authority;
     obj.params = message.params ? Params.toAmino(message.params) : undefined;
     return obj;
   },
@@ -992,22 +994,22 @@ export const MsgUpdateParams = {
   },
   toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgUpdateParams",
-      value: MsgUpdateParams.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgUpdateParams',
+      value: MsgUpdateParams.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 export const MsgUpdateParamsResponse = {
-  typeUrl: "/alliance.alliance.MsgUpdateParamsResponse",
+  typeUrl: '/alliance.alliance.MsgUpdateParamsResponse',
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParamsResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1042,38 +1044,38 @@ export const MsgUpdateParamsResponse = {
   },
   toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgUpdateParamsResponse',
+      value: MsgUpdateParamsResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgCreateAlliance(): MsgCreateAlliance {
   return {
-    authority: "",
-    denom: "",
-    rewardWeight: "",
-    takeRate: "",
-    rewardChangeRate: "",
+    authority: '',
+    denom: '',
+    rewardWeight: '',
+    takeRate: '',
+    rewardChangeRate: '',
     rewardChangeInterval: Duration.fromPartial({}),
-    rewardWeightRange: RewardWeightRange.fromPartial({})
+    rewardWeightRange: RewardWeightRange.fromPartial({}),
   };
 }
 export const MsgCreateAlliance = {
-  typeUrl: "/alliance.alliance.MsgCreateAlliance",
+  typeUrl: '/alliance.alliance.MsgCreateAlliance',
   encode(message: MsgCreateAlliance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.authority !== "") {
+    if (message.authority !== '') {
       writer.uint32(10).string(message.authority);
     }
-    if (message.denom !== "") {
+    if (message.denom !== '') {
       writer.uint32(18).string(message.denom);
     }
-    if (message.rewardWeight !== "") {
+    if (message.rewardWeight !== '') {
       writer.uint32(26).string(Decimal.fromUserInput(message.rewardWeight, 18).atomics);
     }
-    if (message.takeRate !== "") {
+    if (message.takeRate !== '') {
       writer.uint32(34).string(Decimal.fromUserInput(message.takeRate, 18).atomics);
     }
-    if (message.rewardChangeRate !== "") {
+    if (message.rewardChangeRate !== '') {
       writer.uint32(42).string(Decimal.fromUserInput(message.rewardChangeRate, 18).atomics);
     }
     if (message.rewardChangeInterval !== undefined) {
@@ -1086,7 +1088,7 @@ export const MsgCreateAlliance = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgCreateAlliance {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateAlliance();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1121,11 +1123,11 @@ export const MsgCreateAlliance = {
   },
   fromPartial(object: DeepPartial<MsgCreateAlliance>): MsgCreateAlliance {
     const message = createBaseMsgCreateAlliance();
-    message.authority = object.authority ?? "";
-    message.denom = object.denom ?? "";
-    message.rewardWeight = object.rewardWeight ?? "";
-    message.takeRate = object.takeRate ?? "";
-    message.rewardChangeRate = object.rewardChangeRate ?? "";
+    message.authority = object.authority ?? '';
+    message.denom = object.denom ?? '';
+    message.rewardWeight = object.rewardWeight ?? '';
+    message.takeRate = object.takeRate ?? '';
+    message.rewardChangeRate = object.rewardChangeRate ?? '';
     message.rewardChangeInterval = object.rewardChangeInterval !== undefined && object.rewardChangeInterval !== null ? Duration.fromPartial(object.rewardChangeInterval) : undefined;
     message.rewardWeightRange = object.rewardWeightRange !== undefined && object.rewardWeightRange !== null ? RewardWeightRange.fromPartial(object.rewardWeightRange) : undefined;
     return message;
@@ -1157,11 +1159,11 @@ export const MsgCreateAlliance = {
   },
   toAmino(message: MsgCreateAlliance): MsgCreateAllianceAmino {
     const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.denom = message.denom === "" ? undefined : message.denom;
-    obj.reward_weight = message.rewardWeight === "" ? undefined : message.rewardWeight;
-    obj.take_rate = message.takeRate === "" ? undefined : message.takeRate;
-    obj.reward_change_rate = message.rewardChangeRate === "" ? undefined : message.rewardChangeRate;
+    obj.authority = message.authority === '' ? undefined : message.authority;
+    obj.denom = message.denom === '' ? undefined : message.denom;
+    obj.reward_weight = message.rewardWeight === '' ? undefined : message.rewardWeight;
+    obj.take_rate = message.takeRate === '' ? undefined : message.takeRate;
+    obj.reward_change_rate = message.rewardChangeRate === '' ? undefined : message.rewardChangeRate;
     obj.reward_change_interval = message.rewardChangeInterval ? Duration.toAmino(message.rewardChangeInterval) : undefined;
     obj.reward_weight_range = message.rewardWeightRange ? RewardWeightRange.toAmino(message.rewardWeightRange) : undefined;
     return obj;
@@ -1177,22 +1179,22 @@ export const MsgCreateAlliance = {
   },
   toProtoMsg(message: MsgCreateAlliance): MsgCreateAllianceProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgCreateAlliance",
-      value: MsgCreateAlliance.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgCreateAlliance',
+      value: MsgCreateAlliance.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgCreateAllianceResponse(): MsgCreateAllianceResponse {
   return {};
 }
 export const MsgCreateAllianceResponse = {
-  typeUrl: "/alliance.alliance.MsgCreateAllianceResponse",
+  typeUrl: '/alliance.alliance.MsgCreateAllianceResponse',
   encode(_: MsgCreateAllianceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgCreateAllianceResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateAllianceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1227,38 +1229,38 @@ export const MsgCreateAllianceResponse = {
   },
   toProtoMsg(message: MsgCreateAllianceResponse): MsgCreateAllianceResponseProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgCreateAllianceResponse",
-      value: MsgCreateAllianceResponse.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgCreateAllianceResponse',
+      value: MsgCreateAllianceResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgUpdateAlliance(): MsgUpdateAlliance {
   return {
-    authority: "",
-    denom: "",
-    rewardWeight: "",
-    takeRate: "",
-    rewardChangeRate: "",
+    authority: '',
+    denom: '',
+    rewardWeight: '',
+    takeRate: '',
+    rewardChangeRate: '',
     rewardChangeInterval: Duration.fromPartial({}),
-    rewardWeightRange: RewardWeightRange.fromPartial({})
+    rewardWeightRange: RewardWeightRange.fromPartial({}),
   };
 }
 export const MsgUpdateAlliance = {
-  typeUrl: "/alliance.alliance.MsgUpdateAlliance",
+  typeUrl: '/alliance.alliance.MsgUpdateAlliance',
   encode(message: MsgUpdateAlliance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.authority !== "") {
+    if (message.authority !== '') {
       writer.uint32(10).string(message.authority);
     }
-    if (message.denom !== "") {
+    if (message.denom !== '') {
       writer.uint32(18).string(message.denom);
     }
-    if (message.rewardWeight !== "") {
+    if (message.rewardWeight !== '') {
       writer.uint32(26).string(Decimal.fromUserInput(message.rewardWeight, 18).atomics);
     }
-    if (message.takeRate !== "") {
+    if (message.takeRate !== '') {
       writer.uint32(34).string(Decimal.fromUserInput(message.takeRate, 18).atomics);
     }
-    if (message.rewardChangeRate !== "") {
+    if (message.rewardChangeRate !== '') {
       writer.uint32(42).string(Decimal.fromUserInput(message.rewardChangeRate, 18).atomics);
     }
     if (message.rewardChangeInterval !== undefined) {
@@ -1271,7 +1273,7 @@ export const MsgUpdateAlliance = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateAlliance {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateAlliance();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1306,11 +1308,11 @@ export const MsgUpdateAlliance = {
   },
   fromPartial(object: DeepPartial<MsgUpdateAlliance>): MsgUpdateAlliance {
     const message = createBaseMsgUpdateAlliance();
-    message.authority = object.authority ?? "";
-    message.denom = object.denom ?? "";
-    message.rewardWeight = object.rewardWeight ?? "";
-    message.takeRate = object.takeRate ?? "";
-    message.rewardChangeRate = object.rewardChangeRate ?? "";
+    message.authority = object.authority ?? '';
+    message.denom = object.denom ?? '';
+    message.rewardWeight = object.rewardWeight ?? '';
+    message.takeRate = object.takeRate ?? '';
+    message.rewardChangeRate = object.rewardChangeRate ?? '';
     message.rewardChangeInterval = object.rewardChangeInterval !== undefined && object.rewardChangeInterval !== null ? Duration.fromPartial(object.rewardChangeInterval) : undefined;
     message.rewardWeightRange = object.rewardWeightRange !== undefined && object.rewardWeightRange !== null ? RewardWeightRange.fromPartial(object.rewardWeightRange) : undefined;
     return message;
@@ -1342,11 +1344,11 @@ export const MsgUpdateAlliance = {
   },
   toAmino(message: MsgUpdateAlliance): MsgUpdateAllianceAmino {
     const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.denom = message.denom === "" ? undefined : message.denom;
-    obj.reward_weight = message.rewardWeight === "" ? undefined : message.rewardWeight;
-    obj.take_rate = message.takeRate === "" ? undefined : message.takeRate;
-    obj.reward_change_rate = message.rewardChangeRate === "" ? undefined : message.rewardChangeRate;
+    obj.authority = message.authority === '' ? undefined : message.authority;
+    obj.denom = message.denom === '' ? undefined : message.denom;
+    obj.reward_weight = message.rewardWeight === '' ? undefined : message.rewardWeight;
+    obj.take_rate = message.takeRate === '' ? undefined : message.takeRate;
+    obj.reward_change_rate = message.rewardChangeRate === '' ? undefined : message.rewardChangeRate;
     obj.reward_change_interval = message.rewardChangeInterval ? Duration.toAmino(message.rewardChangeInterval) : undefined;
     obj.reward_weight_range = message.rewardWeightRange ? RewardWeightRange.toAmino(message.rewardWeightRange) : undefined;
     return obj;
@@ -1362,22 +1364,22 @@ export const MsgUpdateAlliance = {
   },
   toProtoMsg(message: MsgUpdateAlliance): MsgUpdateAllianceProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgUpdateAlliance",
-      value: MsgUpdateAlliance.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgUpdateAlliance',
+      value: MsgUpdateAlliance.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgUpdateAllianceResponse(): MsgUpdateAllianceResponse {
   return {};
 }
 export const MsgUpdateAllianceResponse = {
-  typeUrl: "/alliance.alliance.MsgUpdateAllianceResponse",
+  typeUrl: '/alliance.alliance.MsgUpdateAllianceResponse',
   encode(_: MsgUpdateAllianceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateAllianceResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateAllianceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1412,31 +1414,31 @@ export const MsgUpdateAllianceResponse = {
   },
   toProtoMsg(message: MsgUpdateAllianceResponse): MsgUpdateAllianceResponseProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgUpdateAllianceResponse",
-      value: MsgUpdateAllianceResponse.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgUpdateAllianceResponse',
+      value: MsgUpdateAllianceResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgDeleteAlliance(): MsgDeleteAlliance {
   return {
-    authority: "",
-    denom: ""
+    authority: '',
+    denom: '',
   };
 }
 export const MsgDeleteAlliance = {
-  typeUrl: "/alliance.alliance.MsgDeleteAlliance",
+  typeUrl: '/alliance.alliance.MsgDeleteAlliance',
   encode(message: MsgDeleteAlliance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.authority !== "") {
+    if (message.authority !== '') {
       writer.uint32(10).string(message.authority);
     }
-    if (message.denom !== "") {
+    if (message.denom !== '') {
       writer.uint32(18).string(message.denom);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgDeleteAlliance {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDeleteAlliance();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1456,8 +1458,8 @@ export const MsgDeleteAlliance = {
   },
   fromPartial(object: DeepPartial<MsgDeleteAlliance>): MsgDeleteAlliance {
     const message = createBaseMsgDeleteAlliance();
-    message.authority = object.authority ?? "";
-    message.denom = object.denom ?? "";
+    message.authority = object.authority ?? '';
+    message.denom = object.denom ?? '';
     return message;
   },
   fromAmino(object: MsgDeleteAllianceAmino): MsgDeleteAlliance {
@@ -1472,8 +1474,8 @@ export const MsgDeleteAlliance = {
   },
   toAmino(message: MsgDeleteAlliance): MsgDeleteAllianceAmino {
     const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
-    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.authority = message.authority === '' ? undefined : message.authority;
+    obj.denom = message.denom === '' ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: MsgDeleteAllianceAminoMsg): MsgDeleteAlliance {
@@ -1487,22 +1489,22 @@ export const MsgDeleteAlliance = {
   },
   toProtoMsg(message: MsgDeleteAlliance): MsgDeleteAllianceProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgDeleteAlliance",
-      value: MsgDeleteAlliance.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgDeleteAlliance',
+      value: MsgDeleteAlliance.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgDeleteAllianceResponse(): MsgDeleteAllianceResponse {
   return {};
 }
 export const MsgDeleteAllianceResponse = {
-  typeUrl: "/alliance.alliance.MsgDeleteAllianceResponse",
+  typeUrl: '/alliance.alliance.MsgDeleteAllianceResponse',
   encode(_: MsgDeleteAllianceResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgDeleteAllianceResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDeleteAllianceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1537,8 +1539,8 @@ export const MsgDeleteAllianceResponse = {
   },
   toProtoMsg(message: MsgDeleteAllianceResponse): MsgDeleteAllianceResponseProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgDeleteAllianceResponse",
-      value: MsgDeleteAllianceResponse.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgDeleteAllianceResponse',
+      value: MsgDeleteAllianceResponse.encode(message).finish(),
     };
-  }
+  },
 };

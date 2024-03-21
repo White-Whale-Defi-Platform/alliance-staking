@@ -1,8 +1,8 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../helpers';
 /**
  * Wrapper message for `double`.
- * 
+ *
  * The JSON representation for `DoubleValue` is JSON number.
  */
 export interface DoubleValue {
@@ -10,12 +10,12 @@ export interface DoubleValue {
   value: number;
 }
 export interface DoubleValueProtoMsg {
-  typeUrl: "/google.protobuf.DoubleValue";
+  typeUrl: '/google.protobuf.DoubleValue';
   value: Uint8Array;
 }
 /**
  * Wrapper message for `double`.
- * 
+ *
  * The JSON representation for `DoubleValue` is JSON number.
  */
 export interface DoubleValueAmino {
@@ -23,12 +23,12 @@ export interface DoubleValueAmino {
   value?: number;
 }
 export interface DoubleValueAminoMsg {
-  type: "/google.protobuf.DoubleValue";
+  type: '/google.protobuf.DoubleValue';
   value: DoubleValueAmino;
 }
 /**
  * Wrapper message for `double`.
- * 
+ *
  * The JSON representation for `DoubleValue` is JSON number.
  */
 export interface DoubleValueSDKType {
@@ -36,7 +36,7 @@ export interface DoubleValueSDKType {
 }
 /**
  * Wrapper message for `float`.
- * 
+ *
  * The JSON representation for `FloatValue` is JSON number.
  */
 export interface FloatValue {
@@ -44,12 +44,12 @@ export interface FloatValue {
   value: number;
 }
 export interface FloatValueProtoMsg {
-  typeUrl: "/google.protobuf.FloatValue";
+  typeUrl: '/google.protobuf.FloatValue';
   value: Uint8Array;
 }
 /**
  * Wrapper message for `float`.
- * 
+ *
  * The JSON representation for `FloatValue` is JSON number.
  */
 export interface FloatValueAmino {
@@ -57,12 +57,12 @@ export interface FloatValueAmino {
   value?: number;
 }
 export interface FloatValueAminoMsg {
-  type: "/google.protobuf.FloatValue";
+  type: '/google.protobuf.FloatValue';
   value: FloatValueAmino;
 }
 /**
  * Wrapper message for `float`.
- * 
+ *
  * The JSON representation for `FloatValue` is JSON number.
  */
 export interface FloatValueSDKType {
@@ -70,7 +70,7 @@ export interface FloatValueSDKType {
 }
 /**
  * Wrapper message for `int64`.
- * 
+ *
  * The JSON representation for `Int64Value` is JSON string.
  */
 export interface Int64Value {
@@ -78,12 +78,12 @@ export interface Int64Value {
   value: bigint;
 }
 export interface Int64ValueProtoMsg {
-  typeUrl: "/google.protobuf.Int64Value";
+  typeUrl: '/google.protobuf.Int64Value';
   value: Uint8Array;
 }
 /**
  * Wrapper message for `int64`.
- * 
+ *
  * The JSON representation for `Int64Value` is JSON string.
  */
 export interface Int64ValueAmino {
@@ -91,12 +91,12 @@ export interface Int64ValueAmino {
   value?: string;
 }
 export interface Int64ValueAminoMsg {
-  type: "/google.protobuf.Int64Value";
+  type: '/google.protobuf.Int64Value';
   value: Int64ValueAmino;
 }
 /**
  * Wrapper message for `int64`.
- * 
+ *
  * The JSON representation for `Int64Value` is JSON string.
  */
 export interface Int64ValueSDKType {
@@ -104,7 +104,7 @@ export interface Int64ValueSDKType {
 }
 /**
  * Wrapper message for `uint64`.
- * 
+ *
  * The JSON representation for `UInt64Value` is JSON string.
  */
 export interface UInt64Value {
@@ -112,12 +112,12 @@ export interface UInt64Value {
   value: bigint;
 }
 export interface UInt64ValueProtoMsg {
-  typeUrl: "/google.protobuf.UInt64Value";
+  typeUrl: '/google.protobuf.UInt64Value';
   value: Uint8Array;
 }
 /**
  * Wrapper message for `uint64`.
- * 
+ *
  * The JSON representation for `UInt64Value` is JSON string.
  */
 export interface UInt64ValueAmino {
@@ -125,12 +125,12 @@ export interface UInt64ValueAmino {
   value?: string;
 }
 export interface UInt64ValueAminoMsg {
-  type: "/google.protobuf.UInt64Value";
+  type: '/google.protobuf.UInt64Value';
   value: UInt64ValueAmino;
 }
 /**
  * Wrapper message for `uint64`.
- * 
+ *
  * The JSON representation for `UInt64Value` is JSON string.
  */
 export interface UInt64ValueSDKType {
@@ -138,7 +138,7 @@ export interface UInt64ValueSDKType {
 }
 /**
  * Wrapper message for `int32`.
- * 
+ *
  * The JSON representation for `Int32Value` is JSON number.
  */
 export interface Int32Value {
@@ -146,12 +146,12 @@ export interface Int32Value {
   value: number;
 }
 export interface Int32ValueProtoMsg {
-  typeUrl: "/google.protobuf.Int32Value";
+  typeUrl: '/google.protobuf.Int32Value';
   value: Uint8Array;
 }
 /**
  * Wrapper message for `int32`.
- * 
+ *
  * The JSON representation for `Int32Value` is JSON number.
  */
 export interface Int32ValueAmino {
@@ -159,12 +159,12 @@ export interface Int32ValueAmino {
   value?: number;
 }
 export interface Int32ValueAminoMsg {
-  type: "/google.protobuf.Int32Value";
+  type: '/google.protobuf.Int32Value';
   value: Int32ValueAmino;
 }
 /**
  * Wrapper message for `int32`.
- * 
+ *
  * The JSON representation for `Int32Value` is JSON number.
  */
 export interface Int32ValueSDKType {
@@ -172,7 +172,7 @@ export interface Int32ValueSDKType {
 }
 /**
  * Wrapper message for `uint32`.
- * 
+ *
  * The JSON representation for `UInt32Value` is JSON number.
  */
 export interface UInt32Value {
@@ -180,12 +180,12 @@ export interface UInt32Value {
   value: number;
 }
 export interface UInt32ValueProtoMsg {
-  typeUrl: "/google.protobuf.UInt32Value";
+  typeUrl: '/google.protobuf.UInt32Value';
   value: Uint8Array;
 }
 /**
  * Wrapper message for `uint32`.
- * 
+ *
  * The JSON representation for `UInt32Value` is JSON number.
  */
 export interface UInt32ValueAmino {
@@ -193,12 +193,12 @@ export interface UInt32ValueAmino {
   value?: number;
 }
 export interface UInt32ValueAminoMsg {
-  type: "/google.protobuf.UInt32Value";
+  type: '/google.protobuf.UInt32Value';
   value: UInt32ValueAmino;
 }
 /**
  * Wrapper message for `uint32`.
- * 
+ *
  * The JSON representation for `UInt32Value` is JSON number.
  */
 export interface UInt32ValueSDKType {
@@ -206,7 +206,7 @@ export interface UInt32ValueSDKType {
 }
 /**
  * Wrapper message for `bool`.
- * 
+ *
  * The JSON representation for `BoolValue` is JSON `true` and `false`.
  */
 export interface BoolValue {
@@ -214,12 +214,12 @@ export interface BoolValue {
   value: boolean;
 }
 export interface BoolValueProtoMsg {
-  typeUrl: "/google.protobuf.BoolValue";
+  typeUrl: '/google.protobuf.BoolValue';
   value: Uint8Array;
 }
 /**
  * Wrapper message for `bool`.
- * 
+ *
  * The JSON representation for `BoolValue` is JSON `true` and `false`.
  */
 export interface BoolValueAmino {
@@ -227,12 +227,12 @@ export interface BoolValueAmino {
   value?: boolean;
 }
 export interface BoolValueAminoMsg {
-  type: "/google.protobuf.BoolValue";
+  type: '/google.protobuf.BoolValue';
   value: BoolValueAmino;
 }
 /**
  * Wrapper message for `bool`.
- * 
+ *
  * The JSON representation for `BoolValue` is JSON `true` and `false`.
  */
 export interface BoolValueSDKType {
@@ -240,7 +240,7 @@ export interface BoolValueSDKType {
 }
 /**
  * Wrapper message for `string`.
- * 
+ *
  * The JSON representation for `StringValue` is JSON string.
  */
 export interface StringValue {
@@ -248,12 +248,12 @@ export interface StringValue {
   value: string;
 }
 export interface StringValueProtoMsg {
-  typeUrl: "/google.protobuf.StringValue";
+  typeUrl: '/google.protobuf.StringValue';
   value: Uint8Array;
 }
 /**
  * Wrapper message for `string`.
- * 
+ *
  * The JSON representation for `StringValue` is JSON string.
  */
 export interface StringValueAmino {
@@ -261,12 +261,12 @@ export interface StringValueAmino {
   value?: string;
 }
 export interface StringValueAminoMsg {
-  type: "/google.protobuf.StringValue";
+  type: '/google.protobuf.StringValue';
   value: StringValueAmino;
 }
 /**
  * Wrapper message for `string`.
- * 
+ *
  * The JSON representation for `StringValue` is JSON string.
  */
 export interface StringValueSDKType {
@@ -274,7 +274,7 @@ export interface StringValueSDKType {
 }
 /**
  * Wrapper message for `bytes`.
- * 
+ *
  * The JSON representation for `BytesValue` is JSON string.
  */
 export interface BytesValue {
@@ -282,12 +282,12 @@ export interface BytesValue {
   value: Uint8Array;
 }
 export interface BytesValueProtoMsg {
-  typeUrl: "/google.protobuf.BytesValue";
+  typeUrl: '/google.protobuf.BytesValue';
   value: Uint8Array;
 }
 /**
  * Wrapper message for `bytes`.
- * 
+ *
  * The JSON representation for `BytesValue` is JSON string.
  */
 export interface BytesValueAmino {
@@ -295,12 +295,12 @@ export interface BytesValueAmino {
   value?: string;
 }
 export interface BytesValueAminoMsg {
-  type: "/google.protobuf.BytesValue";
+  type: '/google.protobuf.BytesValue';
   value: BytesValueAmino;
 }
 /**
  * Wrapper message for `bytes`.
- * 
+ *
  * The JSON representation for `BytesValue` is JSON string.
  */
 export interface BytesValueSDKType {
@@ -308,11 +308,11 @@ export interface BytesValueSDKType {
 }
 function createBaseDoubleValue(): DoubleValue {
   return {
-    value: 0
+    value: 0,
   };
 }
 export const DoubleValue = {
-  typeUrl: "/google.protobuf.DoubleValue",
+  typeUrl: '/google.protobuf.DoubleValue',
   encode(message: DoubleValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value !== 0) {
       writer.uint32(9).double(message.value);
@@ -321,7 +321,7 @@ export const DoubleValue = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): DoubleValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDoubleValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -364,18 +364,18 @@ export const DoubleValue = {
   },
   toProtoMsg(message: DoubleValue): DoubleValueProtoMsg {
     return {
-      typeUrl: "/google.protobuf.DoubleValue",
-      value: DoubleValue.encode(message).finish()
+      typeUrl: '/google.protobuf.DoubleValue',
+      value: DoubleValue.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseFloatValue(): FloatValue {
   return {
-    value: 0
+    value: 0,
   };
 }
 export const FloatValue = {
-  typeUrl: "/google.protobuf.FloatValue",
+  typeUrl: '/google.protobuf.FloatValue',
   encode(message: FloatValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value !== 0) {
       writer.uint32(13).float(message.value);
@@ -384,7 +384,7 @@ export const FloatValue = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): FloatValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFloatValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -427,18 +427,18 @@ export const FloatValue = {
   },
   toProtoMsg(message: FloatValue): FloatValueProtoMsg {
     return {
-      typeUrl: "/google.protobuf.FloatValue",
-      value: FloatValue.encode(message).finish()
+      typeUrl: '/google.protobuf.FloatValue',
+      value: FloatValue.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseInt64Value(): Int64Value {
   return {
-    value: BigInt(0)
+    value: BigInt(0),
   };
 }
 export const Int64Value = {
-  typeUrl: "/google.protobuf.Int64Value",
+  typeUrl: '/google.protobuf.Int64Value',
   encode(message: Int64Value, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value !== BigInt(0)) {
       writer.uint32(8).int64(message.value);
@@ -447,7 +447,7 @@ export const Int64Value = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Int64Value {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInt64Value();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -490,18 +490,18 @@ export const Int64Value = {
   },
   toProtoMsg(message: Int64Value): Int64ValueProtoMsg {
     return {
-      typeUrl: "/google.protobuf.Int64Value",
-      value: Int64Value.encode(message).finish()
+      typeUrl: '/google.protobuf.Int64Value',
+      value: Int64Value.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseUInt64Value(): UInt64Value {
   return {
-    value: BigInt(0)
+    value: BigInt(0),
   };
 }
 export const UInt64Value = {
-  typeUrl: "/google.protobuf.UInt64Value",
+  typeUrl: '/google.protobuf.UInt64Value',
   encode(message: UInt64Value, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value !== BigInt(0)) {
       writer.uint32(8).uint64(message.value);
@@ -510,7 +510,7 @@ export const UInt64Value = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): UInt64Value {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUInt64Value();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -553,18 +553,18 @@ export const UInt64Value = {
   },
   toProtoMsg(message: UInt64Value): UInt64ValueProtoMsg {
     return {
-      typeUrl: "/google.protobuf.UInt64Value",
-      value: UInt64Value.encode(message).finish()
+      typeUrl: '/google.protobuf.UInt64Value',
+      value: UInt64Value.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseInt32Value(): Int32Value {
   return {
-    value: 0
+    value: 0,
   };
 }
 export const Int32Value = {
-  typeUrl: "/google.protobuf.Int32Value",
+  typeUrl: '/google.protobuf.Int32Value',
   encode(message: Int32Value, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value !== 0) {
       writer.uint32(8).int32(message.value);
@@ -573,7 +573,7 @@ export const Int32Value = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Int32Value {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInt32Value();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -616,18 +616,18 @@ export const Int32Value = {
   },
   toProtoMsg(message: Int32Value): Int32ValueProtoMsg {
     return {
-      typeUrl: "/google.protobuf.Int32Value",
-      value: Int32Value.encode(message).finish()
+      typeUrl: '/google.protobuf.Int32Value',
+      value: Int32Value.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseUInt32Value(): UInt32Value {
   return {
-    value: 0
+    value: 0,
   };
 }
 export const UInt32Value = {
-  typeUrl: "/google.protobuf.UInt32Value",
+  typeUrl: '/google.protobuf.UInt32Value',
   encode(message: UInt32Value, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value !== 0) {
       writer.uint32(8).uint32(message.value);
@@ -636,7 +636,7 @@ export const UInt32Value = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): UInt32Value {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUInt32Value();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -679,18 +679,18 @@ export const UInt32Value = {
   },
   toProtoMsg(message: UInt32Value): UInt32ValueProtoMsg {
     return {
-      typeUrl: "/google.protobuf.UInt32Value",
-      value: UInt32Value.encode(message).finish()
+      typeUrl: '/google.protobuf.UInt32Value',
+      value: UInt32Value.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseBoolValue(): BoolValue {
   return {
-    value: false
+    value: false,
   };
 }
 export const BoolValue = {
-  typeUrl: "/google.protobuf.BoolValue",
+  typeUrl: '/google.protobuf.BoolValue',
   encode(message: BoolValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value === true) {
       writer.uint32(8).bool(message.value);
@@ -699,7 +699,7 @@ export const BoolValue = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): BoolValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBoolValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -742,27 +742,27 @@ export const BoolValue = {
   },
   toProtoMsg(message: BoolValue): BoolValueProtoMsg {
     return {
-      typeUrl: "/google.protobuf.BoolValue",
-      value: BoolValue.encode(message).finish()
+      typeUrl: '/google.protobuf.BoolValue',
+      value: BoolValue.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseStringValue(): StringValue {
   return {
-    value: ""
+    value: '',
   };
 }
 export const StringValue = {
-  typeUrl: "/google.protobuf.StringValue",
+  typeUrl: '/google.protobuf.StringValue',
   encode(message: StringValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.value !== "") {
+    if (message.value !== '') {
       writer.uint32(10).string(message.value);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): StringValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStringValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -779,7 +779,7 @@ export const StringValue = {
   },
   fromPartial(object: DeepPartial<StringValue>): StringValue {
     const message = createBaseStringValue();
-    message.value = object.value ?? "";
+    message.value = object.value ?? '';
     return message;
   },
   fromAmino(object: StringValueAmino): StringValue {
@@ -791,7 +791,7 @@ export const StringValue = {
   },
   toAmino(message: StringValue): StringValueAmino {
     const obj: any = {};
-    obj.value = message.value === "" ? undefined : message.value;
+    obj.value = message.value === '' ? undefined : message.value;
     return obj;
   },
   fromAminoMsg(object: StringValueAminoMsg): StringValue {
@@ -805,18 +805,18 @@ export const StringValue = {
   },
   toProtoMsg(message: StringValue): StringValueProtoMsg {
     return {
-      typeUrl: "/google.protobuf.StringValue",
-      value: StringValue.encode(message).finish()
+      typeUrl: '/google.protobuf.StringValue',
+      value: StringValue.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseBytesValue(): BytesValue {
   return {
-    value: new Uint8Array()
+    value: new Uint8Array(),
   };
 }
 export const BytesValue = {
-  typeUrl: "/google.protobuf.BytesValue",
+  typeUrl: '/google.protobuf.BytesValue',
   encode(message: BytesValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.value.length !== 0) {
       writer.uint32(10).bytes(message.value);
@@ -825,7 +825,7 @@ export const BytesValue = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): BytesValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBytesValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -868,8 +868,8 @@ export const BytesValue = {
   },
   toProtoMsg(message: BytesValue): BytesValueProtoMsg {
     return {
-      typeUrl: "/google.protobuf.BytesValue",
-      value: BytesValue.encode(message).finish()
+      typeUrl: '/google.protobuf.BytesValue',
+      value: BytesValue.encode(message).finish(),
     };
-  }
+  },
 };

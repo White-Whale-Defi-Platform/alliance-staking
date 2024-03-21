@@ -9,9 +9,16 @@ export const allianceRedelegate = async (
   address: string,
   amount: string,
   allianceDenom: string,
-) => { 
-  const redelegate = alliance.alliance.MessageComposer.fromPartial.redelegate
-  const message = redelegate({delegatorAddress: address, validatorSrcAddress, validatorDstAddress, amount: {denom: allianceDenom, amount}})
+) => {
+  const { redelegate } = alliance.alliance.MessageComposer.fromPartial
+  const message = redelegate({ delegatorAddress: address,
+    validatorSrcAddress,
+    validatorDstAddress,
+    amount: { denom: allianceDenom,
+      amount } })
   return await client.signAndBroadcast(
-  address, [message], await createGasFee(client, address, [message]))
+    address, [message], await createGasFee(
+      client, address, [message],
+    ),
+  )
 }

@@ -1,5 +1,5 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../helpers';
 export interface Message {
   snapshotsRequest?: SnapshotsRequest;
   snapshotsResponse?: SnapshotsResponse;
@@ -7,7 +7,7 @@ export interface Message {
   chunkResponse?: ChunkResponse;
 }
 export interface MessageProtoMsg {
-  typeUrl: "/tendermint.statesync.Message";
+  typeUrl: '/tendermint.statesync.Message';
   value: Uint8Array;
 }
 export interface MessageAmino {
@@ -17,7 +17,7 @@ export interface MessageAmino {
   chunk_response?: ChunkResponseAmino;
 }
 export interface MessageAminoMsg {
-  type: "/tendermint.statesync.Message";
+  type: '/tendermint.statesync.Message';
   value: MessageAmino;
 }
 export interface MessageSDKType {
@@ -28,12 +28,12 @@ export interface MessageSDKType {
 }
 export interface SnapshotsRequest {}
 export interface SnapshotsRequestProtoMsg {
-  typeUrl: "/tendermint.statesync.SnapshotsRequest";
+  typeUrl: '/tendermint.statesync.SnapshotsRequest';
   value: Uint8Array;
 }
 export interface SnapshotsRequestAmino {}
 export interface SnapshotsRequestAminoMsg {
-  type: "/tendermint.statesync.SnapshotsRequest";
+  type: '/tendermint.statesync.SnapshotsRequest';
   value: SnapshotsRequestAmino;
 }
 export interface SnapshotsRequestSDKType {}
@@ -45,7 +45,7 @@ export interface SnapshotsResponse {
   metadata: Uint8Array;
 }
 export interface SnapshotsResponseProtoMsg {
-  typeUrl: "/tendermint.statesync.SnapshotsResponse";
+  typeUrl: '/tendermint.statesync.SnapshotsResponse';
   value: Uint8Array;
 }
 export interface SnapshotsResponseAmino {
@@ -56,7 +56,7 @@ export interface SnapshotsResponseAmino {
   metadata?: string;
 }
 export interface SnapshotsResponseAminoMsg {
-  type: "/tendermint.statesync.SnapshotsResponse";
+  type: '/tendermint.statesync.SnapshotsResponse';
   value: SnapshotsResponseAmino;
 }
 export interface SnapshotsResponseSDKType {
@@ -72,7 +72,7 @@ export interface ChunkRequest {
   index: number;
 }
 export interface ChunkRequestProtoMsg {
-  typeUrl: "/tendermint.statesync.ChunkRequest";
+  typeUrl: '/tendermint.statesync.ChunkRequest';
   value: Uint8Array;
 }
 export interface ChunkRequestAmino {
@@ -81,7 +81,7 @@ export interface ChunkRequestAmino {
   index?: number;
 }
 export interface ChunkRequestAminoMsg {
-  type: "/tendermint.statesync.ChunkRequest";
+  type: '/tendermint.statesync.ChunkRequest';
   value: ChunkRequestAmino;
 }
 export interface ChunkRequestSDKType {
@@ -97,7 +97,7 @@ export interface ChunkResponse {
   missing: boolean;
 }
 export interface ChunkResponseProtoMsg {
-  typeUrl: "/tendermint.statesync.ChunkResponse";
+  typeUrl: '/tendermint.statesync.ChunkResponse';
   value: Uint8Array;
 }
 export interface ChunkResponseAmino {
@@ -108,7 +108,7 @@ export interface ChunkResponseAmino {
   missing?: boolean;
 }
 export interface ChunkResponseAminoMsg {
-  type: "/tendermint.statesync.ChunkResponse";
+  type: '/tendermint.statesync.ChunkResponse';
   value: ChunkResponseAmino;
 }
 export interface ChunkResponseSDKType {
@@ -123,11 +123,11 @@ function createBaseMessage(): Message {
     snapshotsRequest: undefined,
     snapshotsResponse: undefined,
     chunkRequest: undefined,
-    chunkResponse: undefined
+    chunkResponse: undefined,
   };
 }
 export const Message = {
-  typeUrl: "/tendermint.statesync.Message",
+  typeUrl: '/tendermint.statesync.Message',
   encode(message: Message, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.snapshotsRequest !== undefined) {
       SnapshotsRequest.encode(message.snapshotsRequest, writer.uint32(10).fork()).ldelim();
@@ -145,7 +145,7 @@ export const Message = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Message {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -212,22 +212,22 @@ export const Message = {
   },
   toProtoMsg(message: Message): MessageProtoMsg {
     return {
-      typeUrl: "/tendermint.statesync.Message",
-      value: Message.encode(message).finish()
+      typeUrl: '/tendermint.statesync.Message',
+      value: Message.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSnapshotsRequest(): SnapshotsRequest {
   return {};
 }
 export const SnapshotsRequest = {
-  typeUrl: "/tendermint.statesync.SnapshotsRequest",
+  typeUrl: '/tendermint.statesync.SnapshotsRequest',
   encode(_: SnapshotsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SnapshotsRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSnapshotsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -262,10 +262,10 @@ export const SnapshotsRequest = {
   },
   toProtoMsg(message: SnapshotsRequest): SnapshotsRequestProtoMsg {
     return {
-      typeUrl: "/tendermint.statesync.SnapshotsRequest",
-      value: SnapshotsRequest.encode(message).finish()
+      typeUrl: '/tendermint.statesync.SnapshotsRequest',
+      value: SnapshotsRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSnapshotsResponse(): SnapshotsResponse {
   return {
@@ -273,11 +273,11 @@ function createBaseSnapshotsResponse(): SnapshotsResponse {
     format: 0,
     chunks: 0,
     hash: new Uint8Array(),
-    metadata: new Uint8Array()
+    metadata: new Uint8Array(),
   };
 }
 export const SnapshotsResponse = {
-  typeUrl: "/tendermint.statesync.SnapshotsResponse",
+  typeUrl: '/tendermint.statesync.SnapshotsResponse',
   encode(message: SnapshotsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).uint64(message.height);
@@ -298,7 +298,7 @@ export const SnapshotsResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SnapshotsResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSnapshotsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -373,20 +373,20 @@ export const SnapshotsResponse = {
   },
   toProtoMsg(message: SnapshotsResponse): SnapshotsResponseProtoMsg {
     return {
-      typeUrl: "/tendermint.statesync.SnapshotsResponse",
-      value: SnapshotsResponse.encode(message).finish()
+      typeUrl: '/tendermint.statesync.SnapshotsResponse',
+      value: SnapshotsResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseChunkRequest(): ChunkRequest {
   return {
     height: BigInt(0),
     format: 0,
-    index: 0
+    index: 0,
   };
 }
 export const ChunkRequest = {
-  typeUrl: "/tendermint.statesync.ChunkRequest",
+  typeUrl: '/tendermint.statesync.ChunkRequest',
   encode(message: ChunkRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).uint64(message.height);
@@ -401,7 +401,7 @@ export const ChunkRequest = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ChunkRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChunkRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -460,10 +460,10 @@ export const ChunkRequest = {
   },
   toProtoMsg(message: ChunkRequest): ChunkRequestProtoMsg {
     return {
-      typeUrl: "/tendermint.statesync.ChunkRequest",
-      value: ChunkRequest.encode(message).finish()
+      typeUrl: '/tendermint.statesync.ChunkRequest',
+      value: ChunkRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseChunkResponse(): ChunkResponse {
   return {
@@ -471,11 +471,11 @@ function createBaseChunkResponse(): ChunkResponse {
     format: 0,
     index: 0,
     chunk: new Uint8Array(),
-    missing: false
+    missing: false,
   };
 }
 export const ChunkResponse = {
-  typeUrl: "/tendermint.statesync.ChunkResponse",
+  typeUrl: '/tendermint.statesync.ChunkResponse',
   encode(message: ChunkResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).uint64(message.height);
@@ -496,7 +496,7 @@ export const ChunkResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ChunkResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChunkResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -571,8 +571,8 @@ export const ChunkResponse = {
   },
   toProtoMsg(message: ChunkResponse): ChunkResponseProtoMsg {
     return {
-      typeUrl: "/tendermint.statesync.ChunkResponse",
-      value: ChunkResponse.encode(message).finish()
+      typeUrl: '/tendermint.statesync.ChunkResponse',
+      value: ChunkResponse.encode(message).finish(),
     };
-  }
+  },
 };

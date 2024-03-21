@@ -1,7 +1,8 @@
-import { Rpc } from "../../helpers";
-import { BinaryReader } from "../../binary";
-import { QueryClient, createProtobufRpcClient } from "@cosmjs/stargate";
-import { QueryParamsRequest, QueryParamsResponse, QueryAlliancesRequest, QueryAlliancesResponse, QueryIBCAllianceRequest, QueryAllianceResponse, QueryAllAlliancesDelegationsRequest, QueryAlliancesDelegationsResponse, QueryAllianceValidatorRequest, QueryAllianceValidatorResponse, QueryAllAllianceValidatorsRequest, QueryAllianceValidatorsResponse, QueryAlliancesDelegationsRequest, QueryAlliancesDelegationByValidatorRequest, QueryAllianceDelegationRequest, QueryAllianceDelegationResponse, QueryIBCAllianceDelegationRequest, QueryAllianceDelegationRewardsRequest, QueryAllianceDelegationRewardsResponse, QueryIBCAllianceDelegationRewardsRequest, QueryAllianceUnbondingsByDenomAndDelegatorRequest, QueryAllianceUnbondingsByDenomAndDelegatorResponse, QueryAllianceUnbondingsRequest, QueryAllianceUnbondingsResponse, QueryAllianceRedelegationsRequest, QueryAllianceRedelegationsResponse, QueryAllianceRequest } from "./query";
+import { QueryClient, createProtobufRpcClient } from '@cosmjs/stargate';
+
+import { BinaryReader } from '../../binary';
+import { Rpc } from '../../helpers';
+import { QueryParamsRequest, QueryParamsResponse, QueryAlliancesRequest, QueryAlliancesResponse, QueryIBCAllianceRequest, QueryAllianceResponse, QueryAllAlliancesDelegationsRequest, QueryAlliancesDelegationsResponse, QueryAllianceValidatorRequest, QueryAllianceValidatorResponse, QueryAllAllianceValidatorsRequest, QueryAllianceValidatorsResponse, QueryAlliancesDelegationsRequest, QueryAlliancesDelegationByValidatorRequest, QueryAllianceDelegationRequest, QueryAllianceDelegationResponse, QueryIBCAllianceDelegationRequest, QueryAllianceDelegationRewardsRequest, QueryAllianceDelegationRewardsResponse, QueryIBCAllianceDelegationRewardsRequest, QueryAllianceUnbondingsByDenomAndDelegatorRequest, QueryAllianceUnbondingsByDenomAndDelegatorResponse, QueryAllianceUnbondingsRequest, QueryAllianceUnbondingsResponse, QueryAllianceRedelegationsRequest, QueryAllianceRedelegationsResponse, QueryAllianceRequest } from './query';
 export interface Query {
   params(request?: QueryParamsRequest): Promise<QueryParamsResponse>;
   /** Query paginated alliances */
@@ -49,116 +50,171 @@ export interface Query {
 }
 export class QueryClientImpl implements Query {
   private readonly rpc: Rpc;
+
   constructor(rpc: Rpc) {
     this.rpc = rpc;
   }
+
   /* Params */
   params = async (request: QueryParamsRequest = {}): Promise<QueryParamsResponse> => {
     const data = QueryParamsRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "Params", data);
-    return promise.then(data => QueryParamsResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'Params', data,
+    );
+    return promise.then((data) => QueryParamsResponse.decode(new BinaryReader(data)));
   };
+
   /* Query paginated alliances */
   alliances = async (request: QueryAlliancesRequest = {
-    pagination: undefined
+    pagination: undefined,
   }): Promise<QueryAlliancesResponse> => {
     const data = QueryAlliancesRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "Alliances", data);
-    return promise.then(data => QueryAlliancesResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'Alliances', data,
+    );
+    return promise.then((data) => QueryAlliancesResponse.decode(new BinaryReader(data)));
   };
-  /* Query a specific alliance by ibc hash
-   @deprecated: this endpoint will be replaced for by the encoded version
-   of the denom e.g.: GET:/terra/alliances/ibc%2Falliance */
+
+  /*
+   * Query a specific alliance by ibc hash
+   * @deprecated: this endpoint will be replaced for by the encoded version
+   * of the denom e.g.: GET:/terra/alliances/ibc%2Falliance
+   */
   iBCAlliance = async (request: QueryIBCAllianceRequest): Promise<QueryAllianceResponse> => {
     const data = QueryIBCAllianceRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "IBCAlliance", data);
-    return promise.then(data => QueryAllianceResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'IBCAlliance', data,
+    );
+    return promise.then((data) => QueryAllianceResponse.decode(new BinaryReader(data)));
   };
+
   /* Query all paginated alliance delegations */
   allAlliancesDelegations = async (request: QueryAllAlliancesDelegationsRequest = {
-    pagination: undefined
+    pagination: undefined,
   }): Promise<QueryAlliancesDelegationsResponse> => {
     const data = QueryAllAlliancesDelegationsRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AllAlliancesDelegations", data);
-    return promise.then(data => QueryAlliancesDelegationsResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AllAlliancesDelegations', data,
+    );
+    return promise.then((data) => QueryAlliancesDelegationsResponse.decode(new BinaryReader(data)));
   };
+
   /* Query alliance validator */
   allianceValidator = async (request: QueryAllianceValidatorRequest): Promise<QueryAllianceValidatorResponse> => {
     const data = QueryAllianceValidatorRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AllianceValidator", data);
-    return promise.then(data => QueryAllianceValidatorResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AllianceValidator', data,
+    );
+    return promise.then((data) => QueryAllianceValidatorResponse.decode(new BinaryReader(data)));
   };
+
   /* Query all paginated alliance validators */
   allAllianceValidators = async (request: QueryAllAllianceValidatorsRequest = {
-    pagination: undefined
+    pagination: undefined,
   }): Promise<QueryAllianceValidatorsResponse> => {
     const data = QueryAllAllianceValidatorsRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AllAllianceValidators", data);
-    return promise.then(data => QueryAllianceValidatorsResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AllAllianceValidators', data,
+    );
+    return promise.then((data) => QueryAllianceValidatorsResponse.decode(new BinaryReader(data)));
   };
+
   /* Query all paginated alliance delegations for a delegator addr */
   alliancesDelegation = async (request: QueryAlliancesDelegationsRequest): Promise<QueryAlliancesDelegationsResponse> => {
     const data = QueryAlliancesDelegationsRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AlliancesDelegation", data);
-    return promise.then(data => QueryAlliancesDelegationsResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AlliancesDelegation', data,
+    );
+    return promise.then((data) => QueryAlliancesDelegationsResponse.decode(new BinaryReader(data)));
   };
+
   /* Query all paginated alliance delegations for a delegator addr and validator_addr */
   alliancesDelegationByValidator = async (request: QueryAlliancesDelegationByValidatorRequest): Promise<QueryAlliancesDelegationsResponse> => {
     const data = QueryAlliancesDelegationByValidatorRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AlliancesDelegationByValidator", data);
-    return promise.then(data => QueryAlliancesDelegationsResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AlliancesDelegationByValidator', data,
+    );
+    return promise.then((data) => QueryAlliancesDelegationsResponse.decode(new BinaryReader(data)));
   };
+
   /* Query a delegation to an alliance by delegator addr, validator_addr and denom */
   allianceDelegation = async (request: QueryAllianceDelegationRequest): Promise<QueryAllianceDelegationResponse> => {
     const data = QueryAllianceDelegationRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AllianceDelegation", data);
-    return promise.then(data => QueryAllianceDelegationResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AllianceDelegation', data,
+    );
+    return promise.then((data) => QueryAllianceDelegationResponse.decode(new BinaryReader(data)));
   };
-  /* Query a delegation to an alliance by delegator addr, validator_addr and denom
-   @deprecated: this endpoint will be replaced for by the encoded version
-   of the denom e.g.: GET:/terra/alliances/terradr1231/terravaloper41234/ibc%2Falliance */
+
+  /*
+   * Query a delegation to an alliance by delegator addr, validator_addr and denom
+   * @deprecated: this endpoint will be replaced for by the encoded version
+   * of the denom e.g.: GET:/terra/alliances/terradr1231/terravaloper41234/ibc%2Falliance
+   */
   iBCAllianceDelegation = async (request: QueryIBCAllianceDelegationRequest): Promise<QueryAllianceDelegationResponse> => {
     const data = QueryIBCAllianceDelegationRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "IBCAllianceDelegation", data);
-    return promise.then(data => QueryAllianceDelegationResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'IBCAllianceDelegation', data,
+    );
+    return promise.then((data) => QueryAllianceDelegationResponse.decode(new BinaryReader(data)));
   };
+
   /* Query for rewards by delegator addr, validator_addr and denom */
   allianceDelegationRewards = async (request: QueryAllianceDelegationRewardsRequest): Promise<QueryAllianceDelegationRewardsResponse> => {
     const data = QueryAllianceDelegationRewardsRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AllianceDelegationRewards", data);
-    return promise.then(data => QueryAllianceDelegationRewardsResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AllianceDelegationRewards', data,
+    );
+    return promise.then((data) => QueryAllianceDelegationRewardsResponse.decode(new BinaryReader(data)));
   };
-  /* Query for rewards by delegator addr, validator_addr and denom
-   @deprecated: this endpoint will be replaced for by the encoded version
-   of the denom e.g.: GET:/terra/alliances/terradr1231/terravaloper41234/ibc%2Falliance */
+
+  /*
+   * Query for rewards by delegator addr, validator_addr and denom
+   * @deprecated: this endpoint will be replaced for by the encoded version
+   * of the denom e.g.: GET:/terra/alliances/terradr1231/terravaloper41234/ibc%2Falliance
+   */
   iBCAllianceDelegationRewards = async (request: QueryIBCAllianceDelegationRewardsRequest): Promise<QueryAllianceDelegationRewardsResponse> => {
     const data = QueryIBCAllianceDelegationRewardsRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "IBCAllianceDelegationRewards", data);
-    return promise.then(data => QueryAllianceDelegationRewardsResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'IBCAllianceDelegationRewards', data,
+    );
+    return promise.then((data) => QueryAllianceDelegationRewardsResponse.decode(new BinaryReader(data)));
   };
+
   /* Query for rewards by delegator addr, validator_addr and denom */
   allianceUnbondingsByDenomAndDelegator = async (request: QueryAllianceUnbondingsByDenomAndDelegatorRequest): Promise<QueryAllianceUnbondingsByDenomAndDelegatorResponse> => {
     const data = QueryAllianceUnbondingsByDenomAndDelegatorRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AllianceUnbondingsByDenomAndDelegator", data);
-    return promise.then(data => QueryAllianceUnbondingsByDenomAndDelegatorResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AllianceUnbondingsByDenomAndDelegator', data,
+    );
+    return promise.then((data) => QueryAllianceUnbondingsByDenomAndDelegatorResponse.decode(new BinaryReader(data)));
   };
+
   /* Query for rewards by delegator addr, validator_addr and denom */
   allianceUnbondings = async (request: QueryAllianceUnbondingsRequest): Promise<QueryAllianceUnbondingsResponse> => {
     const data = QueryAllianceUnbondingsRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AllianceUnbondings", data);
-    return promise.then(data => QueryAllianceUnbondingsResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AllianceUnbondings', data,
+    );
+    return promise.then((data) => QueryAllianceUnbondingsResponse.decode(new BinaryReader(data)));
   };
+
   /* Query redelegations by denom and delegator address */
   allianceRedelegations = async (request: QueryAllianceRedelegationsRequest): Promise<QueryAllianceRedelegationsResponse> => {
     const data = QueryAllianceRedelegationsRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "AllianceRedelegations", data);
-    return promise.then(data => QueryAllianceRedelegationsResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'AllianceRedelegations', data,
+    );
+    return promise.then((data) => QueryAllianceRedelegationsResponse.decode(new BinaryReader(data)));
   };
+
   /* Query a specific alliance by denom */
   alliance = async (request: QueryAllianceRequest): Promise<QueryAllianceResponse> => {
     const data = QueryAllianceRequest.encode(request).finish();
-    const promise = this.rpc.request("alliance.alliance.Query", "Alliance", data);
-    return promise.then(data => QueryAllianceResponse.decode(new BinaryReader(data)));
+    const promise = this.rpc.request(
+      'alliance.alliance.Query', 'Alliance', data,
+    );
+    return promise.then((data) => QueryAllianceResponse.decode(new BinaryReader(data)));
   };
 }
 export const createRpcQueryExtension = (base: QueryClient) => {
@@ -212,6 +268,6 @@ export const createRpcQueryExtension = (base: QueryClient) => {
     },
     alliance(request: QueryAllianceRequest): Promise<QueryAllianceResponse> {
       return queryService.alliance(request);
-    }
+    },
   };
 };

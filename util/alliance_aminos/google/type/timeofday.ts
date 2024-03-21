@@ -1,5 +1,5 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
 /**
  * Represents a time of day. The date and time zone are either not significant
  * or are specified elsewhere. An API may choose to allow leap seconds. Related
@@ -22,7 +22,7 @@ export interface TimeOfDay {
   nanos: number;
 }
 export interface TimeOfDayProtoMsg {
-  typeUrl: "/google.type.TimeOfDay";
+  typeUrl: '/google.type.TimeOfDay';
   value: Uint8Array;
 }
 /**
@@ -47,7 +47,7 @@ export interface TimeOfDayAmino {
   nanos?: number;
 }
 export interface TimeOfDayAminoMsg {
-  type: "/google.type.TimeOfDay";
+  type: '/google.type.TimeOfDay';
   value: TimeOfDayAmino;
 }
 /**
@@ -66,11 +66,11 @@ function createBaseTimeOfDay(): TimeOfDay {
     hours: 0,
     minutes: 0,
     seconds: 0,
-    nanos: 0
+    nanos: 0,
   };
 }
 export const TimeOfDay = {
-  typeUrl: "/google.type.TimeOfDay",
+  typeUrl: '/google.type.TimeOfDay',
   encode(message: TimeOfDay, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hours !== 0) {
       writer.uint32(8).int32(message.hours);
@@ -88,7 +88,7 @@ export const TimeOfDay = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): TimeOfDay {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTimeOfDay();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -155,8 +155,8 @@ export const TimeOfDay = {
   },
   toProtoMsg(message: TimeOfDay): TimeOfDayProtoMsg {
     return {
-      typeUrl: "/google.type.TimeOfDay",
-      value: TimeOfDay.encode(message).finish()
+      typeUrl: '/google.type.TimeOfDay',
+      value: TimeOfDay.encode(message).finish(),
     };
-  }
+  },
 };

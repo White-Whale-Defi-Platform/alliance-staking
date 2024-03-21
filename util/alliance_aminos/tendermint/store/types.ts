@@ -1,11 +1,11 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
 export interface BlockStoreState {
   base: bigint;
   height: bigint;
 }
 export interface BlockStoreStateProtoMsg {
-  typeUrl: "/tendermint.store.BlockStoreState";
+  typeUrl: '/tendermint.store.BlockStoreState';
   value: Uint8Array;
 }
 export interface BlockStoreStateAmino {
@@ -13,7 +13,7 @@ export interface BlockStoreStateAmino {
   height?: string;
 }
 export interface BlockStoreStateAminoMsg {
-  type: "/tendermint.store.BlockStoreState";
+  type: '/tendermint.store.BlockStoreState';
   value: BlockStoreStateAmino;
 }
 export interface BlockStoreStateSDKType {
@@ -23,11 +23,11 @@ export interface BlockStoreStateSDKType {
 function createBaseBlockStoreState(): BlockStoreState {
   return {
     base: BigInt(0),
-    height: BigInt(0)
+    height: BigInt(0),
   };
 }
 export const BlockStoreState = {
-  typeUrl: "/tendermint.store.BlockStoreState",
+  typeUrl: '/tendermint.store.BlockStoreState',
   encode(message: BlockStoreState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.base !== BigInt(0)) {
       writer.uint32(8).int64(message.base);
@@ -39,7 +39,7 @@ export const BlockStoreState = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): BlockStoreState {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBlockStoreState();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -90,8 +90,8 @@ export const BlockStoreState = {
   },
   toProtoMsg(message: BlockStoreState): BlockStoreStateProtoMsg {
     return {
-      typeUrl: "/tendermint.store.BlockStoreState",
-      value: BlockStoreState.encode(message).finish()
+      typeUrl: '/tendermint.store.BlockStoreState',
+      value: BlockStoreState.encode(message).finish(),
     };
-  }
+  },
 };

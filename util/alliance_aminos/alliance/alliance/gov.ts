@@ -1,12 +1,14 @@
-import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
-import { RewardWeightRange, RewardWeightRangeAmino, RewardWeightRangeSDKType } from "./alliance";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { Decimal } from "@cosmjs/math";
-import { DeepPartial } from "../../helpers";
+import { Decimal } from '@cosmjs/math';
+
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { Duration, DurationAmino, DurationSDKType } from '../../google/protobuf/duration';
+import { DeepPartial } from '../../helpers';
+import { RewardWeightRange, RewardWeightRangeAmino, RewardWeightRangeSDKType } from './alliance';
+
 export interface MsgCreateAllianceProposal {
-  /** the title of the update proposal */
+  /** The title of the update proposal */
   title: string;
-  /** the description of the proposal */
+  /** The description of the proposal */
   description: string;
   /** Denom of the asset. It could either be a native token or an IBC token */
   denom: string;
@@ -23,17 +25,17 @@ export interface MsgCreateAllianceProposal {
   takeRate: string;
   rewardChangeRate: string;
   rewardChangeInterval: Duration;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   rewardWeightRange: RewardWeightRange;
 }
 export interface MsgCreateAllianceProposalProtoMsg {
-  typeUrl: "/alliance.alliance.MsgCreateAllianceProposal";
+  typeUrl: '/alliance.alliance.MsgCreateAllianceProposal';
   value: Uint8Array;
 }
 export interface MsgCreateAllianceProposalAmino {
-  /** the title of the update proposal */
+  /** The title of the update proposal */
   title?: string;
-  /** the description of the proposal */
+  /** The description of the proposal */
   description?: string;
   /** Denom of the asset. It could either be a native token or an IBC token */
   denom?: string;
@@ -50,11 +52,11 @@ export interface MsgCreateAllianceProposalAmino {
   take_rate?: string;
   reward_change_rate?: string;
   reward_change_interval?: DurationAmino;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   reward_weight_range?: RewardWeightRangeAmino;
 }
 export interface MsgCreateAllianceProposalAminoMsg {
-  type: "/alliance.alliance.MsgCreateAllianceProposal";
+  type: '/alliance.alliance.MsgCreateAllianceProposal';
   value: MsgCreateAllianceProposalAmino;
 }
 export interface MsgCreateAllianceProposalSDKType {
@@ -68,9 +70,9 @@ export interface MsgCreateAllianceProposalSDKType {
   reward_weight_range: RewardWeightRangeSDKType;
 }
 export interface MsgUpdateAllianceProposal {
-  /** the title of the update proposal */
+  /** The title of the update proposal */
   title: string;
-  /** the description of the proposal */
+  /** The description of the proposal */
   description: string;
   /** Denom of the asset. It could either be a native token or an IBC token */
   denom: string;
@@ -83,17 +85,17 @@ export interface MsgUpdateAllianceProposal {
   takeRate: string;
   rewardChangeRate: string;
   rewardChangeInterval: Duration;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   rewardWeightRange: RewardWeightRange;
 }
 export interface MsgUpdateAllianceProposalProtoMsg {
-  typeUrl: "/alliance.alliance.MsgUpdateAllianceProposal";
+  typeUrl: '/alliance.alliance.MsgUpdateAllianceProposal';
   value: Uint8Array;
 }
 export interface MsgUpdateAllianceProposalAmino {
-  /** the title of the update proposal */
+  /** The title of the update proposal */
   title?: string;
-  /** the description of the proposal */
+  /** The description of the proposal */
   description?: string;
   /** Denom of the asset. It could either be a native token or an IBC token */
   denom?: string;
@@ -106,11 +108,11 @@ export interface MsgUpdateAllianceProposalAmino {
   take_rate?: string;
   reward_change_rate?: string;
   reward_change_interval?: DurationAmino;
-  /** set a bound of weight range to limit how much reward weights can scale. */
+  /** Set a bound of weight range to limit how much reward weights can scale. */
   reward_weight_range?: RewardWeightRangeAmino;
 }
 export interface MsgUpdateAllianceProposalAminoMsg {
-  type: "/alliance.alliance.MsgUpdateAllianceProposal";
+  type: '/alliance.alliance.MsgUpdateAllianceProposal';
   value: MsgUpdateAllianceProposalAmino;
 }
 export interface MsgUpdateAllianceProposalSDKType {
@@ -124,25 +126,25 @@ export interface MsgUpdateAllianceProposalSDKType {
   reward_weight_range: RewardWeightRangeSDKType;
 }
 export interface MsgDeleteAllianceProposal {
-  /** the title of the update proposal */
+  /** The title of the update proposal */
   title: string;
-  /** the description of the proposal */
+  /** The description of the proposal */
   description: string;
   denom: string;
 }
 export interface MsgDeleteAllianceProposalProtoMsg {
-  typeUrl: "/alliance.alliance.MsgDeleteAllianceProposal";
+  typeUrl: '/alliance.alliance.MsgDeleteAllianceProposal';
   value: Uint8Array;
 }
 export interface MsgDeleteAllianceProposalAmino {
-  /** the title of the update proposal */
+  /** The title of the update proposal */
   title?: string;
-  /** the description of the proposal */
+  /** The description of the proposal */
   description?: string;
   denom?: string;
 }
 export interface MsgDeleteAllianceProposalAminoMsg {
-  type: "/alliance.alliance.MsgDeleteAllianceProposal";
+  type: '/alliance.alliance.MsgDeleteAllianceProposal';
   value: MsgDeleteAllianceProposalAmino;
 }
 export interface MsgDeleteAllianceProposalSDKType {
@@ -152,35 +154,35 @@ export interface MsgDeleteAllianceProposalSDKType {
 }
 function createBaseMsgCreateAllianceProposal(): MsgCreateAllianceProposal {
   return {
-    title: "",
-    description: "",
-    denom: "",
-    rewardWeight: "",
-    takeRate: "",
-    rewardChangeRate: "",
+    title: '',
+    description: '',
+    denom: '',
+    rewardWeight: '',
+    takeRate: '',
+    rewardChangeRate: '',
     rewardChangeInterval: Duration.fromPartial({}),
-    rewardWeightRange: RewardWeightRange.fromPartial({})
+    rewardWeightRange: RewardWeightRange.fromPartial({}),
   };
 }
 export const MsgCreateAllianceProposal = {
-  typeUrl: "/alliance.alliance.MsgCreateAllianceProposal",
+  typeUrl: '/alliance.alliance.MsgCreateAllianceProposal',
   encode(message: MsgCreateAllianceProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.title !== "") {
+    if (message.title !== '') {
       writer.uint32(10).string(message.title);
     }
-    if (message.description !== "") {
+    if (message.description !== '') {
       writer.uint32(18).string(message.description);
     }
-    if (message.denom !== "") {
+    if (message.denom !== '') {
       writer.uint32(26).string(message.denom);
     }
-    if (message.rewardWeight !== "") {
+    if (message.rewardWeight !== '') {
       writer.uint32(34).string(Decimal.fromUserInput(message.rewardWeight, 18).atomics);
     }
-    if (message.takeRate !== "") {
+    if (message.takeRate !== '') {
       writer.uint32(42).string(Decimal.fromUserInput(message.takeRate, 18).atomics);
     }
-    if (message.rewardChangeRate !== "") {
+    if (message.rewardChangeRate !== '') {
       writer.uint32(50).string(Decimal.fromUserInput(message.rewardChangeRate, 18).atomics);
     }
     if (message.rewardChangeInterval !== undefined) {
@@ -193,7 +195,7 @@ export const MsgCreateAllianceProposal = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgCreateAllianceProposal {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateAllianceProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -231,12 +233,12 @@ export const MsgCreateAllianceProposal = {
   },
   fromPartial(object: DeepPartial<MsgCreateAllianceProposal>): MsgCreateAllianceProposal {
     const message = createBaseMsgCreateAllianceProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.denom = object.denom ?? "";
-    message.rewardWeight = object.rewardWeight ?? "";
-    message.takeRate = object.takeRate ?? "";
-    message.rewardChangeRate = object.rewardChangeRate ?? "";
+    message.title = object.title ?? '';
+    message.description = object.description ?? '';
+    message.denom = object.denom ?? '';
+    message.rewardWeight = object.rewardWeight ?? '';
+    message.takeRate = object.takeRate ?? '';
+    message.rewardChangeRate = object.rewardChangeRate ?? '';
     message.rewardChangeInterval = object.rewardChangeInterval !== undefined && object.rewardChangeInterval !== null ? Duration.fromPartial(object.rewardChangeInterval) : undefined;
     message.rewardWeightRange = object.rewardWeightRange !== undefined && object.rewardWeightRange !== null ? RewardWeightRange.fromPartial(object.rewardWeightRange) : undefined;
     return message;
@@ -271,12 +273,12 @@ export const MsgCreateAllianceProposal = {
   },
   toAmino(message: MsgCreateAllianceProposal): MsgCreateAllianceProposalAmino {
     const obj: any = {};
-    obj.title = message.title === "" ? undefined : message.title;
-    obj.description = message.description === "" ? undefined : message.description;
-    obj.denom = message.denom === "" ? undefined : message.denom;
-    obj.reward_weight = message.rewardWeight === "" ? undefined : message.rewardWeight;
-    obj.take_rate = message.takeRate === "" ? undefined : message.takeRate;
-    obj.reward_change_rate = message.rewardChangeRate === "" ? undefined : message.rewardChangeRate;
+    obj.title = message.title === '' ? undefined : message.title;
+    obj.description = message.description === '' ? undefined : message.description;
+    obj.denom = message.denom === '' ? undefined : message.denom;
+    obj.reward_weight = message.rewardWeight === '' ? undefined : message.rewardWeight;
+    obj.take_rate = message.takeRate === '' ? undefined : message.takeRate;
+    obj.reward_change_rate = message.rewardChangeRate === '' ? undefined : message.rewardChangeRate;
     obj.reward_change_interval = message.rewardChangeInterval ? Duration.toAmino(message.rewardChangeInterval) : undefined;
     obj.reward_weight_range = message.rewardWeightRange ? RewardWeightRange.toAmino(message.rewardWeightRange) : undefined;
     return obj;
@@ -292,42 +294,42 @@ export const MsgCreateAllianceProposal = {
   },
   toProtoMsg(message: MsgCreateAllianceProposal): MsgCreateAllianceProposalProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgCreateAllianceProposal",
-      value: MsgCreateAllianceProposal.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgCreateAllianceProposal',
+      value: MsgCreateAllianceProposal.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgUpdateAllianceProposal(): MsgUpdateAllianceProposal {
   return {
-    title: "",
-    description: "",
-    denom: "",
-    rewardWeight: "",
-    takeRate: "",
-    rewardChangeRate: "",
+    title: '',
+    description: '',
+    denom: '',
+    rewardWeight: '',
+    takeRate: '',
+    rewardChangeRate: '',
     rewardChangeInterval: Duration.fromPartial({}),
-    rewardWeightRange: RewardWeightRange.fromPartial({})
+    rewardWeightRange: RewardWeightRange.fromPartial({}),
   };
 }
 export const MsgUpdateAllianceProposal = {
-  typeUrl: "/alliance.alliance.MsgUpdateAllianceProposal",
+  typeUrl: '/alliance.alliance.MsgUpdateAllianceProposal',
   encode(message: MsgUpdateAllianceProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.title !== "") {
+    if (message.title !== '') {
       writer.uint32(10).string(message.title);
     }
-    if (message.description !== "") {
+    if (message.description !== '') {
       writer.uint32(18).string(message.description);
     }
-    if (message.denom !== "") {
+    if (message.denom !== '') {
       writer.uint32(26).string(message.denom);
     }
-    if (message.rewardWeight !== "") {
+    if (message.rewardWeight !== '') {
       writer.uint32(34).string(Decimal.fromUserInput(message.rewardWeight, 18).atomics);
     }
-    if (message.takeRate !== "") {
+    if (message.takeRate !== '') {
       writer.uint32(42).string(Decimal.fromUserInput(message.takeRate, 18).atomics);
     }
-    if (message.rewardChangeRate !== "") {
+    if (message.rewardChangeRate !== '') {
       writer.uint32(50).string(Decimal.fromUserInput(message.rewardChangeRate, 18).atomics);
     }
     if (message.rewardChangeInterval !== undefined) {
@@ -340,7 +342,7 @@ export const MsgUpdateAllianceProposal = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateAllianceProposal {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateAllianceProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -378,12 +380,12 @@ export const MsgUpdateAllianceProposal = {
   },
   fromPartial(object: DeepPartial<MsgUpdateAllianceProposal>): MsgUpdateAllianceProposal {
     const message = createBaseMsgUpdateAllianceProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.denom = object.denom ?? "";
-    message.rewardWeight = object.rewardWeight ?? "";
-    message.takeRate = object.takeRate ?? "";
-    message.rewardChangeRate = object.rewardChangeRate ?? "";
+    message.title = object.title ?? '';
+    message.description = object.description ?? '';
+    message.denom = object.denom ?? '';
+    message.rewardWeight = object.rewardWeight ?? '';
+    message.takeRate = object.takeRate ?? '';
+    message.rewardChangeRate = object.rewardChangeRate ?? '';
     message.rewardChangeInterval = object.rewardChangeInterval !== undefined && object.rewardChangeInterval !== null ? Duration.fromPartial(object.rewardChangeInterval) : undefined;
     message.rewardWeightRange = object.rewardWeightRange !== undefined && object.rewardWeightRange !== null ? RewardWeightRange.fromPartial(object.rewardWeightRange) : undefined;
     return message;
@@ -418,12 +420,12 @@ export const MsgUpdateAllianceProposal = {
   },
   toAmino(message: MsgUpdateAllianceProposal): MsgUpdateAllianceProposalAmino {
     const obj: any = {};
-    obj.title = message.title === "" ? undefined : message.title;
-    obj.description = message.description === "" ? undefined : message.description;
-    obj.denom = message.denom === "" ? undefined : message.denom;
-    obj.reward_weight = message.rewardWeight === "" ? undefined : message.rewardWeight;
-    obj.take_rate = message.takeRate === "" ? undefined : message.takeRate;
-    obj.reward_change_rate = message.rewardChangeRate === "" ? undefined : message.rewardChangeRate;
+    obj.title = message.title === '' ? undefined : message.title;
+    obj.description = message.description === '' ? undefined : message.description;
+    obj.denom = message.denom === '' ? undefined : message.denom;
+    obj.reward_weight = message.rewardWeight === '' ? undefined : message.rewardWeight;
+    obj.take_rate = message.takeRate === '' ? undefined : message.takeRate;
+    obj.reward_change_rate = message.rewardChangeRate === '' ? undefined : message.rewardChangeRate;
     obj.reward_change_interval = message.rewardChangeInterval ? Duration.toAmino(message.rewardChangeInterval) : undefined;
     obj.reward_weight_range = message.rewardWeightRange ? RewardWeightRange.toAmino(message.rewardWeightRange) : undefined;
     return obj;
@@ -439,35 +441,35 @@ export const MsgUpdateAllianceProposal = {
   },
   toProtoMsg(message: MsgUpdateAllianceProposal): MsgUpdateAllianceProposalProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgUpdateAllianceProposal",
-      value: MsgUpdateAllianceProposal.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgUpdateAllianceProposal',
+      value: MsgUpdateAllianceProposal.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgDeleteAllianceProposal(): MsgDeleteAllianceProposal {
   return {
-    title: "",
-    description: "",
-    denom: ""
+    title: '',
+    description: '',
+    denom: '',
   };
 }
 export const MsgDeleteAllianceProposal = {
-  typeUrl: "/alliance.alliance.MsgDeleteAllianceProposal",
+  typeUrl: '/alliance.alliance.MsgDeleteAllianceProposal',
   encode(message: MsgDeleteAllianceProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.title !== "") {
+    if (message.title !== '') {
       writer.uint32(10).string(message.title);
     }
-    if (message.description !== "") {
+    if (message.description !== '') {
       writer.uint32(18).string(message.description);
     }
-    if (message.denom !== "") {
+    if (message.denom !== '') {
       writer.uint32(26).string(message.denom);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgDeleteAllianceProposal {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDeleteAllianceProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -490,9 +492,9 @@ export const MsgDeleteAllianceProposal = {
   },
   fromPartial(object: DeepPartial<MsgDeleteAllianceProposal>): MsgDeleteAllianceProposal {
     const message = createBaseMsgDeleteAllianceProposal();
-    message.title = object.title ?? "";
-    message.description = object.description ?? "";
-    message.denom = object.denom ?? "";
+    message.title = object.title ?? '';
+    message.description = object.description ?? '';
+    message.denom = object.denom ?? '';
     return message;
   },
   fromAmino(object: MsgDeleteAllianceProposalAmino): MsgDeleteAllianceProposal {
@@ -510,9 +512,9 @@ export const MsgDeleteAllianceProposal = {
   },
   toAmino(message: MsgDeleteAllianceProposal): MsgDeleteAllianceProposalAmino {
     const obj: any = {};
-    obj.title = message.title === "" ? undefined : message.title;
-    obj.description = message.description === "" ? undefined : message.description;
-    obj.denom = message.denom === "" ? undefined : message.denom;
+    obj.title = message.title === '' ? undefined : message.title;
+    obj.description = message.description === '' ? undefined : message.description;
+    obj.denom = message.denom === '' ? undefined : message.denom;
     return obj;
   },
   fromAminoMsg(object: MsgDeleteAllianceProposalAminoMsg): MsgDeleteAllianceProposal {
@@ -526,8 +528,8 @@ export const MsgDeleteAllianceProposal = {
   },
   toProtoMsg(message: MsgDeleteAllianceProposal): MsgDeleteAllianceProposalProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.MsgDeleteAllianceProposal",
-      value: MsgDeleteAllianceProposal.encode(message).finish()
+      typeUrl: '/alliance.alliance.MsgDeleteAllianceProposal',
+      value: MsgDeleteAllianceProposal.encode(message).finish(),
     };
-  }
+  },
 };

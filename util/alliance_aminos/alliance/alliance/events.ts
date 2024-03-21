@@ -1,8 +1,9 @@
-import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { Decimal } from "@cosmjs/math";
-import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
+import { Decimal } from '@cosmjs/math';
+
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { Coin, CoinAmino, CoinSDKType } from '../../cosmos/base/v1beta1/coin';
+import { Timestamp } from '../../google/protobuf/timestamp';
+import { DeepPartial, toTimestamp, fromTimestamp } from '../../helpers';
 export interface DelegateAllianceEvent {
   allianceSender: string;
   validator: string;
@@ -10,7 +11,7 @@ export interface DelegateAllianceEvent {
   newShares: string;
 }
 export interface DelegateAllianceEventProtoMsg {
-  typeUrl: "/alliance.alliance.DelegateAllianceEvent";
+  typeUrl: '/alliance.alliance.DelegateAllianceEvent';
   value: Uint8Array;
 }
 export interface DelegateAllianceEventAmino {
@@ -20,7 +21,7 @@ export interface DelegateAllianceEventAmino {
   newShares?: string;
 }
 export interface DelegateAllianceEventAminoMsg {
-  type: "/alliance.alliance.DelegateAllianceEvent";
+  type: '/alliance.alliance.DelegateAllianceEvent';
   value: DelegateAllianceEventAmino;
 }
 export interface DelegateAllianceEventSDKType {
@@ -36,7 +37,7 @@ export interface UndelegateAllianceEvent {
   completionTime: Date;
 }
 export interface UndelegateAllianceEventProtoMsg {
-  typeUrl: "/alliance.alliance.UndelegateAllianceEvent";
+  typeUrl: '/alliance.alliance.UndelegateAllianceEvent';
   value: Uint8Array;
 }
 export interface UndelegateAllianceEventAmino {
@@ -46,7 +47,7 @@ export interface UndelegateAllianceEventAmino {
   completionTime?: string;
 }
 export interface UndelegateAllianceEventAminoMsg {
-  type: "/alliance.alliance.UndelegateAllianceEvent";
+  type: '/alliance.alliance.UndelegateAllianceEvent';
   value: UndelegateAllianceEventAmino;
 }
 export interface UndelegateAllianceEventSDKType {
@@ -63,7 +64,7 @@ export interface RedelegateAllianceEvent {
   completionTime: Date;
 }
 export interface RedelegateAllianceEventProtoMsg {
-  typeUrl: "/alliance.alliance.RedelegateAllianceEvent";
+  typeUrl: '/alliance.alliance.RedelegateAllianceEvent';
   value: Uint8Array;
 }
 export interface RedelegateAllianceEventAmino {
@@ -74,7 +75,7 @@ export interface RedelegateAllianceEventAmino {
   completionTime?: string;
 }
 export interface RedelegateAllianceEventAminoMsg {
-  type: "/alliance.alliance.RedelegateAllianceEvent";
+  type: '/alliance.alliance.RedelegateAllianceEvent';
   value: RedelegateAllianceEventAmino;
 }
 export interface RedelegateAllianceEventSDKType {
@@ -90,7 +91,7 @@ export interface ClaimAllianceRewardsEvent {
   coins: Coin[];
 }
 export interface ClaimAllianceRewardsEventProtoMsg {
-  typeUrl: "/alliance.alliance.ClaimAllianceRewardsEvent";
+  typeUrl: '/alliance.alliance.ClaimAllianceRewardsEvent';
   value: Uint8Array;
 }
 export interface ClaimAllianceRewardsEventAmino {
@@ -99,7 +100,7 @@ export interface ClaimAllianceRewardsEventAmino {
   coins?: CoinAmino[];
 }
 export interface ClaimAllianceRewardsEventAminoMsg {
-  type: "/alliance.alliance.ClaimAllianceRewardsEvent";
+  type: '/alliance.alliance.ClaimAllianceRewardsEvent';
   value: ClaimAllianceRewardsEventAmino;
 }
 export interface ClaimAllianceRewardsEventSDKType {
@@ -111,14 +112,14 @@ export interface DeductAllianceAssetsEvent {
   coins: Coin[];
 }
 export interface DeductAllianceAssetsEventProtoMsg {
-  typeUrl: "/alliance.alliance.DeductAllianceAssetsEvent";
+  typeUrl: '/alliance.alliance.DeductAllianceAssetsEvent';
   value: Uint8Array;
 }
 export interface DeductAllianceAssetsEventAmino {
   coins?: CoinAmino[];
 }
 export interface DeductAllianceAssetsEventAminoMsg {
-  type: "/alliance.alliance.DeductAllianceAssetsEvent";
+  type: '/alliance.alliance.DeductAllianceAssetsEvent';
   value: DeductAllianceAssetsEventAmino;
 }
 export interface DeductAllianceAssetsEventSDKType {
@@ -126,32 +127,32 @@ export interface DeductAllianceAssetsEventSDKType {
 }
 function createBaseDelegateAllianceEvent(): DelegateAllianceEvent {
   return {
-    allianceSender: "",
-    validator: "",
+    allianceSender: '',
+    validator: '',
     coin: Coin.fromPartial({}),
-    newShares: ""
+    newShares: '',
   };
 }
 export const DelegateAllianceEvent = {
-  typeUrl: "/alliance.alliance.DelegateAllianceEvent",
+  typeUrl: '/alliance.alliance.DelegateAllianceEvent',
   encode(message: DelegateAllianceEvent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.allianceSender !== "") {
+    if (message.allianceSender !== '') {
       writer.uint32(10).string(message.allianceSender);
     }
-    if (message.validator !== "") {
+    if (message.validator !== '') {
       writer.uint32(18).string(message.validator);
     }
     if (message.coin !== undefined) {
       Coin.encode(message.coin, writer.uint32(26).fork()).ldelim();
     }
-    if (message.newShares !== "") {
+    if (message.newShares !== '') {
       writer.uint32(34).string(Decimal.fromUserInput(message.newShares, 18).atomics);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): DelegateAllianceEvent {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDelegateAllianceEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -177,10 +178,10 @@ export const DelegateAllianceEvent = {
   },
   fromPartial(object: DeepPartial<DelegateAllianceEvent>): DelegateAllianceEvent {
     const message = createBaseDelegateAllianceEvent();
-    message.allianceSender = object.allianceSender ?? "";
-    message.validator = object.validator ?? "";
+    message.allianceSender = object.allianceSender ?? '';
+    message.validator = object.validator ?? '';
     message.coin = object.coin !== undefined && object.coin !== null ? Coin.fromPartial(object.coin) : undefined;
-    message.newShares = object.newShares ?? "";
+    message.newShares = object.newShares ?? '';
     return message;
   },
   fromAmino(object: DelegateAllianceEventAmino): DelegateAllianceEvent {
@@ -201,10 +202,10 @@ export const DelegateAllianceEvent = {
   },
   toAmino(message: DelegateAllianceEvent): DelegateAllianceEventAmino {
     const obj: any = {};
-    obj.allianceSender = message.allianceSender === "" ? undefined : message.allianceSender;
-    obj.validator = message.validator === "" ? undefined : message.validator;
+    obj.allianceSender = message.allianceSender === '' ? undefined : message.allianceSender;
+    obj.validator = message.validator === '' ? undefined : message.validator;
     obj.coin = message.coin ? Coin.toAmino(message.coin) : undefined;
-    obj.newShares = message.newShares === "" ? undefined : message.newShares;
+    obj.newShares = message.newShares === '' ? undefined : message.newShares;
     return obj;
   },
   fromAminoMsg(object: DelegateAllianceEventAminoMsg): DelegateAllianceEvent {
@@ -218,26 +219,26 @@ export const DelegateAllianceEvent = {
   },
   toProtoMsg(message: DelegateAllianceEvent): DelegateAllianceEventProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.DelegateAllianceEvent",
-      value: DelegateAllianceEvent.encode(message).finish()
+      typeUrl: '/alliance.alliance.DelegateAllianceEvent',
+      value: DelegateAllianceEvent.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseUndelegateAllianceEvent(): UndelegateAllianceEvent {
   return {
-    allianceSender: "",
-    validator: "",
+    allianceSender: '',
+    validator: '',
     coin: Coin.fromPartial({}),
-    completionTime: new Date()
+    completionTime: new Date(),
   };
 }
 export const UndelegateAllianceEvent = {
-  typeUrl: "/alliance.alliance.UndelegateAllianceEvent",
+  typeUrl: '/alliance.alliance.UndelegateAllianceEvent',
   encode(message: UndelegateAllianceEvent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.allianceSender !== "") {
+    if (message.allianceSender !== '') {
       writer.uint32(10).string(message.allianceSender);
     }
-    if (message.validator !== "") {
+    if (message.validator !== '') {
       writer.uint32(18).string(message.validator);
     }
     if (message.coin !== undefined) {
@@ -250,7 +251,7 @@ export const UndelegateAllianceEvent = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): UndelegateAllianceEvent {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUndelegateAllianceEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -276,8 +277,8 @@ export const UndelegateAllianceEvent = {
   },
   fromPartial(object: DeepPartial<UndelegateAllianceEvent>): UndelegateAllianceEvent {
     const message = createBaseUndelegateAllianceEvent();
-    message.allianceSender = object.allianceSender ?? "";
-    message.validator = object.validator ?? "";
+    message.allianceSender = object.allianceSender ?? '';
+    message.validator = object.validator ?? '';
     message.coin = object.coin !== undefined && object.coin !== null ? Coin.fromPartial(object.coin) : undefined;
     message.completionTime = object.completionTime ?? undefined;
     return message;
@@ -300,8 +301,8 @@ export const UndelegateAllianceEvent = {
   },
   toAmino(message: UndelegateAllianceEvent): UndelegateAllianceEventAmino {
     const obj: any = {};
-    obj.allianceSender = message.allianceSender === "" ? undefined : message.allianceSender;
-    obj.validator = message.validator === "" ? undefined : message.validator;
+    obj.allianceSender = message.allianceSender === '' ? undefined : message.allianceSender;
+    obj.validator = message.validator === '' ? undefined : message.validator;
     obj.coin = message.coin ? Coin.toAmino(message.coin) : undefined;
     obj.completionTime = message.completionTime ? Timestamp.toAmino(toTimestamp(message.completionTime)) : undefined;
     return obj;
@@ -317,30 +318,30 @@ export const UndelegateAllianceEvent = {
   },
   toProtoMsg(message: UndelegateAllianceEvent): UndelegateAllianceEventProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.UndelegateAllianceEvent",
-      value: UndelegateAllianceEvent.encode(message).finish()
+      typeUrl: '/alliance.alliance.UndelegateAllianceEvent',
+      value: UndelegateAllianceEvent.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseRedelegateAllianceEvent(): RedelegateAllianceEvent {
   return {
-    allianceSender: "",
-    sourceValidator: "",
-    destinationValidator: "",
+    allianceSender: '',
+    sourceValidator: '',
+    destinationValidator: '',
     coin: Coin.fromPartial({}),
-    completionTime: new Date()
+    completionTime: new Date(),
   };
 }
 export const RedelegateAllianceEvent = {
-  typeUrl: "/alliance.alliance.RedelegateAllianceEvent",
+  typeUrl: '/alliance.alliance.RedelegateAllianceEvent',
   encode(message: RedelegateAllianceEvent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.allianceSender !== "") {
+    if (message.allianceSender !== '') {
       writer.uint32(10).string(message.allianceSender);
     }
-    if (message.sourceValidator !== "") {
+    if (message.sourceValidator !== '') {
       writer.uint32(18).string(message.sourceValidator);
     }
-    if (message.destinationValidator !== "") {
+    if (message.destinationValidator !== '') {
       writer.uint32(26).string(message.destinationValidator);
     }
     if (message.coin !== undefined) {
@@ -353,7 +354,7 @@ export const RedelegateAllianceEvent = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): RedelegateAllianceEvent {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRedelegateAllianceEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -382,9 +383,9 @@ export const RedelegateAllianceEvent = {
   },
   fromPartial(object: DeepPartial<RedelegateAllianceEvent>): RedelegateAllianceEvent {
     const message = createBaseRedelegateAllianceEvent();
-    message.allianceSender = object.allianceSender ?? "";
-    message.sourceValidator = object.sourceValidator ?? "";
-    message.destinationValidator = object.destinationValidator ?? "";
+    message.allianceSender = object.allianceSender ?? '';
+    message.sourceValidator = object.sourceValidator ?? '';
+    message.destinationValidator = object.destinationValidator ?? '';
     message.coin = object.coin !== undefined && object.coin !== null ? Coin.fromPartial(object.coin) : undefined;
     message.completionTime = object.completionTime ?? undefined;
     return message;
@@ -410,9 +411,9 @@ export const RedelegateAllianceEvent = {
   },
   toAmino(message: RedelegateAllianceEvent): RedelegateAllianceEventAmino {
     const obj: any = {};
-    obj.allianceSender = message.allianceSender === "" ? undefined : message.allianceSender;
-    obj.sourceValidator = message.sourceValidator === "" ? undefined : message.sourceValidator;
-    obj.destinationValidator = message.destinationValidator === "" ? undefined : message.destinationValidator;
+    obj.allianceSender = message.allianceSender === '' ? undefined : message.allianceSender;
+    obj.sourceValidator = message.sourceValidator === '' ? undefined : message.sourceValidator;
+    obj.destinationValidator = message.destinationValidator === '' ? undefined : message.destinationValidator;
     obj.coin = message.coin ? Coin.toAmino(message.coin) : undefined;
     obj.completionTime = message.completionTime ? Timestamp.toAmino(toTimestamp(message.completionTime)) : undefined;
     return obj;
@@ -428,25 +429,25 @@ export const RedelegateAllianceEvent = {
   },
   toProtoMsg(message: RedelegateAllianceEvent): RedelegateAllianceEventProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.RedelegateAllianceEvent",
-      value: RedelegateAllianceEvent.encode(message).finish()
+      typeUrl: '/alliance.alliance.RedelegateAllianceEvent',
+      value: RedelegateAllianceEvent.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseClaimAllianceRewardsEvent(): ClaimAllianceRewardsEvent {
   return {
-    allianceSender: "",
-    validator: "",
-    coins: []
+    allianceSender: '',
+    validator: '',
+    coins: [],
   };
 }
 export const ClaimAllianceRewardsEvent = {
-  typeUrl: "/alliance.alliance.ClaimAllianceRewardsEvent",
+  typeUrl: '/alliance.alliance.ClaimAllianceRewardsEvent',
   encode(message: ClaimAllianceRewardsEvent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.allianceSender !== "") {
+    if (message.allianceSender !== '') {
       writer.uint32(10).string(message.allianceSender);
     }
-    if (message.validator !== "") {
+    if (message.validator !== '') {
       writer.uint32(18).string(message.validator);
     }
     for (const v of message.coins) {
@@ -456,7 +457,7 @@ export const ClaimAllianceRewardsEvent = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ClaimAllianceRewardsEvent {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClaimAllianceRewardsEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -479,9 +480,9 @@ export const ClaimAllianceRewardsEvent = {
   },
   fromPartial(object: DeepPartial<ClaimAllianceRewardsEvent>): ClaimAllianceRewardsEvent {
     const message = createBaseClaimAllianceRewardsEvent();
-    message.allianceSender = object.allianceSender ?? "";
-    message.validator = object.validator ?? "";
-    message.coins = object.coins?.map(e => Coin.fromPartial(e)) || [];
+    message.allianceSender = object.allianceSender ?? '';
+    message.validator = object.validator ?? '';
+    message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: ClaimAllianceRewardsEventAmino): ClaimAllianceRewardsEvent {
@@ -492,15 +493,15 @@ export const ClaimAllianceRewardsEvent = {
     if (object.validator !== undefined && object.validator !== null) {
       message.validator = object.validator;
     }
-    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    message.coins = object.coins?.map((e) => Coin.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: ClaimAllianceRewardsEvent): ClaimAllianceRewardsEventAmino {
     const obj: any = {};
-    obj.allianceSender = message.allianceSender === "" ? undefined : message.allianceSender;
-    obj.validator = message.validator === "" ? undefined : message.validator;
+    obj.allianceSender = message.allianceSender === '' ? undefined : message.allianceSender;
+    obj.validator = message.validator === '' ? undefined : message.validator;
     if (message.coins) {
-      obj.coins = message.coins.map(e => e ? Coin.toAmino(e) : undefined);
+      obj.coins = message.coins.map((e) => (e ? Coin.toAmino(e) : undefined));
     } else {
       obj.coins = message.coins;
     }
@@ -517,18 +518,18 @@ export const ClaimAllianceRewardsEvent = {
   },
   toProtoMsg(message: ClaimAllianceRewardsEvent): ClaimAllianceRewardsEventProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.ClaimAllianceRewardsEvent",
-      value: ClaimAllianceRewardsEvent.encode(message).finish()
+      typeUrl: '/alliance.alliance.ClaimAllianceRewardsEvent',
+      value: ClaimAllianceRewardsEvent.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseDeductAllianceAssetsEvent(): DeductAllianceAssetsEvent {
   return {
-    coins: []
+    coins: [],
   };
 }
 export const DeductAllianceAssetsEvent = {
-  typeUrl: "/alliance.alliance.DeductAllianceAssetsEvent",
+  typeUrl: '/alliance.alliance.DeductAllianceAssetsEvent',
   encode(message: DeductAllianceAssetsEvent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.coins) {
       Coin.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -537,7 +538,7 @@ export const DeductAllianceAssetsEvent = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): DeductAllianceAssetsEvent {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeductAllianceAssetsEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -554,18 +555,18 @@ export const DeductAllianceAssetsEvent = {
   },
   fromPartial(object: DeepPartial<DeductAllianceAssetsEvent>): DeductAllianceAssetsEvent {
     const message = createBaseDeductAllianceAssetsEvent();
-    message.coins = object.coins?.map(e => Coin.fromPartial(e)) || [];
+    message.coins = object.coins?.map((e) => Coin.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: DeductAllianceAssetsEventAmino): DeductAllianceAssetsEvent {
     const message = createBaseDeductAllianceAssetsEvent();
-    message.coins = object.coins?.map(e => Coin.fromAmino(e)) || [];
+    message.coins = object.coins?.map((e) => Coin.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: DeductAllianceAssetsEvent): DeductAllianceAssetsEventAmino {
     const obj: any = {};
     if (message.coins) {
-      obj.coins = message.coins.map(e => e ? Coin.toAmino(e) : undefined);
+      obj.coins = message.coins.map((e) => (e ? Coin.toAmino(e) : undefined));
     } else {
       obj.coins = message.coins;
     }
@@ -582,8 +583,8 @@ export const DeductAllianceAssetsEvent = {
   },
   toProtoMsg(message: DeductAllianceAssetsEvent): DeductAllianceAssetsEventProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.DeductAllianceAssetsEvent",
-      value: DeductAllianceAssetsEvent.encode(message).finish()
+      typeUrl: '/alliance.alliance.DeductAllianceAssetsEvent',
+      value: DeductAllianceAssetsEvent.encode(message).finish(),
     };
-  }
+  },
 };

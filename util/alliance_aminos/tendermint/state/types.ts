@@ -1,11 +1,11 @@
-import { ResponseDeliverTx, ResponseDeliverTxAmino, ResponseDeliverTxSDKType, ResponseEndBlock, ResponseEndBlockAmino, ResponseEndBlockSDKType, ResponseBeginBlock, ResponseBeginBlockAmino, ResponseBeginBlockSDKType } from "../abci/types";
-import { ValidatorSet, ValidatorSetAmino, ValidatorSetSDKType } from "../types/validator";
-import { ConsensusParams, ConsensusParamsAmino, ConsensusParamsSDKType } from "../types/params";
-import { Consensus, ConsensusAmino, ConsensusSDKType } from "../version/types";
-import { BlockID, BlockIDAmino, BlockIDSDKType } from "../types/types";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { Timestamp } from '../../google/protobuf/timestamp';
+import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from '../../helpers';
+import { ResponseDeliverTx, ResponseDeliverTxAmino, ResponseDeliverTxSDKType, ResponseEndBlock, ResponseEndBlockAmino, ResponseEndBlockSDKType, ResponseBeginBlock, ResponseBeginBlockAmino, ResponseBeginBlockSDKType } from '../abci/types';
+import { ConsensusParams, ConsensusParamsAmino, ConsensusParamsSDKType } from '../types/params';
+import { BlockID, BlockIDAmino, BlockIDSDKType } from '../types/types';
+import { ValidatorSet, ValidatorSetAmino, ValidatorSetSDKType } from '../types/validator';
+import { Consensus, ConsensusAmino, ConsensusSDKType } from '../version/types';
 /**
  * ABCIResponses retains the responses
  * of the various ABCI calls during block processing.
@@ -17,7 +17,7 @@ export interface ABCIResponses {
   beginBlock?: ResponseBeginBlock;
 }
 export interface ABCIResponsesProtoMsg {
-  typeUrl: "/tendermint.state.ABCIResponses";
+  typeUrl: '/tendermint.state.ABCIResponses';
   value: Uint8Array;
 }
 /**
@@ -31,7 +31,7 @@ export interface ABCIResponsesAmino {
   begin_block?: ResponseBeginBlockAmino;
 }
 export interface ABCIResponsesAminoMsg {
-  type: "/tendermint.state.ABCIResponses";
+  type: '/tendermint.state.ABCIResponses';
   value: ABCIResponsesAmino;
 }
 /**
@@ -50,7 +50,7 @@ export interface ValidatorsInfo {
   lastHeightChanged: bigint;
 }
 export interface ValidatorsInfoProtoMsg {
-  typeUrl: "/tendermint.state.ValidatorsInfo";
+  typeUrl: '/tendermint.state.ValidatorsInfo';
   value: Uint8Array;
 }
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
@@ -59,7 +59,7 @@ export interface ValidatorsInfoAmino {
   last_height_changed?: string;
 }
 export interface ValidatorsInfoAminoMsg {
-  type: "/tendermint.state.ValidatorsInfo";
+  type: '/tendermint.state.ValidatorsInfo';
   value: ValidatorsInfoAmino;
 }
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
@@ -73,7 +73,7 @@ export interface ConsensusParamsInfo {
   lastHeightChanged: bigint;
 }
 export interface ConsensusParamsInfoProtoMsg {
-  typeUrl: "/tendermint.state.ConsensusParamsInfo";
+  typeUrl: '/tendermint.state.ConsensusParamsInfo';
   value: Uint8Array;
 }
 /** ConsensusParamsInfo represents the latest consensus params, or the last height it changed */
@@ -82,7 +82,7 @@ export interface ConsensusParamsInfoAmino {
   last_height_changed?: string;
 }
 export interface ConsensusParamsInfoAminoMsg {
-  type: "/tendermint.state.ConsensusParamsInfo";
+  type: '/tendermint.state.ConsensusParamsInfo';
   value: ConsensusParamsInfoAmino;
 }
 /** ConsensusParamsInfo represents the latest consensus params, or the last height it changed */
@@ -95,7 +95,7 @@ export interface ABCIResponsesInfo {
   height: bigint;
 }
 export interface ABCIResponsesInfoProtoMsg {
-  typeUrl: "/tendermint.state.ABCIResponsesInfo";
+  typeUrl: '/tendermint.state.ABCIResponsesInfo';
   value: Uint8Array;
 }
 export interface ABCIResponsesInfoAmino {
@@ -103,7 +103,7 @@ export interface ABCIResponsesInfoAmino {
   height?: string;
 }
 export interface ABCIResponsesInfoAminoMsg {
-  type: "/tendermint.state.ABCIResponsesInfo";
+  type: '/tendermint.state.ABCIResponsesInfo';
   value: ABCIResponsesInfoAmino;
 }
 export interface ABCIResponsesInfoSDKType {
@@ -115,7 +115,7 @@ export interface Version {
   software: string;
 }
 export interface VersionProtoMsg {
-  typeUrl: "/tendermint.state.Version";
+  typeUrl: '/tendermint.state.Version';
   value: Uint8Array;
 }
 export interface VersionAmino {
@@ -123,7 +123,7 @@ export interface VersionAmino {
   software?: string;
 }
 export interface VersionAminoMsg {
-  type: "/tendermint.state.Version";
+  type: '/tendermint.state.Version';
   value: VersionAmino;
 }
 export interface VersionSDKType {
@@ -132,7 +132,7 @@ export interface VersionSDKType {
 }
 export interface State {
   version: Version;
-  /** immutable */
+  /** Immutable */
   chainId: string;
   initialHeight: bigint;
   /** LastBlockHeight=0 at genesis (ie. block(H=0) does not exist) */
@@ -159,16 +159,16 @@ export interface State {
   lastHeightConsensusParamsChanged: bigint;
   /** Merkle root of the results from executing prev block */
   lastResultsHash: Uint8Array;
-  /** the latest AppHash we've received from calling abci.Commit() */
+  /** The latest AppHash we've received from calling abci.Commit() */
   appHash: Uint8Array;
 }
 export interface StateProtoMsg {
-  typeUrl: "/tendermint.state.State";
+  typeUrl: '/tendermint.state.State';
   value: Uint8Array;
 }
 export interface StateAmino {
   version?: VersionAmino;
-  /** immutable */
+  /** Immutable */
   chain_id?: string;
   initial_height?: string;
   /** LastBlockHeight=0 at genesis (ie. block(H=0) does not exist) */
@@ -195,11 +195,11 @@ export interface StateAmino {
   last_height_consensus_params_changed?: string;
   /** Merkle root of the results from executing prev block */
   last_results_hash?: string;
-  /** the latest AppHash we've received from calling abci.Commit() */
+  /** The latest AppHash we've received from calling abci.Commit() */
   app_hash?: string;
 }
 export interface StateAminoMsg {
-  type: "/tendermint.state.State";
+  type: '/tendermint.state.State';
   value: StateAmino;
 }
 export interface StateSDKType {
@@ -222,11 +222,11 @@ function createBaseABCIResponses(): ABCIResponses {
   return {
     deliverTxs: [],
     endBlock: undefined,
-    beginBlock: undefined
+    beginBlock: undefined,
   };
 }
 export const ABCIResponses = {
-  typeUrl: "/tendermint.state.ABCIResponses",
+  typeUrl: '/tendermint.state.ABCIResponses',
   encode(message: ABCIResponses, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.deliverTxs) {
       ResponseDeliverTx.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -241,7 +241,7 @@ export const ABCIResponses = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ABCIResponses {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseABCIResponses();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -264,14 +264,14 @@ export const ABCIResponses = {
   },
   fromPartial(object: DeepPartial<ABCIResponses>): ABCIResponses {
     const message = createBaseABCIResponses();
-    message.deliverTxs = object.deliverTxs?.map(e => ResponseDeliverTx.fromPartial(e)) || [];
+    message.deliverTxs = object.deliverTxs?.map((e) => ResponseDeliverTx.fromPartial(e)) || [];
     message.endBlock = object.endBlock !== undefined && object.endBlock !== null ? ResponseEndBlock.fromPartial(object.endBlock) : undefined;
     message.beginBlock = object.beginBlock !== undefined && object.beginBlock !== null ? ResponseBeginBlock.fromPartial(object.beginBlock) : undefined;
     return message;
   },
   fromAmino(object: ABCIResponsesAmino): ABCIResponses {
     const message = createBaseABCIResponses();
-    message.deliverTxs = object.deliver_txs?.map(e => ResponseDeliverTx.fromAmino(e)) || [];
+    message.deliverTxs = object.deliver_txs?.map((e) => ResponseDeliverTx.fromAmino(e)) || [];
     if (object.end_block !== undefined && object.end_block !== null) {
       message.endBlock = ResponseEndBlock.fromAmino(object.end_block);
     }
@@ -283,7 +283,7 @@ export const ABCIResponses = {
   toAmino(message: ABCIResponses): ABCIResponsesAmino {
     const obj: any = {};
     if (message.deliverTxs) {
-      obj.deliver_txs = message.deliverTxs.map(e => e ? ResponseDeliverTx.toAmino(e) : undefined);
+      obj.deliver_txs = message.deliverTxs.map((e) => (e ? ResponseDeliverTx.toAmino(e) : undefined));
     } else {
       obj.deliver_txs = message.deliverTxs;
     }
@@ -302,19 +302,19 @@ export const ABCIResponses = {
   },
   toProtoMsg(message: ABCIResponses): ABCIResponsesProtoMsg {
     return {
-      typeUrl: "/tendermint.state.ABCIResponses",
-      value: ABCIResponses.encode(message).finish()
+      typeUrl: '/tendermint.state.ABCIResponses',
+      value: ABCIResponses.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseValidatorsInfo(): ValidatorsInfo {
   return {
     validatorSet: undefined,
-    lastHeightChanged: BigInt(0)
+    lastHeightChanged: BigInt(0),
   };
 }
 export const ValidatorsInfo = {
-  typeUrl: "/tendermint.state.ValidatorsInfo",
+  typeUrl: '/tendermint.state.ValidatorsInfo',
   encode(message: ValidatorsInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.validatorSet !== undefined) {
       ValidatorSet.encode(message.validatorSet, writer.uint32(10).fork()).ldelim();
@@ -326,7 +326,7 @@ export const ValidatorsInfo = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ValidatorsInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseValidatorsInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -377,19 +377,19 @@ export const ValidatorsInfo = {
   },
   toProtoMsg(message: ValidatorsInfo): ValidatorsInfoProtoMsg {
     return {
-      typeUrl: "/tendermint.state.ValidatorsInfo",
-      value: ValidatorsInfo.encode(message).finish()
+      typeUrl: '/tendermint.state.ValidatorsInfo',
+      value: ValidatorsInfo.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseConsensusParamsInfo(): ConsensusParamsInfo {
   return {
     consensusParams: ConsensusParams.fromPartial({}),
-    lastHeightChanged: BigInt(0)
+    lastHeightChanged: BigInt(0),
   };
 }
 export const ConsensusParamsInfo = {
-  typeUrl: "/tendermint.state.ConsensusParamsInfo",
+  typeUrl: '/tendermint.state.ConsensusParamsInfo',
   encode(message: ConsensusParamsInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.consensusParams !== undefined) {
       ConsensusParams.encode(message.consensusParams, writer.uint32(10).fork()).ldelim();
@@ -401,7 +401,7 @@ export const ConsensusParamsInfo = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ConsensusParamsInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConsensusParamsInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -452,19 +452,19 @@ export const ConsensusParamsInfo = {
   },
   toProtoMsg(message: ConsensusParamsInfo): ConsensusParamsInfoProtoMsg {
     return {
-      typeUrl: "/tendermint.state.ConsensusParamsInfo",
-      value: ConsensusParamsInfo.encode(message).finish()
+      typeUrl: '/tendermint.state.ConsensusParamsInfo',
+      value: ConsensusParamsInfo.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseABCIResponsesInfo(): ABCIResponsesInfo {
   return {
     abciResponses: undefined,
-    height: BigInt(0)
+    height: BigInt(0),
   };
 }
 export const ABCIResponsesInfo = {
-  typeUrl: "/tendermint.state.ABCIResponsesInfo",
+  typeUrl: '/tendermint.state.ABCIResponsesInfo',
   encode(message: ABCIResponsesInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.abciResponses !== undefined) {
       ABCIResponses.encode(message.abciResponses, writer.uint32(10).fork()).ldelim();
@@ -476,7 +476,7 @@ export const ABCIResponsesInfo = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ABCIResponsesInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseABCIResponsesInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -527,31 +527,31 @@ export const ABCIResponsesInfo = {
   },
   toProtoMsg(message: ABCIResponsesInfo): ABCIResponsesInfoProtoMsg {
     return {
-      typeUrl: "/tendermint.state.ABCIResponsesInfo",
-      value: ABCIResponsesInfo.encode(message).finish()
+      typeUrl: '/tendermint.state.ABCIResponsesInfo',
+      value: ABCIResponsesInfo.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseVersion(): Version {
   return {
     consensus: Consensus.fromPartial({}),
-    software: ""
+    software: '',
   };
 }
 export const Version = {
-  typeUrl: "/tendermint.state.Version",
+  typeUrl: '/tendermint.state.Version',
   encode(message: Version, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.consensus !== undefined) {
       Consensus.encode(message.consensus, writer.uint32(10).fork()).ldelim();
     }
-    if (message.software !== "") {
+    if (message.software !== '') {
       writer.uint32(18).string(message.software);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Version {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVersion();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -572,7 +572,7 @@ export const Version = {
   fromPartial(object: DeepPartial<Version>): Version {
     const message = createBaseVersion();
     message.consensus = object.consensus !== undefined && object.consensus !== null ? Consensus.fromPartial(object.consensus) : undefined;
-    message.software = object.software ?? "";
+    message.software = object.software ?? '';
     return message;
   },
   fromAmino(object: VersionAmino): Version {
@@ -588,7 +588,7 @@ export const Version = {
   toAmino(message: Version): VersionAmino {
     const obj: any = {};
     obj.consensus = message.consensus ? Consensus.toAmino(message.consensus) : undefined;
-    obj.software = message.software === "" ? undefined : message.software;
+    obj.software = message.software === '' ? undefined : message.software;
     return obj;
   },
   fromAminoMsg(object: VersionAminoMsg): Version {
@@ -602,15 +602,15 @@ export const Version = {
   },
   toProtoMsg(message: Version): VersionProtoMsg {
     return {
-      typeUrl: "/tendermint.state.Version",
-      value: Version.encode(message).finish()
+      typeUrl: '/tendermint.state.Version',
+      value: Version.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseState(): State {
   return {
     version: Version.fromPartial({}),
-    chainId: "",
+    chainId: '',
     initialHeight: BigInt(0),
     lastBlockHeight: BigInt(0),
     lastBlockId: BlockID.fromPartial({}),
@@ -622,16 +622,16 @@ function createBaseState(): State {
     consensusParams: ConsensusParams.fromPartial({}),
     lastHeightConsensusParamsChanged: BigInt(0),
     lastResultsHash: new Uint8Array(),
-    appHash: new Uint8Array()
+    appHash: new Uint8Array(),
   };
 }
 export const State = {
-  typeUrl: "/tendermint.state.State",
+  typeUrl: '/tendermint.state.State',
   encode(message: State, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.version !== undefined) {
       Version.encode(message.version, writer.uint32(10).fork()).ldelim();
     }
-    if (message.chainId !== "") {
+    if (message.chainId !== '') {
       writer.uint32(18).string(message.chainId);
     }
     if (message.initialHeight !== BigInt(0)) {
@@ -674,7 +674,7 @@ export const State = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): State {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseState();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -731,7 +731,7 @@ export const State = {
   fromPartial(object: DeepPartial<State>): State {
     const message = createBaseState();
     message.version = object.version !== undefined && object.version !== null ? Version.fromPartial(object.version) : undefined;
-    message.chainId = object.chainId ?? "";
+    message.chainId = object.chainId ?? '';
     message.initialHeight = object.initialHeight !== undefined && object.initialHeight !== null ? BigInt(object.initialHeight.toString()) : BigInt(0);
     message.lastBlockHeight = object.lastBlockHeight !== undefined && object.lastBlockHeight !== null ? BigInt(object.lastBlockHeight.toString()) : BigInt(0);
     message.lastBlockId = object.lastBlockId !== undefined && object.lastBlockId !== null ? BlockID.fromPartial(object.lastBlockId) : undefined;
@@ -795,7 +795,7 @@ export const State = {
   toAmino(message: State): StateAmino {
     const obj: any = {};
     obj.version = message.version ? Version.toAmino(message.version) : undefined;
-    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
+    obj.chain_id = message.chainId === '' ? undefined : message.chainId;
     obj.initial_height = message.initialHeight !== BigInt(0) ? message.initialHeight.toString() : undefined;
     obj.last_block_height = message.lastBlockHeight !== BigInt(0) ? message.lastBlockHeight.toString() : undefined;
     obj.last_block_id = message.lastBlockId ? BlockID.toAmino(message.lastBlockId) : undefined;
@@ -821,8 +821,8 @@ export const State = {
   },
   toProtoMsg(message: State): StateProtoMsg {
     return {
-      typeUrl: "/tendermint.state.State",
-      value: State.encode(message).finish()
+      typeUrl: '/tendermint.state.State',
+      value: State.encode(message).finish(),
     };
-  }
+  },
 };

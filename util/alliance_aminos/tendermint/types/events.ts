@@ -1,12 +1,12 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
 export interface EventDataRoundState {
   height: bigint;
   round: number;
   step: string;
 }
 export interface EventDataRoundStateProtoMsg {
-  typeUrl: "/tendermint.types.EventDataRoundState";
+  typeUrl: '/tendermint.types.EventDataRoundState';
   value: Uint8Array;
 }
 export interface EventDataRoundStateAmino {
@@ -15,7 +15,7 @@ export interface EventDataRoundStateAmino {
   step?: string;
 }
 export interface EventDataRoundStateAminoMsg {
-  type: "/tendermint.types.EventDataRoundState";
+  type: '/tendermint.types.EventDataRoundState';
   value: EventDataRoundStateAmino;
 }
 export interface EventDataRoundStateSDKType {
@@ -27,11 +27,11 @@ function createBaseEventDataRoundState(): EventDataRoundState {
   return {
     height: BigInt(0),
     round: 0,
-    step: ""
+    step: '',
   };
 }
 export const EventDataRoundState = {
-  typeUrl: "/tendermint.types.EventDataRoundState",
+  typeUrl: '/tendermint.types.EventDataRoundState',
   encode(message: EventDataRoundState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -39,14 +39,14 @@ export const EventDataRoundState = {
     if (message.round !== 0) {
       writer.uint32(16).int32(message.round);
     }
-    if (message.step !== "") {
+    if (message.step !== '') {
       writer.uint32(26).string(message.step);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): EventDataRoundState {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEventDataRoundState();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -71,7 +71,7 @@ export const EventDataRoundState = {
     const message = createBaseEventDataRoundState();
     message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
     message.round = object.round ?? 0;
-    message.step = object.step ?? "";
+    message.step = object.step ?? '';
     return message;
   },
   fromAmino(object: EventDataRoundStateAmino): EventDataRoundState {
@@ -91,7 +91,7 @@ export const EventDataRoundState = {
     const obj: any = {};
     obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
     obj.round = message.round === 0 ? undefined : message.round;
-    obj.step = message.step === "" ? undefined : message.step;
+    obj.step = message.step === '' ? undefined : message.step;
     return obj;
   },
   fromAminoMsg(object: EventDataRoundStateAminoMsg): EventDataRoundState {
@@ -105,8 +105,8 @@ export const EventDataRoundState = {
   },
   toProtoMsg(message: EventDataRoundState): EventDataRoundStateProtoMsg {
     return {
-      typeUrl: "/tendermint.types.EventDataRoundState",
-      value: EventDataRoundState.encode(message).finish()
+      typeUrl: '/tendermint.types.EventDataRoundState',
+      value: EventDataRoundState.encode(message).finish(),
     };
-  }
+  },
 };

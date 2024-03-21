@@ -1,14 +1,14 @@
-import { NetAddress, NetAddressAmino, NetAddressSDKType } from "./types";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
+import { NetAddress, NetAddressAmino, NetAddressSDKType } from './types';
 export interface PexRequest {}
 export interface PexRequestProtoMsg {
-  typeUrl: "/tendermint.p2p.PexRequest";
+  typeUrl: '/tendermint.p2p.PexRequest';
   value: Uint8Array;
 }
 export interface PexRequestAmino {}
 export interface PexRequestAminoMsg {
-  type: "/tendermint.p2p.PexRequest";
+  type: '/tendermint.p2p.PexRequest';
   value: PexRequestAmino;
 }
 export interface PexRequestSDKType {}
@@ -16,14 +16,14 @@ export interface PexAddrs {
   addrs: NetAddress[];
 }
 export interface PexAddrsProtoMsg {
-  typeUrl: "/tendermint.p2p.PexAddrs";
+  typeUrl: '/tendermint.p2p.PexAddrs';
   value: Uint8Array;
 }
 export interface PexAddrsAmino {
   addrs?: NetAddressAmino[];
 }
 export interface PexAddrsAminoMsg {
-  type: "/tendermint.p2p.PexAddrs";
+  type: '/tendermint.p2p.PexAddrs';
   value: PexAddrsAmino;
 }
 export interface PexAddrsSDKType {
@@ -34,7 +34,7 @@ export interface Message {
   pexAddrs?: PexAddrs;
 }
 export interface MessageProtoMsg {
-  typeUrl: "/tendermint.p2p.Message";
+  typeUrl: '/tendermint.p2p.Message';
   value: Uint8Array;
 }
 export interface MessageAmino {
@@ -42,7 +42,7 @@ export interface MessageAmino {
   pex_addrs?: PexAddrsAmino;
 }
 export interface MessageAminoMsg {
-  type: "/tendermint.p2p.Message";
+  type: '/tendermint.p2p.Message';
   value: MessageAmino;
 }
 export interface MessageSDKType {
@@ -53,13 +53,13 @@ function createBasePexRequest(): PexRequest {
   return {};
 }
 export const PexRequest = {
-  typeUrl: "/tendermint.p2p.PexRequest",
+  typeUrl: '/tendermint.p2p.PexRequest',
   encode(_: PexRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PexRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePexRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -94,18 +94,18 @@ export const PexRequest = {
   },
   toProtoMsg(message: PexRequest): PexRequestProtoMsg {
     return {
-      typeUrl: "/tendermint.p2p.PexRequest",
-      value: PexRequest.encode(message).finish()
+      typeUrl: '/tendermint.p2p.PexRequest',
+      value: PexRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePexAddrs(): PexAddrs {
   return {
-    addrs: []
+    addrs: [],
   };
 }
 export const PexAddrs = {
-  typeUrl: "/tendermint.p2p.PexAddrs",
+  typeUrl: '/tendermint.p2p.PexAddrs',
   encode(message: PexAddrs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.addrs) {
       NetAddress.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -114,7 +114,7 @@ export const PexAddrs = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PexAddrs {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePexAddrs();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -131,18 +131,18 @@ export const PexAddrs = {
   },
   fromPartial(object: DeepPartial<PexAddrs>): PexAddrs {
     const message = createBasePexAddrs();
-    message.addrs = object.addrs?.map(e => NetAddress.fromPartial(e)) || [];
+    message.addrs = object.addrs?.map((e) => NetAddress.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: PexAddrsAmino): PexAddrs {
     const message = createBasePexAddrs();
-    message.addrs = object.addrs?.map(e => NetAddress.fromAmino(e)) || [];
+    message.addrs = object.addrs?.map((e) => NetAddress.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: PexAddrs): PexAddrsAmino {
     const obj: any = {};
     if (message.addrs) {
-      obj.addrs = message.addrs.map(e => e ? NetAddress.toAmino(e) : undefined);
+      obj.addrs = message.addrs.map((e) => (e ? NetAddress.toAmino(e) : undefined));
     } else {
       obj.addrs = message.addrs;
     }
@@ -159,19 +159,19 @@ export const PexAddrs = {
   },
   toProtoMsg(message: PexAddrs): PexAddrsProtoMsg {
     return {
-      typeUrl: "/tendermint.p2p.PexAddrs",
-      value: PexAddrs.encode(message).finish()
+      typeUrl: '/tendermint.p2p.PexAddrs',
+      value: PexAddrs.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMessage(): Message {
   return {
     pexRequest: undefined,
-    pexAddrs: undefined
+    pexAddrs: undefined,
   };
 }
 export const Message = {
-  typeUrl: "/tendermint.p2p.Message",
+  typeUrl: '/tendermint.p2p.Message',
   encode(message: Message, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pexRequest !== undefined) {
       PexRequest.encode(message.pexRequest, writer.uint32(10).fork()).ldelim();
@@ -183,7 +183,7 @@ export const Message = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Message {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -234,8 +234,8 @@ export const Message = {
   },
   toProtoMsg(message: Message): MessageProtoMsg {
     return {
-      typeUrl: "/tendermint.p2p.Message",
-      value: Message.encode(message).finish()
+      typeUrl: '/tendermint.p2p.Message',
+      value: Message.encode(message).finish(),
     };
-  }
+  },
 };

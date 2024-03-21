@@ -1,5 +1,5 @@
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../../../helpers';
 /**
  * MultiSignature wraps the signatures from a multisig.LegacyAminoPubKey.
  * See cosmos.tx.v1betata1.ModeInfo.Multi for how to specify which signers
@@ -9,7 +9,7 @@ export interface MultiSignature {
   signatures: Uint8Array[];
 }
 export interface MultiSignatureProtoMsg {
-  typeUrl: "/cosmos.crypto.multisig.v1beta1.MultiSignature";
+  typeUrl: '/cosmos.crypto.multisig.v1beta1.MultiSignature';
   value: Uint8Array;
 }
 /**
@@ -21,7 +21,7 @@ export interface MultiSignatureAmino {
   signatures?: string[];
 }
 export interface MultiSignatureAminoMsg {
-  type: "cosmos-sdk/MultiSignature";
+  type: 'cosmos-sdk/MultiSignature';
   value: MultiSignatureAmino;
 }
 /**
@@ -43,7 +43,7 @@ export interface CompactBitArray {
   elems: Uint8Array;
 }
 export interface CompactBitArrayProtoMsg {
-  typeUrl: "/cosmos.crypto.multisig.v1beta1.CompactBitArray";
+  typeUrl: '/cosmos.crypto.multisig.v1beta1.CompactBitArray';
   value: Uint8Array;
 }
 /**
@@ -57,7 +57,7 @@ export interface CompactBitArrayAmino {
   elems?: string;
 }
 export interface CompactBitArrayAminoMsg {
-  type: "cosmos-sdk/CompactBitArray";
+  type: 'cosmos-sdk/CompactBitArray';
   value: CompactBitArrayAmino;
 }
 /**
@@ -72,12 +72,12 @@ export interface CompactBitArraySDKType {
 }
 function createBaseMultiSignature(): MultiSignature {
   return {
-    signatures: []
+    signatures: [],
   };
 }
 export const MultiSignature = {
-  typeUrl: "/cosmos.crypto.multisig.v1beta1.MultiSignature",
-  aminoType: "cosmos-sdk/MultiSignature",
+  typeUrl: '/cosmos.crypto.multisig.v1beta1.MultiSignature',
+  aminoType: 'cosmos-sdk/MultiSignature',
   encode(message: MultiSignature, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.signatures) {
       writer.uint32(10).bytes(v!);
@@ -86,7 +86,7 @@ export const MultiSignature = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MultiSignature {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMultiSignature();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -103,18 +103,18 @@ export const MultiSignature = {
   },
   fromPartial(object: DeepPartial<MultiSignature>): MultiSignature {
     const message = createBaseMultiSignature();
-    message.signatures = object.signatures?.map(e => e) || [];
+    message.signatures = object.signatures?.map((e) => e) || [];
     return message;
   },
   fromAmino(object: MultiSignatureAmino): MultiSignature {
     const message = createBaseMultiSignature();
-    message.signatures = object.signatures?.map(e => bytesFromBase64(e)) || [];
+    message.signatures = object.signatures?.map((e) => bytesFromBase64(e)) || [];
     return message;
   },
   toAmino(message: MultiSignature): MultiSignatureAmino {
     const obj: any = {};
     if (message.signatures) {
-      obj.signatures = message.signatures.map(e => base64FromBytes(e));
+      obj.signatures = message.signatures.map((e) => base64FromBytes(e));
     } else {
       obj.signatures = message.signatures;
     }
@@ -125,8 +125,8 @@ export const MultiSignature = {
   },
   toAminoMsg(message: MultiSignature): MultiSignatureAminoMsg {
     return {
-      type: "cosmos-sdk/MultiSignature",
-      value: MultiSignature.toAmino(message)
+      type: 'cosmos-sdk/MultiSignature',
+      value: MultiSignature.toAmino(message),
     };
   },
   fromProtoMsg(message: MultiSignatureProtoMsg): MultiSignature {
@@ -137,20 +137,20 @@ export const MultiSignature = {
   },
   toProtoMsg(message: MultiSignature): MultiSignatureProtoMsg {
     return {
-      typeUrl: "/cosmos.crypto.multisig.v1beta1.MultiSignature",
-      value: MultiSignature.encode(message).finish()
+      typeUrl: '/cosmos.crypto.multisig.v1beta1.MultiSignature',
+      value: MultiSignature.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseCompactBitArray(): CompactBitArray {
   return {
     extraBitsStored: 0,
-    elems: new Uint8Array()
+    elems: new Uint8Array(),
   };
 }
 export const CompactBitArray = {
-  typeUrl: "/cosmos.crypto.multisig.v1beta1.CompactBitArray",
-  aminoType: "cosmos-sdk/CompactBitArray",
+  typeUrl: '/cosmos.crypto.multisig.v1beta1.CompactBitArray',
+  aminoType: 'cosmos-sdk/CompactBitArray',
   encode(message: CompactBitArray, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.extraBitsStored !== 0) {
       writer.uint32(8).uint32(message.extraBitsStored);
@@ -162,7 +162,7 @@ export const CompactBitArray = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): CompactBitArray {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCompactBitArray();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -207,8 +207,8 @@ export const CompactBitArray = {
   },
   toAminoMsg(message: CompactBitArray): CompactBitArrayAminoMsg {
     return {
-      type: "cosmos-sdk/CompactBitArray",
-      value: CompactBitArray.toAmino(message)
+      type: 'cosmos-sdk/CompactBitArray',
+      value: CompactBitArray.toAmino(message),
     };
   },
   fromProtoMsg(message: CompactBitArrayProtoMsg): CompactBitArray {
@@ -219,8 +219,8 @@ export const CompactBitArray = {
   },
   toProtoMsg(message: CompactBitArray): CompactBitArrayProtoMsg {
     return {
-      typeUrl: "/cosmos.crypto.multisig.v1beta1.CompactBitArray",
-      value: CompactBitArray.encode(message).finish()
+      typeUrl: '/cosmos.crypto.multisig.v1beta1.CompactBitArray',
+      value: CompactBitArray.encode(message).finish(),
     };
-  }
+  },
 };

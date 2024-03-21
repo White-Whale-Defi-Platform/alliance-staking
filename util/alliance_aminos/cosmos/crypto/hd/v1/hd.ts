@@ -1,43 +1,43 @@
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { DeepPartial } from '../../../../helpers';
 /** BIP44Params is used as path field in ledger item in Record. */
 export interface BIP44Params {
-  /** purpose is a constant set to 44' (or 0x8000002C) following the BIP43 recommendation */
+  /** Purpose is a constant set to 44' (or 0x8000002C) following the BIP43 recommendation */
   purpose: number;
-  /** coin_type is a constant that improves privacy */
+  /** Coin_type is a constant that improves privacy */
   coinType: number;
-  /** account splits the key space into independent user identities */
+  /** Account splits the key space into independent user identities */
   account: number;
   /**
-   * change is a constant used for public derivation. Constant 0 is used for external chain and constant 1 for internal
+   * Change is a constant used for public derivation. Constant 0 is used for external chain and constant 1 for internal
    * chain.
    */
   change: boolean;
-  /** address_index is used as child index in BIP32 derivation */
+  /** Address_index is used as child index in BIP32 derivation */
   addressIndex: number;
 }
 export interface BIP44ParamsProtoMsg {
-  typeUrl: "/cosmos.crypto.hd.v1.BIP44Params";
+  typeUrl: '/cosmos.crypto.hd.v1.BIP44Params';
   value: Uint8Array;
 }
 /** BIP44Params is used as path field in ledger item in Record. */
 export interface BIP44ParamsAmino {
-  /** purpose is a constant set to 44' (or 0x8000002C) following the BIP43 recommendation */
+  /** Purpose is a constant set to 44' (or 0x8000002C) following the BIP43 recommendation */
   purpose?: number;
-  /** coin_type is a constant that improves privacy */
+  /** Coin_type is a constant that improves privacy */
   coin_type?: number;
-  /** account splits the key space into independent user identities */
+  /** Account splits the key space into independent user identities */
   account?: number;
   /**
-   * change is a constant used for public derivation. Constant 0 is used for external chain and constant 1 for internal
+   * Change is a constant used for public derivation. Constant 0 is used for external chain and constant 1 for internal
    * chain.
    */
   change?: boolean;
-  /** address_index is used as child index in BIP32 derivation */
+  /** Address_index is used as child index in BIP32 derivation */
   address_index?: number;
 }
 export interface BIP44ParamsAminoMsg {
-  type: "crypto/keys/hd/BIP44Params";
+  type: 'crypto/keys/hd/BIP44Params';
   value: BIP44ParamsAmino;
 }
 /** BIP44Params is used as path field in ledger item in Record. */
@@ -54,12 +54,12 @@ function createBaseBIP44Params(): BIP44Params {
     coinType: 0,
     account: 0,
     change: false,
-    addressIndex: 0
+    addressIndex: 0,
   };
 }
 export const BIP44Params = {
-  typeUrl: "/cosmos.crypto.hd.v1.BIP44Params",
-  aminoType: "crypto/keys/hd/BIP44Params",
+  typeUrl: '/cosmos.crypto.hd.v1.BIP44Params',
+  aminoType: 'crypto/keys/hd/BIP44Params',
   encode(message: BIP44Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.purpose !== 0) {
       writer.uint32(8).uint32(message.purpose);
@@ -80,7 +80,7 @@ export const BIP44Params = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): BIP44Params {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBIP44Params();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -149,8 +149,8 @@ export const BIP44Params = {
   },
   toAminoMsg(message: BIP44Params): BIP44ParamsAminoMsg {
     return {
-      type: "crypto/keys/hd/BIP44Params",
-      value: BIP44Params.toAmino(message)
+      type: 'crypto/keys/hd/BIP44Params',
+      value: BIP44Params.toAmino(message),
     };
   },
   fromProtoMsg(message: BIP44ParamsProtoMsg): BIP44Params {
@@ -161,8 +161,8 @@ export const BIP44Params = {
   },
   toProtoMsg(message: BIP44Params): BIP44ParamsProtoMsg {
     return {
-      typeUrl: "/cosmos.crypto.hd.v1.BIP44Params",
-      value: BIP44Params.encode(message).finish()
+      typeUrl: '/cosmos.crypto.hd.v1.BIP44Params',
+      value: BIP44Params.encode(message).finish(),
     };
-  }
+  },
 };

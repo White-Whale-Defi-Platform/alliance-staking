@@ -1,26 +1,26 @@
-import { Minter, MinterAmino, MinterSDKType, Params, ParamsAmino, ParamsSDKType } from "./mint";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../binary';
+import { DeepPartial } from '../../../helpers';
+import { Minter, MinterAmino, MinterSDKType, Params, ParamsAmino, ParamsSDKType } from './mint';
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisState {
-  /** minter is a space for holding current inflation information. */
+  /** Minter is a space for holding current inflation information. */
   minter: Minter;
-  /** params defines all the parameters of the module. */
+  /** Params defines all the parameters of the module. */
   params: Params;
 }
 export interface GenesisStateProtoMsg {
-  typeUrl: "/cosmos.mint.v1beta1.GenesisState";
+  typeUrl: '/cosmos.mint.v1beta1.GenesisState';
   value: Uint8Array;
 }
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisStateAmino {
-  /** minter is a space for holding current inflation information. */
+  /** Minter is a space for holding current inflation information. */
   minter: MinterAmino;
-  /** params defines all the parameters of the module. */
+  /** Params defines all the parameters of the module. */
   params: ParamsAmino;
 }
 export interface GenesisStateAminoMsg {
-  type: "cosmos-sdk/GenesisState";
+  type: 'cosmos-sdk/GenesisState';
   value: GenesisStateAmino;
 }
 /** GenesisState defines the mint module's genesis state. */
@@ -31,12 +31,12 @@ export interface GenesisStateSDKType {
 function createBaseGenesisState(): GenesisState {
   return {
     minter: Minter.fromPartial({}),
-    params: Params.fromPartial({})
+    params: Params.fromPartial({}),
   };
 }
 export const GenesisState = {
-  typeUrl: "/cosmos.mint.v1beta1.GenesisState",
-  aminoType: "cosmos-sdk/GenesisState",
+  typeUrl: '/cosmos.mint.v1beta1.GenesisState',
+  aminoType: 'cosmos-sdk/GenesisState',
   encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.minter !== undefined) {
       Minter.encode(message.minter, writer.uint32(10).fork()).ldelim();
@@ -48,7 +48,7 @@ export const GenesisState = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): GenesisState {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGenesisState();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -93,8 +93,8 @@ export const GenesisState = {
   },
   toAminoMsg(message: GenesisState): GenesisStateAminoMsg {
     return {
-      type: "cosmos-sdk/GenesisState",
-      value: GenesisState.toAmino(message)
+      type: 'cosmos-sdk/GenesisState',
+      value: GenesisState.toAmino(message),
     };
   },
   fromProtoMsg(message: GenesisStateProtoMsg): GenesisState {
@@ -105,8 +105,8 @@ export const GenesisState = {
   },
   toProtoMsg(message: GenesisState): GenesisStateProtoMsg {
     return {
-      typeUrl: "/cosmos.mint.v1beta1.GenesisState",
-      value: GenesisState.encode(message).finish()
+      typeUrl: '/cosmos.mint.v1beta1.GenesisState',
+      value: GenesisState.encode(message).finish(),
     };
-  }
+  },
 };

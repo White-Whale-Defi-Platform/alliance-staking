@@ -1,12 +1,12 @@
-import { Block, BlockAmino, BlockSDKType } from "../types/block";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
+import { Block, BlockAmino, BlockSDKType } from '../types/block';
 /** BlockRequest requests a block for a specific height */
 export interface BlockRequest {
   height: bigint;
 }
 export interface BlockRequestProtoMsg {
-  typeUrl: "/tendermint.blocksync.BlockRequest";
+  typeUrl: '/tendermint.blocksync.BlockRequest';
   value: Uint8Array;
 }
 /** BlockRequest requests a block for a specific height */
@@ -14,7 +14,7 @@ export interface BlockRequestAmino {
   height?: string;
 }
 export interface BlockRequestAminoMsg {
-  type: "/tendermint.blocksync.BlockRequest";
+  type: '/tendermint.blocksync.BlockRequest';
   value: BlockRequestAmino;
 }
 /** BlockRequest requests a block for a specific height */
@@ -26,7 +26,7 @@ export interface NoBlockResponse {
   height: bigint;
 }
 export interface NoBlockResponseProtoMsg {
-  typeUrl: "/tendermint.blocksync.NoBlockResponse";
+  typeUrl: '/tendermint.blocksync.NoBlockResponse';
   value: Uint8Array;
 }
 /** NoBlockResponse informs the node that the peer does not have block at the requested height */
@@ -34,7 +34,7 @@ export interface NoBlockResponseAmino {
   height?: string;
 }
 export interface NoBlockResponseAminoMsg {
-  type: "/tendermint.blocksync.NoBlockResponse";
+  type: '/tendermint.blocksync.NoBlockResponse';
   value: NoBlockResponseAmino;
 }
 /** NoBlockResponse informs the node that the peer does not have block at the requested height */
@@ -46,7 +46,7 @@ export interface BlockResponse {
   block?: Block;
 }
 export interface BlockResponseProtoMsg {
-  typeUrl: "/tendermint.blocksync.BlockResponse";
+  typeUrl: '/tendermint.blocksync.BlockResponse';
   value: Uint8Array;
 }
 /** BlockResponse returns block to the requested */
@@ -54,7 +54,7 @@ export interface BlockResponseAmino {
   block?: BlockAmino;
 }
 export interface BlockResponseAminoMsg {
-  type: "/tendermint.blocksync.BlockResponse";
+  type: '/tendermint.blocksync.BlockResponse';
   value: BlockResponseAmino;
 }
 /** BlockResponse returns block to the requested */
@@ -64,13 +64,13 @@ export interface BlockResponseSDKType {
 /** StatusRequest requests the status of a peer. */
 export interface StatusRequest {}
 export interface StatusRequestProtoMsg {
-  typeUrl: "/tendermint.blocksync.StatusRequest";
+  typeUrl: '/tendermint.blocksync.StatusRequest';
   value: Uint8Array;
 }
 /** StatusRequest requests the status of a peer. */
 export interface StatusRequestAmino {}
 export interface StatusRequestAminoMsg {
-  type: "/tendermint.blocksync.StatusRequest";
+  type: '/tendermint.blocksync.StatusRequest';
   value: StatusRequestAmino;
 }
 /** StatusRequest requests the status of a peer. */
@@ -81,7 +81,7 @@ export interface StatusResponse {
   base: bigint;
 }
 export interface StatusResponseProtoMsg {
-  typeUrl: "/tendermint.blocksync.StatusResponse";
+  typeUrl: '/tendermint.blocksync.StatusResponse';
   value: Uint8Array;
 }
 /** StatusResponse is a peer response to inform their status. */
@@ -90,7 +90,7 @@ export interface StatusResponseAmino {
   base?: string;
 }
 export interface StatusResponseAminoMsg {
-  type: "/tendermint.blocksync.StatusResponse";
+  type: '/tendermint.blocksync.StatusResponse';
   value: StatusResponseAmino;
 }
 /** StatusResponse is a peer response to inform their status. */
@@ -106,7 +106,7 @@ export interface Message {
   statusResponse?: StatusResponse;
 }
 export interface MessageProtoMsg {
-  typeUrl: "/tendermint.blocksync.Message";
+  typeUrl: '/tendermint.blocksync.Message';
   value: Uint8Array;
 }
 export interface MessageAmino {
@@ -117,7 +117,7 @@ export interface MessageAmino {
   status_response?: StatusResponseAmino;
 }
 export interface MessageAminoMsg {
-  type: "/tendermint.blocksync.Message";
+  type: '/tendermint.blocksync.Message';
   value: MessageAmino;
 }
 export interface MessageSDKType {
@@ -129,11 +129,11 @@ export interface MessageSDKType {
 }
 function createBaseBlockRequest(): BlockRequest {
   return {
-    height: BigInt(0)
+    height: BigInt(0),
   };
 }
 export const BlockRequest = {
-  typeUrl: "/tendermint.blocksync.BlockRequest",
+  typeUrl: '/tendermint.blocksync.BlockRequest',
   encode(message: BlockRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -142,7 +142,7 @@ export const BlockRequest = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): BlockRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBlockRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -185,18 +185,18 @@ export const BlockRequest = {
   },
   toProtoMsg(message: BlockRequest): BlockRequestProtoMsg {
     return {
-      typeUrl: "/tendermint.blocksync.BlockRequest",
-      value: BlockRequest.encode(message).finish()
+      typeUrl: '/tendermint.blocksync.BlockRequest',
+      value: BlockRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseNoBlockResponse(): NoBlockResponse {
   return {
-    height: BigInt(0)
+    height: BigInt(0),
   };
 }
 export const NoBlockResponse = {
-  typeUrl: "/tendermint.blocksync.NoBlockResponse",
+  typeUrl: '/tendermint.blocksync.NoBlockResponse',
   encode(message: NoBlockResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -205,7 +205,7 @@ export const NoBlockResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): NoBlockResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNoBlockResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -248,18 +248,18 @@ export const NoBlockResponse = {
   },
   toProtoMsg(message: NoBlockResponse): NoBlockResponseProtoMsg {
     return {
-      typeUrl: "/tendermint.blocksync.NoBlockResponse",
-      value: NoBlockResponse.encode(message).finish()
+      typeUrl: '/tendermint.blocksync.NoBlockResponse',
+      value: NoBlockResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseBlockResponse(): BlockResponse {
   return {
-    block: undefined
+    block: undefined,
   };
 }
 export const BlockResponse = {
-  typeUrl: "/tendermint.blocksync.BlockResponse",
+  typeUrl: '/tendermint.blocksync.BlockResponse',
   encode(message: BlockResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.block !== undefined) {
       Block.encode(message.block, writer.uint32(10).fork()).ldelim();
@@ -268,7 +268,7 @@ export const BlockResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): BlockResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBlockResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -311,22 +311,22 @@ export const BlockResponse = {
   },
   toProtoMsg(message: BlockResponse): BlockResponseProtoMsg {
     return {
-      typeUrl: "/tendermint.blocksync.BlockResponse",
-      value: BlockResponse.encode(message).finish()
+      typeUrl: '/tendermint.blocksync.BlockResponse',
+      value: BlockResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseStatusRequest(): StatusRequest {
   return {};
 }
 export const StatusRequest = {
-  typeUrl: "/tendermint.blocksync.StatusRequest",
+  typeUrl: '/tendermint.blocksync.StatusRequest',
   encode(_: StatusRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): StatusRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStatusRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -361,19 +361,19 @@ export const StatusRequest = {
   },
   toProtoMsg(message: StatusRequest): StatusRequestProtoMsg {
     return {
-      typeUrl: "/tendermint.blocksync.StatusRequest",
-      value: StatusRequest.encode(message).finish()
+      typeUrl: '/tendermint.blocksync.StatusRequest',
+      value: StatusRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseStatusResponse(): StatusResponse {
   return {
     height: BigInt(0),
-    base: BigInt(0)
+    base: BigInt(0),
   };
 }
 export const StatusResponse = {
-  typeUrl: "/tendermint.blocksync.StatusResponse",
+  typeUrl: '/tendermint.blocksync.StatusResponse',
   encode(message: StatusResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -385,7 +385,7 @@ export const StatusResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): StatusResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStatusResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -436,10 +436,10 @@ export const StatusResponse = {
   },
   toProtoMsg(message: StatusResponse): StatusResponseProtoMsg {
     return {
-      typeUrl: "/tendermint.blocksync.StatusResponse",
-      value: StatusResponse.encode(message).finish()
+      typeUrl: '/tendermint.blocksync.StatusResponse',
+      value: StatusResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMessage(): Message {
   return {
@@ -447,11 +447,11 @@ function createBaseMessage(): Message {
     noBlockResponse: undefined,
     blockResponse: undefined,
     statusRequest: undefined,
-    statusResponse: undefined
+    statusResponse: undefined,
   };
 }
 export const Message = {
-  typeUrl: "/tendermint.blocksync.Message",
+  typeUrl: '/tendermint.blocksync.Message',
   encode(message: Message, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.blockRequest !== undefined) {
       BlockRequest.encode(message.blockRequest, writer.uint32(10).fork()).ldelim();
@@ -472,7 +472,7 @@ export const Message = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Message {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -547,8 +547,8 @@ export const Message = {
   },
   toProtoMsg(message: Message): MessageProtoMsg {
     return {
-      typeUrl: "/tendermint.blocksync.Message",
-      value: Message.encode(message).finish()
+      typeUrl: '/tendermint.blocksync.Message',
+      value: Message.encode(message).finish(),
     };
-  }
+  },
 };

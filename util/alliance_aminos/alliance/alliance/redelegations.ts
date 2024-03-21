@@ -1,13 +1,13 @@
-import { Coin, CoinAmino, CoinSDKType } from "../../cosmos/base/v1beta1/coin";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { Coin, CoinAmino, CoinSDKType } from '../../cosmos/base/v1beta1/coin';
+import { Timestamp } from '../../google/protobuf/timestamp';
+import { DeepPartial, toTimestamp, fromTimestamp } from '../../helpers';
 /** Used internally to keep track of redelegations */
 export interface QueuedRedelegation {
   entries: Redelegation[];
 }
 export interface QueuedRedelegationProtoMsg {
-  typeUrl: "/alliance.alliance.QueuedRedelegation";
+  typeUrl: '/alliance.alliance.QueuedRedelegation';
   value: Uint8Array;
 }
 /** Used internally to keep track of redelegations */
@@ -15,7 +15,7 @@ export interface QueuedRedelegationAmino {
   entries?: RedelegationAmino[];
 }
 export interface QueuedRedelegationAminoMsg {
-  type: "/alliance.alliance.QueuedRedelegation";
+  type: '/alliance.alliance.QueuedRedelegation';
   value: QueuedRedelegationAmino;
 }
 /** Used internally to keep track of redelegations */
@@ -23,31 +23,31 @@ export interface QueuedRedelegationSDKType {
   entries: RedelegationSDKType[];
 }
 export interface Redelegation {
-  /** internal or external user address */
+  /** Internal or external user address */
   delegatorAddress: string;
-  /** redelegation source validator */
+  /** Redelegation source validator */
   srcValidatorAddress: string;
-  /** redelegation destination validator */
+  /** Redelegation destination validator */
   dstValidatorAddress: string;
-  /** amount to redelegate */
+  /** Amount to redelegate */
   balance: Coin;
 }
 export interface RedelegationProtoMsg {
-  typeUrl: "/alliance.alliance.Redelegation";
+  typeUrl: '/alliance.alliance.Redelegation';
   value: Uint8Array;
 }
 export interface RedelegationAmino {
-  /** internal or external user address */
+  /** Internal or external user address */
   delegator_address?: string;
-  /** redelegation source validator */
+  /** Redelegation source validator */
   src_validator_address?: string;
-  /** redelegation destination validator */
+  /** Redelegation destination validator */
   dst_validator_address?: string;
-  /** amount to redelegate */
+  /** Amount to redelegate */
   balance?: CoinAmino;
 }
 export interface RedelegationAminoMsg {
-  type: "/alliance.alliance.Redelegation";
+  type: '/alliance.alliance.Redelegation';
   value: RedelegationAmino;
 }
 export interface RedelegationSDKType {
@@ -58,36 +58,36 @@ export interface RedelegationSDKType {
 }
 /** Used on QueryServer */
 export interface RedelegationEntry {
-  /** internal or external user address */
+  /** Internal or external user address */
   delegatorAddress: string;
-  /** redelegation source validator */
+  /** Redelegation source validator */
   srcValidatorAddress: string;
-  /** redelegation destination validator */
+  /** Redelegation destination validator */
   dstValidatorAddress: string;
-  /** amount to redelegate */
+  /** Amount to redelegate */
   balance: Coin;
-  /** completion_time defines the unix time for redelegation completion. */
+  /** Completion_time defines the unix time for redelegation completion. */
   completionTime: Date;
 }
 export interface RedelegationEntryProtoMsg {
-  typeUrl: "/alliance.alliance.RedelegationEntry";
+  typeUrl: '/alliance.alliance.RedelegationEntry';
   value: Uint8Array;
 }
 /** Used on QueryServer */
 export interface RedelegationEntryAmino {
-  /** internal or external user address */
+  /** Internal or external user address */
   delegator_address?: string;
-  /** redelegation source validator */
+  /** Redelegation source validator */
   src_validator_address?: string;
-  /** redelegation destination validator */
+  /** Redelegation destination validator */
   dst_validator_address?: string;
-  /** amount to redelegate */
+  /** Amount to redelegate */
   balance?: CoinAmino;
-  /** completion_time defines the unix time for redelegation completion. */
+  /** Completion_time defines the unix time for redelegation completion. */
   completion_time?: string;
 }
 export interface RedelegationEntryAminoMsg {
-  type: "/alliance.alliance.RedelegationEntry";
+  type: '/alliance.alliance.RedelegationEntry';
   value: RedelegationEntryAmino;
 }
 /** Used on QueryServer */
@@ -100,11 +100,11 @@ export interface RedelegationEntrySDKType {
 }
 function createBaseQueuedRedelegation(): QueuedRedelegation {
   return {
-    entries: []
+    entries: [],
   };
 }
 export const QueuedRedelegation = {
-  typeUrl: "/alliance.alliance.QueuedRedelegation",
+  typeUrl: '/alliance.alliance.QueuedRedelegation',
   encode(message: QueuedRedelegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.entries) {
       Redelegation.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -113,7 +113,7 @@ export const QueuedRedelegation = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): QueuedRedelegation {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueuedRedelegation();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -130,18 +130,18 @@ export const QueuedRedelegation = {
   },
   fromPartial(object: DeepPartial<QueuedRedelegation>): QueuedRedelegation {
     const message = createBaseQueuedRedelegation();
-    message.entries = object.entries?.map(e => Redelegation.fromPartial(e)) || [];
+    message.entries = object.entries?.map((e) => Redelegation.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: QueuedRedelegationAmino): QueuedRedelegation {
     const message = createBaseQueuedRedelegation();
-    message.entries = object.entries?.map(e => Redelegation.fromAmino(e)) || [];
+    message.entries = object.entries?.map((e) => Redelegation.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: QueuedRedelegation): QueuedRedelegationAmino {
     const obj: any = {};
     if (message.entries) {
-      obj.entries = message.entries.map(e => e ? Redelegation.toAmino(e) : undefined);
+      obj.entries = message.entries.map((e) => (e ? Redelegation.toAmino(e) : undefined));
     } else {
       obj.entries = message.entries;
     }
@@ -158,29 +158,29 @@ export const QueuedRedelegation = {
   },
   toProtoMsg(message: QueuedRedelegation): QueuedRedelegationProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.QueuedRedelegation",
-      value: QueuedRedelegation.encode(message).finish()
+      typeUrl: '/alliance.alliance.QueuedRedelegation',
+      value: QueuedRedelegation.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseRedelegation(): Redelegation {
   return {
-    delegatorAddress: "",
-    srcValidatorAddress: "",
-    dstValidatorAddress: "",
-    balance: Coin.fromPartial({})
+    delegatorAddress: '',
+    srcValidatorAddress: '',
+    dstValidatorAddress: '',
+    balance: Coin.fromPartial({}),
   };
 }
 export const Redelegation = {
-  typeUrl: "/alliance.alliance.Redelegation",
+  typeUrl: '/alliance.alliance.Redelegation',
   encode(message: Redelegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.delegatorAddress !== "") {
+    if (message.delegatorAddress !== '') {
       writer.uint32(10).string(message.delegatorAddress);
     }
-    if (message.srcValidatorAddress !== "") {
+    if (message.srcValidatorAddress !== '') {
       writer.uint32(18).string(message.srcValidatorAddress);
     }
-    if (message.dstValidatorAddress !== "") {
+    if (message.dstValidatorAddress !== '') {
       writer.uint32(26).string(message.dstValidatorAddress);
     }
     if (message.balance !== undefined) {
@@ -190,7 +190,7 @@ export const Redelegation = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Redelegation {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRedelegation();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -216,9 +216,9 @@ export const Redelegation = {
   },
   fromPartial(object: DeepPartial<Redelegation>): Redelegation {
     const message = createBaseRedelegation();
-    message.delegatorAddress = object.delegatorAddress ?? "";
-    message.srcValidatorAddress = object.srcValidatorAddress ?? "";
-    message.dstValidatorAddress = object.dstValidatorAddress ?? "";
+    message.delegatorAddress = object.delegatorAddress ?? '';
+    message.srcValidatorAddress = object.srcValidatorAddress ?? '';
+    message.dstValidatorAddress = object.dstValidatorAddress ?? '';
     message.balance = object.balance !== undefined && object.balance !== null ? Coin.fromPartial(object.balance) : undefined;
     return message;
   },
@@ -240,9 +240,9 @@ export const Redelegation = {
   },
   toAmino(message: Redelegation): RedelegationAmino {
     const obj: any = {};
-    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
-    obj.src_validator_address = message.srcValidatorAddress === "" ? undefined : message.srcValidatorAddress;
-    obj.dst_validator_address = message.dstValidatorAddress === "" ? undefined : message.dstValidatorAddress;
+    obj.delegator_address = message.delegatorAddress === '' ? undefined : message.delegatorAddress;
+    obj.src_validator_address = message.srcValidatorAddress === '' ? undefined : message.srcValidatorAddress;
+    obj.dst_validator_address = message.dstValidatorAddress === '' ? undefined : message.dstValidatorAddress;
     obj.balance = message.balance ? Coin.toAmino(message.balance) : undefined;
     return obj;
   },
@@ -257,30 +257,30 @@ export const Redelegation = {
   },
   toProtoMsg(message: Redelegation): RedelegationProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.Redelegation",
-      value: Redelegation.encode(message).finish()
+      typeUrl: '/alliance.alliance.Redelegation',
+      value: Redelegation.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseRedelegationEntry(): RedelegationEntry {
   return {
-    delegatorAddress: "",
-    srcValidatorAddress: "",
-    dstValidatorAddress: "",
+    delegatorAddress: '',
+    srcValidatorAddress: '',
+    dstValidatorAddress: '',
     balance: Coin.fromPartial({}),
-    completionTime: new Date()
+    completionTime: new Date(),
   };
 }
 export const RedelegationEntry = {
-  typeUrl: "/alliance.alliance.RedelegationEntry",
+  typeUrl: '/alliance.alliance.RedelegationEntry',
   encode(message: RedelegationEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.delegatorAddress !== "") {
+    if (message.delegatorAddress !== '') {
       writer.uint32(10).string(message.delegatorAddress);
     }
-    if (message.srcValidatorAddress !== "") {
+    if (message.srcValidatorAddress !== '') {
       writer.uint32(18).string(message.srcValidatorAddress);
     }
-    if (message.dstValidatorAddress !== "") {
+    if (message.dstValidatorAddress !== '') {
       writer.uint32(26).string(message.dstValidatorAddress);
     }
     if (message.balance !== undefined) {
@@ -293,7 +293,7 @@ export const RedelegationEntry = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): RedelegationEntry {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRedelegationEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -322,9 +322,9 @@ export const RedelegationEntry = {
   },
   fromPartial(object: DeepPartial<RedelegationEntry>): RedelegationEntry {
     const message = createBaseRedelegationEntry();
-    message.delegatorAddress = object.delegatorAddress ?? "";
-    message.srcValidatorAddress = object.srcValidatorAddress ?? "";
-    message.dstValidatorAddress = object.dstValidatorAddress ?? "";
+    message.delegatorAddress = object.delegatorAddress ?? '';
+    message.srcValidatorAddress = object.srcValidatorAddress ?? '';
+    message.dstValidatorAddress = object.dstValidatorAddress ?? '';
     message.balance = object.balance !== undefined && object.balance !== null ? Coin.fromPartial(object.balance) : undefined;
     message.completionTime = object.completionTime ?? undefined;
     return message;
@@ -350,9 +350,9 @@ export const RedelegationEntry = {
   },
   toAmino(message: RedelegationEntry): RedelegationEntryAmino {
     const obj: any = {};
-    obj.delegator_address = message.delegatorAddress === "" ? undefined : message.delegatorAddress;
-    obj.src_validator_address = message.srcValidatorAddress === "" ? undefined : message.srcValidatorAddress;
-    obj.dst_validator_address = message.dstValidatorAddress === "" ? undefined : message.dstValidatorAddress;
+    obj.delegator_address = message.delegatorAddress === '' ? undefined : message.delegatorAddress;
+    obj.src_validator_address = message.srcValidatorAddress === '' ? undefined : message.srcValidatorAddress;
+    obj.dst_validator_address = message.dstValidatorAddress === '' ? undefined : message.dstValidatorAddress;
     obj.balance = message.balance ? Coin.toAmino(message.balance) : undefined;
     obj.completion_time = message.completionTime ? Timestamp.toAmino(toTimestamp(message.completionTime)) : undefined;
     return obj;
@@ -368,8 +368,8 @@ export const RedelegationEntry = {
   },
   toProtoMsg(message: RedelegationEntry): RedelegationEntryProtoMsg {
     return {
-      typeUrl: "/alliance.alliance.RedelegationEntry",
-      value: RedelegationEntry.encode(message).finish()
+      typeUrl: '/alliance.alliance.RedelegationEntry',
+      value: RedelegationEntry.encode(message).finish(),
     };
-  }
+  },
 };

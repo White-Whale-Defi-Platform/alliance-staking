@@ -22,9 +22,9 @@ const fetchTokenBalance = async ({
     token: any;
     address: string;
 }) => {
-  const { denom, native, token_address, decimals } = token || {};
+  const { denom, native, token_address: tokenAddress, decimals } = token || {};
 
-  if (!denom && !token_address) {
+  if (!denom && !tokenAddress) {
     return 0
   }
 
@@ -33,9 +33,9 @@ const fetchTokenBalance = async ({
     const amount = coin ? Number(coin.amount) : 0;
     return convertMicroDenomToDenom(amount, decimals);
   }
-  if (token_address) {
+  if (tokenAddress) {
     try {
-      const balance = await CW20(client, null).use(token_address).
+      const balance = await CW20(client, null).use(tokenAddress).
         balance(address)
       return convertMicroDenomToDenom(Number(balance), decimals)
     } catch (err) {

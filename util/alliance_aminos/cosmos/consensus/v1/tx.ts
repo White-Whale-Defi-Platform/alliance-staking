@@ -1,15 +1,15 @@
-import { BlockParams, BlockParamsAmino, BlockParamsSDKType, EvidenceParams, EvidenceParamsAmino, EvidenceParamsSDKType, ValidatorParams, ValidatorParamsAmino, ValidatorParamsSDKType } from "../../../tendermint/types/params";
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial } from "../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../binary';
+import { DeepPartial } from '../../../helpers';
+import { BlockParams, BlockParamsAmino, BlockParamsSDKType, EvidenceParams, EvidenceParamsAmino, EvidenceParamsSDKType, ValidatorParams, ValidatorParamsAmino, ValidatorParamsSDKType } from '../../../tendermint/types/params';
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParams {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /** Authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority: string;
   /**
-   * params defines the x/consensus parameters to update.
+   * Params defines the x/consensus parameters to update.
    * VersionsParams is not included in this Msg because it is tracked
    * separarately in x/upgrade.
-   * 
+   *
    * NOTE: All parameters must be supplied.
    */
   block?: BlockParams;
@@ -17,18 +17,18 @@ export interface MsgUpdateParams {
   validator?: ValidatorParams;
 }
 export interface MsgUpdateParamsProtoMsg {
-  typeUrl: "/cosmos.consensus.v1.MsgUpdateParams";
+  typeUrl: '/cosmos.consensus.v1.MsgUpdateParams';
   value: Uint8Array;
 }
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
 export interface MsgUpdateParamsAmino {
-  /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+  /** Authority is the address that controls the module (defaults to x/gov unless overwritten). */
   authority?: string;
   /**
-   * params defines the x/consensus parameters to update.
+   * Params defines the x/consensus parameters to update.
    * VersionsParams is not included in this Msg because it is tracked
    * separarately in x/upgrade.
-   * 
+   *
    * NOTE: All parameters must be supplied.
    */
   block?: BlockParamsAmino;
@@ -36,7 +36,7 @@ export interface MsgUpdateParamsAmino {
   validator?: ValidatorParamsAmino;
 }
 export interface MsgUpdateParamsAminoMsg {
-  type: "cosmos-sdk/MsgUpdateParams";
+  type: 'cosmos-sdk/MsgUpdateParams';
   value: MsgUpdateParamsAmino;
 }
 /** MsgUpdateParams is the Msg/UpdateParams request type. */
@@ -52,7 +52,7 @@ export interface MsgUpdateParamsSDKType {
  */
 export interface MsgUpdateParamsResponse {}
 export interface MsgUpdateParamsResponseProtoMsg {
-  typeUrl: "/cosmos.consensus.v1.MsgUpdateParamsResponse";
+  typeUrl: '/cosmos.consensus.v1.MsgUpdateParamsResponse';
   value: Uint8Array;
 }
 /**
@@ -61,7 +61,7 @@ export interface MsgUpdateParamsResponseProtoMsg {
  */
 export interface MsgUpdateParamsResponseAmino {}
 export interface MsgUpdateParamsResponseAminoMsg {
-  type: "cosmos-sdk/MsgUpdateParamsResponse";
+  type: 'cosmos-sdk/MsgUpdateParamsResponse';
   value: MsgUpdateParamsResponseAmino;
 }
 /**
@@ -71,17 +71,17 @@ export interface MsgUpdateParamsResponseAminoMsg {
 export interface MsgUpdateParamsResponseSDKType {}
 function createBaseMsgUpdateParams(): MsgUpdateParams {
   return {
-    authority: "",
+    authority: '',
     block: undefined,
     evidence: undefined,
-    validator: undefined
+    validator: undefined,
   };
 }
 export const MsgUpdateParams = {
-  typeUrl: "/cosmos.consensus.v1.MsgUpdateParams",
-  aminoType: "cosmos-sdk/MsgUpdateParams",
+  typeUrl: '/cosmos.consensus.v1.MsgUpdateParams',
+  aminoType: 'cosmos-sdk/MsgUpdateParams',
   encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.authority !== "") {
+    if (message.authority !== '') {
       writer.uint32(10).string(message.authority);
     }
     if (message.block !== undefined) {
@@ -97,7 +97,7 @@ export const MsgUpdateParams = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParams {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -123,7 +123,7 @@ export const MsgUpdateParams = {
   },
   fromPartial(object: DeepPartial<MsgUpdateParams>): MsgUpdateParams {
     const message = createBaseMsgUpdateParams();
-    message.authority = object.authority ?? "";
+    message.authority = object.authority ?? '';
     message.block = object.block !== undefined && object.block !== null ? BlockParams.fromPartial(object.block) : undefined;
     message.evidence = object.evidence !== undefined && object.evidence !== null ? EvidenceParams.fromPartial(object.evidence) : undefined;
     message.validator = object.validator !== undefined && object.validator !== null ? ValidatorParams.fromPartial(object.validator) : undefined;
@@ -147,7 +147,7 @@ export const MsgUpdateParams = {
   },
   toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
     const obj: any = {};
-    obj.authority = message.authority === "" ? undefined : message.authority;
+    obj.authority = message.authority === '' ? undefined : message.authority;
     obj.block = message.block ? BlockParams.toAmino(message.block) : undefined;
     obj.evidence = message.evidence ? EvidenceParams.toAmino(message.evidence) : undefined;
     obj.validator = message.validator ? ValidatorParams.toAmino(message.validator) : undefined;
@@ -158,8 +158,8 @@ export const MsgUpdateParams = {
   },
   toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
     return {
-      type: "cosmos-sdk/MsgUpdateParams",
-      value: MsgUpdateParams.toAmino(message)
+      type: 'cosmos-sdk/MsgUpdateParams',
+      value: MsgUpdateParams.toAmino(message),
     };
   },
   fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams {
@@ -170,23 +170,23 @@ export const MsgUpdateParams = {
   },
   toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
     return {
-      typeUrl: "/cosmos.consensus.v1.MsgUpdateParams",
-      value: MsgUpdateParams.encode(message).finish()
+      typeUrl: '/cosmos.consensus.v1.MsgUpdateParams',
+      value: MsgUpdateParams.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
   return {};
 }
 export const MsgUpdateParamsResponse = {
-  typeUrl: "/cosmos.consensus.v1.MsgUpdateParamsResponse",
-  aminoType: "cosmos-sdk/MsgUpdateParamsResponse",
+  typeUrl: '/cosmos.consensus.v1.MsgUpdateParamsResponse',
+  aminoType: 'cosmos-sdk/MsgUpdateParamsResponse',
   encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParamsResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -215,8 +215,8 @@ export const MsgUpdateParamsResponse = {
   },
   toAminoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseAminoMsg {
     return {
-      type: "cosmos-sdk/MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.toAmino(message)
+      type: 'cosmos-sdk/MsgUpdateParamsResponse',
+      value: MsgUpdateParamsResponse.toAmino(message),
     };
   },
   fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse {
@@ -227,8 +227,8 @@ export const MsgUpdateParamsResponse = {
   },
   toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
     return {
-      typeUrl: "/cosmos.consensus.v1.MsgUpdateParamsResponse",
-      value: MsgUpdateParamsResponse.encode(message).finish()
+      typeUrl: '/cosmos.consensus.v1.MsgUpdateParamsResponse',
+      value: MsgUpdateParamsResponse.encode(message).finish(),
     };
-  }
+  },
 };

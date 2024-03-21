@@ -1,27 +1,27 @@
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { DeepPartial } from '../../../../helpers';
 /** Module is the config object of the capability module. */
 export interface Module {
   /**
-   * seal_keeper defines if keeper.Seal() will run on BeginBlock() to prevent further modules from creating a scoped
+   * Seal_keeper defines if keeper.Seal() will run on BeginBlock() to prevent further modules from creating a scoped
    * keeper. For more details check x/capability/keeper.go.
    */
   sealKeeper: boolean;
 }
 export interface ModuleProtoMsg {
-  typeUrl: "/cosmos.capability.module.v1.Module";
+  typeUrl: '/cosmos.capability.module.v1.Module';
   value: Uint8Array;
 }
 /** Module is the config object of the capability module. */
 export interface ModuleAmino {
   /**
-   * seal_keeper defines if keeper.Seal() will run on BeginBlock() to prevent further modules from creating a scoped
+   * Seal_keeper defines if keeper.Seal() will run on BeginBlock() to prevent further modules from creating a scoped
    * keeper. For more details check x/capability/keeper.go.
    */
   seal_keeper?: boolean;
 }
 export interface ModuleAminoMsg {
-  type: "cosmos-sdk/Module";
+  type: 'cosmos-sdk/Module';
   value: ModuleAmino;
 }
 /** Module is the config object of the capability module. */
@@ -30,12 +30,12 @@ export interface ModuleSDKType {
 }
 function createBaseModule(): Module {
   return {
-    sealKeeper: false
+    sealKeeper: false,
   };
 }
 export const Module = {
-  typeUrl: "/cosmos.capability.module.v1.Module",
-  aminoType: "cosmos-sdk/Module",
+  typeUrl: '/cosmos.capability.module.v1.Module',
+  aminoType: 'cosmos-sdk/Module',
   encode(message: Module, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.sealKeeper === true) {
       writer.uint32(8).bool(message.sealKeeper);
@@ -44,7 +44,7 @@ export const Module = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Module {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseModule();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -81,8 +81,8 @@ export const Module = {
   },
   toAminoMsg(message: Module): ModuleAminoMsg {
     return {
-      type: "cosmos-sdk/Module",
-      value: Module.toAmino(message)
+      type: 'cosmos-sdk/Module',
+      value: Module.toAmino(message),
     };
   },
   fromProtoMsg(message: ModuleProtoMsg): Module {
@@ -93,8 +93,8 @@ export const Module = {
   },
   toProtoMsg(message: Module): ModuleProtoMsg {
     return {
-      typeUrl: "/cosmos.capability.module.v1.Module",
-      value: Module.encode(message).finish()
+      typeUrl: '/cosmos.capability.module.v1.Module',
+      value: Module.encode(message).finish(),
     };
-  }
+  },
 };

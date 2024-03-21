@@ -17,6 +17,7 @@ const getGasPrices = (chainName:string, chain:Chain) => {
       gasPrice: GasPrice.fromString(String(price) + chain.fees.fee_tokens[0].denom),
     }
   }
+  return null
 }
 export const signerOptions = {
   signingCosmwasm: (chain: Chain) => getGasPrices(chain.chain_name, chain),

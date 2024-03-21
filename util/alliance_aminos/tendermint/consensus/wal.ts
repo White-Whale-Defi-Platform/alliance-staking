@@ -1,16 +1,16 @@
-import { Message, MessageAmino, MessageSDKType } from "./types";
-import { Duration, DurationAmino, DurationSDKType } from "../../google/protobuf/duration";
-import { EventDataRoundState, EventDataRoundStateAmino, EventDataRoundStateSDKType } from "../types/events";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { Duration, DurationAmino, DurationSDKType } from '../../google/protobuf/duration';
+import { Timestamp } from '../../google/protobuf/timestamp';
+import { DeepPartial, toTimestamp, fromTimestamp } from '../../helpers';
+import { EventDataRoundState, EventDataRoundStateAmino, EventDataRoundStateSDKType } from '../types/events';
+import { Message, MessageAmino, MessageSDKType } from './types';
 /** MsgInfo are msgs from the reactor which may update the state */
 export interface MsgInfo {
   msg: Message;
   peerId: string;
 }
 export interface MsgInfoProtoMsg {
-  typeUrl: "/tendermint.consensus.MsgInfo";
+  typeUrl: '/tendermint.consensus.MsgInfo';
   value: Uint8Array;
 }
 /** MsgInfo are msgs from the reactor which may update the state */
@@ -19,7 +19,7 @@ export interface MsgInfoAmino {
   peer_id?: string;
 }
 export interface MsgInfoAminoMsg {
-  type: "/tendermint.consensus.MsgInfo";
+  type: '/tendermint.consensus.MsgInfo';
   value: MsgInfoAmino;
 }
 /** MsgInfo are msgs from the reactor which may update the state */
@@ -35,7 +35,7 @@ export interface TimeoutInfo {
   step: number;
 }
 export interface TimeoutInfoProtoMsg {
-  typeUrl: "/tendermint.consensus.TimeoutInfo";
+  typeUrl: '/tendermint.consensus.TimeoutInfo';
   value: Uint8Array;
 }
 /** TimeoutInfo internally generated messages which may update the state */
@@ -46,7 +46,7 @@ export interface TimeoutInfoAmino {
   step?: number;
 }
 export interface TimeoutInfoAminoMsg {
-  type: "/tendermint.consensus.TimeoutInfo";
+  type: '/tendermint.consensus.TimeoutInfo';
   value: TimeoutInfoAmino;
 }
 /** TimeoutInfo internally generated messages which may update the state */
@@ -64,7 +64,7 @@ export interface EndHeight {
   height: bigint;
 }
 export interface EndHeightProtoMsg {
-  typeUrl: "/tendermint.consensus.EndHeight";
+  typeUrl: '/tendermint.consensus.EndHeight';
   value: Uint8Array;
 }
 /**
@@ -75,7 +75,7 @@ export interface EndHeightAmino {
   height?: string;
 }
 export interface EndHeightAminoMsg {
-  type: "/tendermint.consensus.EndHeight";
+  type: '/tendermint.consensus.EndHeight';
   value: EndHeightAmino;
 }
 /**
@@ -92,7 +92,7 @@ export interface WALMessage {
   endHeight?: EndHeight;
 }
 export interface WALMessageProtoMsg {
-  typeUrl: "/tendermint.consensus.WALMessage";
+  typeUrl: '/tendermint.consensus.WALMessage';
   value: Uint8Array;
 }
 export interface WALMessageAmino {
@@ -102,7 +102,7 @@ export interface WALMessageAmino {
   end_height?: EndHeightAmino;
 }
 export interface WALMessageAminoMsg {
-  type: "/tendermint.consensus.WALMessage";
+  type: '/tendermint.consensus.WALMessage';
   value: WALMessageAmino;
 }
 export interface WALMessageSDKType {
@@ -117,7 +117,7 @@ export interface TimedWALMessage {
   msg?: WALMessage;
 }
 export interface TimedWALMessageProtoMsg {
-  typeUrl: "/tendermint.consensus.TimedWALMessage";
+  typeUrl: '/tendermint.consensus.TimedWALMessage';
   value: Uint8Array;
 }
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
@@ -126,7 +126,7 @@ export interface TimedWALMessageAmino {
   msg?: WALMessageAmino;
 }
 export interface TimedWALMessageAminoMsg {
-  type: "/tendermint.consensus.TimedWALMessage";
+  type: '/tendermint.consensus.TimedWALMessage';
   value: TimedWALMessageAmino;
 }
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
@@ -137,23 +137,23 @@ export interface TimedWALMessageSDKType {
 function createBaseMsgInfo(): MsgInfo {
   return {
     msg: Message.fromPartial({}),
-    peerId: ""
+    peerId: '',
   };
 }
 export const MsgInfo = {
-  typeUrl: "/tendermint.consensus.MsgInfo",
+  typeUrl: '/tendermint.consensus.MsgInfo',
   encode(message: MsgInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.msg !== undefined) {
       Message.encode(message.msg, writer.uint32(10).fork()).ldelim();
     }
-    if (message.peerId !== "") {
+    if (message.peerId !== '') {
       writer.uint32(18).string(message.peerId);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -174,7 +174,7 @@ export const MsgInfo = {
   fromPartial(object: DeepPartial<MsgInfo>): MsgInfo {
     const message = createBaseMsgInfo();
     message.msg = object.msg !== undefined && object.msg !== null ? Message.fromPartial(object.msg) : undefined;
-    message.peerId = object.peerId ?? "";
+    message.peerId = object.peerId ?? '';
     return message;
   },
   fromAmino(object: MsgInfoAmino): MsgInfo {
@@ -190,7 +190,7 @@ export const MsgInfo = {
   toAmino(message: MsgInfo): MsgInfoAmino {
     const obj: any = {};
     obj.msg = message.msg ? Message.toAmino(message.msg) : undefined;
-    obj.peer_id = message.peerId === "" ? undefined : message.peerId;
+    obj.peer_id = message.peerId === '' ? undefined : message.peerId;
     return obj;
   },
   fromAminoMsg(object: MsgInfoAminoMsg): MsgInfo {
@@ -204,21 +204,21 @@ export const MsgInfo = {
   },
   toProtoMsg(message: MsgInfo): MsgInfoProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.MsgInfo",
-      value: MsgInfo.encode(message).finish()
+      typeUrl: '/tendermint.consensus.MsgInfo',
+      value: MsgInfo.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseTimeoutInfo(): TimeoutInfo {
   return {
     duration: Duration.fromPartial({}),
     height: BigInt(0),
     round: 0,
-    step: 0
+    step: 0,
   };
 }
 export const TimeoutInfo = {
-  typeUrl: "/tendermint.consensus.TimeoutInfo",
+  typeUrl: '/tendermint.consensus.TimeoutInfo',
   encode(message: TimeoutInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.duration !== undefined) {
       Duration.encode(message.duration, writer.uint32(10).fork()).ldelim();
@@ -236,7 +236,7 @@ export const TimeoutInfo = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): TimeoutInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTimeoutInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -303,18 +303,18 @@ export const TimeoutInfo = {
   },
   toProtoMsg(message: TimeoutInfo): TimeoutInfoProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.TimeoutInfo",
-      value: TimeoutInfo.encode(message).finish()
+      typeUrl: '/tendermint.consensus.TimeoutInfo',
+      value: TimeoutInfo.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseEndHeight(): EndHeight {
   return {
-    height: BigInt(0)
+    height: BigInt(0),
   };
 }
 export const EndHeight = {
-  typeUrl: "/tendermint.consensus.EndHeight",
+  typeUrl: '/tendermint.consensus.EndHeight',
   encode(message: EndHeight, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
@@ -323,7 +323,7 @@ export const EndHeight = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): EndHeight {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEndHeight();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -366,21 +366,21 @@ export const EndHeight = {
   },
   toProtoMsg(message: EndHeight): EndHeightProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.EndHeight",
-      value: EndHeight.encode(message).finish()
+      typeUrl: '/tendermint.consensus.EndHeight',
+      value: EndHeight.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseWALMessage(): WALMessage {
   return {
     eventDataRoundState: undefined,
     msgInfo: undefined,
     timeoutInfo: undefined,
-    endHeight: undefined
+    endHeight: undefined,
   };
 }
 export const WALMessage = {
-  typeUrl: "/tendermint.consensus.WALMessage",
+  typeUrl: '/tendermint.consensus.WALMessage',
   encode(message: WALMessage, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.eventDataRoundState !== undefined) {
       EventDataRoundState.encode(message.eventDataRoundState, writer.uint32(10).fork()).ldelim();
@@ -398,7 +398,7 @@ export const WALMessage = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): WALMessage {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWALMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -465,19 +465,19 @@ export const WALMessage = {
   },
   toProtoMsg(message: WALMessage): WALMessageProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.WALMessage",
-      value: WALMessage.encode(message).finish()
+      typeUrl: '/tendermint.consensus.WALMessage',
+      value: WALMessage.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseTimedWALMessage(): TimedWALMessage {
   return {
     time: new Date(),
-    msg: undefined
+    msg: undefined,
   };
 }
 export const TimedWALMessage = {
-  typeUrl: "/tendermint.consensus.TimedWALMessage",
+  typeUrl: '/tendermint.consensus.TimedWALMessage',
   encode(message: TimedWALMessage, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.time !== undefined) {
       Timestamp.encode(toTimestamp(message.time), writer.uint32(10).fork()).ldelim();
@@ -489,7 +489,7 @@ export const TimedWALMessage = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): TimedWALMessage {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTimedWALMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -540,8 +540,8 @@ export const TimedWALMessage = {
   },
   toProtoMsg(message: TimedWALMessage): TimedWALMessageProtoMsg {
     return {
-      typeUrl: "/tendermint.consensus.TimedWALMessage",
-      value: TimedWALMessage.encode(message).finish()
+      typeUrl: '/tendermint.consensus.TimedWALMessage',
+      value: TimedWALMessage.encode(message).finish(),
     };
-  }
+  },
 };

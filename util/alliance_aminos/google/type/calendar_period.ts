@@ -37,31 +37,31 @@ export const CalendarPeriodAmino = CalendarPeriod;
 export function calendarPeriodFromJSON(object: any): CalendarPeriod {
   switch (object) {
     case 0:
-    case "CALENDAR_PERIOD_UNSPECIFIED":
+    case 'CALENDAR_PERIOD_UNSPECIFIED':
       return CalendarPeriod.CALENDAR_PERIOD_UNSPECIFIED;
     case 1:
-    case "DAY":
+    case 'DAY':
       return CalendarPeriod.DAY;
     case 2:
-    case "WEEK":
+    case 'WEEK':
       return CalendarPeriod.WEEK;
     case 3:
-    case "FORTNIGHT":
+    case 'FORTNIGHT':
       return CalendarPeriod.FORTNIGHT;
     case 4:
-    case "MONTH":
+    case 'MONTH':
       return CalendarPeriod.MONTH;
     case 5:
-    case "QUARTER":
+    case 'QUARTER':
       return CalendarPeriod.QUARTER;
     case 6:
-    case "HALF":
+    case 'HALF':
       return CalendarPeriod.HALF;
     case 7:
-    case "YEAR":
+    case 'YEAR':
       return CalendarPeriod.YEAR;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return CalendarPeriod.UNRECOGNIZED;
   }
@@ -69,23 +69,23 @@ export function calendarPeriodFromJSON(object: any): CalendarPeriod {
 export function calendarPeriodToJSON(object: CalendarPeriod): string {
   switch (object) {
     case CalendarPeriod.CALENDAR_PERIOD_UNSPECIFIED:
-      return "CALENDAR_PERIOD_UNSPECIFIED";
+      return 'CALENDAR_PERIOD_UNSPECIFIED';
     case CalendarPeriod.DAY:
-      return "DAY";
+      return 'DAY';
     case CalendarPeriod.WEEK:
-      return "WEEK";
+      return 'WEEK';
     case CalendarPeriod.FORTNIGHT:
-      return "FORTNIGHT";
+      return 'FORTNIGHT';
     case CalendarPeriod.MONTH:
-      return "MONTH";
+      return 'MONTH';
     case CalendarPeriod.QUARTER:
-      return "QUARTER";
+      return 'QUARTER';
     case CalendarPeriod.HALF:
-      return "HALF";
+      return 'HALF';
     case CalendarPeriod.YEAR:
-      return "YEAR";
+      return 'YEAR';
     case CalendarPeriod.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }

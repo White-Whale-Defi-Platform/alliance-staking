@@ -117,6 +117,7 @@ export const useTransaction = () => {
       ) {
         setError(e?.toString());
         message = (
+          // eslint-disable-next-line
           <Finder txHash={txInfo?.hash} chainId={MIGALOO_CHAIN_ID}>
             {' '}
           </Finder>
@@ -179,6 +180,7 @@ export const useTransaction = () => {
       if (txHash === null) {
         return
       }
+      // eslint-disable-next-line
       return await client.getTx(txHash);
     },
     {

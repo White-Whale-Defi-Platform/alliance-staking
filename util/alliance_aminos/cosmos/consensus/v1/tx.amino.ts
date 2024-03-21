@@ -1,8 +1,8 @@
-import { MsgUpdateParams } from "./tx";
+import { MsgUpdateParams } from './tx';
 export const AminoConverter = {
-  "/cosmos.consensus.v1.MsgUpdateParams": {
-    aminoType: "cosmos-sdk/MsgUpdateParams",
+  '/cosmos.consensus.v1.MsgUpdateParams': {
+    aminoType: 'cosmos-sdk/MsgUpdateParams',
     toAmino: MsgUpdateParams.toAmino,
-    fromAmino: MsgUpdateParams.fromAmino
-  }
+    fromAmino: MsgUpdateParams.fromAmino,
+  },
 };

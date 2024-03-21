@@ -1,14 +1,15 @@
-import { GeneratedType, Registry, OfflineSigner } from "@cosmjs/proto-signing";
-import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from "@cosmjs/stargate";
-import { HttpEndpoint } from "@cosmjs/tendermint-rpc";
-import * as allianceAllianceTxRegistry from "./alliance/tx.registry";
-import * as allianceAllianceTxAmino from "./alliance/tx.amino";
+import { GeneratedType, Registry, OfflineSigner } from '@cosmjs/proto-signing';
+import { defaultRegistryTypes, AminoTypes, SigningStargateClient } from '@cosmjs/stargate';
+import { HttpEndpoint } from '@cosmjs/tendermint-rpc';
+
+import * as allianceAllianceTxAmino from './alliance/tx.amino';
+import * as allianceAllianceTxRegistry from './alliance/tx.registry';
 export const allianceAminoConverters = {
-  ...allianceAllianceTxAmino.AminoConverter
+  ...allianceAllianceTxAmino.AminoConverter,
 };
 export const allianceProtoRegistry: ReadonlyArray<[string, GeneratedType]> = [...allianceAllianceTxRegistry.registry];
 export const getSigningAllianceClientOptions = ({
-  defaultTypes = defaultRegistryTypes
+  defaultTypes = defaultRegistryTypes,
 }: {
   defaultTypes?: ReadonlyArray<[string, GeneratedType]>;
 } = {}): {
@@ -17,17 +18,17 @@ export const getSigningAllianceClientOptions = ({
 } => {
   const registry = new Registry([...defaultTypes, ...allianceProtoRegistry]);
   const aminoTypes = new AminoTypes({
-    ...allianceAminoConverters
+    ...allianceAminoConverters,
   });
   return {
     registry,
-    aminoTypes
+    aminoTypes,
   };
 };
 export const getSigningAllianceClient = async ({
   rpcEndpoint,
   signer,
-  defaultTypes = defaultRegistryTypes
+  defaultTypes = defaultRegistryTypes,
 }: {
   rpcEndpoint: string | HttpEndpoint;
   signer: OfflineSigner;
@@ -35,13 +36,15 @@ export const getSigningAllianceClient = async ({
 }) => {
   const {
     registry,
-    aminoTypes
+    aminoTypes,
   } = getSigningAllianceClientOptions({
-    defaultTypes
+    defaultTypes,
   });
-  const client = await SigningStargateClient.connectWithSigner(rpcEndpoint, signer, {
-    registry: (registry as any),
-    aminoTypes
-  });
+  const client = await SigningStargateClient.connectWithSigner(
+    rpcEndpoint, signer, {
+      registry: (registry as any),
+      aminoTypes,
+    },
+  );
   return client;
 };

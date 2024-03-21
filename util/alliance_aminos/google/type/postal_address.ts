@@ -1,21 +1,21 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
 /**
  * Represents a postal address, e.g. for postal delivery or payments addresses.
  * Given a postal address, a postal service can deliver items to a premise, P.O.
  * Box or similar.
  * It is not intended to model geographical locations (roads, towns,
  * mountains).
- * 
+ *
  * In typical usage an address would be created via user input or from importing
  * existing data, depending on the type of process.
- * 
+ *
  * Advice on address input / editing:
  *  - Use an i18n-ready address widget such as
  *    https://github.com/google/libaddressinput)
  * - Users should not be presented with UI elements for input or editing of
  *   fields outside countries where that field is used.
- * 
+ *
  * For more guidance on how to use this schema, please see:
  * https://support.google.com/business/answer/6397478
  */
@@ -23,7 +23,7 @@ export interface PostalAddress {
   /**
    * The schema revision of the `PostalAddress`. This must be set to 0, which is
    * the latest revision.
-   * 
+   *
    * All new revisions **must** be backward compatible with old revisions.
    */
   revision: number;
@@ -43,10 +43,10 @@ export interface PostalAddress {
    * This can affect formatting in certain countries, but is not critical
    * to the correctness of the data and will never affect any validation or
    * other non-formatting related operations.
-   * 
+   *
    * If this value is not known, it should be omitted (rather than specifying a
    * possibly incorrect default).
-   * 
+   *
    * Examples: "zh-Hant", "ja", "ja-Latn", "en".
    */
   languageCode: string;
@@ -89,7 +89,7 @@ export interface PostalAddress {
   sublocality: string;
   /**
    * Unstructured address lines describing the lower levels of an address.
-   * 
+   *
    * Because values in address_lines do not have type information and may
    * sometimes contain multiple values in a single field (e.g.
    * "Austin, TX"), it is important that the line order is clear. The order of
@@ -98,14 +98,14 @@ export interface PostalAddress {
    * used to make it explicit (e.g. "ja" for large-to-small ordering and
    * "ja-Latn" or "en" for small-to-large). This way, the most specific line of
    * an address can be selected based on the language.
-   * 
+   *
    * The minimum permitted structural representation of an address consists
    * of a region_code with all remaining information placed in the
    * address_lines. It would be possible to format such an address very
    * approximately without geocoding, but no semantic reasoning could be
    * made about any of the address components until it was at least
    * partially resolved.
-   * 
+   *
    * Creating an address only containing a region_code and address_lines, and
    * then geocoding is the recommended way to handle completely unstructured
    * addresses (as opposed to guessing which parts of the address should be
@@ -122,7 +122,7 @@ export interface PostalAddress {
   organization: string;
 }
 export interface PostalAddressProtoMsg {
-  typeUrl: "/google.type.PostalAddress";
+  typeUrl: '/google.type.PostalAddress';
   value: Uint8Array;
 }
 /**
@@ -131,16 +131,16 @@ export interface PostalAddressProtoMsg {
  * Box or similar.
  * It is not intended to model geographical locations (roads, towns,
  * mountains).
- * 
+ *
  * In typical usage an address would be created via user input or from importing
  * existing data, depending on the type of process.
- * 
+ *
  * Advice on address input / editing:
  *  - Use an i18n-ready address widget such as
  *    https://github.com/google/libaddressinput)
  * - Users should not be presented with UI elements for input or editing of
  *   fields outside countries where that field is used.
- * 
+ *
  * For more guidance on how to use this schema, please see:
  * https://support.google.com/business/answer/6397478
  */
@@ -148,7 +148,7 @@ export interface PostalAddressAmino {
   /**
    * The schema revision of the `PostalAddress`. This must be set to 0, which is
    * the latest revision.
-   * 
+   *
    * All new revisions **must** be backward compatible with old revisions.
    */
   revision?: number;
@@ -168,10 +168,10 @@ export interface PostalAddressAmino {
    * This can affect formatting in certain countries, but is not critical
    * to the correctness of the data and will never affect any validation or
    * other non-formatting related operations.
-   * 
+   *
    * If this value is not known, it should be omitted (rather than specifying a
    * possibly incorrect default).
-   * 
+   *
    * Examples: "zh-Hant", "ja", "ja-Latn", "en".
    */
   language_code?: string;
@@ -214,7 +214,7 @@ export interface PostalAddressAmino {
   sublocality?: string;
   /**
    * Unstructured address lines describing the lower levels of an address.
-   * 
+   *
    * Because values in address_lines do not have type information and may
    * sometimes contain multiple values in a single field (e.g.
    * "Austin, TX"), it is important that the line order is clear. The order of
@@ -223,14 +223,14 @@ export interface PostalAddressAmino {
    * used to make it explicit (e.g. "ja" for large-to-small ordering and
    * "ja-Latn" or "en" for small-to-large). This way, the most specific line of
    * an address can be selected based on the language.
-   * 
+   *
    * The minimum permitted structural representation of an address consists
    * of a region_code with all remaining information placed in the
    * address_lines. It would be possible to format such an address very
    * approximately without geocoding, but no semantic reasoning could be
    * made about any of the address components until it was at least
    * partially resolved.
-   * 
+   *
    * Creating an address only containing a region_code and address_lines, and
    * then geocoding is the recommended way to handle completely unstructured
    * addresses (as opposed to guessing which parts of the address should be
@@ -247,7 +247,7 @@ export interface PostalAddressAmino {
   organization?: string;
 }
 export interface PostalAddressAminoMsg {
-  type: "/google.type.PostalAddress";
+  type: '/google.type.PostalAddress';
   value: PostalAddressAmino;
 }
 /**
@@ -256,16 +256,16 @@ export interface PostalAddressAminoMsg {
  * Box or similar.
  * It is not intended to model geographical locations (roads, towns,
  * mountains).
- * 
+ *
  * In typical usage an address would be created via user input or from importing
  * existing data, depending on the type of process.
- * 
+ *
  * Advice on address input / editing:
  *  - Use an i18n-ready address widget such as
  *    https://github.com/google/libaddressinput)
  * - Users should not be presented with UI elements for input or editing of
  *   fields outside countries where that field is used.
- * 
+ *
  * For more guidance on how to use this schema, please see:
  * https://support.google.com/business/answer/6397478
  */
@@ -285,43 +285,43 @@ export interface PostalAddressSDKType {
 function createBasePostalAddress(): PostalAddress {
   return {
     revision: 0,
-    regionCode: "",
-    languageCode: "",
-    postalCode: "",
-    sortingCode: "",
-    administrativeArea: "",
-    locality: "",
-    sublocality: "",
+    regionCode: '',
+    languageCode: '',
+    postalCode: '',
+    sortingCode: '',
+    administrativeArea: '',
+    locality: '',
+    sublocality: '',
     addressLines: [],
     recipients: [],
-    organization: ""
+    organization: '',
   };
 }
 export const PostalAddress = {
-  typeUrl: "/google.type.PostalAddress",
+  typeUrl: '/google.type.PostalAddress',
   encode(message: PostalAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.revision !== 0) {
       writer.uint32(8).int32(message.revision);
     }
-    if (message.regionCode !== "") {
+    if (message.regionCode !== '') {
       writer.uint32(18).string(message.regionCode);
     }
-    if (message.languageCode !== "") {
+    if (message.languageCode !== '') {
       writer.uint32(26).string(message.languageCode);
     }
-    if (message.postalCode !== "") {
+    if (message.postalCode !== '') {
       writer.uint32(34).string(message.postalCode);
     }
-    if (message.sortingCode !== "") {
+    if (message.sortingCode !== '') {
       writer.uint32(42).string(message.sortingCode);
     }
-    if (message.administrativeArea !== "") {
+    if (message.administrativeArea !== '') {
       writer.uint32(50).string(message.administrativeArea);
     }
-    if (message.locality !== "") {
+    if (message.locality !== '') {
       writer.uint32(58).string(message.locality);
     }
-    if (message.sublocality !== "") {
+    if (message.sublocality !== '') {
       writer.uint32(66).string(message.sublocality);
     }
     for (const v of message.addressLines) {
@@ -330,14 +330,14 @@ export const PostalAddress = {
     for (const v of message.recipients) {
       writer.uint32(82).string(v!);
     }
-    if (message.organization !== "") {
+    if (message.organization !== '') {
       writer.uint32(90).string(message.organization);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PostalAddress {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePostalAddress();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -385,16 +385,16 @@ export const PostalAddress = {
   fromPartial(object: DeepPartial<PostalAddress>): PostalAddress {
     const message = createBasePostalAddress();
     message.revision = object.revision ?? 0;
-    message.regionCode = object.regionCode ?? "";
-    message.languageCode = object.languageCode ?? "";
-    message.postalCode = object.postalCode ?? "";
-    message.sortingCode = object.sortingCode ?? "";
-    message.administrativeArea = object.administrativeArea ?? "";
-    message.locality = object.locality ?? "";
-    message.sublocality = object.sublocality ?? "";
-    message.addressLines = object.addressLines?.map(e => e) || [];
-    message.recipients = object.recipients?.map(e => e) || [];
-    message.organization = object.organization ?? "";
+    message.regionCode = object.regionCode ?? '';
+    message.languageCode = object.languageCode ?? '';
+    message.postalCode = object.postalCode ?? '';
+    message.sortingCode = object.sortingCode ?? '';
+    message.administrativeArea = object.administrativeArea ?? '';
+    message.locality = object.locality ?? '';
+    message.sublocality = object.sublocality ?? '';
+    message.addressLines = object.addressLines?.map((e) => e) || [];
+    message.recipients = object.recipients?.map((e) => e) || [];
+    message.organization = object.organization ?? '';
     return message;
   },
   fromAmino(object: PostalAddressAmino): PostalAddress {
@@ -423,8 +423,8 @@ export const PostalAddress = {
     if (object.sublocality !== undefined && object.sublocality !== null) {
       message.sublocality = object.sublocality;
     }
-    message.addressLines = object.address_lines?.map(e => e) || [];
-    message.recipients = object.recipients?.map(e => e) || [];
+    message.addressLines = object.address_lines?.map((e) => e) || [];
+    message.recipients = object.recipients?.map((e) => e) || [];
     if (object.organization !== undefined && object.organization !== null) {
       message.organization = object.organization;
     }
@@ -433,24 +433,24 @@ export const PostalAddress = {
   toAmino(message: PostalAddress): PostalAddressAmino {
     const obj: any = {};
     obj.revision = message.revision === 0 ? undefined : message.revision;
-    obj.region_code = message.regionCode === "" ? undefined : message.regionCode;
-    obj.language_code = message.languageCode === "" ? undefined : message.languageCode;
-    obj.postal_code = message.postalCode === "" ? undefined : message.postalCode;
-    obj.sorting_code = message.sortingCode === "" ? undefined : message.sortingCode;
-    obj.administrative_area = message.administrativeArea === "" ? undefined : message.administrativeArea;
-    obj.locality = message.locality === "" ? undefined : message.locality;
-    obj.sublocality = message.sublocality === "" ? undefined : message.sublocality;
+    obj.region_code = message.regionCode === '' ? undefined : message.regionCode;
+    obj.language_code = message.languageCode === '' ? undefined : message.languageCode;
+    obj.postal_code = message.postalCode === '' ? undefined : message.postalCode;
+    obj.sorting_code = message.sortingCode === '' ? undefined : message.sortingCode;
+    obj.administrative_area = message.administrativeArea === '' ? undefined : message.administrativeArea;
+    obj.locality = message.locality === '' ? undefined : message.locality;
+    obj.sublocality = message.sublocality === '' ? undefined : message.sublocality;
     if (message.addressLines) {
-      obj.address_lines = message.addressLines.map(e => e);
+      obj.address_lines = message.addressLines.map((e) => e);
     } else {
       obj.address_lines = message.addressLines;
     }
     if (message.recipients) {
-      obj.recipients = message.recipients.map(e => e);
+      obj.recipients = message.recipients.map((e) => e);
     } else {
       obj.recipients = message.recipients;
     }
-    obj.organization = message.organization === "" ? undefined : message.organization;
+    obj.organization = message.organization === '' ? undefined : message.organization;
     return obj;
   },
   fromAminoMsg(object: PostalAddressAminoMsg): PostalAddress {
@@ -464,8 +464,8 @@ export const PostalAddress = {
   },
   toProtoMsg(message: PostalAddress): PostalAddressProtoMsg {
     return {
-      typeUrl: "/google.type.PostalAddress",
-      value: PostalAddress.encode(message).finish()
+      typeUrl: '/google.type.PostalAddress',
+      value: PostalAddress.encode(message).finish(),
     };
-  }
+  },
 };

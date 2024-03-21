@@ -1,8 +1,8 @@
-import { NullValue } from "../../../protobuf/struct";
-import { Duration, DurationAmino, DurationSDKType } from "../../../protobuf/duration";
-import { Timestamp } from "../../../protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from '../../../../helpers';
+import { Duration, DurationAmino, DurationSDKType } from '../../../protobuf/duration';
+import { NullValue } from '../../../protobuf/struct';
+import { Timestamp } from '../../../protobuf/timestamp';
 /** An expression together with source information as returned by the parser. */
 export interface ParsedExpr {
   /** The parsed expression. */
@@ -11,7 +11,7 @@ export interface ParsedExpr {
   sourceInfo?: SourceInfo;
 }
 export interface ParsedExprProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.ParsedExpr";
+  typeUrl: '/google.api.expr.v1alpha1.ParsedExpr';
   value: Uint8Array;
 }
 /** An expression together with source information as returned by the parser. */
@@ -22,7 +22,7 @@ export interface ParsedExprAmino {
   source_info?: SourceInfoAmino;
 }
 export interface ParsedExprAminoMsg {
-  type: "/google.api.expr.v1alpha1.ParsedExpr";
+  type: '/google.api.expr.v1alpha1.ParsedExpr';
   value: ParsedExprAmino;
 }
 /** An expression together with source information as returned by the parser. */
@@ -32,17 +32,17 @@ export interface ParsedExprSDKType {
 }
 /**
  * An abstract representation of a common expression.
- * 
+ *
  * Expressions are abstractly represented as a collection of identifiers,
  * select statements, function calls, literals, and comprehensions. All
  * operators with the exception of the '.' operator are modelled as function
  * calls. This makes it easy to represent new operators into the existing AST.
- * 
+ *
  * All references within expressions must resolve to a [Decl][google.api.expr.v1alpha1.Decl] provided at
  * type-check for an expression to be valid. A reference may either be a bare
  * identifier `name` or a qualified identifier `google.api.name`. References
  * may either refer to a value or a function declaration.
- * 
+ *
  * For example, the expression `google.api.name.startsWith('expr')` references
  * the declaration `google.api.name` within a [Expr.Select][google.api.expr.v1alpha1.Expr.Select] expression, and
  * the function declaration `startsWith`.
@@ -70,22 +70,22 @@ export interface Expr {
   comprehensionExpr?: Expr_Comprehension;
 }
 export interface ExprProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.Expr";
+  typeUrl: '/google.api.expr.v1alpha1.Expr';
   value: Uint8Array;
 }
 /**
  * An abstract representation of a common expression.
- * 
+ *
  * Expressions are abstractly represented as a collection of identifiers,
  * select statements, function calls, literals, and comprehensions. All
  * operators with the exception of the '.' operator are modelled as function
  * calls. This makes it easy to represent new operators into the existing AST.
- * 
+ *
  * All references within expressions must resolve to a [Decl][google.api.expr.v1alpha1.Decl] provided at
  * type-check for an expression to be valid. A reference may either be a bare
  * identifier `name` or a qualified identifier `google.api.name`. References
  * may either refer to a value or a function declaration.
- * 
+ *
  * For example, the expression `google.api.name.startsWith('expr')` references
  * the declaration `google.api.name` within a [Expr.Select][google.api.expr.v1alpha1.Expr.Select] expression, and
  * the function declaration `startsWith`.
@@ -113,22 +113,22 @@ export interface ExprAmino {
   comprehension_expr?: Expr_ComprehensionAmino;
 }
 export interface ExprAminoMsg {
-  type: "/google.api.expr.v1alpha1.Expr";
+  type: '/google.api.expr.v1alpha1.Expr';
   value: ExprAmino;
 }
 /**
  * An abstract representation of a common expression.
- * 
+ *
  * Expressions are abstractly represented as a collection of identifiers,
  * select statements, function calls, literals, and comprehensions. All
  * operators with the exception of the '.' operator are modelled as function
  * calls. This makes it easy to represent new operators into the existing AST.
- * 
+ *
  * All references within expressions must resolve to a [Decl][google.api.expr.v1alpha1.Decl] provided at
  * type-check for an expression to be valid. A reference may either be a bare
  * identifier `name` or a qualified identifier `google.api.name`. References
  * may either refer to a value or a function declaration.
- * 
+ *
  * For example, the expression `google.api.name.startsWith('expr')` references
  * the declaration `google.api.name` within a [Expr.Select][google.api.expr.v1alpha1.Expr.Select] expression, and
  * the function declaration `startsWith`.
@@ -148,13 +148,13 @@ export interface Expr_Ident {
   /**
    * Required. Holds a single, unqualified identifier, possibly preceded by a
    * '.'.
-   * 
+   *
    * Qualified names are represented by the [Expr.Select][google.api.expr.v1alpha1.Expr.Select] expression.
    */
   name: string;
 }
 export interface Expr_IdentProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.Ident";
+  typeUrl: '/google.api.expr.v1alpha1.Ident';
   value: Uint8Array;
 }
 /** An identifier expression. e.g. `request`. */
@@ -162,13 +162,13 @@ export interface Expr_IdentAmino {
   /**
    * Required. Holds a single, unqualified identifier, possibly preceded by a
    * '.'.
-   * 
+   *
    * Qualified names are represented by the [Expr.Select][google.api.expr.v1alpha1.Expr.Select] expression.
    */
   name?: string;
 }
 export interface Expr_IdentAminoMsg {
-  type: "/google.api.expr.v1alpha1.Ident";
+  type: '/google.api.expr.v1alpha1.Ident';
   value: Expr_IdentAmino;
 }
 /** An identifier expression. e.g. `request`. */
@@ -179,54 +179,54 @@ export interface Expr_IdentSDKType {
 export interface Expr_Select {
   /**
    * Required. The target of the selection expression.
-   * 
+   *
    * For example, in the select expression `request.auth`, the `request`
    * portion of the expression is the `operand`.
    */
   operand?: Expr;
   /**
    * Required. The name of the field to select.
-   * 
+   *
    * For example, in the select expression `request.auth`, the `auth` portion
    * of the expression would be the `field`.
    */
   field: string;
   /**
    * Whether the select is to be interpreted as a field presence test.
-   * 
+   *
    * This results from the macro `has(request.auth)`.
    */
   testOnly: boolean;
 }
 export interface Expr_SelectProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.Select";
+  typeUrl: '/google.api.expr.v1alpha1.Select';
   value: Uint8Array;
 }
 /** A field selection expression. e.g. `request.auth`. */
 export interface Expr_SelectAmino {
   /**
    * Required. The target of the selection expression.
-   * 
+   *
    * For example, in the select expression `request.auth`, the `request`
    * portion of the expression is the `operand`.
    */
   operand?: ExprAmino;
   /**
    * Required. The name of the field to select.
-   * 
+   *
    * For example, in the select expression `request.auth`, the `auth` portion
    * of the expression would be the `field`.
    */
   field?: string;
   /**
    * Whether the select is to be interpreted as a field presence test.
-   * 
+   *
    * This results from the macro `has(request.auth)`.
    */
   test_only?: boolean;
 }
 export interface Expr_SelectAminoMsg {
-  type: "/google.api.expr.v1alpha1.Select";
+  type: '/google.api.expr.v1alpha1.Select';
   value: Expr_SelectAmino;
 }
 /** A field selection expression. e.g. `request.auth`. */
@@ -237,7 +237,7 @@ export interface Expr_SelectSDKType {
 }
 /**
  * A call expression, including calls to predefined functions and operators.
- * 
+ *
  * For example, `value == 10`, `size(map_value)`.
  */
 export interface Expr_Call {
@@ -252,12 +252,12 @@ export interface Expr_Call {
   args: Expr[];
 }
 export interface Expr_CallProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.Call";
+  typeUrl: '/google.api.expr.v1alpha1.Call';
   value: Uint8Array;
 }
 /**
  * A call expression, including calls to predefined functions and operators.
- * 
+ *
  * For example, `value == 10`, `size(map_value)`.
  */
 export interface Expr_CallAmino {
@@ -272,12 +272,12 @@ export interface Expr_CallAmino {
   args?: ExprAmino[];
 }
 export interface Expr_CallAminoMsg {
-  type: "/google.api.expr.v1alpha1.Call";
+  type: '/google.api.expr.v1alpha1.Call';
   value: Expr_CallAmino;
 }
 /**
  * A call expression, including calls to predefined functions and operators.
- * 
+ *
  * For example, `value == 10`, `size(map_value)`.
  */
 export interface Expr_CallSDKType {
@@ -287,7 +287,7 @@ export interface Expr_CallSDKType {
 }
 /**
  * A list creation expression.
- * 
+ *
  * Lists may either be homogenous, e.g. `[1, 2, 3]`, or heterogenous, e.g.
  * `dyn([1, 'hello', 2.0])`
  */
@@ -296,12 +296,12 @@ export interface Expr_CreateList {
   elements: Expr[];
 }
 export interface Expr_CreateListProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.CreateList";
+  typeUrl: '/google.api.expr.v1alpha1.CreateList';
   value: Uint8Array;
 }
 /**
  * A list creation expression.
- * 
+ *
  * Lists may either be homogenous, e.g. `[1, 2, 3]`, or heterogenous, e.g.
  * `dyn([1, 'hello', 2.0])`
  */
@@ -310,12 +310,12 @@ export interface Expr_CreateListAmino {
   elements?: ExprAmino[];
 }
 export interface Expr_CreateListAminoMsg {
-  type: "/google.api.expr.v1alpha1.CreateList";
+  type: '/google.api.expr.v1alpha1.CreateList';
   value: Expr_CreateListAmino;
 }
 /**
  * A list creation expression.
- * 
+ *
  * Lists may either be homogenous, e.g. `[1, 2, 3]`, or heterogenous, e.g.
  * `dyn([1, 'hello', 2.0])`
  */
@@ -324,7 +324,7 @@ export interface Expr_CreateListSDKType {
 }
 /**
  * A map or message creation expression.
- * 
+ *
  * Maps are constructed as `{'key_name': 'value'}`. Message construction is
  * similar, but prefixed with a type name and composed of field ids:
  * `types.MyType{field_id: 'value'}`.
@@ -339,12 +339,12 @@ export interface Expr_CreateStruct {
   entries: Expr_CreateStruct_Entry[];
 }
 export interface Expr_CreateStructProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.CreateStruct";
+  typeUrl: '/google.api.expr.v1alpha1.CreateStruct';
   value: Uint8Array;
 }
 /**
  * A map or message creation expression.
- * 
+ *
  * Maps are constructed as `{'key_name': 'value'}`. Message construction is
  * similar, but prefixed with a type name and composed of field ids:
  * `types.MyType{field_id: 'value'}`.
@@ -359,12 +359,12 @@ export interface Expr_CreateStructAmino {
   entries?: Expr_CreateStruct_EntryAmino[];
 }
 export interface Expr_CreateStructAminoMsg {
-  type: "/google.api.expr.v1alpha1.CreateStruct";
+  type: '/google.api.expr.v1alpha1.CreateStruct';
   value: Expr_CreateStructAmino;
 }
 /**
  * A map or message creation expression.
- * 
+ *
  * Maps are constructed as `{'key_name': 'value'}`. Message construction is
  * similar, but prefixed with a type name and composed of field ids:
  * `types.MyType{field_id: 'value'}`.
@@ -389,7 +389,7 @@ export interface Expr_CreateStruct_Entry {
   value?: Expr;
 }
 export interface Expr_CreateStruct_EntryProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.Entry";
+  typeUrl: '/google.api.expr.v1alpha1.Entry';
   value: Uint8Array;
 }
 /** Represents an entry. */
@@ -408,7 +408,7 @@ export interface Expr_CreateStruct_EntryAmino {
   value?: ExprAmino;
 }
 export interface Expr_CreateStruct_EntryAminoMsg {
-  type: "/google.api.expr.v1alpha1.Entry";
+  type: '/google.api.expr.v1alpha1.Entry';
   value: Expr_CreateStruct_EntryAmino;
 }
 /** Represents an entry. */
@@ -420,17 +420,17 @@ export interface Expr_CreateStruct_EntrySDKType {
 }
 /**
  * A comprehension expression applied to a list or map.
- * 
+ *
  * Comprehensions are not part of the core syntax, but enabled with macros.
  * A macro matches a specific call signature within a parsed AST and replaces
  * the call with an alternate AST block. Macro expansion happens at parse
  * time.
- * 
+ *
  * The following macros are supported within CEL:
- * 
+ *
  * Aggregate type macros may be applied to all elements in a list or all keys
  * in a map:
- * 
+ *
  * *  `all`, `exists`, `exists_one` -  test a predicate expression against
  *    the inputs and return `true` if the predicate is satisfied for all,
  *    any, or only one value `list.all(x, x < 10)`.
@@ -439,7 +439,7 @@ export interface Expr_CreateStruct_EntrySDKType {
  *    `payments.filter(p, p > 1000)`.
  * *  `map` - apply an expression to all elements in the input and return the
  *    output aggregate type: `[1, 2, 3].map(i, i * i)`.
- * 
+ *
  * The `has(m.x)` macro tests whether the property `x` is present in struct
  * `m`. The semantics of this macro depend on the type of `m`. For proto2
  * messages `has(m.x)` is defined as 'defined, but not set`. For proto3, the
@@ -457,41 +457,41 @@ export interface Expr_Comprehension {
   accuInit?: Expr;
   /**
    * An expression which can contain iter_var and accu_var.
-   * 
+   *
    * Returns false when the result has been computed and may be used as
    * a hint to short-circuit the remainder of the comprehension.
    */
   loopCondition?: Expr;
   /**
    * An expression which can contain iter_var and accu_var.
-   * 
+   *
    * Computes the next value of accu_var.
    */
   loopStep?: Expr;
   /**
    * An expression which can contain accu_var.
-   * 
+   *
    * Computes the result.
    */
   result?: Expr;
 }
 export interface Expr_ComprehensionProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.Comprehension";
+  typeUrl: '/google.api.expr.v1alpha1.Comprehension';
   value: Uint8Array;
 }
 /**
  * A comprehension expression applied to a list or map.
- * 
+ *
  * Comprehensions are not part of the core syntax, but enabled with macros.
  * A macro matches a specific call signature within a parsed AST and replaces
  * the call with an alternate AST block. Macro expansion happens at parse
  * time.
- * 
+ *
  * The following macros are supported within CEL:
- * 
+ *
  * Aggregate type macros may be applied to all elements in a list or all keys
  * in a map:
- * 
+ *
  * *  `all`, `exists`, `exists_one` -  test a predicate expression against
  *    the inputs and return `true` if the predicate is satisfied for all,
  *    any, or only one value `list.all(x, x < 10)`.
@@ -500,7 +500,7 @@ export interface Expr_ComprehensionProtoMsg {
  *    `payments.filter(p, p > 1000)`.
  * *  `map` - apply an expression to all elements in the input and return the
  *    output aggregate type: `[1, 2, 3].map(i, i * i)`.
- * 
+ *
  * The `has(m.x)` macro tests whether the property `x` is present in struct
  * `m`. The semantics of this macro depend on the type of `m`. For proto2
  * messages `has(m.x)` is defined as 'defined, but not set`. For proto3, the
@@ -518,41 +518,41 @@ export interface Expr_ComprehensionAmino {
   accu_init?: ExprAmino;
   /**
    * An expression which can contain iter_var and accu_var.
-   * 
+   *
    * Returns false when the result has been computed and may be used as
    * a hint to short-circuit the remainder of the comprehension.
    */
   loop_condition?: ExprAmino;
   /**
    * An expression which can contain iter_var and accu_var.
-   * 
+   *
    * Computes the next value of accu_var.
    */
   loop_step?: ExprAmino;
   /**
    * An expression which can contain accu_var.
-   * 
+   *
    * Computes the result.
    */
   result?: ExprAmino;
 }
 export interface Expr_ComprehensionAminoMsg {
-  type: "/google.api.expr.v1alpha1.Comprehension";
+  type: '/google.api.expr.v1alpha1.Comprehension';
   value: Expr_ComprehensionAmino;
 }
 /**
  * A comprehension expression applied to a list or map.
- * 
+ *
  * Comprehensions are not part of the core syntax, but enabled with macros.
  * A macro matches a specific call signature within a parsed AST and replaces
  * the call with an alternate AST block. Macro expansion happens at parse
  * time.
- * 
+ *
  * The following macros are supported within CEL:
- * 
+ *
  * Aggregate type macros may be applied to all elements in a list or all keys
  * in a map:
- * 
+ *
  * *  `all`, `exists`, `exists_one` -  test a predicate expression against
  *    the inputs and return `true` if the predicate is satisfied for all,
  *    any, or only one value `list.all(x, x < 10)`.
@@ -561,7 +561,7 @@ export interface Expr_ComprehensionAminoMsg {
  *    `payments.filter(p, p > 1000)`.
  * *  `map` - apply an expression to all elements in the input and return the
  *    output aggregate type: `[1, 2, 3].map(i, i * i)`.
- * 
+ *
  * The `has(m.x)` macro tests whether the property `x` is present in struct
  * `m`. The semantics of this macro depend on the type of `m`. For proto2
  * messages `has(m.x)` is defined as 'defined, but not set`. For proto3, the
@@ -579,114 +579,114 @@ export interface Expr_ComprehensionSDKType {
 }
 /**
  * Represents a primitive literal.
- * 
+ *
  * Named 'Constant' here for backwards compatibility.
- * 
+ *
  * This is similar as the primitives supported in the well-known type
  * `google.protobuf.Value`, but richer so it can represent CEL's full range of
  * primitives.
- * 
+ *
  * Lists and structs are not included as constants as these aggregate types may
  * contain [Expr][google.api.expr.v1alpha1.Expr] elements which require evaluation and are thus not constant.
- * 
+ *
  * Examples of literals include: `"hello"`, `b'bytes'`, `1u`, `4.2`, `-2`,
  * `true`, `null`.
  */
 export interface Constant {
-  /** null value. */
+  /** Null value. */
   nullValue?: NullValue;
-  /** boolean value. */
+  /** Boolean value. */
   boolValue?: boolean;
-  /** int64 value. */
+  /** Int64 value. */
   int64Value?: bigint;
-  /** uint64 value. */
+  /** Uint64 value. */
   uint64Value?: bigint;
-  /** double value. */
+  /** Double value. */
   doubleValue?: number;
-  /** string value. */
+  /** String value. */
   stringValue?: string;
-  /** bytes value. */
+  /** Bytes value. */
   bytesValue?: Uint8Array;
   /**
-   * protobuf.Duration value.
-   * 
+   * Protobuf.Duration value.
+   *
    * Deprecated: duration is no longer considered a builtin cel type.
    */
   /** @deprecated */
   durationValue?: Duration;
   /**
-   * protobuf.Timestamp value.
-   * 
+   * Protobuf.Timestamp value.
+   *
    * Deprecated: timestamp is no longer considered a builtin cel type.
    */
   /** @deprecated */
   timestampValue?: Date;
 }
 export interface ConstantProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.Constant";
+  typeUrl: '/google.api.expr.v1alpha1.Constant';
   value: Uint8Array;
 }
 /**
  * Represents a primitive literal.
- * 
+ *
  * Named 'Constant' here for backwards compatibility.
- * 
+ *
  * This is similar as the primitives supported in the well-known type
  * `google.protobuf.Value`, but richer so it can represent CEL's full range of
  * primitives.
- * 
+ *
  * Lists and structs are not included as constants as these aggregate types may
  * contain [Expr][google.api.expr.v1alpha1.Expr] elements which require evaluation and are thus not constant.
- * 
+ *
  * Examples of literals include: `"hello"`, `b'bytes'`, `1u`, `4.2`, `-2`,
  * `true`, `null`.
  */
 export interface ConstantAmino {
-  /** null value. */
+  /** Null value. */
   null_value?: NullValue;
-  /** boolean value. */
+  /** Boolean value. */
   bool_value?: boolean;
-  /** int64 value. */
+  /** Int64 value. */
   int64_value?: string;
-  /** uint64 value. */
+  /** Uint64 value. */
   uint64_value?: string;
-  /** double value. */
+  /** Double value. */
   double_value?: number;
-  /** string value. */
+  /** String value. */
   string_value?: string;
-  /** bytes value. */
+  /** Bytes value. */
   bytes_value?: string;
   /**
-   * protobuf.Duration value.
-   * 
+   * Protobuf.Duration value.
+   *
    * Deprecated: duration is no longer considered a builtin cel type.
    */
   /** @deprecated */
   duration_value?: DurationAmino;
   /**
-   * protobuf.Timestamp value.
-   * 
+   * Protobuf.Timestamp value.
+   *
    * Deprecated: timestamp is no longer considered a builtin cel type.
    */
   /** @deprecated */
   timestamp_value?: string;
 }
 export interface ConstantAminoMsg {
-  type: "/google.api.expr.v1alpha1.Constant";
+  type: '/google.api.expr.v1alpha1.Constant';
   value: ConstantAmino;
 }
 /**
  * Represents a primitive literal.
- * 
+ *
  * Named 'Constant' here for backwards compatibility.
- * 
+ *
  * This is similar as the primitives supported in the well-known type
  * `google.protobuf.Value`, but richer so it can represent CEL's full range of
  * primitives.
- * 
+ *
  * Lists and structs are not included as constants as these aggregate types may
  * contain [Expr][google.api.expr.v1alpha1.Expr] elements which require evaluation and are thus not constant.
- * 
+ *
  * Examples of literals include: `"hello"`, `b'bytes'`, `1u`, `4.2`, `-2`,
  * `true`, `null`.
  */
@@ -750,14 +750,14 @@ export interface SourceInfo {
   /**
    * The location name. All position information attached to an expression is
    * relative to this location.
-   * 
+   *
    * The location could be a file, UI element, or similar. For example,
    * `acme/app/AnvilPolicy.cel`.
    */
   location: string;
   /**
    * Monotonically increasing list of character offsets where newlines appear.
-   * 
+   *
    * The line number of a given position is the index `i` where for a given
    * `id` the `line_offsets[i] < id_positions[id] < line_offsets[i+1]`. The
    * column may be derivd from `id_positions[id] - line_offsets[i]`.
@@ -773,7 +773,7 @@ export interface SourceInfo {
   /**
    * A map from the parse node id where a macro replacement was made to the
    * call `Expr` that resulted in a macro expansion.
-   * 
+   *
    * For example, `has(value.field)` is a function call that is replaced by a
    * `test_only` field selection in the AST. Likewise, the call
    * `list.exists(e, e > 10)` translates to a comprehension expression. The key
@@ -785,7 +785,7 @@ export interface SourceInfo {
   };
 }
 export interface SourceInfoProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.SourceInfo";
+  typeUrl: '/google.api.expr.v1alpha1.SourceInfo';
   value: Uint8Array;
 }
 /** Source information collected at parse time. */
@@ -795,14 +795,14 @@ export interface SourceInfoAmino {
   /**
    * The location name. All position information attached to an expression is
    * relative to this location.
-   * 
+   *
    * The location could be a file, UI element, or similar. For example,
    * `acme/app/AnvilPolicy.cel`.
    */
   location?: string;
   /**
    * Monotonically increasing list of character offsets where newlines appear.
-   * 
+   *
    * The line number of a given position is the index `i` where for a given
    * `id` the `line_offsets[i] < id_positions[id] < line_offsets[i+1]`. The
    * column may be derivd from `id_positions[id] - line_offsets[i]`.
@@ -818,7 +818,7 @@ export interface SourceInfoAmino {
   /**
    * A map from the parse node id where a macro replacement was made to the
    * call `Expr` that resulted in a macro expansion.
-   * 
+   *
    * For example, `has(value.field)` is a function call that is replaced by a
    * `test_only` field selection in the AST. Likewise, the call
    * `list.exists(e, e > 10)` translates to a comprehension expression. The key
@@ -830,7 +830,7 @@ export interface SourceInfoAmino {
   };
 }
 export interface SourceInfoAminoMsg {
-  type: "/google.api.expr.v1alpha1.SourceInfo";
+  type: '/google.api.expr.v1alpha1.SourceInfo';
   value: SourceInfoAmino;
 }
 /** Source information collected at parse time. */
@@ -863,7 +863,7 @@ export interface SourcePosition {
   column: number;
 }
 export interface SourcePositionProtoMsg {
-  typeUrl: "/google.api.expr.v1alpha1.SourcePosition";
+  typeUrl: '/google.api.expr.v1alpha1.SourcePosition';
   value: Uint8Array;
 }
 /** A specific position in source. */
@@ -884,7 +884,7 @@ export interface SourcePositionAmino {
   column?: number;
 }
 export interface SourcePositionAminoMsg {
-  type: "/google.api.expr.v1alpha1.SourcePosition";
+  type: '/google.api.expr.v1alpha1.SourcePosition';
   value: SourcePositionAmino;
 }
 /** A specific position in source. */
@@ -897,11 +897,11 @@ export interface SourcePositionSDKType {
 function createBaseParsedExpr(): ParsedExpr {
   return {
     expr: undefined,
-    sourceInfo: undefined
+    sourceInfo: undefined,
   };
 }
 export const ParsedExpr = {
-  typeUrl: "/google.api.expr.v1alpha1.ParsedExpr",
+  typeUrl: '/google.api.expr.v1alpha1.ParsedExpr',
   encode(message: ParsedExpr, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.expr !== undefined) {
       Expr.encode(message.expr, writer.uint32(18).fork()).ldelim();
@@ -913,7 +913,7 @@ export const ParsedExpr = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ParsedExpr {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParsedExpr();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -964,10 +964,10 @@ export const ParsedExpr = {
   },
   toProtoMsg(message: ParsedExpr): ParsedExprProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.ParsedExpr",
-      value: ParsedExpr.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.ParsedExpr',
+      value: ParsedExpr.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseExpr(): Expr {
   return {
@@ -978,11 +978,11 @@ function createBaseExpr(): Expr {
     callExpr: undefined,
     listExpr: undefined,
     structExpr: undefined,
-    comprehensionExpr: undefined
+    comprehensionExpr: undefined,
   };
 }
 export const Expr = {
-  typeUrl: "/google.api.expr.v1alpha1.Expr",
+  typeUrl: '/google.api.expr.v1alpha1.Expr',
   encode(message: Expr, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== BigInt(0)) {
       writer.uint32(16).int64(message.id);
@@ -1012,7 +1012,7 @@ export const Expr = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Expr {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExpr();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1111,27 +1111,27 @@ export const Expr = {
   },
   toProtoMsg(message: Expr): ExprProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.Expr",
-      value: Expr.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.Expr',
+      value: Expr.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseExpr_Ident(): Expr_Ident {
   return {
-    name: ""
+    name: '',
   };
 }
 export const Expr_Ident = {
-  typeUrl: "/google.api.expr.v1alpha1.Ident",
+  typeUrl: '/google.api.expr.v1alpha1.Ident',
   encode(message: Expr_Ident, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.name !== "") {
+    if (message.name !== '') {
       writer.uint32(10).string(message.name);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Expr_Ident {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExpr_Ident();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1148,7 +1148,7 @@ export const Expr_Ident = {
   },
   fromPartial(object: DeepPartial<Expr_Ident>): Expr_Ident {
     const message = createBaseExpr_Ident();
-    message.name = object.name ?? "";
+    message.name = object.name ?? '';
     return message;
   },
   fromAmino(object: Expr_IdentAmino): Expr_Ident {
@@ -1160,7 +1160,7 @@ export const Expr_Ident = {
   },
   toAmino(message: Expr_Ident): Expr_IdentAmino {
     const obj: any = {};
-    obj.name = message.name === "" ? undefined : message.name;
+    obj.name = message.name === '' ? undefined : message.name;
     return obj;
   },
   fromAminoMsg(object: Expr_IdentAminoMsg): Expr_Ident {
@@ -1174,25 +1174,25 @@ export const Expr_Ident = {
   },
   toProtoMsg(message: Expr_Ident): Expr_IdentProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.Ident",
-      value: Expr_Ident.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.Ident',
+      value: Expr_Ident.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseExpr_Select(): Expr_Select {
   return {
     operand: undefined,
-    field: "",
-    testOnly: false
+    field: '',
+    testOnly: false,
   };
 }
 export const Expr_Select = {
-  typeUrl: "/google.api.expr.v1alpha1.Select",
+  typeUrl: '/google.api.expr.v1alpha1.Select',
   encode(message: Expr_Select, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.operand !== undefined) {
       Expr.encode(message.operand, writer.uint32(10).fork()).ldelim();
     }
-    if (message.field !== "") {
+    if (message.field !== '') {
       writer.uint32(18).string(message.field);
     }
     if (message.testOnly === true) {
@@ -1202,7 +1202,7 @@ export const Expr_Select = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Expr_Select {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExpr_Select();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1226,7 +1226,7 @@ export const Expr_Select = {
   fromPartial(object: DeepPartial<Expr_Select>): Expr_Select {
     const message = createBaseExpr_Select();
     message.operand = object.operand !== undefined && object.operand !== null ? Expr.fromPartial(object.operand) : undefined;
-    message.field = object.field ?? "";
+    message.field = object.field ?? '';
     message.testOnly = object.testOnly ?? false;
     return message;
   },
@@ -1246,7 +1246,7 @@ export const Expr_Select = {
   toAmino(message: Expr_Select): Expr_SelectAmino {
     const obj: any = {};
     obj.operand = message.operand ? Expr.toAmino(message.operand) : undefined;
-    obj.field = message.field === "" ? undefined : message.field;
+    obj.field = message.field === '' ? undefined : message.field;
     obj.test_only = message.testOnly === false ? undefined : message.testOnly;
     return obj;
   },
@@ -1261,25 +1261,25 @@ export const Expr_Select = {
   },
   toProtoMsg(message: Expr_Select): Expr_SelectProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.Select",
-      value: Expr_Select.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.Select',
+      value: Expr_Select.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseExpr_Call(): Expr_Call {
   return {
     target: undefined,
-    function: "",
-    args: []
+    function: '',
+    args: [],
   };
 }
 export const Expr_Call = {
-  typeUrl: "/google.api.expr.v1alpha1.Call",
+  typeUrl: '/google.api.expr.v1alpha1.Call',
   encode(message: Expr_Call, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.target !== undefined) {
       Expr.encode(message.target, writer.uint32(10).fork()).ldelim();
     }
-    if (message.function !== "") {
+    if (message.function !== '') {
       writer.uint32(18).string(message.function);
     }
     for (const v of message.args) {
@@ -1289,7 +1289,7 @@ export const Expr_Call = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Expr_Call {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExpr_Call();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1313,8 +1313,8 @@ export const Expr_Call = {
   fromPartial(object: DeepPartial<Expr_Call>): Expr_Call {
     const message = createBaseExpr_Call();
     message.target = object.target !== undefined && object.target !== null ? Expr.fromPartial(object.target) : undefined;
-    message.function = object.function ?? "";
-    message.args = object.args?.map(e => Expr.fromPartial(e)) || [];
+    message.function = object.function ?? '';
+    message.args = object.args?.map((e) => Expr.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: Expr_CallAmino): Expr_Call {
@@ -1325,15 +1325,15 @@ export const Expr_Call = {
     if (object.function !== undefined && object.function !== null) {
       message.function = object.function;
     }
-    message.args = object.args?.map(e => Expr.fromAmino(e)) || [];
+    message.args = object.args?.map((e) => Expr.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: Expr_Call): Expr_CallAmino {
     const obj: any = {};
     obj.target = message.target ? Expr.toAmino(message.target) : undefined;
-    obj.function = message.function === "" ? undefined : message.function;
+    obj.function = message.function === '' ? undefined : message.function;
     if (message.args) {
-      obj.args = message.args.map(e => e ? Expr.toAmino(e) : undefined);
+      obj.args = message.args.map((e) => (e ? Expr.toAmino(e) : undefined));
     } else {
       obj.args = message.args;
     }
@@ -1350,18 +1350,18 @@ export const Expr_Call = {
   },
   toProtoMsg(message: Expr_Call): Expr_CallProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.Call",
-      value: Expr_Call.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.Call',
+      value: Expr_Call.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseExpr_CreateList(): Expr_CreateList {
   return {
-    elements: []
+    elements: [],
   };
 }
 export const Expr_CreateList = {
-  typeUrl: "/google.api.expr.v1alpha1.CreateList",
+  typeUrl: '/google.api.expr.v1alpha1.CreateList',
   encode(message: Expr_CreateList, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.elements) {
       Expr.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1370,7 +1370,7 @@ export const Expr_CreateList = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Expr_CreateList {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExpr_CreateList();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1387,18 +1387,18 @@ export const Expr_CreateList = {
   },
   fromPartial(object: DeepPartial<Expr_CreateList>): Expr_CreateList {
     const message = createBaseExpr_CreateList();
-    message.elements = object.elements?.map(e => Expr.fromPartial(e)) || [];
+    message.elements = object.elements?.map((e) => Expr.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: Expr_CreateListAmino): Expr_CreateList {
     const message = createBaseExpr_CreateList();
-    message.elements = object.elements?.map(e => Expr.fromAmino(e)) || [];
+    message.elements = object.elements?.map((e) => Expr.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: Expr_CreateList): Expr_CreateListAmino {
     const obj: any = {};
     if (message.elements) {
-      obj.elements = message.elements.map(e => e ? Expr.toAmino(e) : undefined);
+      obj.elements = message.elements.map((e) => (e ? Expr.toAmino(e) : undefined));
     } else {
       obj.elements = message.elements;
     }
@@ -1415,21 +1415,21 @@ export const Expr_CreateList = {
   },
   toProtoMsg(message: Expr_CreateList): Expr_CreateListProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.CreateList",
-      value: Expr_CreateList.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.CreateList',
+      value: Expr_CreateList.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseExpr_CreateStruct(): Expr_CreateStruct {
   return {
-    messageName: "",
-    entries: []
+    messageName: '',
+    entries: [],
   };
 }
 export const Expr_CreateStruct = {
-  typeUrl: "/google.api.expr.v1alpha1.CreateStruct",
+  typeUrl: '/google.api.expr.v1alpha1.CreateStruct',
   encode(message: Expr_CreateStruct, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.messageName !== "") {
+    if (message.messageName !== '') {
       writer.uint32(10).string(message.messageName);
     }
     for (const v of message.entries) {
@@ -1439,7 +1439,7 @@ export const Expr_CreateStruct = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Expr_CreateStruct {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExpr_CreateStruct();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1459,8 +1459,8 @@ export const Expr_CreateStruct = {
   },
   fromPartial(object: DeepPartial<Expr_CreateStruct>): Expr_CreateStruct {
     const message = createBaseExpr_CreateStruct();
-    message.messageName = object.messageName ?? "";
-    message.entries = object.entries?.map(e => Expr_CreateStruct_Entry.fromPartial(e)) || [];
+    message.messageName = object.messageName ?? '';
+    message.entries = object.entries?.map((e) => Expr_CreateStruct_Entry.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: Expr_CreateStructAmino): Expr_CreateStruct {
@@ -1468,14 +1468,14 @@ export const Expr_CreateStruct = {
     if (object.message_name !== undefined && object.message_name !== null) {
       message.messageName = object.message_name;
     }
-    message.entries = object.entries?.map(e => Expr_CreateStruct_Entry.fromAmino(e)) || [];
+    message.entries = object.entries?.map((e) => Expr_CreateStruct_Entry.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: Expr_CreateStruct): Expr_CreateStructAmino {
     const obj: any = {};
-    obj.message_name = message.messageName === "" ? undefined : message.messageName;
+    obj.message_name = message.messageName === '' ? undefined : message.messageName;
     if (message.entries) {
-      obj.entries = message.entries.map(e => e ? Expr_CreateStruct_Entry.toAmino(e) : undefined);
+      obj.entries = message.entries.map((e) => (e ? Expr_CreateStruct_Entry.toAmino(e) : undefined));
     } else {
       obj.entries = message.entries;
     }
@@ -1492,21 +1492,21 @@ export const Expr_CreateStruct = {
   },
   toProtoMsg(message: Expr_CreateStruct): Expr_CreateStructProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.CreateStruct",
-      value: Expr_CreateStruct.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.CreateStruct',
+      value: Expr_CreateStruct.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseExpr_CreateStruct_Entry(): Expr_CreateStruct_Entry {
   return {
     id: BigInt(0),
     fieldKey: undefined,
     mapKey: undefined,
-    value: undefined
+    value: undefined,
   };
 }
 export const Expr_CreateStruct_Entry = {
-  typeUrl: "/google.api.expr.v1alpha1.Entry",
+  typeUrl: '/google.api.expr.v1alpha1.Entry',
   encode(message: Expr_CreateStruct_Entry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.id !== BigInt(0)) {
       writer.uint32(8).int64(message.id);
@@ -1524,7 +1524,7 @@ export const Expr_CreateStruct_Entry = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Expr_CreateStruct_Entry {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExpr_CreateStruct_Entry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1591,32 +1591,32 @@ export const Expr_CreateStruct_Entry = {
   },
   toProtoMsg(message: Expr_CreateStruct_Entry): Expr_CreateStruct_EntryProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.Entry",
-      value: Expr_CreateStruct_Entry.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.Entry',
+      value: Expr_CreateStruct_Entry.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseExpr_Comprehension(): Expr_Comprehension {
   return {
-    iterVar: "",
+    iterVar: '',
     iterRange: undefined,
-    accuVar: "",
+    accuVar: '',
     accuInit: undefined,
     loopCondition: undefined,
     loopStep: undefined,
-    result: undefined
+    result: undefined,
   };
 }
 export const Expr_Comprehension = {
-  typeUrl: "/google.api.expr.v1alpha1.Comprehension",
+  typeUrl: '/google.api.expr.v1alpha1.Comprehension',
   encode(message: Expr_Comprehension, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.iterVar !== "") {
+    if (message.iterVar !== '') {
       writer.uint32(10).string(message.iterVar);
     }
     if (message.iterRange !== undefined) {
       Expr.encode(message.iterRange, writer.uint32(18).fork()).ldelim();
     }
-    if (message.accuVar !== "") {
+    if (message.accuVar !== '') {
       writer.uint32(26).string(message.accuVar);
     }
     if (message.accuInit !== undefined) {
@@ -1635,7 +1635,7 @@ export const Expr_Comprehension = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Expr_Comprehension {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExpr_Comprehension();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1670,9 +1670,9 @@ export const Expr_Comprehension = {
   },
   fromPartial(object: DeepPartial<Expr_Comprehension>): Expr_Comprehension {
     const message = createBaseExpr_Comprehension();
-    message.iterVar = object.iterVar ?? "";
+    message.iterVar = object.iterVar ?? '';
     message.iterRange = object.iterRange !== undefined && object.iterRange !== null ? Expr.fromPartial(object.iterRange) : undefined;
-    message.accuVar = object.accuVar ?? "";
+    message.accuVar = object.accuVar ?? '';
     message.accuInit = object.accuInit !== undefined && object.accuInit !== null ? Expr.fromPartial(object.accuInit) : undefined;
     message.loopCondition = object.loopCondition !== undefined && object.loopCondition !== null ? Expr.fromPartial(object.loopCondition) : undefined;
     message.loopStep = object.loopStep !== undefined && object.loopStep !== null ? Expr.fromPartial(object.loopStep) : undefined;
@@ -1706,9 +1706,9 @@ export const Expr_Comprehension = {
   },
   toAmino(message: Expr_Comprehension): Expr_ComprehensionAmino {
     const obj: any = {};
-    obj.iter_var = message.iterVar === "" ? undefined : message.iterVar;
+    obj.iter_var = message.iterVar === '' ? undefined : message.iterVar;
     obj.iter_range = message.iterRange ? Expr.toAmino(message.iterRange) : undefined;
-    obj.accu_var = message.accuVar === "" ? undefined : message.accuVar;
+    obj.accu_var = message.accuVar === '' ? undefined : message.accuVar;
     obj.accu_init = message.accuInit ? Expr.toAmino(message.accuInit) : undefined;
     obj.loop_condition = message.loopCondition ? Expr.toAmino(message.loopCondition) : undefined;
     obj.loop_step = message.loopStep ? Expr.toAmino(message.loopStep) : undefined;
@@ -1726,10 +1726,10 @@ export const Expr_Comprehension = {
   },
   toProtoMsg(message: Expr_Comprehension): Expr_ComprehensionProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.Comprehension",
-      value: Expr_Comprehension.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.Comprehension',
+      value: Expr_Comprehension.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseConstant(): Constant {
   return {
@@ -1741,11 +1741,11 @@ function createBaseConstant(): Constant {
     stringValue: undefined,
     bytesValue: undefined,
     durationValue: undefined,
-    timestampValue: undefined
+    timestampValue: undefined,
   };
 }
 export const Constant = {
-  typeUrl: "/google.api.expr.v1alpha1.Constant",
+  typeUrl: '/google.api.expr.v1alpha1.Constant',
   encode(message: Constant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.nullValue !== undefined) {
       writer.uint32(8).int32(message.nullValue);
@@ -1778,7 +1778,7 @@ export const Constant = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Constant {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConstant();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1885,15 +1885,15 @@ export const Constant = {
   },
   toProtoMsg(message: Constant): ConstantProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.Constant",
-      value: Constant.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.Constant',
+      value: Constant.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSourceInfo_PositionsEntry(): SourceInfo_PositionsEntry {
   return {
     key: BigInt(0),
-    value: 0
+    value: 0,
   };
 }
 export const SourceInfo_PositionsEntry = {
@@ -1908,7 +1908,7 @@ export const SourceInfo_PositionsEntry = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SourceInfo_PositionsEntry {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSourceInfo_PositionsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1956,12 +1956,12 @@ export const SourceInfo_PositionsEntry = {
   },
   toProto(message: SourceInfo_PositionsEntry): Uint8Array {
     return SourceInfo_PositionsEntry.encode(message).finish();
-  }
+  },
 };
 function createBaseSourceInfo_MacroCallsEntry(): SourceInfo_MacroCallsEntry {
   return {
     key: BigInt(0),
-    value: undefined
+    value: undefined,
   };
 }
 export const SourceInfo_MacroCallsEntry = {
@@ -1976,7 +1976,7 @@ export const SourceInfo_MacroCallsEntry = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SourceInfo_MacroCallsEntry {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSourceInfo_MacroCallsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -2024,24 +2024,24 @@ export const SourceInfo_MacroCallsEntry = {
   },
   toProto(message: SourceInfo_MacroCallsEntry): Uint8Array {
     return SourceInfo_MacroCallsEntry.encode(message).finish();
-  }
+  },
 };
 function createBaseSourceInfo(): SourceInfo {
   return {
-    syntaxVersion: "",
-    location: "",
+    syntaxVersion: '',
+    location: '',
     lineOffsets: [],
     positions: {},
-    macroCalls: {}
+    macroCalls: {},
   };
 }
 export const SourceInfo = {
-  typeUrl: "/google.api.expr.v1alpha1.SourceInfo",
+  typeUrl: '/google.api.expr.v1alpha1.SourceInfo',
   encode(message: SourceInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.syntaxVersion !== "") {
+    if (message.syntaxVersion !== '') {
       writer.uint32(10).string(message.syntaxVersion);
     }
-    if (message.location !== "") {
+    if (message.location !== '') {
       writer.uint32(18).string(message.location);
     }
     writer.uint32(26).fork();
@@ -2052,20 +2052,20 @@ export const SourceInfo = {
     Object.entries(message.positions).forEach(([key, value]) => {
       SourceInfo_PositionsEntry.encode({
         key: (key as any),
-        value
+        value,
       }, writer.uint32(32).fork()).ldelim();
     });
     Object.entries(message.macroCalls).forEach(([key, value]) => {
       SourceInfo_MacroCallsEntry.encode({
         key: (key as any),
-        value
+        value,
       }, writer.uint32(42).fork()).ldelim();
     });
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SourceInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSourceInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -2107,9 +2107,9 @@ export const SourceInfo = {
   },
   fromPartial(object: DeepPartial<SourceInfo>): SourceInfo {
     const message = createBaseSourceInfo();
-    message.syntaxVersion = object.syntaxVersion ?? "";
-    message.location = object.location ?? "";
-    message.lineOffsets = object.lineOffsets?.map(e => e) || [];
+    message.syntaxVersion = object.syntaxVersion ?? '';
+    message.location = object.location ?? '';
+    message.lineOffsets = object.lineOffsets?.map((e) => e) || [];
     message.positions = Object.entries(object.positions ?? {}).reduce<{
       [key: bigint]: number;
     }>((acc, [key, value]) => {
@@ -2136,7 +2136,7 @@ export const SourceInfo = {
     if (object.location !== undefined && object.location !== null) {
       message.location = object.location;
     }
-    message.lineOffsets = object.line_offsets?.map(e => e) || [];
+    message.lineOffsets = object.line_offsets?.map((e) => e) || [];
     message.positions = Object.entries(object.positions ?? {}).reduce<{
       [key: bigint]: number;
     }>((acc, [key, value]) => {
@@ -2157,10 +2157,10 @@ export const SourceInfo = {
   },
   toAmino(message: SourceInfo): SourceInfoAmino {
     const obj: any = {};
-    obj.syntax_version = message.syntaxVersion === "" ? undefined : message.syntaxVersion;
-    obj.location = message.location === "" ? undefined : message.location;
+    obj.syntax_version = message.syntaxVersion === '' ? undefined : message.syntaxVersion;
+    obj.location = message.location === '' ? undefined : message.location;
     if (message.lineOffsets) {
-      obj.line_offsets = message.lineOffsets.map(e => e);
+      obj.line_offsets = message.lineOffsets.map((e) => e);
     } else {
       obj.line_offsets = message.lineOffsets;
     }
@@ -2189,23 +2189,23 @@ export const SourceInfo = {
   },
   toProtoMsg(message: SourceInfo): SourceInfoProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.SourceInfo",
-      value: SourceInfo.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.SourceInfo',
+      value: SourceInfo.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSourcePosition(): SourcePosition {
   return {
-    location: "",
+    location: '',
     offset: 0,
     line: 0,
-    column: 0
+    column: 0,
   };
 }
 export const SourcePosition = {
-  typeUrl: "/google.api.expr.v1alpha1.SourcePosition",
+  typeUrl: '/google.api.expr.v1alpha1.SourcePosition',
   encode(message: SourcePosition, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.location !== "") {
+    if (message.location !== '') {
       writer.uint32(10).string(message.location);
     }
     if (message.offset !== 0) {
@@ -2221,7 +2221,7 @@ export const SourcePosition = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SourcePosition {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSourcePosition();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -2247,7 +2247,7 @@ export const SourcePosition = {
   },
   fromPartial(object: DeepPartial<SourcePosition>): SourcePosition {
     const message = createBaseSourcePosition();
-    message.location = object.location ?? "";
+    message.location = object.location ?? '';
     message.offset = object.offset ?? 0;
     message.line = object.line ?? 0;
     message.column = object.column ?? 0;
@@ -2271,7 +2271,7 @@ export const SourcePosition = {
   },
   toAmino(message: SourcePosition): SourcePositionAmino {
     const obj: any = {};
-    obj.location = message.location === "" ? undefined : message.location;
+    obj.location = message.location === '' ? undefined : message.location;
     obj.offset = message.offset === 0 ? undefined : message.offset;
     obj.line = message.line === 0 ? undefined : message.line;
     obj.column = message.column === 0 ? undefined : message.column;
@@ -2288,8 +2288,8 @@ export const SourcePosition = {
   },
   toProtoMsg(message: SourcePosition): SourcePositionProtoMsg {
     return {
-      typeUrl: "/google.api.expr.v1alpha1.SourcePosition",
-      value: SourcePosition.encode(message).finish()
+      typeUrl: '/google.api.expr.v1alpha1.SourcePosition',
+      value: SourcePosition.encode(message).finish(),
     };
-  }
+  },
 };

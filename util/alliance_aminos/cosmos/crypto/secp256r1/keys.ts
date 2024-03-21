@@ -1,5 +1,5 @@
-import { BinaryReader, BinaryWriter } from "../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../binary';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../../helpers';
 /** PubKey defines a secp256r1 ECDSA public key. */
 export interface PubKey {
   /**
@@ -9,7 +9,7 @@ export interface PubKey {
   key: Uint8Array;
 }
 export interface PubKeyProtoMsg {
-  typeUrl: "/cosmos.crypto.secp256r1.PubKey";
+  typeUrl: '/cosmos.crypto.secp256r1.PubKey';
   value: Uint8Array;
 }
 /** PubKey defines a secp256r1 ECDSA public key. */
@@ -21,7 +21,7 @@ export interface PubKeyAmino {
   key?: string;
 }
 export interface PubKeyAminoMsg {
-  type: "cosmos-sdk/PubKey";
+  type: 'cosmos-sdk/PubKey';
   value: PubKeyAmino;
 }
 /** PubKey defines a secp256r1 ECDSA public key. */
@@ -30,20 +30,20 @@ export interface PubKeySDKType {
 }
 /** PrivKey defines a secp256r1 ECDSA private key. */
 export interface PrivKey {
-  /** secret number serialized using big-endian encoding */
+  /** Secret number serialized using big-endian encoding */
   secret: Uint8Array;
 }
 export interface PrivKeyProtoMsg {
-  typeUrl: "/cosmos.crypto.secp256r1.PrivKey";
+  typeUrl: '/cosmos.crypto.secp256r1.PrivKey';
   value: Uint8Array;
 }
 /** PrivKey defines a secp256r1 ECDSA private key. */
 export interface PrivKeyAmino {
-  /** secret number serialized using big-endian encoding */
+  /** Secret number serialized using big-endian encoding */
   secret?: string;
 }
 export interface PrivKeyAminoMsg {
-  type: "cosmos-sdk/PrivKey";
+  type: 'cosmos-sdk/PrivKey';
   value: PrivKeyAmino;
 }
 /** PrivKey defines a secp256r1 ECDSA private key. */
@@ -52,12 +52,12 @@ export interface PrivKeySDKType {
 }
 function createBasePubKey(): PubKey {
   return {
-    key: new Uint8Array()
+    key: new Uint8Array(),
   };
 }
 export const PubKey = {
-  typeUrl: "/cosmos.crypto.secp256r1.PubKey",
-  aminoType: "cosmos-sdk/PubKey",
+  typeUrl: '/cosmos.crypto.secp256r1.PubKey',
+  aminoType: 'cosmos-sdk/PubKey',
   encode(message: PubKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
@@ -66,7 +66,7 @@ export const PubKey = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PubKey {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePubKey();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -103,8 +103,8 @@ export const PubKey = {
   },
   toAminoMsg(message: PubKey): PubKeyAminoMsg {
     return {
-      type: "cosmos-sdk/PubKey",
-      value: PubKey.toAmino(message)
+      type: 'cosmos-sdk/PubKey',
+      value: PubKey.toAmino(message),
     };
   },
   fromProtoMsg(message: PubKeyProtoMsg): PubKey {
@@ -115,19 +115,19 @@ export const PubKey = {
   },
   toProtoMsg(message: PubKey): PubKeyProtoMsg {
     return {
-      typeUrl: "/cosmos.crypto.secp256r1.PubKey",
-      value: PubKey.encode(message).finish()
+      typeUrl: '/cosmos.crypto.secp256r1.PubKey',
+      value: PubKey.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePrivKey(): PrivKey {
   return {
-    secret: new Uint8Array()
+    secret: new Uint8Array(),
   };
 }
 export const PrivKey = {
-  typeUrl: "/cosmos.crypto.secp256r1.PrivKey",
-  aminoType: "cosmos-sdk/PrivKey",
+  typeUrl: '/cosmos.crypto.secp256r1.PrivKey',
+  aminoType: 'cosmos-sdk/PrivKey',
   encode(message: PrivKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.secret.length !== 0) {
       writer.uint32(10).bytes(message.secret);
@@ -136,7 +136,7 @@ export const PrivKey = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PrivKey {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePrivKey();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -173,8 +173,8 @@ export const PrivKey = {
   },
   toAminoMsg(message: PrivKey): PrivKeyAminoMsg {
     return {
-      type: "cosmos-sdk/PrivKey",
-      value: PrivKey.toAmino(message)
+      type: 'cosmos-sdk/PrivKey',
+      value: PrivKey.toAmino(message),
     };
   },
   fromProtoMsg(message: PrivKeyProtoMsg): PrivKey {
@@ -185,8 +185,8 @@ export const PrivKey = {
   },
   toProtoMsg(message: PrivKey): PrivKeyProtoMsg {
     return {
-      typeUrl: "/cosmos.crypto.secp256r1.PrivKey",
-      value: PrivKey.encode(message).finish()
+      typeUrl: '/cosmos.crypto.secp256r1.PrivKey',
+      value: PrivKey.encode(message).finish(),
     };
-  }
+  },
 };

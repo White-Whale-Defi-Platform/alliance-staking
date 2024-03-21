@@ -4,9 +4,9 @@ import { QueryClientProvider } from 'react-query'
 
 import { CSSReset, ChakraProvider } from '@chakra-ui/react'
 import { wallets as keplrWallets } from '@cosmos-kit/keplr'
-import { wallets as stationWallets } from '@cosmos-kit/station'
 import { wallets as leapWallets } from '@cosmos-kit/leap'
 import { ChainProvider } from '@cosmos-kit/react-lite'
+import { wallets as stationWallets } from '@cosmos-kit/station'
 import {
   StaticWalletProvider,
   WalletControllerChainOptions,
@@ -35,7 +35,7 @@ const MyApp: FC<AppProps> = ({
   const wallets = [
     ...keplrWallets,
     ...stationWallets,
-    ...leapWallets
+    ...leapWallets,
   ]
 
   return (

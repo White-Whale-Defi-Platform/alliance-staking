@@ -1,7 +1,7 @@
-import { Header, HeaderAmino, HeaderSDKType, Data, DataAmino, DataSDKType, Commit, CommitAmino, CommitSDKType } from "./types";
-import { EvidenceList, EvidenceListAmino, EvidenceListSDKType } from "./evidence";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
+import { EvidenceList, EvidenceListAmino, EvidenceListSDKType } from './evidence';
+import { Header, HeaderAmino, HeaderSDKType, Data, DataAmino, DataSDKType, Commit, CommitAmino, CommitSDKType } from './types';
 export interface Block {
   header: Header;
   data: Data;
@@ -9,7 +9,7 @@ export interface Block {
   lastCommit?: Commit;
 }
 export interface BlockProtoMsg {
-  typeUrl: "/tendermint.types.Block";
+  typeUrl: '/tendermint.types.Block';
   value: Uint8Array;
 }
 export interface BlockAmino {
@@ -19,7 +19,7 @@ export interface BlockAmino {
   last_commit?: CommitAmino;
 }
 export interface BlockAminoMsg {
-  type: "/tendermint.types.Block";
+  type: '/tendermint.types.Block';
   value: BlockAmino;
 }
 export interface BlockSDKType {
@@ -33,11 +33,11 @@ function createBaseBlock(): Block {
     header: Header.fromPartial({}),
     data: Data.fromPartial({}),
     evidence: EvidenceList.fromPartial({}),
-    lastCommit: undefined
+    lastCommit: undefined,
   };
 }
 export const Block = {
-  typeUrl: "/tendermint.types.Block",
+  typeUrl: '/tendermint.types.Block',
   encode(message: Block, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.header !== undefined) {
       Header.encode(message.header, writer.uint32(10).fork()).ldelim();
@@ -55,7 +55,7 @@ export const Block = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Block {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBlock();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -122,8 +122,8 @@ export const Block = {
   },
   toProtoMsg(message: Block): BlockProtoMsg {
     return {
-      typeUrl: "/tendermint.types.Block",
-      value: Block.encode(message).finish()
+      typeUrl: '/tendermint.types.Block',
+      value: Block.encode(message).finish(),
     };
-  }
+  },
 };

@@ -1,7 +1,7 @@
-import { Any, AnyAmino, AnySDKType } from "../../../../google/protobuf/any";
-import { Event, EventAmino, EventSDKType } from "../../../../tendermint/abci/types";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { Any, AnyAmino, AnySDKType } from '../../../../google/protobuf/any';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../../../helpers';
+import { Event, EventAmino, EventSDKType } from '../../../../tendermint/abci/types';
 /**
  * TxResponse defines a structure containing relevant tx data and metadata. The
  * tags are stringified and the log is JSON decoded.
@@ -43,13 +43,13 @@ export interface TxResponse {
    * these events include those emitted by processing all the messages and those
    * emitted from the ante. Whereas Logs contains the events, with
    * additional metadata, emitted only by processing the messages.
-   * 
+   *
    * Since: cosmos-sdk 0.42.11, 0.44.5, 0.45
    */
   events: Event[];
 }
 export interface TxResponseProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.TxResponse";
+  typeUrl: '/cosmos.base.abci.v1beta1.TxResponse';
   value: Uint8Array;
 }
 /**
@@ -93,13 +93,13 @@ export interface TxResponseAmino {
    * these events include those emitted by processing all the messages and those
    * emitted from the ante. Whereas Logs contains the events, with
    * additional metadata, emitted only by processing the messages.
-   * 
+   *
    * Since: cosmos-sdk 0.42.11, 0.44.5, 0.45
    */
   events?: EventAmino[];
 }
 export interface TxResponseAminoMsg {
-  type: "cosmos-sdk/TxResponse";
+  type: 'cosmos-sdk/TxResponse';
   value: TxResponseAmino;
 }
 /**
@@ -132,7 +132,7 @@ export interface ABCIMessageLog {
   events: StringEvent[];
 }
 export interface ABCIMessageLogProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.ABCIMessageLog";
+  typeUrl: '/cosmos.base.abci.v1beta1.ABCIMessageLog';
   value: Uint8Array;
 }
 /** ABCIMessageLog defines a structure containing an indexed tx ABCI message log. */
@@ -146,7 +146,7 @@ export interface ABCIMessageLogAmino {
   events?: StringEventAmino[];
 }
 export interface ABCIMessageLogAminoMsg {
-  type: "cosmos-sdk/ABCIMessageLog";
+  type: 'cosmos-sdk/ABCIMessageLog';
   value: ABCIMessageLogAmino;
 }
 /** ABCIMessageLog defines a structure containing an indexed tx ABCI message log. */
@@ -164,7 +164,7 @@ export interface StringEvent {
   attributes: Attribute[];
 }
 export interface StringEventProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.StringEvent";
+  typeUrl: '/cosmos.base.abci.v1beta1.StringEvent';
   value: Uint8Array;
 }
 /**
@@ -176,7 +176,7 @@ export interface StringEventAmino {
   attributes?: AttributeAmino[];
 }
 export interface StringEventAminoMsg {
-  type: "cosmos-sdk/StringEvent";
+  type: 'cosmos-sdk/StringEvent';
   value: StringEventAmino;
 }
 /**
@@ -196,7 +196,7 @@ export interface Attribute {
   value: string;
 }
 export interface AttributeProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.Attribute";
+  typeUrl: '/cosmos.base.abci.v1beta1.Attribute';
   value: Uint8Array;
 }
 /**
@@ -208,7 +208,7 @@ export interface AttributeAmino {
   value?: string;
 }
 export interface AttributeAminoMsg {
-  type: "cosmos-sdk/Attribute";
+  type: 'cosmos-sdk/Attribute';
   value: AttributeAmino;
 }
 /**
@@ -227,7 +227,7 @@ export interface GasInfo {
   gasUsed: bigint;
 }
 export interface GasInfoProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.GasInfo";
+  typeUrl: '/cosmos.base.abci.v1beta1.GasInfo';
   value: Uint8Array;
 }
 /** GasInfo defines tx execution gas context. */
@@ -238,7 +238,7 @@ export interface GasInfoAmino {
   gas_used?: string;
 }
 export interface GasInfoAminoMsg {
-  type: "cosmos-sdk/GasInfo";
+  type: 'cosmos-sdk/GasInfo';
   value: GasInfoAmino;
 }
 /** GasInfo defines tx execution gas context. */
@@ -264,14 +264,14 @@ export interface Result {
    */
   events: Event[];
   /**
-   * msg_responses contains the Msg handler responses type packed in Anys.
-   * 
+   * Msg_responses contains the Msg handler responses type packed in Anys.
+   *
    * Since: cosmos-sdk 0.46
    */
   msgResponses: Any[];
 }
 export interface ResultProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.Result";
+  typeUrl: '/cosmos.base.abci.v1beta1.Result';
   value: Uint8Array;
 }
 /** Result is the union of ResponseFormat and ResponseCheckTx. */
@@ -292,14 +292,14 @@ export interface ResultAmino {
    */
   events?: EventAmino[];
   /**
-   * msg_responses contains the Msg handler responses type packed in Anys.
-   * 
+   * Msg_responses contains the Msg handler responses type packed in Anys.
+   *
    * Since: cosmos-sdk 0.46
    */
   msg_responses?: AnyAmino[];
 }
 export interface ResultAminoMsg {
-  type: "cosmos-sdk/Result";
+  type: 'cosmos-sdk/Result';
   value: ResultAmino;
 }
 /** Result is the union of ResponseFormat and ResponseCheckTx. */
@@ -319,7 +319,7 @@ export interface SimulationResponse {
   result?: Result;
 }
 export interface SimulationResponseProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.SimulationResponse";
+  typeUrl: '/cosmos.base.abci.v1beta1.SimulationResponse';
   value: Uint8Array;
 }
 /**
@@ -331,7 +331,7 @@ export interface SimulationResponseAmino {
   result?: ResultAmino;
 }
 export interface SimulationResponseAminoMsg {
-  type: "cosmos-sdk/SimulationResponse";
+  type: 'cosmos-sdk/SimulationResponse';
   value: SimulationResponseAmino;
 }
 /**
@@ -352,7 +352,7 @@ export interface MsgData {
   data: Uint8Array;
 }
 export interface MsgDataProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.MsgData";
+  typeUrl: '/cosmos.base.abci.v1beta1.MsgData';
   value: Uint8Array;
 }
 /**
@@ -365,7 +365,7 @@ export interface MsgDataAmino {
   data?: string;
 }
 export interface MsgDataAminoMsg {
-  type: "cosmos-sdk/MsgData";
+  type: 'cosmos-sdk/MsgData';
   value: MsgDataAmino;
 }
 /**
@@ -382,18 +382,18 @@ export interface MsgDataSDKType {
  * for each message.
  */
 export interface TxMsgData {
-  /** data field is deprecated and not populated. */
+  /** Data field is deprecated and not populated. */
   /** @deprecated */
   data: MsgData[];
   /**
-   * msg_responses contains the Msg handler responses packed into Anys.
-   * 
+   * Msg_responses contains the Msg handler responses packed into Anys.
+   *
    * Since: cosmos-sdk 0.46
    */
   msgResponses: Any[];
 }
 export interface TxMsgDataProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.TxMsgData";
+  typeUrl: '/cosmos.base.abci.v1beta1.TxMsgData';
   value: Uint8Array;
 }
 /**
@@ -401,18 +401,18 @@ export interface TxMsgDataProtoMsg {
  * for each message.
  */
 export interface TxMsgDataAmino {
-  /** data field is deprecated and not populated. */
+  /** Data field is deprecated and not populated. */
   /** @deprecated */
   data?: MsgDataAmino[];
   /**
-   * msg_responses contains the Msg handler responses packed into Anys.
-   * 
+   * Msg_responses contains the Msg handler responses packed into Anys.
+   *
    * Since: cosmos-sdk 0.46
    */
   msg_responses?: AnyAmino[];
 }
 export interface TxMsgDataAminoMsg {
-  type: "cosmos-sdk/TxMsgData";
+  type: 'cosmos-sdk/TxMsgData';
   value: TxMsgDataAmino;
 }
 /**
@@ -440,7 +440,7 @@ export interface SearchTxsResult {
   txs: TxResponse[];
 }
 export interface SearchTxsResultProtoMsg {
-  typeUrl: "/cosmos.base.abci.v1beta1.SearchTxsResult";
+  typeUrl: '/cosmos.base.abci.v1beta1.SearchTxsResult';
   value: Uint8Array;
 }
 /** SearchTxsResult defines a structure for querying txs pageable */
@@ -459,7 +459,7 @@ export interface SearchTxsResultAmino {
   txs?: TxResponseAmino[];
 }
 export interface SearchTxsResultAminoMsg {
-  type: "cosmos-sdk/SearchTxsResult";
+  type: 'cosmos-sdk/SearchTxsResult';
   value: SearchTxsResultAmino;
 }
 /** SearchTxsResult defines a structure for querying txs pageable */
@@ -474,46 +474,46 @@ export interface SearchTxsResultSDKType {
 function createBaseTxResponse(): TxResponse {
   return {
     height: BigInt(0),
-    txhash: "",
-    codespace: "",
+    txhash: '',
+    codespace: '',
     code: 0,
-    data: "",
-    rawLog: "",
+    data: '',
+    rawLog: '',
     logs: [],
-    info: "",
+    info: '',
     gasWanted: BigInt(0),
     gasUsed: BigInt(0),
     tx: undefined,
-    timestamp: "",
-    events: []
+    timestamp: '',
+    events: [],
   };
 }
 export const TxResponse = {
-  typeUrl: "/cosmos.base.abci.v1beta1.TxResponse",
-  aminoType: "cosmos-sdk/TxResponse",
+  typeUrl: '/cosmos.base.abci.v1beta1.TxResponse',
+  aminoType: 'cosmos-sdk/TxResponse',
   encode(message: TxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.height !== BigInt(0)) {
       writer.uint32(8).int64(message.height);
     }
-    if (message.txhash !== "") {
+    if (message.txhash !== '') {
       writer.uint32(18).string(message.txhash);
     }
-    if (message.codespace !== "") {
+    if (message.codespace !== '') {
       writer.uint32(26).string(message.codespace);
     }
     if (message.code !== 0) {
       writer.uint32(32).uint32(message.code);
     }
-    if (message.data !== "") {
+    if (message.data !== '') {
       writer.uint32(42).string(message.data);
     }
-    if (message.rawLog !== "") {
+    if (message.rawLog !== '') {
       writer.uint32(50).string(message.rawLog);
     }
     for (const v of message.logs) {
       ABCIMessageLog.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-    if (message.info !== "") {
+    if (message.info !== '') {
       writer.uint32(66).string(message.info);
     }
     if (message.gasWanted !== BigInt(0)) {
@@ -525,7 +525,7 @@ export const TxResponse = {
     if (message.tx !== undefined) {
       Any.encode(message.tx, writer.uint32(90).fork()).ldelim();
     }
-    if (message.timestamp !== "") {
+    if (message.timestamp !== '') {
       writer.uint32(98).string(message.timestamp);
     }
     for (const v of message.events) {
@@ -535,7 +535,7 @@ export const TxResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): TxResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTxResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -589,18 +589,18 @@ export const TxResponse = {
   fromPartial(object: DeepPartial<TxResponse>): TxResponse {
     const message = createBaseTxResponse();
     message.height = object.height !== undefined && object.height !== null ? BigInt(object.height.toString()) : BigInt(0);
-    message.txhash = object.txhash ?? "";
-    message.codespace = object.codespace ?? "";
+    message.txhash = object.txhash ?? '';
+    message.codespace = object.codespace ?? '';
     message.code = object.code ?? 0;
-    message.data = object.data ?? "";
-    message.rawLog = object.rawLog ?? "";
-    message.logs = object.logs?.map(e => ABCIMessageLog.fromPartial(e)) || [];
-    message.info = object.info ?? "";
+    message.data = object.data ?? '';
+    message.rawLog = object.rawLog ?? '';
+    message.logs = object.logs?.map((e) => ABCIMessageLog.fromPartial(e)) || [];
+    message.info = object.info ?? '';
     message.gasWanted = object.gasWanted !== undefined && object.gasWanted !== null ? BigInt(object.gasWanted.toString()) : BigInt(0);
     message.gasUsed = object.gasUsed !== undefined && object.gasUsed !== null ? BigInt(object.gasUsed.toString()) : BigInt(0);
     message.tx = object.tx !== undefined && object.tx !== null ? Any.fromPartial(object.tx) : undefined;
-    message.timestamp = object.timestamp ?? "";
-    message.events = object.events?.map(e => Event.fromPartial(e)) || [];
+    message.timestamp = object.timestamp ?? '';
+    message.events = object.events?.map((e) => Event.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: TxResponseAmino): TxResponse {
@@ -623,7 +623,7 @@ export const TxResponse = {
     if (object.raw_log !== undefined && object.raw_log !== null) {
       message.rawLog = object.raw_log;
     }
-    message.logs = object.logs?.map(e => ABCIMessageLog.fromAmino(e)) || [];
+    message.logs = object.logs?.map((e) => ABCIMessageLog.fromAmino(e)) || [];
     if (object.info !== undefined && object.info !== null) {
       message.info = object.info;
     }
@@ -639,29 +639,29 @@ export const TxResponse = {
     if (object.timestamp !== undefined && object.timestamp !== null) {
       message.timestamp = object.timestamp;
     }
-    message.events = object.events?.map(e => Event.fromAmino(e)) || [];
+    message.events = object.events?.map((e) => Event.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: TxResponse): TxResponseAmino {
     const obj: any = {};
     obj.height = message.height !== BigInt(0) ? message.height.toString() : undefined;
-    obj.txhash = message.txhash === "" ? undefined : message.txhash;
-    obj.codespace = message.codespace === "" ? undefined : message.codespace;
+    obj.txhash = message.txhash === '' ? undefined : message.txhash;
+    obj.codespace = message.codespace === '' ? undefined : message.codespace;
     obj.code = message.code === 0 ? undefined : message.code;
-    obj.data = message.data === "" ? undefined : message.data;
-    obj.raw_log = message.rawLog === "" ? undefined : message.rawLog;
+    obj.data = message.data === '' ? undefined : message.data;
+    obj.raw_log = message.rawLog === '' ? undefined : message.rawLog;
     if (message.logs) {
-      obj.logs = message.logs.map(e => e ? ABCIMessageLog.toAmino(e) : undefined);
+      obj.logs = message.logs.map((e) => (e ? ABCIMessageLog.toAmino(e) : undefined));
     } else {
       obj.logs = message.logs;
     }
-    obj.info = message.info === "" ? undefined : message.info;
+    obj.info = message.info === '' ? undefined : message.info;
     obj.gas_wanted = message.gasWanted !== BigInt(0) ? message.gasWanted.toString() : undefined;
     obj.gas_used = message.gasUsed !== BigInt(0) ? message.gasUsed.toString() : undefined;
     obj.tx = message.tx ? Any.toAmino(message.tx) : undefined;
-    obj.timestamp = message.timestamp === "" ? undefined : message.timestamp;
+    obj.timestamp = message.timestamp === '' ? undefined : message.timestamp;
     if (message.events) {
-      obj.events = message.events.map(e => e ? Event.toAmino(e) : undefined);
+      obj.events = message.events.map((e) => (e ? Event.toAmino(e) : undefined));
     } else {
       obj.events = message.events;
     }
@@ -672,8 +672,8 @@ export const TxResponse = {
   },
   toAminoMsg(message: TxResponse): TxResponseAminoMsg {
     return {
-      type: "cosmos-sdk/TxResponse",
-      value: TxResponse.toAmino(message)
+      type: 'cosmos-sdk/TxResponse',
+      value: TxResponse.toAmino(message),
     };
   },
   fromProtoMsg(message: TxResponseProtoMsg): TxResponse {
@@ -684,26 +684,26 @@ export const TxResponse = {
   },
   toProtoMsg(message: TxResponse): TxResponseProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.TxResponse",
-      value: TxResponse.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.TxResponse',
+      value: TxResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseABCIMessageLog(): ABCIMessageLog {
   return {
     msgIndex: 0,
-    log: "",
-    events: []
+    log: '',
+    events: [],
   };
 }
 export const ABCIMessageLog = {
-  typeUrl: "/cosmos.base.abci.v1beta1.ABCIMessageLog",
-  aminoType: "cosmos-sdk/ABCIMessageLog",
+  typeUrl: '/cosmos.base.abci.v1beta1.ABCIMessageLog',
+  aminoType: 'cosmos-sdk/ABCIMessageLog',
   encode(message: ABCIMessageLog, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.msgIndex !== 0) {
       writer.uint32(8).uint32(message.msgIndex);
     }
-    if (message.log !== "") {
+    if (message.log !== '') {
       writer.uint32(18).string(message.log);
     }
     for (const v of message.events) {
@@ -713,7 +713,7 @@ export const ABCIMessageLog = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ABCIMessageLog {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseABCIMessageLog();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -737,8 +737,8 @@ export const ABCIMessageLog = {
   fromPartial(object: DeepPartial<ABCIMessageLog>): ABCIMessageLog {
     const message = createBaseABCIMessageLog();
     message.msgIndex = object.msgIndex ?? 0;
-    message.log = object.log ?? "";
-    message.events = object.events?.map(e => StringEvent.fromPartial(e)) || [];
+    message.log = object.log ?? '';
+    message.events = object.events?.map((e) => StringEvent.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: ABCIMessageLogAmino): ABCIMessageLog {
@@ -749,15 +749,15 @@ export const ABCIMessageLog = {
     if (object.log !== undefined && object.log !== null) {
       message.log = object.log;
     }
-    message.events = object.events?.map(e => StringEvent.fromAmino(e)) || [];
+    message.events = object.events?.map((e) => StringEvent.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: ABCIMessageLog): ABCIMessageLogAmino {
     const obj: any = {};
     obj.msg_index = message.msgIndex ?? 0;
-    obj.log = message.log === "" ? undefined : message.log;
+    obj.log = message.log === '' ? undefined : message.log;
     if (message.events) {
-      obj.events = message.events.map(e => e ? StringEvent.toAmino(e) : undefined);
+      obj.events = message.events.map((e) => (e ? StringEvent.toAmino(e) : undefined));
     } else {
       obj.events = message.events;
     }
@@ -768,8 +768,8 @@ export const ABCIMessageLog = {
   },
   toAminoMsg(message: ABCIMessageLog): ABCIMessageLogAminoMsg {
     return {
-      type: "cosmos-sdk/ABCIMessageLog",
-      value: ABCIMessageLog.toAmino(message)
+      type: 'cosmos-sdk/ABCIMessageLog',
+      value: ABCIMessageLog.toAmino(message),
     };
   },
   fromProtoMsg(message: ABCIMessageLogProtoMsg): ABCIMessageLog {
@@ -780,22 +780,22 @@ export const ABCIMessageLog = {
   },
   toProtoMsg(message: ABCIMessageLog): ABCIMessageLogProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.ABCIMessageLog",
-      value: ABCIMessageLog.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.ABCIMessageLog',
+      value: ABCIMessageLog.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseStringEvent(): StringEvent {
   return {
-    type: "",
-    attributes: []
+    type: '',
+    attributes: [],
   };
 }
 export const StringEvent = {
-  typeUrl: "/cosmos.base.abci.v1beta1.StringEvent",
-  aminoType: "cosmos-sdk/StringEvent",
+  typeUrl: '/cosmos.base.abci.v1beta1.StringEvent',
+  aminoType: 'cosmos-sdk/StringEvent',
   encode(message: StringEvent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.type !== "") {
+    if (message.type !== '') {
       writer.uint32(10).string(message.type);
     }
     for (const v of message.attributes) {
@@ -805,7 +805,7 @@ export const StringEvent = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): StringEvent {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStringEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -825,8 +825,8 @@ export const StringEvent = {
   },
   fromPartial(object: DeepPartial<StringEvent>): StringEvent {
     const message = createBaseStringEvent();
-    message.type = object.type ?? "";
-    message.attributes = object.attributes?.map(e => Attribute.fromPartial(e)) || [];
+    message.type = object.type ?? '';
+    message.attributes = object.attributes?.map((e) => Attribute.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: StringEventAmino): StringEvent {
@@ -834,14 +834,14 @@ export const StringEvent = {
     if (object.type !== undefined && object.type !== null) {
       message.type = object.type;
     }
-    message.attributes = object.attributes?.map(e => Attribute.fromAmino(e)) || [];
+    message.attributes = object.attributes?.map((e) => Attribute.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: StringEvent): StringEventAmino {
     const obj: any = {};
-    obj.type = message.type === "" ? undefined : message.type;
+    obj.type = message.type === '' ? undefined : message.type;
     if (message.attributes) {
-      obj.attributes = message.attributes.map(e => e ? Attribute.toAmino(e) : undefined);
+      obj.attributes = message.attributes.map((e) => (e ? Attribute.toAmino(e) : undefined));
     } else {
       obj.attributes = message.attributes;
     }
@@ -852,8 +852,8 @@ export const StringEvent = {
   },
   toAminoMsg(message: StringEvent): StringEventAminoMsg {
     return {
-      type: "cosmos-sdk/StringEvent",
-      value: StringEvent.toAmino(message)
+      type: 'cosmos-sdk/StringEvent',
+      value: StringEvent.toAmino(message),
     };
   },
   fromProtoMsg(message: StringEventProtoMsg): StringEvent {
@@ -864,32 +864,32 @@ export const StringEvent = {
   },
   toProtoMsg(message: StringEvent): StringEventProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.StringEvent",
-      value: StringEvent.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.StringEvent',
+      value: StringEvent.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseAttribute(): Attribute {
   return {
-    key: "",
-    value: ""
+    key: '',
+    value: '',
   };
 }
 export const Attribute = {
-  typeUrl: "/cosmos.base.abci.v1beta1.Attribute",
-  aminoType: "cosmos-sdk/Attribute",
+  typeUrl: '/cosmos.base.abci.v1beta1.Attribute',
+  aminoType: 'cosmos-sdk/Attribute',
   encode(message: Attribute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-    if (message.value !== "") {
+    if (message.value !== '') {
       writer.uint32(18).string(message.value);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Attribute {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAttribute();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -909,8 +909,8 @@ export const Attribute = {
   },
   fromPartial(object: DeepPartial<Attribute>): Attribute {
     const message = createBaseAttribute();
-    message.key = object.key ?? "";
-    message.value = object.value ?? "";
+    message.key = object.key ?? '';
+    message.value = object.value ?? '';
     return message;
   },
   fromAmino(object: AttributeAmino): Attribute {
@@ -925,8 +925,8 @@ export const Attribute = {
   },
   toAmino(message: Attribute): AttributeAmino {
     const obj: any = {};
-    obj.key = message.key === "" ? undefined : message.key;
-    obj.value = message.value === "" ? undefined : message.value;
+    obj.key = message.key === '' ? undefined : message.key;
+    obj.value = message.value === '' ? undefined : message.value;
     return obj;
   },
   fromAminoMsg(object: AttributeAminoMsg): Attribute {
@@ -934,8 +934,8 @@ export const Attribute = {
   },
   toAminoMsg(message: Attribute): AttributeAminoMsg {
     return {
-      type: "cosmos-sdk/Attribute",
-      value: Attribute.toAmino(message)
+      type: 'cosmos-sdk/Attribute',
+      value: Attribute.toAmino(message),
     };
   },
   fromProtoMsg(message: AttributeProtoMsg): Attribute {
@@ -946,20 +946,20 @@ export const Attribute = {
   },
   toProtoMsg(message: Attribute): AttributeProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.Attribute",
-      value: Attribute.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.Attribute',
+      value: Attribute.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseGasInfo(): GasInfo {
   return {
     gasWanted: BigInt(0),
-    gasUsed: BigInt(0)
+    gasUsed: BigInt(0),
   };
 }
 export const GasInfo = {
-  typeUrl: "/cosmos.base.abci.v1beta1.GasInfo",
-  aminoType: "cosmos-sdk/GasInfo",
+  typeUrl: '/cosmos.base.abci.v1beta1.GasInfo',
+  aminoType: 'cosmos-sdk/GasInfo',
   encode(message: GasInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.gasWanted !== BigInt(0)) {
       writer.uint32(8).uint64(message.gasWanted);
@@ -971,7 +971,7 @@ export const GasInfo = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): GasInfo {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGasInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1016,8 +1016,8 @@ export const GasInfo = {
   },
   toAminoMsg(message: GasInfo): GasInfoAminoMsg {
     return {
-      type: "cosmos-sdk/GasInfo",
-      value: GasInfo.toAmino(message)
+      type: 'cosmos-sdk/GasInfo',
+      value: GasInfo.toAmino(message),
     };
   },
   fromProtoMsg(message: GasInfoProtoMsg): GasInfo {
@@ -1028,27 +1028,27 @@ export const GasInfo = {
   },
   toProtoMsg(message: GasInfo): GasInfoProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.GasInfo",
-      value: GasInfo.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.GasInfo',
+      value: GasInfo.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseResult(): Result {
   return {
     data: new Uint8Array(),
-    log: "",
+    log: '',
     events: [],
-    msgResponses: []
+    msgResponses: [],
   };
 }
 export const Result = {
-  typeUrl: "/cosmos.base.abci.v1beta1.Result",
-  aminoType: "cosmos-sdk/Result",
+  typeUrl: '/cosmos.base.abci.v1beta1.Result',
+  aminoType: 'cosmos-sdk/Result',
   encode(message: Result, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.data.length !== 0) {
       writer.uint32(10).bytes(message.data);
     }
-    if (message.log !== "") {
+    if (message.log !== '') {
       writer.uint32(18).string(message.log);
     }
     for (const v of message.events) {
@@ -1061,7 +1061,7 @@ export const Result = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Result {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResult();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1088,9 +1088,9 @@ export const Result = {
   fromPartial(object: DeepPartial<Result>): Result {
     const message = createBaseResult();
     message.data = object.data ?? new Uint8Array();
-    message.log = object.log ?? "";
-    message.events = object.events?.map(e => Event.fromPartial(e)) || [];
-    message.msgResponses = object.msgResponses?.map(e => Any.fromPartial(e)) || [];
+    message.log = object.log ?? '';
+    message.events = object.events?.map((e) => Event.fromPartial(e)) || [];
+    message.msgResponses = object.msgResponses?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: ResultAmino): Result {
@@ -1101,21 +1101,21 @@ export const Result = {
     if (object.log !== undefined && object.log !== null) {
       message.log = object.log;
     }
-    message.events = object.events?.map(e => Event.fromAmino(e)) || [];
-    message.msgResponses = object.msg_responses?.map(e => Any.fromAmino(e)) || [];
+    message.events = object.events?.map((e) => Event.fromAmino(e)) || [];
+    message.msgResponses = object.msg_responses?.map((e) => Any.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: Result): ResultAmino {
     const obj: any = {};
     obj.data = message.data ? base64FromBytes(message.data) : undefined;
-    obj.log = message.log === "" ? undefined : message.log;
+    obj.log = message.log === '' ? undefined : message.log;
     if (message.events) {
-      obj.events = message.events.map(e => e ? Event.toAmino(e) : undefined);
+      obj.events = message.events.map((e) => (e ? Event.toAmino(e) : undefined));
     } else {
       obj.events = message.events;
     }
     if (message.msgResponses) {
-      obj.msg_responses = message.msgResponses.map(e => e ? Any.toAmino(e) : undefined);
+      obj.msg_responses = message.msgResponses.map((e) => (e ? Any.toAmino(e) : undefined));
     } else {
       obj.msg_responses = message.msgResponses;
     }
@@ -1126,8 +1126,8 @@ export const Result = {
   },
   toAminoMsg(message: Result): ResultAminoMsg {
     return {
-      type: "cosmos-sdk/Result",
-      value: Result.toAmino(message)
+      type: 'cosmos-sdk/Result',
+      value: Result.toAmino(message),
     };
   },
   fromProtoMsg(message: ResultProtoMsg): Result {
@@ -1138,20 +1138,20 @@ export const Result = {
   },
   toProtoMsg(message: Result): ResultProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.Result",
-      value: Result.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.Result',
+      value: Result.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSimulationResponse(): SimulationResponse {
   return {
     gasInfo: GasInfo.fromPartial({}),
-    result: undefined
+    result: undefined,
   };
 }
 export const SimulationResponse = {
-  typeUrl: "/cosmos.base.abci.v1beta1.SimulationResponse",
-  aminoType: "cosmos-sdk/SimulationResponse",
+  typeUrl: '/cosmos.base.abci.v1beta1.SimulationResponse',
+  aminoType: 'cosmos-sdk/SimulationResponse',
   encode(message: SimulationResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.gasInfo !== undefined) {
       GasInfo.encode(message.gasInfo, writer.uint32(10).fork()).ldelim();
@@ -1163,7 +1163,7 @@ export const SimulationResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SimulationResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSimulationResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1208,8 +1208,8 @@ export const SimulationResponse = {
   },
   toAminoMsg(message: SimulationResponse): SimulationResponseAminoMsg {
     return {
-      type: "cosmos-sdk/SimulationResponse",
-      value: SimulationResponse.toAmino(message)
+      type: 'cosmos-sdk/SimulationResponse',
+      value: SimulationResponse.toAmino(message),
     };
   },
   fromProtoMsg(message: SimulationResponseProtoMsg): SimulationResponse {
@@ -1220,22 +1220,22 @@ export const SimulationResponse = {
   },
   toProtoMsg(message: SimulationResponse): SimulationResponseProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.SimulationResponse",
-      value: SimulationResponse.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.SimulationResponse',
+      value: SimulationResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMsgData(): MsgData {
   return {
-    msgType: "",
-    data: new Uint8Array()
+    msgType: '',
+    data: new Uint8Array(),
   };
 }
 export const MsgData = {
-  typeUrl: "/cosmos.base.abci.v1beta1.MsgData",
-  aminoType: "cosmos-sdk/MsgData",
+  typeUrl: '/cosmos.base.abci.v1beta1.MsgData',
+  aminoType: 'cosmos-sdk/MsgData',
   encode(message: MsgData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.msgType !== "") {
+    if (message.msgType !== '') {
       writer.uint32(10).string(message.msgType);
     }
     if (message.data.length !== 0) {
@@ -1245,7 +1245,7 @@ export const MsgData = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): MsgData {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgData();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1265,7 +1265,7 @@ export const MsgData = {
   },
   fromPartial(object: DeepPartial<MsgData>): MsgData {
     const message = createBaseMsgData();
-    message.msgType = object.msgType ?? "";
+    message.msgType = object.msgType ?? '';
     message.data = object.data ?? new Uint8Array();
     return message;
   },
@@ -1281,7 +1281,7 @@ export const MsgData = {
   },
   toAmino(message: MsgData): MsgDataAmino {
     const obj: any = {};
-    obj.msg_type = message.msgType === "" ? undefined : message.msgType;
+    obj.msg_type = message.msgType === '' ? undefined : message.msgType;
     obj.data = message.data ? base64FromBytes(message.data) : undefined;
     return obj;
   },
@@ -1290,8 +1290,8 @@ export const MsgData = {
   },
   toAminoMsg(message: MsgData): MsgDataAminoMsg {
     return {
-      type: "cosmos-sdk/MsgData",
-      value: MsgData.toAmino(message)
+      type: 'cosmos-sdk/MsgData',
+      value: MsgData.toAmino(message),
     };
   },
   fromProtoMsg(message: MsgDataProtoMsg): MsgData {
@@ -1302,20 +1302,20 @@ export const MsgData = {
   },
   toProtoMsg(message: MsgData): MsgDataProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.MsgData",
-      value: MsgData.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.MsgData',
+      value: MsgData.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseTxMsgData(): TxMsgData {
   return {
     data: [],
-    msgResponses: []
+    msgResponses: [],
   };
 }
 export const TxMsgData = {
-  typeUrl: "/cosmos.base.abci.v1beta1.TxMsgData",
-  aminoType: "cosmos-sdk/TxMsgData",
+  typeUrl: '/cosmos.base.abci.v1beta1.TxMsgData',
+  aminoType: 'cosmos-sdk/TxMsgData',
   encode(message: TxMsgData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.data) {
       MsgData.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -1327,7 +1327,7 @@ export const TxMsgData = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): TxMsgData {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTxMsgData();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1347,25 +1347,25 @@ export const TxMsgData = {
   },
   fromPartial(object: DeepPartial<TxMsgData>): TxMsgData {
     const message = createBaseTxMsgData();
-    message.data = object.data?.map(e => MsgData.fromPartial(e)) || [];
-    message.msgResponses = object.msgResponses?.map(e => Any.fromPartial(e)) || [];
+    message.data = object.data?.map((e) => MsgData.fromPartial(e)) || [];
+    message.msgResponses = object.msgResponses?.map((e) => Any.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: TxMsgDataAmino): TxMsgData {
     const message = createBaseTxMsgData();
-    message.data = object.data?.map(e => MsgData.fromAmino(e)) || [];
-    message.msgResponses = object.msg_responses?.map(e => Any.fromAmino(e)) || [];
+    message.data = object.data?.map((e) => MsgData.fromAmino(e)) || [];
+    message.msgResponses = object.msg_responses?.map((e) => Any.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: TxMsgData): TxMsgDataAmino {
     const obj: any = {};
     if (message.data) {
-      obj.data = message.data.map(e => e ? MsgData.toAmino(e) : undefined);
+      obj.data = message.data.map((e) => (e ? MsgData.toAmino(e) : undefined));
     } else {
       obj.data = message.data;
     }
     if (message.msgResponses) {
-      obj.msg_responses = message.msgResponses.map(e => e ? Any.toAmino(e) : undefined);
+      obj.msg_responses = message.msgResponses.map((e) => (e ? Any.toAmino(e) : undefined));
     } else {
       obj.msg_responses = message.msgResponses;
     }
@@ -1376,8 +1376,8 @@ export const TxMsgData = {
   },
   toAminoMsg(message: TxMsgData): TxMsgDataAminoMsg {
     return {
-      type: "cosmos-sdk/TxMsgData",
-      value: TxMsgData.toAmino(message)
+      type: 'cosmos-sdk/TxMsgData',
+      value: TxMsgData.toAmino(message),
     };
   },
   fromProtoMsg(message: TxMsgDataProtoMsg): TxMsgData {
@@ -1388,10 +1388,10 @@ export const TxMsgData = {
   },
   toProtoMsg(message: TxMsgData): TxMsgDataProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.TxMsgData",
-      value: TxMsgData.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.TxMsgData',
+      value: TxMsgData.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSearchTxsResult(): SearchTxsResult {
   return {
@@ -1400,12 +1400,12 @@ function createBaseSearchTxsResult(): SearchTxsResult {
     pageNumber: BigInt(0),
     pageTotal: BigInt(0),
     limit: BigInt(0),
-    txs: []
+    txs: [],
   };
 }
 export const SearchTxsResult = {
-  typeUrl: "/cosmos.base.abci.v1beta1.SearchTxsResult",
-  aminoType: "cosmos-sdk/SearchTxsResult",
+  typeUrl: '/cosmos.base.abci.v1beta1.SearchTxsResult',
+  aminoType: 'cosmos-sdk/SearchTxsResult',
   encode(message: SearchTxsResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.totalCount !== BigInt(0)) {
       writer.uint32(8).uint64(message.totalCount);
@@ -1429,7 +1429,7 @@ export const SearchTxsResult = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SearchTxsResult {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSearchTxsResult();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1466,7 +1466,7 @@ export const SearchTxsResult = {
     message.pageNumber = object.pageNumber !== undefined && object.pageNumber !== null ? BigInt(object.pageNumber.toString()) : BigInt(0);
     message.pageTotal = object.pageTotal !== undefined && object.pageTotal !== null ? BigInt(object.pageTotal.toString()) : BigInt(0);
     message.limit = object.limit !== undefined && object.limit !== null ? BigInt(object.limit.toString()) : BigInt(0);
-    message.txs = object.txs?.map(e => TxResponse.fromPartial(e)) || [];
+    message.txs = object.txs?.map((e) => TxResponse.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: SearchTxsResultAmino): SearchTxsResult {
@@ -1486,7 +1486,7 @@ export const SearchTxsResult = {
     if (object.limit !== undefined && object.limit !== null) {
       message.limit = BigInt(object.limit);
     }
-    message.txs = object.txs?.map(e => TxResponse.fromAmino(e)) || [];
+    message.txs = object.txs?.map((e) => TxResponse.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: SearchTxsResult): SearchTxsResultAmino {
@@ -1497,7 +1497,7 @@ export const SearchTxsResult = {
     obj.page_total = message.pageTotal !== BigInt(0) ? message.pageTotal.toString() : undefined;
     obj.limit = message.limit !== BigInt(0) ? message.limit.toString() : undefined;
     if (message.txs) {
-      obj.txs = message.txs.map(e => e ? TxResponse.toAmino(e) : undefined);
+      obj.txs = message.txs.map((e) => (e ? TxResponse.toAmino(e) : undefined));
     } else {
       obj.txs = message.txs;
     }
@@ -1508,8 +1508,8 @@ export const SearchTxsResult = {
   },
   toAminoMsg(message: SearchTxsResult): SearchTxsResultAminoMsg {
     return {
-      type: "cosmos-sdk/SearchTxsResult",
-      value: SearchTxsResult.toAmino(message)
+      type: 'cosmos-sdk/SearchTxsResult',
+      value: SearchTxsResult.toAmino(message),
     };
   },
   fromProtoMsg(message: SearchTxsResultProtoMsg): SearchTxsResult {
@@ -1520,8 +1520,8 @@ export const SearchTxsResult = {
   },
   toProtoMsg(message: SearchTxsResult): SearchTxsResultProtoMsg {
     return {
-      typeUrl: "/cosmos.base.abci.v1beta1.SearchTxsResult",
-      value: SearchTxsResult.encode(message).finish()
+      typeUrl: '/cosmos.base.abci.v1beta1.SearchTxsResult',
+      value: SearchTxsResult.encode(message).finish(),
     };
-  }
+  },
 };

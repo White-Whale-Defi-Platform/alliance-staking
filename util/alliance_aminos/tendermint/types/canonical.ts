@@ -1,13 +1,13 @@
-import { SignedMsgType } from "./types";
-import { Timestamp } from "../../google/protobuf/timestamp";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes, toTimestamp, fromTimestamp } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { Timestamp } from '../../google/protobuf/timestamp';
+import { DeepPartial, bytesFromBase64, base64FromBytes, toTimestamp, fromTimestamp } from '../../helpers';
+import { SignedMsgType } from './types';
 export interface CanonicalBlockID {
   hash: Uint8Array;
   partSetHeader: CanonicalPartSetHeader;
 }
 export interface CanonicalBlockIDProtoMsg {
-  typeUrl: "/tendermint.types.CanonicalBlockID";
+  typeUrl: '/tendermint.types.CanonicalBlockID';
   value: Uint8Array;
 }
 export interface CanonicalBlockIDAmino {
@@ -15,7 +15,7 @@ export interface CanonicalBlockIDAmino {
   part_set_header?: CanonicalPartSetHeaderAmino;
 }
 export interface CanonicalBlockIDAminoMsg {
-  type: "/tendermint.types.CanonicalBlockID";
+  type: '/tendermint.types.CanonicalBlockID';
   value: CanonicalBlockIDAmino;
 }
 export interface CanonicalBlockIDSDKType {
@@ -27,7 +27,7 @@ export interface CanonicalPartSetHeader {
   hash: Uint8Array;
 }
 export interface CanonicalPartSetHeaderProtoMsg {
-  typeUrl: "/tendermint.types.CanonicalPartSetHeader";
+  typeUrl: '/tendermint.types.CanonicalPartSetHeader';
   value: Uint8Array;
 }
 export interface CanonicalPartSetHeaderAmino {
@@ -35,7 +35,7 @@ export interface CanonicalPartSetHeaderAmino {
   hash?: string;
 }
 export interface CanonicalPartSetHeaderAminoMsg {
-  type: "/tendermint.types.CanonicalPartSetHeader";
+  type: '/tendermint.types.CanonicalPartSetHeader';
   value: CanonicalPartSetHeaderAmino;
 }
 export interface CanonicalPartSetHeaderSDKType {
@@ -43,11 +43,11 @@ export interface CanonicalPartSetHeaderSDKType {
   hash: Uint8Array;
 }
 export interface CanonicalProposal {
-  /** type alias for byte */
+  /** Type alias for byte */
   type: SignedMsgType;
-  /** canonicalization requires fixed size encoding here */
+  /** Canonicalization requires fixed size encoding here */
   height: bigint;
-  /** canonicalization requires fixed size encoding here */
+  /** Canonicalization requires fixed size encoding here */
   round: bigint;
   polRound: bigint;
   blockId?: CanonicalBlockID;
@@ -55,15 +55,15 @@ export interface CanonicalProposal {
   chainId: string;
 }
 export interface CanonicalProposalProtoMsg {
-  typeUrl: "/tendermint.types.CanonicalProposal";
+  typeUrl: '/tendermint.types.CanonicalProposal';
   value: Uint8Array;
 }
 export interface CanonicalProposalAmino {
-  /** type alias for byte */
+  /** Type alias for byte */
   type?: SignedMsgType;
-  /** canonicalization requires fixed size encoding here */
+  /** Canonicalization requires fixed size encoding here */
   height?: string;
-  /** canonicalization requires fixed size encoding here */
+  /** Canonicalization requires fixed size encoding here */
   round?: string;
   pol_round?: string;
   block_id?: CanonicalBlockIDAmino;
@@ -71,7 +71,7 @@ export interface CanonicalProposalAmino {
   chain_id?: string;
 }
 export interface CanonicalProposalAminoMsg {
-  type: "/tendermint.types.CanonicalProposal";
+  type: '/tendermint.types.CanonicalProposal';
   value: CanonicalProposalAmino;
 }
 export interface CanonicalProposalSDKType {
@@ -84,33 +84,33 @@ export interface CanonicalProposalSDKType {
   chain_id: string;
 }
 export interface CanonicalVote {
-  /** type alias for byte */
+  /** Type alias for byte */
   type: SignedMsgType;
-  /** canonicalization requires fixed size encoding here */
+  /** Canonicalization requires fixed size encoding here */
   height: bigint;
-  /** canonicalization requires fixed size encoding here */
+  /** Canonicalization requires fixed size encoding here */
   round: bigint;
   blockId?: CanonicalBlockID;
   timestamp: Date;
   chainId: string;
 }
 export interface CanonicalVoteProtoMsg {
-  typeUrl: "/tendermint.types.CanonicalVote";
+  typeUrl: '/tendermint.types.CanonicalVote';
   value: Uint8Array;
 }
 export interface CanonicalVoteAmino {
-  /** type alias for byte */
+  /** Type alias for byte */
   type?: SignedMsgType;
-  /** canonicalization requires fixed size encoding here */
+  /** Canonicalization requires fixed size encoding here */
   height?: string;
-  /** canonicalization requires fixed size encoding here */
+  /** Canonicalization requires fixed size encoding here */
   round?: string;
   block_id?: CanonicalBlockIDAmino;
   timestamp?: string;
   chain_id?: string;
 }
 export interface CanonicalVoteAminoMsg {
-  type: "/tendermint.types.CanonicalVote";
+  type: '/tendermint.types.CanonicalVote';
   value: CanonicalVoteAmino;
 }
 export interface CanonicalVoteSDKType {
@@ -124,11 +124,11 @@ export interface CanonicalVoteSDKType {
 function createBaseCanonicalBlockID(): CanonicalBlockID {
   return {
     hash: new Uint8Array(),
-    partSetHeader: CanonicalPartSetHeader.fromPartial({})
+    partSetHeader: CanonicalPartSetHeader.fromPartial({}),
   };
 }
 export const CanonicalBlockID = {
-  typeUrl: "/tendermint.types.CanonicalBlockID",
+  typeUrl: '/tendermint.types.CanonicalBlockID',
   encode(message: CanonicalBlockID, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.hash.length !== 0) {
       writer.uint32(10).bytes(message.hash);
@@ -140,7 +140,7 @@ export const CanonicalBlockID = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): CanonicalBlockID {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCanonicalBlockID();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -191,19 +191,19 @@ export const CanonicalBlockID = {
   },
   toProtoMsg(message: CanonicalBlockID): CanonicalBlockIDProtoMsg {
     return {
-      typeUrl: "/tendermint.types.CanonicalBlockID",
-      value: CanonicalBlockID.encode(message).finish()
+      typeUrl: '/tendermint.types.CanonicalBlockID',
+      value: CanonicalBlockID.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseCanonicalPartSetHeader(): CanonicalPartSetHeader {
   return {
     total: 0,
-    hash: new Uint8Array()
+    hash: new Uint8Array(),
   };
 }
 export const CanonicalPartSetHeader = {
-  typeUrl: "/tendermint.types.CanonicalPartSetHeader",
+  typeUrl: '/tendermint.types.CanonicalPartSetHeader',
   encode(message: CanonicalPartSetHeader, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.total !== 0) {
       writer.uint32(8).uint32(message.total);
@@ -215,7 +215,7 @@ export const CanonicalPartSetHeader = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): CanonicalPartSetHeader {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCanonicalPartSetHeader();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -266,10 +266,10 @@ export const CanonicalPartSetHeader = {
   },
   toProtoMsg(message: CanonicalPartSetHeader): CanonicalPartSetHeaderProtoMsg {
     return {
-      typeUrl: "/tendermint.types.CanonicalPartSetHeader",
-      value: CanonicalPartSetHeader.encode(message).finish()
+      typeUrl: '/tendermint.types.CanonicalPartSetHeader',
+      value: CanonicalPartSetHeader.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseCanonicalProposal(): CanonicalProposal {
   return {
@@ -279,11 +279,11 @@ function createBaseCanonicalProposal(): CanonicalProposal {
     polRound: BigInt(0),
     blockId: undefined,
     timestamp: new Date(),
-    chainId: ""
+    chainId: '',
   };
 }
 export const CanonicalProposal = {
-  typeUrl: "/tendermint.types.CanonicalProposal",
+  typeUrl: '/tendermint.types.CanonicalProposal',
   encode(message: CanonicalProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
@@ -303,14 +303,14 @@ export const CanonicalProposal = {
     if (message.timestamp !== undefined) {
       Timestamp.encode(toTimestamp(message.timestamp), writer.uint32(50).fork()).ldelim();
     }
-    if (message.chainId !== "") {
+    if (message.chainId !== '') {
       writer.uint32(58).string(message.chainId);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): CanonicalProposal {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCanonicalProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -351,7 +351,7 @@ export const CanonicalProposal = {
     message.polRound = object.polRound !== undefined && object.polRound !== null ? BigInt(object.polRound.toString()) : BigInt(0);
     message.blockId = object.blockId !== undefined && object.blockId !== null ? CanonicalBlockID.fromPartial(object.blockId) : undefined;
     message.timestamp = object.timestamp ?? undefined;
-    message.chainId = object.chainId ?? "";
+    message.chainId = object.chainId ?? '';
     return message;
   },
   fromAmino(object: CanonicalProposalAmino): CanonicalProposal {
@@ -387,7 +387,7 @@ export const CanonicalProposal = {
     obj.pol_round = message.polRound !== BigInt(0) ? message.polRound.toString() : undefined;
     obj.block_id = message.blockId ? CanonicalBlockID.toAmino(message.blockId) : undefined;
     obj.timestamp = message.timestamp ? Timestamp.toAmino(toTimestamp(message.timestamp)) : undefined;
-    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
+    obj.chain_id = message.chainId === '' ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: CanonicalProposalAminoMsg): CanonicalProposal {
@@ -401,10 +401,10 @@ export const CanonicalProposal = {
   },
   toProtoMsg(message: CanonicalProposal): CanonicalProposalProtoMsg {
     return {
-      typeUrl: "/tendermint.types.CanonicalProposal",
-      value: CanonicalProposal.encode(message).finish()
+      typeUrl: '/tendermint.types.CanonicalProposal',
+      value: CanonicalProposal.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseCanonicalVote(): CanonicalVote {
   return {
@@ -413,11 +413,11 @@ function createBaseCanonicalVote(): CanonicalVote {
     round: BigInt(0),
     blockId: undefined,
     timestamp: new Date(),
-    chainId: ""
+    chainId: '',
   };
 }
 export const CanonicalVote = {
-  typeUrl: "/tendermint.types.CanonicalVote",
+  typeUrl: '/tendermint.types.CanonicalVote',
   encode(message: CanonicalVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
@@ -434,14 +434,14 @@ export const CanonicalVote = {
     if (message.timestamp !== undefined) {
       Timestamp.encode(toTimestamp(message.timestamp), writer.uint32(42).fork()).ldelim();
     }
-    if (message.chainId !== "") {
+    if (message.chainId !== '') {
       writer.uint32(50).string(message.chainId);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): CanonicalVote {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCanonicalVote();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -478,7 +478,7 @@ export const CanonicalVote = {
     message.round = object.round !== undefined && object.round !== null ? BigInt(object.round.toString()) : BigInt(0);
     message.blockId = object.blockId !== undefined && object.blockId !== null ? CanonicalBlockID.fromPartial(object.blockId) : undefined;
     message.timestamp = object.timestamp ?? undefined;
-    message.chainId = object.chainId ?? "";
+    message.chainId = object.chainId ?? '';
     return message;
   },
   fromAmino(object: CanonicalVoteAmino): CanonicalVote {
@@ -510,7 +510,7 @@ export const CanonicalVote = {
     obj.round = message.round !== BigInt(0) ? message.round.toString() : undefined;
     obj.block_id = message.blockId ? CanonicalBlockID.toAmino(message.blockId) : undefined;
     obj.timestamp = message.timestamp ? Timestamp.toAmino(toTimestamp(message.timestamp)) : undefined;
-    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
+    obj.chain_id = message.chainId === '' ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: CanonicalVoteAminoMsg): CanonicalVote {
@@ -524,8 +524,8 @@ export const CanonicalVote = {
   },
   toProtoMsg(message: CanonicalVote): CanonicalVoteProtoMsg {
     return {
-      typeUrl: "/tendermint.types.CanonicalVote",
-      value: CanonicalVote.encode(message).finish()
+      typeUrl: '/tendermint.types.CanonicalVote',
+      value: CanonicalVote.encode(message).finish(),
     };
-  }
+  },
 };

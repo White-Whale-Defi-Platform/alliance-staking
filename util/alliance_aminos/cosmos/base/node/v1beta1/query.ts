@@ -1,15 +1,15 @@
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { DeepPartial } from '../../../../helpers';
 /** ConfigRequest defines the request structure for the Config gRPC query. */
 export interface ConfigRequest {}
 export interface ConfigRequestProtoMsg {
-  typeUrl: "/cosmos.base.node.v1beta1.ConfigRequest";
+  typeUrl: '/cosmos.base.node.v1beta1.ConfigRequest';
   value: Uint8Array;
 }
 /** ConfigRequest defines the request structure for the Config gRPC query. */
 export interface ConfigRequestAmino {}
 export interface ConfigRequestAminoMsg {
-  type: "cosmos-sdk/ConfigRequest";
+  type: 'cosmos-sdk/ConfigRequest';
   value: ConfigRequestAmino;
 }
 /** ConfigRequest defines the request structure for the Config gRPC query. */
@@ -19,7 +19,7 @@ export interface ConfigResponse {
   minimumGasPrice: string;
 }
 export interface ConfigResponseProtoMsg {
-  typeUrl: "/cosmos.base.node.v1beta1.ConfigResponse";
+  typeUrl: '/cosmos.base.node.v1beta1.ConfigResponse';
   value: Uint8Array;
 }
 /** ConfigResponse defines the response structure for the Config gRPC query. */
@@ -27,7 +27,7 @@ export interface ConfigResponseAmino {
   minimum_gas_price?: string;
 }
 export interface ConfigResponseAminoMsg {
-  type: "cosmos-sdk/ConfigResponse";
+  type: 'cosmos-sdk/ConfigResponse';
   value: ConfigResponseAmino;
 }
 /** ConfigResponse defines the response structure for the Config gRPC query. */
@@ -38,14 +38,14 @@ function createBaseConfigRequest(): ConfigRequest {
   return {};
 }
 export const ConfigRequest = {
-  typeUrl: "/cosmos.base.node.v1beta1.ConfigRequest",
-  aminoType: "cosmos-sdk/ConfigRequest",
+  typeUrl: '/cosmos.base.node.v1beta1.ConfigRequest',
+  aminoType: 'cosmos-sdk/ConfigRequest',
   encode(_: ConfigRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ConfigRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConfigRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -74,8 +74,8 @@ export const ConfigRequest = {
   },
   toAminoMsg(message: ConfigRequest): ConfigRequestAminoMsg {
     return {
-      type: "cosmos-sdk/ConfigRequest",
-      value: ConfigRequest.toAmino(message)
+      type: 'cosmos-sdk/ConfigRequest',
+      value: ConfigRequest.toAmino(message),
     };
   },
   fromProtoMsg(message: ConfigRequestProtoMsg): ConfigRequest {
@@ -86,28 +86,28 @@ export const ConfigRequest = {
   },
   toProtoMsg(message: ConfigRequest): ConfigRequestProtoMsg {
     return {
-      typeUrl: "/cosmos.base.node.v1beta1.ConfigRequest",
-      value: ConfigRequest.encode(message).finish()
+      typeUrl: '/cosmos.base.node.v1beta1.ConfigRequest',
+      value: ConfigRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseConfigResponse(): ConfigResponse {
   return {
-    minimumGasPrice: ""
+    minimumGasPrice: '',
   };
 }
 export const ConfigResponse = {
-  typeUrl: "/cosmos.base.node.v1beta1.ConfigResponse",
-  aminoType: "cosmos-sdk/ConfigResponse",
+  typeUrl: '/cosmos.base.node.v1beta1.ConfigResponse',
+  aminoType: 'cosmos-sdk/ConfigResponse',
   encode(message: ConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.minimumGasPrice !== "") {
+    if (message.minimumGasPrice !== '') {
       writer.uint32(10).string(message.minimumGasPrice);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ConfigResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConfigResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -124,7 +124,7 @@ export const ConfigResponse = {
   },
   fromPartial(object: DeepPartial<ConfigResponse>): ConfigResponse {
     const message = createBaseConfigResponse();
-    message.minimumGasPrice = object.minimumGasPrice ?? "";
+    message.minimumGasPrice = object.minimumGasPrice ?? '';
     return message;
   },
   fromAmino(object: ConfigResponseAmino): ConfigResponse {
@@ -136,7 +136,7 @@ export const ConfigResponse = {
   },
   toAmino(message: ConfigResponse): ConfigResponseAmino {
     const obj: any = {};
-    obj.minimum_gas_price = message.minimumGasPrice === "" ? undefined : message.minimumGasPrice;
+    obj.minimum_gas_price = message.minimumGasPrice === '' ? undefined : message.minimumGasPrice;
     return obj;
   },
   fromAminoMsg(object: ConfigResponseAminoMsg): ConfigResponse {
@@ -144,8 +144,8 @@ export const ConfigResponse = {
   },
   toAminoMsg(message: ConfigResponse): ConfigResponseAminoMsg {
     return {
-      type: "cosmos-sdk/ConfigResponse",
-      value: ConfigResponse.toAmino(message)
+      type: 'cosmos-sdk/ConfigResponse',
+      value: ConfigResponse.toAmino(message),
     };
   },
   fromProtoMsg(message: ConfigResponseProtoMsg): ConfigResponse {
@@ -156,8 +156,8 @@ export const ConfigResponse = {
   },
   toProtoMsg(message: ConfigResponse): ConfigResponseProtoMsg {
     return {
-      typeUrl: "/cosmos.base.node.v1beta1.ConfigResponse",
-      value: ConfigResponse.encode(message).finish()
+      typeUrl: '/cosmos.base.node.v1beta1.ConfigResponse',
+      value: ConfigResponse.encode(message).finish(),
     };
-  }
+  },
 };

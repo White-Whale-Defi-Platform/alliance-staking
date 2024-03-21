@@ -33,46 +33,46 @@ export const MonthAmino = Month;
 export function monthFromJSON(object: any): Month {
   switch (object) {
     case 0:
-    case "MONTH_UNSPECIFIED":
+    case 'MONTH_UNSPECIFIED':
       return Month.MONTH_UNSPECIFIED;
     case 1:
-    case "JANUARY":
+    case 'JANUARY':
       return Month.JANUARY;
     case 2:
-    case "FEBRUARY":
+    case 'FEBRUARY':
       return Month.FEBRUARY;
     case 3:
-    case "MARCH":
+    case 'MARCH':
       return Month.MARCH;
     case 4:
-    case "APRIL":
+    case 'APRIL':
       return Month.APRIL;
     case 5:
-    case "MAY":
+    case 'MAY':
       return Month.MAY;
     case 6:
-    case "JUNE":
+    case 'JUNE':
       return Month.JUNE;
     case 7:
-    case "JULY":
+    case 'JULY':
       return Month.JULY;
     case 8:
-    case "AUGUST":
+    case 'AUGUST':
       return Month.AUGUST;
     case 9:
-    case "SEPTEMBER":
+    case 'SEPTEMBER':
       return Month.SEPTEMBER;
     case 10:
-    case "OCTOBER":
+    case 'OCTOBER':
       return Month.OCTOBER;
     case 11:
-    case "NOVEMBER":
+    case 'NOVEMBER':
       return Month.NOVEMBER;
     case 12:
-    case "DECEMBER":
+    case 'DECEMBER':
       return Month.DECEMBER;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Month.UNRECOGNIZED;
   }
@@ -80,33 +80,33 @@ export function monthFromJSON(object: any): Month {
 export function monthToJSON(object: Month): string {
   switch (object) {
     case Month.MONTH_UNSPECIFIED:
-      return "MONTH_UNSPECIFIED";
+      return 'MONTH_UNSPECIFIED';
     case Month.JANUARY:
-      return "JANUARY";
+      return 'JANUARY';
     case Month.FEBRUARY:
-      return "FEBRUARY";
+      return 'FEBRUARY';
     case Month.MARCH:
-      return "MARCH";
+      return 'MARCH';
     case Month.APRIL:
-      return "APRIL";
+      return 'APRIL';
     case Month.MAY:
-      return "MAY";
+      return 'MAY';
     case Month.JUNE:
-      return "JUNE";
+      return 'JUNE';
     case Month.JULY:
-      return "JULY";
+      return 'JULY';
     case Month.AUGUST:
-      return "AUGUST";
+      return 'AUGUST';
     case Month.SEPTEMBER:
-      return "SEPTEMBER";
+      return 'SEPTEMBER';
     case Month.OCTOBER:
-      return "OCTOBER";
+      return 'OCTOBER';
     case Month.NOVEMBER:
-      return "NOVEMBER";
+      return 'NOVEMBER';
     case Month.DECEMBER:
-      return "DECEMBER";
+      return 'DECEMBER';
     case Month.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }

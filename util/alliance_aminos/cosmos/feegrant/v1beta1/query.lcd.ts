@@ -1,39 +1,46 @@
-import { setPaginationParams } from "../../../helpers";
-import { LCDClient } from "@cosmology/lcd";
-import { QueryAllowanceRequest, QueryAllowanceResponseSDKType, QueryAllowancesRequest, QueryAllowancesResponseSDKType, QueryAllowancesByGranterRequest, QueryAllowancesByGranterResponseSDKType } from "./query";
+import { LCDClient } from '@cosmology/lcd';
+
+import { setPaginationParams } from '../../../helpers';
+import { QueryAllowanceRequest, QueryAllowanceResponseSDKType, QueryAllowancesRequest, QueryAllowancesResponseSDKType, QueryAllowancesByGranterRequest, QueryAllowancesByGranterResponseSDKType } from './query';
 export class LCDQueryClient {
   req: LCDClient;
+
   constructor({
-    requestClient
+    requestClient,
   }: {
     requestClient: LCDClient;
   }) {
     this.req = requestClient;
   }
+
   /* Allowance returns fee granted to the grantee by the granter. */
   allowance = async (params: QueryAllowanceRequest): Promise<QueryAllowanceResponseSDKType> => {
     const endpoint = `cosmos/feegrant/v1beta1/allowance/${params.granter}/${params.grantee}`;
     return await this.req.get<QueryAllowanceResponseSDKType>(endpoint);
   };
+
   /* Allowances returns all the grants for address. */
   allowances = async (params: QueryAllowancesRequest): Promise<QueryAllowancesResponseSDKType> => {
     const options: any = {
-      params: {}
+      params: {},
     };
-    if (typeof params?.pagination !== "undefined") {
+    if (typeof params?.pagination !== 'undefined') {
       setPaginationParams(options, params.pagination);
     }
     const endpoint = `cosmos/feegrant/v1beta1/allowances/${params.grantee}`;
     return await this.req.get<QueryAllowancesResponseSDKType>(endpoint, options);
   };
-  /* AllowancesByGranter returns all the grants given by an address
-  
-   Since: cosmos-sdk 0.46 */
+
+  /*
+   * AllowancesByGranter returns all the grants given by an address
+   *
+   * Since: cosmos-sdk 0.46
+   */
   allowancesByGranter = async (params: QueryAllowancesByGranterRequest): Promise<QueryAllowancesByGranterResponseSDKType> => {
     const options: any = {
-      params: {}
+      params: {},
     };
-    if (typeof params?.pagination !== "undefined") {
+    if (typeof params?.pagination !== 'undefined') {
       setPaginationParams(options, params.pagination);
     }
     const endpoint = `cosmos/feegrant/v1beta1/issued/${params.granter}`;

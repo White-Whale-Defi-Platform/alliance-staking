@@ -1,8 +1,7 @@
 import { useQueries } from 'react-query'
 
 import { GeneratedType, Registry } from '@cosmjs/proto-signing';
-import { SigningStargateClient } from '@cosmjs/stargate';
-import { AminoTypes } from '@cosmjs/stargate';
+import { AminoTypes, SigningStargateClient } from '@cosmjs/stargate';
 import { useChain } from '@cosmos-kit/react-lite'
 import { MIGALOO_CHAIN_NAME } from 'constants/common';
 import {
@@ -11,7 +10,7 @@ import {
   allianceAminoConverters,
   allianceProtoRegistry,
   cosmwasmAminoConverters,
-  cosmwasmProtoRegistry
+  cosmwasmProtoRegistry,
 } from 'util/alliance_aminos';
 
 export const useClients = () => {

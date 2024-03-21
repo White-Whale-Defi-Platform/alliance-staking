@@ -1,5 +1,5 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
 /**
  * An object that represents a latitude/longitude pair. This is expressed as a
  * pair of doubles to represent degrees latitude and degrees longitude. Unless
@@ -14,7 +14,7 @@ export interface LatLng {
   longitude: number;
 }
 export interface LatLngProtoMsg {
-  typeUrl: "/google.type.LatLng";
+  typeUrl: '/google.type.LatLng';
   value: Uint8Array;
 }
 /**
@@ -31,7 +31,7 @@ export interface LatLngAmino {
   longitude?: number;
 }
 export interface LatLngAminoMsg {
-  type: "/google.type.LatLng";
+  type: '/google.type.LatLng';
   value: LatLngAmino;
 }
 /**
@@ -48,11 +48,11 @@ export interface LatLngSDKType {
 function createBaseLatLng(): LatLng {
   return {
     latitude: 0,
-    longitude: 0
+    longitude: 0,
   };
 }
 export const LatLng = {
-  typeUrl: "/google.type.LatLng",
+  typeUrl: '/google.type.LatLng',
   encode(message: LatLng, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.latitude !== 0) {
       writer.uint32(9).double(message.latitude);
@@ -64,7 +64,7 @@ export const LatLng = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): LatLng {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLatLng();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -115,8 +115,8 @@ export const LatLng = {
   },
   toProtoMsg(message: LatLng): LatLngProtoMsg {
     return {
-      typeUrl: "/google.type.LatLng",
-      value: LatLng.encode(message).finish()
+      typeUrl: '/google.type.LatLng',
+      value: LatLng.encode(message).finish(),
     };
-  }
+  },
 };

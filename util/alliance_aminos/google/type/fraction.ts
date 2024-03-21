@@ -1,5 +1,5 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
 /** Represents a fraction in terms of a numerator divided by a denominator. */
 export interface Fraction {
   /** The numerator in the fraction, e.g. 2 in 2/3. */
@@ -11,7 +11,7 @@ export interface Fraction {
   denominator: bigint;
 }
 export interface FractionProtoMsg {
-  typeUrl: "/google.type.Fraction";
+  typeUrl: '/google.type.Fraction';
   value: Uint8Array;
 }
 /** Represents a fraction in terms of a numerator divided by a denominator. */
@@ -25,7 +25,7 @@ export interface FractionAmino {
   denominator?: string;
 }
 export interface FractionAminoMsg {
-  type: "/google.type.Fraction";
+  type: '/google.type.Fraction';
   value: FractionAmino;
 }
 /** Represents a fraction in terms of a numerator divided by a denominator. */
@@ -36,11 +36,11 @@ export interface FractionSDKType {
 function createBaseFraction(): Fraction {
   return {
     numerator: BigInt(0),
-    denominator: BigInt(0)
+    denominator: BigInt(0),
   };
 }
 export const Fraction = {
-  typeUrl: "/google.type.Fraction",
+  typeUrl: '/google.type.Fraction',
   encode(message: Fraction, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.numerator !== BigInt(0)) {
       writer.uint32(8).int64(message.numerator);
@@ -52,7 +52,7 @@ export const Fraction = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Fraction {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFraction();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -103,8 +103,8 @@ export const Fraction = {
   },
   toProtoMsg(message: Fraction): FractionProtoMsg {
     return {
-      typeUrl: "/google.type.Fraction",
-      value: Fraction.encode(message).finish()
+      typeUrl: '/google.type.Fraction',
+      value: Fraction.encode(message).finish(),
     };
-  }
+  },
 };

@@ -1,7 +1,7 @@
-import { PublicKey, PublicKeyAmino, PublicKeySDKType } from "../crypto/keys";
-import { Vote, VoteAmino, VoteSDKType, Proposal, ProposalAmino, ProposalSDKType } from "../types/types";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial } from '../../helpers';
+import { PublicKey, PublicKeyAmino, PublicKeySDKType } from '../crypto/keys';
+import { Vote, VoteAmino, VoteSDKType, Proposal, ProposalAmino, ProposalSDKType } from '../types/types';
 export enum Errors {
   ERRORS_UNKNOWN = 0,
   ERRORS_UNEXPECTED_RESPONSE = 1,
@@ -16,25 +16,25 @@ export const ErrorsAmino = Errors;
 export function errorsFromJSON(object: any): Errors {
   switch (object) {
     case 0:
-    case "ERRORS_UNKNOWN":
+    case 'ERRORS_UNKNOWN':
       return Errors.ERRORS_UNKNOWN;
     case 1:
-    case "ERRORS_UNEXPECTED_RESPONSE":
+    case 'ERRORS_UNEXPECTED_RESPONSE':
       return Errors.ERRORS_UNEXPECTED_RESPONSE;
     case 2:
-    case "ERRORS_NO_CONNECTION":
+    case 'ERRORS_NO_CONNECTION':
       return Errors.ERRORS_NO_CONNECTION;
     case 3:
-    case "ERRORS_CONNECTION_TIMEOUT":
+    case 'ERRORS_CONNECTION_TIMEOUT':
       return Errors.ERRORS_CONNECTION_TIMEOUT;
     case 4:
-    case "ERRORS_READ_TIMEOUT":
+    case 'ERRORS_READ_TIMEOUT':
       return Errors.ERRORS_READ_TIMEOUT;
     case 5:
-    case "ERRORS_WRITE_TIMEOUT":
+    case 'ERRORS_WRITE_TIMEOUT':
       return Errors.ERRORS_WRITE_TIMEOUT;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Errors.UNRECOGNIZED;
   }
@@ -42,20 +42,20 @@ export function errorsFromJSON(object: any): Errors {
 export function errorsToJSON(object: Errors): string {
   switch (object) {
     case Errors.ERRORS_UNKNOWN:
-      return "ERRORS_UNKNOWN";
+      return 'ERRORS_UNKNOWN';
     case Errors.ERRORS_UNEXPECTED_RESPONSE:
-      return "ERRORS_UNEXPECTED_RESPONSE";
+      return 'ERRORS_UNEXPECTED_RESPONSE';
     case Errors.ERRORS_NO_CONNECTION:
-      return "ERRORS_NO_CONNECTION";
+      return 'ERRORS_NO_CONNECTION';
     case Errors.ERRORS_CONNECTION_TIMEOUT:
-      return "ERRORS_CONNECTION_TIMEOUT";
+      return 'ERRORS_CONNECTION_TIMEOUT';
     case Errors.ERRORS_READ_TIMEOUT:
-      return "ERRORS_READ_TIMEOUT";
+      return 'ERRORS_READ_TIMEOUT';
     case Errors.ERRORS_WRITE_TIMEOUT:
-      return "ERRORS_WRITE_TIMEOUT";
+      return 'ERRORS_WRITE_TIMEOUT';
     case Errors.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 export interface RemoteSignerError {
@@ -63,7 +63,7 @@ export interface RemoteSignerError {
   description: string;
 }
 export interface RemoteSignerErrorProtoMsg {
-  typeUrl: "/tendermint.privval.RemoteSignerError";
+  typeUrl: '/tendermint.privval.RemoteSignerError';
   value: Uint8Array;
 }
 export interface RemoteSignerErrorAmino {
@@ -71,7 +71,7 @@ export interface RemoteSignerErrorAmino {
   description?: string;
 }
 export interface RemoteSignerErrorAminoMsg {
-  type: "/tendermint.privval.RemoteSignerError";
+  type: '/tendermint.privval.RemoteSignerError';
   value: RemoteSignerErrorAmino;
 }
 export interface RemoteSignerErrorSDKType {
@@ -83,7 +83,7 @@ export interface PubKeyRequest {
   chainId: string;
 }
 export interface PubKeyRequestProtoMsg {
-  typeUrl: "/tendermint.privval.PubKeyRequest";
+  typeUrl: '/tendermint.privval.PubKeyRequest';
   value: Uint8Array;
 }
 /** PubKeyRequest requests the consensus public key from the remote signer. */
@@ -91,7 +91,7 @@ export interface PubKeyRequestAmino {
   chain_id?: string;
 }
 export interface PubKeyRequestAminoMsg {
-  type: "/tendermint.privval.PubKeyRequest";
+  type: '/tendermint.privval.PubKeyRequest';
   value: PubKeyRequestAmino;
 }
 /** PubKeyRequest requests the consensus public key from the remote signer. */
@@ -104,7 +104,7 @@ export interface PubKeyResponse {
   error?: RemoteSignerError;
 }
 export interface PubKeyResponseProtoMsg {
-  typeUrl: "/tendermint.privval.PubKeyResponse";
+  typeUrl: '/tendermint.privval.PubKeyResponse';
   value: Uint8Array;
 }
 /** PubKeyResponse is a response message containing the public key. */
@@ -113,7 +113,7 @@ export interface PubKeyResponseAmino {
   error?: RemoteSignerErrorAmino;
 }
 export interface PubKeyResponseAminoMsg {
-  type: "/tendermint.privval.PubKeyResponse";
+  type: '/tendermint.privval.PubKeyResponse';
   value: PubKeyResponseAmino;
 }
 /** PubKeyResponse is a response message containing the public key. */
@@ -127,7 +127,7 @@ export interface SignVoteRequest {
   chainId: string;
 }
 export interface SignVoteRequestProtoMsg {
-  typeUrl: "/tendermint.privval.SignVoteRequest";
+  typeUrl: '/tendermint.privval.SignVoteRequest';
   value: Uint8Array;
 }
 /** SignVoteRequest is a request to sign a vote */
@@ -136,7 +136,7 @@ export interface SignVoteRequestAmino {
   chain_id?: string;
 }
 export interface SignVoteRequestAminoMsg {
-  type: "/tendermint.privval.SignVoteRequest";
+  type: '/tendermint.privval.SignVoteRequest';
   value: SignVoteRequestAmino;
 }
 /** SignVoteRequest is a request to sign a vote */
@@ -150,7 +150,7 @@ export interface SignedVoteResponse {
   error?: RemoteSignerError;
 }
 export interface SignedVoteResponseProtoMsg {
-  typeUrl: "/tendermint.privval.SignedVoteResponse";
+  typeUrl: '/tendermint.privval.SignedVoteResponse';
   value: Uint8Array;
 }
 /** SignedVoteResponse is a response containing a signed vote or an error */
@@ -159,7 +159,7 @@ export interface SignedVoteResponseAmino {
   error?: RemoteSignerErrorAmino;
 }
 export interface SignedVoteResponseAminoMsg {
-  type: "/tendermint.privval.SignedVoteResponse";
+  type: '/tendermint.privval.SignedVoteResponse';
   value: SignedVoteResponseAmino;
 }
 /** SignedVoteResponse is a response containing a signed vote or an error */
@@ -173,7 +173,7 @@ export interface SignProposalRequest {
   chainId: string;
 }
 export interface SignProposalRequestProtoMsg {
-  typeUrl: "/tendermint.privval.SignProposalRequest";
+  typeUrl: '/tendermint.privval.SignProposalRequest';
   value: Uint8Array;
 }
 /** SignProposalRequest is a request to sign a proposal */
@@ -182,7 +182,7 @@ export interface SignProposalRequestAmino {
   chain_id?: string;
 }
 export interface SignProposalRequestAminoMsg {
-  type: "/tendermint.privval.SignProposalRequest";
+  type: '/tendermint.privval.SignProposalRequest';
   value: SignProposalRequestAmino;
 }
 /** SignProposalRequest is a request to sign a proposal */
@@ -196,7 +196,7 @@ export interface SignedProposalResponse {
   error?: RemoteSignerError;
 }
 export interface SignedProposalResponseProtoMsg {
-  typeUrl: "/tendermint.privval.SignedProposalResponse";
+  typeUrl: '/tendermint.privval.SignedProposalResponse';
   value: Uint8Array;
 }
 /** SignedProposalResponse is response containing a signed proposal or an error */
@@ -205,7 +205,7 @@ export interface SignedProposalResponseAmino {
   error?: RemoteSignerErrorAmino;
 }
 export interface SignedProposalResponseAminoMsg {
-  type: "/tendermint.privval.SignedProposalResponse";
+  type: '/tendermint.privval.SignedProposalResponse';
   value: SignedProposalResponseAmino;
 }
 /** SignedProposalResponse is response containing a signed proposal or an error */
@@ -216,13 +216,13 @@ export interface SignedProposalResponseSDKType {
 /** PingRequest is a request to confirm that the connection is alive. */
 export interface PingRequest {}
 export interface PingRequestProtoMsg {
-  typeUrl: "/tendermint.privval.PingRequest";
+  typeUrl: '/tendermint.privval.PingRequest';
   value: Uint8Array;
 }
 /** PingRequest is a request to confirm that the connection is alive. */
 export interface PingRequestAmino {}
 export interface PingRequestAminoMsg {
-  type: "/tendermint.privval.PingRequest";
+  type: '/tendermint.privval.PingRequest';
   value: PingRequestAmino;
 }
 /** PingRequest is a request to confirm that the connection is alive. */
@@ -230,13 +230,13 @@ export interface PingRequestSDKType {}
 /** PingResponse is a response to confirm that the connection is alive. */
 export interface PingResponse {}
 export interface PingResponseProtoMsg {
-  typeUrl: "/tendermint.privval.PingResponse";
+  typeUrl: '/tendermint.privval.PingResponse';
   value: Uint8Array;
 }
 /** PingResponse is a response to confirm that the connection is alive. */
 export interface PingResponseAmino {}
 export interface PingResponseAminoMsg {
-  type: "/tendermint.privval.PingResponse";
+  type: '/tendermint.privval.PingResponse';
   value: PingResponseAmino;
 }
 /** PingResponse is a response to confirm that the connection is alive. */
@@ -252,7 +252,7 @@ export interface Message {
   pingResponse?: PingResponse;
 }
 export interface MessageProtoMsg {
-  typeUrl: "/tendermint.privval.Message";
+  typeUrl: '/tendermint.privval.Message';
   value: Uint8Array;
 }
 export interface MessageAmino {
@@ -266,7 +266,7 @@ export interface MessageAmino {
   ping_response?: PingResponseAmino;
 }
 export interface MessageAminoMsg {
-  type: "/tendermint.privval.Message";
+  type: '/tendermint.privval.Message';
   value: MessageAmino;
 }
 export interface MessageSDKType {
@@ -282,23 +282,23 @@ export interface MessageSDKType {
 function createBaseRemoteSignerError(): RemoteSignerError {
   return {
     code: 0,
-    description: ""
+    description: '',
   };
 }
 export const RemoteSignerError = {
-  typeUrl: "/tendermint.privval.RemoteSignerError",
+  typeUrl: '/tendermint.privval.RemoteSignerError',
   encode(message: RemoteSignerError, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.code !== 0) {
       writer.uint32(8).int32(message.code);
     }
-    if (message.description !== "") {
+    if (message.description !== '') {
       writer.uint32(18).string(message.description);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): RemoteSignerError {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRemoteSignerError();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -319,7 +319,7 @@ export const RemoteSignerError = {
   fromPartial(object: DeepPartial<RemoteSignerError>): RemoteSignerError {
     const message = createBaseRemoteSignerError();
     message.code = object.code ?? 0;
-    message.description = object.description ?? "";
+    message.description = object.description ?? '';
     return message;
   },
   fromAmino(object: RemoteSignerErrorAmino): RemoteSignerError {
@@ -335,7 +335,7 @@ export const RemoteSignerError = {
   toAmino(message: RemoteSignerError): RemoteSignerErrorAmino {
     const obj: any = {};
     obj.code = message.code === 0 ? undefined : message.code;
-    obj.description = message.description === "" ? undefined : message.description;
+    obj.description = message.description === '' ? undefined : message.description;
     return obj;
   },
   fromAminoMsg(object: RemoteSignerErrorAminoMsg): RemoteSignerError {
@@ -349,27 +349,27 @@ export const RemoteSignerError = {
   },
   toProtoMsg(message: RemoteSignerError): RemoteSignerErrorProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.RemoteSignerError",
-      value: RemoteSignerError.encode(message).finish()
+      typeUrl: '/tendermint.privval.RemoteSignerError',
+      value: RemoteSignerError.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePubKeyRequest(): PubKeyRequest {
   return {
-    chainId: ""
+    chainId: '',
   };
 }
 export const PubKeyRequest = {
-  typeUrl: "/tendermint.privval.PubKeyRequest",
+  typeUrl: '/tendermint.privval.PubKeyRequest',
   encode(message: PubKeyRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.chainId !== "") {
+    if (message.chainId !== '') {
       writer.uint32(10).string(message.chainId);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PubKeyRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePubKeyRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -386,7 +386,7 @@ export const PubKeyRequest = {
   },
   fromPartial(object: DeepPartial<PubKeyRequest>): PubKeyRequest {
     const message = createBasePubKeyRequest();
-    message.chainId = object.chainId ?? "";
+    message.chainId = object.chainId ?? '';
     return message;
   },
   fromAmino(object: PubKeyRequestAmino): PubKeyRequest {
@@ -398,7 +398,7 @@ export const PubKeyRequest = {
   },
   toAmino(message: PubKeyRequest): PubKeyRequestAmino {
     const obj: any = {};
-    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
+    obj.chain_id = message.chainId === '' ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: PubKeyRequestAminoMsg): PubKeyRequest {
@@ -412,19 +412,19 @@ export const PubKeyRequest = {
   },
   toProtoMsg(message: PubKeyRequest): PubKeyRequestProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.PubKeyRequest",
-      value: PubKeyRequest.encode(message).finish()
+      typeUrl: '/tendermint.privval.PubKeyRequest',
+      value: PubKeyRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePubKeyResponse(): PubKeyResponse {
   return {
     pubKey: PublicKey.fromPartial({}),
-    error: undefined
+    error: undefined,
   };
 }
 export const PubKeyResponse = {
-  typeUrl: "/tendermint.privval.PubKeyResponse",
+  typeUrl: '/tendermint.privval.PubKeyResponse',
   encode(message: PubKeyResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pubKey !== undefined) {
       PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim();
@@ -436,7 +436,7 @@ export const PubKeyResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PubKeyResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePubKeyResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -487,31 +487,31 @@ export const PubKeyResponse = {
   },
   toProtoMsg(message: PubKeyResponse): PubKeyResponseProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.PubKeyResponse",
-      value: PubKeyResponse.encode(message).finish()
+      typeUrl: '/tendermint.privval.PubKeyResponse',
+      value: PubKeyResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSignVoteRequest(): SignVoteRequest {
   return {
     vote: undefined,
-    chainId: ""
+    chainId: '',
   };
 }
 export const SignVoteRequest = {
-  typeUrl: "/tendermint.privval.SignVoteRequest",
+  typeUrl: '/tendermint.privval.SignVoteRequest',
   encode(message: SignVoteRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.vote !== undefined) {
       Vote.encode(message.vote, writer.uint32(10).fork()).ldelim();
     }
-    if (message.chainId !== "") {
+    if (message.chainId !== '') {
       writer.uint32(18).string(message.chainId);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SignVoteRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignVoteRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -532,7 +532,7 @@ export const SignVoteRequest = {
   fromPartial(object: DeepPartial<SignVoteRequest>): SignVoteRequest {
     const message = createBaseSignVoteRequest();
     message.vote = object.vote !== undefined && object.vote !== null ? Vote.fromPartial(object.vote) : undefined;
-    message.chainId = object.chainId ?? "";
+    message.chainId = object.chainId ?? '';
     return message;
   },
   fromAmino(object: SignVoteRequestAmino): SignVoteRequest {
@@ -548,7 +548,7 @@ export const SignVoteRequest = {
   toAmino(message: SignVoteRequest): SignVoteRequestAmino {
     const obj: any = {};
     obj.vote = message.vote ? Vote.toAmino(message.vote) : undefined;
-    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
+    obj.chain_id = message.chainId === '' ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: SignVoteRequestAminoMsg): SignVoteRequest {
@@ -562,19 +562,19 @@ export const SignVoteRequest = {
   },
   toProtoMsg(message: SignVoteRequest): SignVoteRequestProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.SignVoteRequest",
-      value: SignVoteRequest.encode(message).finish()
+      typeUrl: '/tendermint.privval.SignVoteRequest',
+      value: SignVoteRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSignedVoteResponse(): SignedVoteResponse {
   return {
     vote: Vote.fromPartial({}),
-    error: undefined
+    error: undefined,
   };
 }
 export const SignedVoteResponse = {
-  typeUrl: "/tendermint.privval.SignedVoteResponse",
+  typeUrl: '/tendermint.privval.SignedVoteResponse',
   encode(message: SignedVoteResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.vote !== undefined) {
       Vote.encode(message.vote, writer.uint32(10).fork()).ldelim();
@@ -586,7 +586,7 @@ export const SignedVoteResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SignedVoteResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignedVoteResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -637,31 +637,31 @@ export const SignedVoteResponse = {
   },
   toProtoMsg(message: SignedVoteResponse): SignedVoteResponseProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.SignedVoteResponse",
-      value: SignedVoteResponse.encode(message).finish()
+      typeUrl: '/tendermint.privval.SignedVoteResponse',
+      value: SignedVoteResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSignProposalRequest(): SignProposalRequest {
   return {
     proposal: undefined,
-    chainId: ""
+    chainId: '',
   };
 }
 export const SignProposalRequest = {
-  typeUrl: "/tendermint.privval.SignProposalRequest",
+  typeUrl: '/tendermint.privval.SignProposalRequest',
   encode(message: SignProposalRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposal !== undefined) {
       Proposal.encode(message.proposal, writer.uint32(10).fork()).ldelim();
     }
-    if (message.chainId !== "") {
+    if (message.chainId !== '') {
       writer.uint32(18).string(message.chainId);
     }
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SignProposalRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignProposalRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -682,7 +682,7 @@ export const SignProposalRequest = {
   fromPartial(object: DeepPartial<SignProposalRequest>): SignProposalRequest {
     const message = createBaseSignProposalRequest();
     message.proposal = object.proposal !== undefined && object.proposal !== null ? Proposal.fromPartial(object.proposal) : undefined;
-    message.chainId = object.chainId ?? "";
+    message.chainId = object.chainId ?? '';
     return message;
   },
   fromAmino(object: SignProposalRequestAmino): SignProposalRequest {
@@ -698,7 +698,7 @@ export const SignProposalRequest = {
   toAmino(message: SignProposalRequest): SignProposalRequestAmino {
     const obj: any = {};
     obj.proposal = message.proposal ? Proposal.toAmino(message.proposal) : undefined;
-    obj.chain_id = message.chainId === "" ? undefined : message.chainId;
+    obj.chain_id = message.chainId === '' ? undefined : message.chainId;
     return obj;
   },
   fromAminoMsg(object: SignProposalRequestAminoMsg): SignProposalRequest {
@@ -712,19 +712,19 @@ export const SignProposalRequest = {
   },
   toProtoMsg(message: SignProposalRequest): SignProposalRequestProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.SignProposalRequest",
-      value: SignProposalRequest.encode(message).finish()
+      typeUrl: '/tendermint.privval.SignProposalRequest',
+      value: SignProposalRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseSignedProposalResponse(): SignedProposalResponse {
   return {
     proposal: Proposal.fromPartial({}),
-    error: undefined
+    error: undefined,
   };
 }
 export const SignedProposalResponse = {
-  typeUrl: "/tendermint.privval.SignedProposalResponse",
+  typeUrl: '/tendermint.privval.SignedProposalResponse',
   encode(message: SignedProposalResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.proposal !== undefined) {
       Proposal.encode(message.proposal, writer.uint32(10).fork()).ldelim();
@@ -736,7 +736,7 @@ export const SignedProposalResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): SignedProposalResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignedProposalResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -787,22 +787,22 @@ export const SignedProposalResponse = {
   },
   toProtoMsg(message: SignedProposalResponse): SignedProposalResponseProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.SignedProposalResponse",
-      value: SignedProposalResponse.encode(message).finish()
+      typeUrl: '/tendermint.privval.SignedProposalResponse',
+      value: SignedProposalResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePingRequest(): PingRequest {
   return {};
 }
 export const PingRequest = {
-  typeUrl: "/tendermint.privval.PingRequest",
+  typeUrl: '/tendermint.privval.PingRequest',
   encode(_: PingRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PingRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePingRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -837,22 +837,22 @@ export const PingRequest = {
   },
   toProtoMsg(message: PingRequest): PingRequestProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.PingRequest",
-      value: PingRequest.encode(message).finish()
+      typeUrl: '/tendermint.privval.PingRequest',
+      value: PingRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePingResponse(): PingResponse {
   return {};
 }
 export const PingResponse = {
-  typeUrl: "/tendermint.privval.PingResponse",
+  typeUrl: '/tendermint.privval.PingResponse',
   encode(_: PingResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PingResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePingResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -887,10 +887,10 @@ export const PingResponse = {
   },
   toProtoMsg(message: PingResponse): PingResponseProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.PingResponse",
-      value: PingResponse.encode(message).finish()
+      typeUrl: '/tendermint.privval.PingResponse',
+      value: PingResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMessage(): Message {
   return {
@@ -901,11 +901,11 @@ function createBaseMessage(): Message {
     signProposalRequest: undefined,
     signedProposalResponse: undefined,
     pingRequest: undefined,
-    pingResponse: undefined
+    pingResponse: undefined,
   };
 }
 export const Message = {
-  typeUrl: "/tendermint.privval.Message",
+  typeUrl: '/tendermint.privval.Message',
   encode(message: Message, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pubKeyRequest !== undefined) {
       PubKeyRequest.encode(message.pubKeyRequest, writer.uint32(10).fork()).ldelim();
@@ -935,7 +935,7 @@ export const Message = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Message {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1034,8 +1034,8 @@ export const Message = {
   },
   toProtoMsg(message: Message): MessageProtoMsg {
     return {
-      typeUrl: "/tendermint.privval.Message",
-      value: Message.encode(message).finish()
+      typeUrl: '/tendermint.privval.Message',
+      value: Message.encode(message).finish(),
     };
-  }
+  },
 };

@@ -1,25 +1,25 @@
-import { PublicKey, PublicKeyAmino, PublicKeySDKType } from "../crypto/keys";
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../helpers';
+import { PublicKey, PublicKeyAmino, PublicKeySDKType } from '../crypto/keys';
 export interface PacketPing {}
 export interface PacketPingProtoMsg {
-  typeUrl: "/tendermint.p2p.PacketPing";
+  typeUrl: '/tendermint.p2p.PacketPing';
   value: Uint8Array;
 }
 export interface PacketPingAmino {}
 export interface PacketPingAminoMsg {
-  type: "/tendermint.p2p.PacketPing";
+  type: '/tendermint.p2p.PacketPing';
   value: PacketPingAmino;
 }
 export interface PacketPingSDKType {}
 export interface PacketPong {}
 export interface PacketPongProtoMsg {
-  typeUrl: "/tendermint.p2p.PacketPong";
+  typeUrl: '/tendermint.p2p.PacketPong';
   value: Uint8Array;
 }
 export interface PacketPongAmino {}
 export interface PacketPongAminoMsg {
-  type: "/tendermint.p2p.PacketPong";
+  type: '/tendermint.p2p.PacketPong';
   value: PacketPongAmino;
 }
 export interface PacketPongSDKType {}
@@ -29,7 +29,7 @@ export interface PacketMsg {
   data: Uint8Array;
 }
 export interface PacketMsgProtoMsg {
-  typeUrl: "/tendermint.p2p.PacketMsg";
+  typeUrl: '/tendermint.p2p.PacketMsg';
   value: Uint8Array;
 }
 export interface PacketMsgAmino {
@@ -38,7 +38,7 @@ export interface PacketMsgAmino {
   data?: string;
 }
 export interface PacketMsgAminoMsg {
-  type: "/tendermint.p2p.PacketMsg";
+  type: '/tendermint.p2p.PacketMsg';
   value: PacketMsgAmino;
 }
 export interface PacketMsgSDKType {
@@ -52,7 +52,7 @@ export interface Packet {
   packetMsg?: PacketMsg;
 }
 export interface PacketProtoMsg {
-  typeUrl: "/tendermint.p2p.Packet";
+  typeUrl: '/tendermint.p2p.Packet';
   value: Uint8Array;
 }
 export interface PacketAmino {
@@ -61,7 +61,7 @@ export interface PacketAmino {
   packet_msg?: PacketMsgAmino;
 }
 export interface PacketAminoMsg {
-  type: "/tendermint.p2p.Packet";
+  type: '/tendermint.p2p.Packet';
   value: PacketAmino;
 }
 export interface PacketSDKType {
@@ -74,7 +74,7 @@ export interface AuthSigMessage {
   sig: Uint8Array;
 }
 export interface AuthSigMessageProtoMsg {
-  typeUrl: "/tendermint.p2p.AuthSigMessage";
+  typeUrl: '/tendermint.p2p.AuthSigMessage';
   value: Uint8Array;
 }
 export interface AuthSigMessageAmino {
@@ -82,7 +82,7 @@ export interface AuthSigMessageAmino {
   sig?: string;
 }
 export interface AuthSigMessageAminoMsg {
-  type: "/tendermint.p2p.AuthSigMessage";
+  type: '/tendermint.p2p.AuthSigMessage';
   value: AuthSigMessageAmino;
 }
 export interface AuthSigMessageSDKType {
@@ -93,13 +93,13 @@ function createBasePacketPing(): PacketPing {
   return {};
 }
 export const PacketPing = {
-  typeUrl: "/tendermint.p2p.PacketPing",
+  typeUrl: '/tendermint.p2p.PacketPing',
   encode(_: PacketPing, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PacketPing {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePacketPing();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -134,22 +134,22 @@ export const PacketPing = {
   },
   toProtoMsg(message: PacketPing): PacketPingProtoMsg {
     return {
-      typeUrl: "/tendermint.p2p.PacketPing",
-      value: PacketPing.encode(message).finish()
+      typeUrl: '/tendermint.p2p.PacketPing',
+      value: PacketPing.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePacketPong(): PacketPong {
   return {};
 }
 export const PacketPong = {
-  typeUrl: "/tendermint.p2p.PacketPong",
+  typeUrl: '/tendermint.p2p.PacketPong',
   encode(_: PacketPong, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     return writer;
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PacketPong {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePacketPong();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -184,20 +184,20 @@ export const PacketPong = {
   },
   toProtoMsg(message: PacketPong): PacketPongProtoMsg {
     return {
-      typeUrl: "/tendermint.p2p.PacketPong",
-      value: PacketPong.encode(message).finish()
+      typeUrl: '/tendermint.p2p.PacketPong',
+      value: PacketPong.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePacketMsg(): PacketMsg {
   return {
     channelId: 0,
     eof: false,
-    data: new Uint8Array()
+    data: new Uint8Array(),
   };
 }
 export const PacketMsg = {
-  typeUrl: "/tendermint.p2p.PacketMsg",
+  typeUrl: '/tendermint.p2p.PacketMsg',
   encode(message: PacketMsg, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.channelId !== 0) {
       writer.uint32(8).int32(message.channelId);
@@ -212,7 +212,7 @@ export const PacketMsg = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PacketMsg {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePacketMsg();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -271,20 +271,20 @@ export const PacketMsg = {
   },
   toProtoMsg(message: PacketMsg): PacketMsgProtoMsg {
     return {
-      typeUrl: "/tendermint.p2p.PacketMsg",
-      value: PacketMsg.encode(message).finish()
+      typeUrl: '/tendermint.p2p.PacketMsg',
+      value: PacketMsg.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePacket(): Packet {
   return {
     packetPing: undefined,
     packetPong: undefined,
-    packetMsg: undefined
+    packetMsg: undefined,
   };
 }
 export const Packet = {
-  typeUrl: "/tendermint.p2p.Packet",
+  typeUrl: '/tendermint.p2p.Packet',
   encode(message: Packet, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.packetPing !== undefined) {
       PacketPing.encode(message.packetPing, writer.uint32(10).fork()).ldelim();
@@ -299,7 +299,7 @@ export const Packet = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Packet {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePacket();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -358,19 +358,19 @@ export const Packet = {
   },
   toProtoMsg(message: Packet): PacketProtoMsg {
     return {
-      typeUrl: "/tendermint.p2p.Packet",
-      value: Packet.encode(message).finish()
+      typeUrl: '/tendermint.p2p.Packet',
+      value: Packet.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseAuthSigMessage(): AuthSigMessage {
   return {
     pubKey: PublicKey.fromPartial({}),
-    sig: new Uint8Array()
+    sig: new Uint8Array(),
   };
 }
 export const AuthSigMessage = {
-  typeUrl: "/tendermint.p2p.AuthSigMessage",
+  typeUrl: '/tendermint.p2p.AuthSigMessage',
   encode(message: AuthSigMessage, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.pubKey !== undefined) {
       PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim();
@@ -382,7 +382,7 @@ export const AuthSigMessage = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): AuthSigMessage {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAuthSigMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -433,8 +433,8 @@ export const AuthSigMessage = {
   },
   toProtoMsg(message: AuthSigMessage): AuthSigMessageProtoMsg {
     return {
-      typeUrl: "/tendermint.p2p.AuthSigMessage",
-      value: AuthSigMessage.encode(message).finish()
+      typeUrl: '/tendermint.p2p.AuthSigMessage',
+      value: AuthSigMessage.encode(message).finish(),
     };
-  }
+  },
 };

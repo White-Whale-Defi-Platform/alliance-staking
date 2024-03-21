@@ -1,17 +1,17 @@
-import { BinaryReader, BinaryWriter } from "../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../helpers";
+import { BinaryReader, BinaryWriter } from '../../binary';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../helpers';
 export interface Txs {
   txs: Uint8Array[];
 }
 export interface TxsProtoMsg {
-  typeUrl: "/tendermint.mempool.Txs";
+  typeUrl: '/tendermint.mempool.Txs';
   value: Uint8Array;
 }
 export interface TxsAmino {
   txs?: string[];
 }
 export interface TxsAminoMsg {
-  type: "/tendermint.mempool.Txs";
+  type: '/tendermint.mempool.Txs';
   value: TxsAmino;
 }
 export interface TxsSDKType {
@@ -21,14 +21,14 @@ export interface Message {
   txs?: Txs;
 }
 export interface MessageProtoMsg {
-  typeUrl: "/tendermint.mempool.Message";
+  typeUrl: '/tendermint.mempool.Message';
   value: Uint8Array;
 }
 export interface MessageAmino {
   txs?: TxsAmino;
 }
 export interface MessageAminoMsg {
-  type: "/tendermint.mempool.Message";
+  type: '/tendermint.mempool.Message';
   value: MessageAmino;
 }
 export interface MessageSDKType {
@@ -36,11 +36,11 @@ export interface MessageSDKType {
 }
 function createBaseTxs(): Txs {
   return {
-    txs: []
+    txs: [],
   };
 }
 export const Txs = {
-  typeUrl: "/tendermint.mempool.Txs",
+  typeUrl: '/tendermint.mempool.Txs',
   encode(message: Txs, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.txs) {
       writer.uint32(10).bytes(v!);
@@ -49,7 +49,7 @@ export const Txs = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Txs {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTxs();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -66,18 +66,18 @@ export const Txs = {
   },
   fromPartial(object: DeepPartial<Txs>): Txs {
     const message = createBaseTxs();
-    message.txs = object.txs?.map(e => e) || [];
+    message.txs = object.txs?.map((e) => e) || [];
     return message;
   },
   fromAmino(object: TxsAmino): Txs {
     const message = createBaseTxs();
-    message.txs = object.txs?.map(e => bytesFromBase64(e)) || [];
+    message.txs = object.txs?.map((e) => bytesFromBase64(e)) || [];
     return message;
   },
   toAmino(message: Txs): TxsAmino {
     const obj: any = {};
     if (message.txs) {
-      obj.txs = message.txs.map(e => base64FromBytes(e));
+      obj.txs = message.txs.map((e) => base64FromBytes(e));
     } else {
       obj.txs = message.txs;
     }
@@ -94,18 +94,18 @@ export const Txs = {
   },
   toProtoMsg(message: Txs): TxsProtoMsg {
     return {
-      typeUrl: "/tendermint.mempool.Txs",
-      value: Txs.encode(message).finish()
+      typeUrl: '/tendermint.mempool.Txs',
+      value: Txs.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseMessage(): Message {
   return {
-    txs: undefined
+    txs: undefined,
   };
 }
 export const Message = {
-  typeUrl: "/tendermint.mempool.Message",
+  typeUrl: '/tendermint.mempool.Message',
   encode(message: Message, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.txs !== undefined) {
       Txs.encode(message.txs, writer.uint32(10).fork()).ldelim();
@@ -114,7 +114,7 @@ export const Message = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): Message {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -157,8 +157,8 @@ export const Message = {
   },
   toProtoMsg(message: Message): MessageProtoMsg {
     return {
-      typeUrl: "/tendermint.mempool.Message",
-      value: Message.encode(message).finish()
+      typeUrl: '/tendermint.mempool.Message',
+      value: Message.encode(message).finish(),
     };
-  }
+  },
 };

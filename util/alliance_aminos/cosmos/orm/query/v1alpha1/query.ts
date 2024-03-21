@@ -1,49 +1,49 @@
-import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from "../../../base/query/v1beta1/pagination";
-import { Any, AnyAmino, AnySDKType } from "../../../../google/protobuf/any";
-import { Timestamp } from "../../../../google/protobuf/timestamp";
-import { Duration, DurationAmino, DurationSDKType } from "../../../../google/protobuf/duration";
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { Any, AnyAmino, AnySDKType } from '../../../../google/protobuf/any';
+import { Duration, DurationAmino, DurationSDKType } from '../../../../google/protobuf/duration';
+import { Timestamp } from '../../../../google/protobuf/timestamp';
+import { DeepPartial, toTimestamp, fromTimestamp, bytesFromBase64, base64FromBytes } from '../../../../helpers';
+import { PageRequest, PageRequestAmino, PageRequestSDKType, PageResponse, PageResponseAmino, PageResponseSDKType } from '../../../base/query/v1beta1/pagination';
 /** GetRequest is the Query/Get request type. */
 export interface GetRequest {
-  /** message_name is the fully-qualified message name of the ORM table being queried. */
+  /** Message_name is the fully-qualified message name of the ORM table being queried. */
   messageName: string;
   /**
-   * index is the index fields expression used in orm definitions. If it
+   * Index is the index fields expression used in orm definitions. If it
    * is empty, the table's primary key is assumed. If it is non-empty, it must
    * refer to an unique index.
    */
   index: string;
   /**
-   * values are the values of the fields corresponding to the requested index.
+   * Values are the values of the fields corresponding to the requested index.
    * There must be as many values provided as there are fields in the index and
    * these values must correspond to the index field types.
    */
   values: IndexValue[];
 }
 export interface GetRequestProtoMsg {
-  typeUrl: "/cosmos.orm.query.v1alpha1.GetRequest";
+  typeUrl: '/cosmos.orm.query.v1alpha1.GetRequest';
   value: Uint8Array;
 }
 /** GetRequest is the Query/Get request type. */
 export interface GetRequestAmino {
-  /** message_name is the fully-qualified message name of the ORM table being queried. */
+  /** Message_name is the fully-qualified message name of the ORM table being queried. */
   message_name?: string;
   /**
-   * index is the index fields expression used in orm definitions. If it
+   * Index is the index fields expression used in orm definitions. If it
    * is empty, the table's primary key is assumed. If it is non-empty, it must
    * refer to an unique index.
    */
   index?: string;
   /**
-   * values are the values of the fields corresponding to the requested index.
+   * Values are the values of the fields corresponding to the requested index.
    * There must be as many values provided as there are fields in the index and
    * these values must correspond to the index field types.
    */
   values?: IndexValueAmino[];
 }
 export interface GetRequestAminoMsg {
-  type: "cosmos-sdk/GetRequest";
+  type: 'cosmos-sdk/GetRequest';
   value: GetRequestAmino;
 }
 /** GetRequest is the Query/Get request type. */
@@ -55,25 +55,25 @@ export interface GetRequestSDKType {
 /** GetResponse is the Query/Get response type. */
 export interface GetResponse {
   /**
-   * result is the result of the get query. If no value is found, the gRPC
+   * Result is the result of the get query. If no value is found, the gRPC
    * status code NOT_FOUND will be returned.
    */
   result?: Any;
 }
 export interface GetResponseProtoMsg {
-  typeUrl: "/cosmos.orm.query.v1alpha1.GetResponse";
+  typeUrl: '/cosmos.orm.query.v1alpha1.GetResponse';
   value: Uint8Array;
 }
 /** GetResponse is the Query/Get response type. */
 export interface GetResponseAmino {
   /**
-   * result is the result of the get query. If no value is found, the gRPC
+   * Result is the result of the get query. If no value is found, the gRPC
    * status code NOT_FOUND will be returned.
    */
   result?: AnyAmino;
 }
 export interface GetResponseAminoMsg {
-  type: "cosmos-sdk/GetResponse";
+  type: 'cosmos-sdk/GetResponse';
   value: GetResponseAmino;
 }
 /** GetResponse is the Query/Get response type. */
@@ -82,42 +82,42 @@ export interface GetResponseSDKType {
 }
 /** ListRequest is the Query/List request type. */
 export interface ListRequest {
-  /** message_name is the fully-qualified message name of the ORM table being queried. */
+  /** Message_name is the fully-qualified message name of the ORM table being queried. */
   messageName: string;
   /**
-   * index is the index fields expression used in orm definitions. If it
+   * Index is the index fields expression used in orm definitions. If it
    * is empty, the table's primary key is assumed.
    */
   index: string;
-  /** prefix defines a prefix query. */
+  /** Prefix defines a prefix query. */
   prefix?: ListRequest_Prefix;
-  /** range defines a range query. */
+  /** Range defines a range query. */
   range?: ListRequest_Range;
-  /** pagination is the pagination request. */
+  /** Pagination is the pagination request. */
   pagination?: PageRequest;
 }
 export interface ListRequestProtoMsg {
-  typeUrl: "/cosmos.orm.query.v1alpha1.ListRequest";
+  typeUrl: '/cosmos.orm.query.v1alpha1.ListRequest';
   value: Uint8Array;
 }
 /** ListRequest is the Query/List request type. */
 export interface ListRequestAmino {
-  /** message_name is the fully-qualified message name of the ORM table being queried. */
+  /** Message_name is the fully-qualified message name of the ORM table being queried. */
   message_name?: string;
   /**
-   * index is the index fields expression used in orm definitions. If it
+   * Index is the index fields expression used in orm definitions. If it
    * is empty, the table's primary key is assumed.
    */
   index?: string;
-  /** prefix defines a prefix query. */
+  /** Prefix defines a prefix query. */
   prefix?: ListRequest_PrefixAmino;
-  /** range defines a range query. */
+  /** Range defines a range query. */
   range?: ListRequest_RangeAmino;
-  /** pagination is the pagination request. */
+  /** Pagination is the pagination request. */
   pagination?: PageRequestAmino;
 }
 export interface ListRequestAminoMsg {
-  type: "cosmos-sdk/ListRequest";
+  type: 'cosmos-sdk/ListRequest';
   value: ListRequestAmino;
 }
 /** ListRequest is the Query/List request type. */
@@ -131,27 +131,27 @@ export interface ListRequestSDKType {
 /** Prefix specifies the arguments to a prefix query. */
 export interface ListRequest_Prefix {
   /**
-   * values specifies the index values for the prefix query.
+   * Values specifies the index values for the prefix query.
    * It is valid to special a partial prefix with fewer values than
    * the number of fields in the index.
    */
   values: IndexValue[];
 }
 export interface ListRequest_PrefixProtoMsg {
-  typeUrl: "/cosmos.orm.query.v1alpha1.Prefix";
+  typeUrl: '/cosmos.orm.query.v1alpha1.Prefix';
   value: Uint8Array;
 }
 /** Prefix specifies the arguments to a prefix query. */
 export interface ListRequest_PrefixAmino {
   /**
-   * values specifies the index values for the prefix query.
+   * Values specifies the index values for the prefix query.
    * It is valid to special a partial prefix with fewer values than
    * the number of fields in the index.
    */
   values?: IndexValueAmino[];
 }
 export interface ListRequest_PrefixAminoMsg {
-  type: "cosmos-sdk/Prefix";
+  type: 'cosmos-sdk/Prefix';
   value: ListRequest_PrefixAmino;
 }
 /** Prefix specifies the arguments to a prefix query. */
@@ -161,39 +161,39 @@ export interface ListRequest_PrefixSDKType {
 /** Range specifies the arguments to a range query. */
 export interface ListRequest_Range {
   /**
-   * start specifies the starting index values for the range query.
+   * Start specifies the starting index values for the range query.
    * It is valid to provide fewer values than the number of fields in the
    * index.
    */
   start: IndexValue[];
   /**
-   * end specifies the inclusive ending index values for the range query.
+   * End specifies the inclusive ending index values for the range query.
    * It is valid to provide fewer values than the number of fields in the
    * index.
    */
   end: IndexValue[];
 }
 export interface ListRequest_RangeProtoMsg {
-  typeUrl: "/cosmos.orm.query.v1alpha1.Range";
+  typeUrl: '/cosmos.orm.query.v1alpha1.Range';
   value: Uint8Array;
 }
 /** Range specifies the arguments to a range query. */
 export interface ListRequest_RangeAmino {
   /**
-   * start specifies the starting index values for the range query.
+   * Start specifies the starting index values for the range query.
    * It is valid to provide fewer values than the number of fields in the
    * index.
    */
   start?: IndexValueAmino[];
   /**
-   * end specifies the inclusive ending index values for the range query.
+   * End specifies the inclusive ending index values for the range query.
    * It is valid to provide fewer values than the number of fields in the
    * index.
    */
   end?: IndexValueAmino[];
 }
 export interface ListRequest_RangeAminoMsg {
-  type: "cosmos-sdk/Range";
+  type: 'cosmos-sdk/Range';
   value: ListRequest_RangeAmino;
 }
 /** Range specifies the arguments to a range query. */
@@ -203,24 +203,24 @@ export interface ListRequest_RangeSDKType {
 }
 /** ListResponse is the Query/List response type. */
 export interface ListResponse {
-  /** results are the results of the query. */
+  /** Results are the results of the query. */
   results: Any[];
-  /** pagination is the pagination response. */
+  /** Pagination is the pagination response. */
   pagination?: PageResponse;
 }
 export interface ListResponseProtoMsg {
-  typeUrl: "/cosmos.orm.query.v1alpha1.ListResponse";
+  typeUrl: '/cosmos.orm.query.v1alpha1.ListResponse';
   value: Uint8Array;
 }
 /** ListResponse is the Query/List response type. */
 export interface ListResponseAmino {
-  /** results are the results of the query. */
+  /** Results are the results of the query. */
   results?: AnyAmino[];
-  /** pagination is the pagination response. */
+  /** Pagination is the pagination response. */
   pagination?: PageResponseAmino;
 }
 export interface ListResponseAminoMsg {
-  type: "cosmos-sdk/ListResponse";
+  type: 'cosmos-sdk/ListResponse';
   value: ListResponseAmino;
 }
 /** ListResponse is the Query/List response type. */
@@ -231,59 +231,59 @@ export interface ListResponseSDKType {
 /** IndexValue represents the value of a field in an ORM index expression. */
 export interface IndexValue {
   /**
-   * uint specifies a value for an uint32, fixed32, uint64, or fixed64
+   * Uint specifies a value for an uint32, fixed32, uint64, or fixed64
    * index field.
    */
   uint?: bigint;
   /**
-   * int64 specifies a value for an int32, sfixed32, int64, or sfixed64
+   * Int64 specifies a value for an int32, sfixed32, int64, or sfixed64
    * index field.
    */
   int?: bigint;
-  /** str specifies a value for a string index field. */
+  /** Str specifies a value for a string index field. */
   str?: string;
-  /** bytes specifies a value for a bytes index field. */
+  /** Bytes specifies a value for a bytes index field. */
   bytes?: Uint8Array;
-  /** enum specifies a value for an enum index field. */
+  /** Enum specifies a value for an enum index field. */
   enum?: string;
-  /** bool specifies a value for a bool index field. */
+  /** Bool specifies a value for a bool index field. */
   bool?: boolean;
-  /** timestamp specifies a value for a timestamp index field. */
+  /** Timestamp specifies a value for a timestamp index field. */
   timestamp?: Date;
-  /** duration specifies a value for a duration index field. */
+  /** Duration specifies a value for a duration index field. */
   duration?: Duration;
 }
 export interface IndexValueProtoMsg {
-  typeUrl: "/cosmos.orm.query.v1alpha1.IndexValue";
+  typeUrl: '/cosmos.orm.query.v1alpha1.IndexValue';
   value: Uint8Array;
 }
 /** IndexValue represents the value of a field in an ORM index expression. */
 export interface IndexValueAmino {
   /**
-   * uint specifies a value for an uint32, fixed32, uint64, or fixed64
+   * Uint specifies a value for an uint32, fixed32, uint64, or fixed64
    * index field.
    */
   uint?: string;
   /**
-   * int64 specifies a value for an int32, sfixed32, int64, or sfixed64
+   * Int64 specifies a value for an int32, sfixed32, int64, or sfixed64
    * index field.
    */
   int?: string;
-  /** str specifies a value for a string index field. */
+  /** Str specifies a value for a string index field. */
   str?: string;
-  /** bytes specifies a value for a bytes index field. */
+  /** Bytes specifies a value for a bytes index field. */
   bytes?: string;
-  /** enum specifies a value for an enum index field. */
+  /** Enum specifies a value for an enum index field. */
   enum?: string;
-  /** bool specifies a value for a bool index field. */
+  /** Bool specifies a value for a bool index field. */
   bool?: boolean;
-  /** timestamp specifies a value for a timestamp index field. */
+  /** Timestamp specifies a value for a timestamp index field. */
   timestamp?: string;
-  /** duration specifies a value for a duration index field. */
+  /** Duration specifies a value for a duration index field. */
   duration?: DurationAmino;
 }
 export interface IndexValueAminoMsg {
-  type: "cosmos-sdk/IndexValue";
+  type: 'cosmos-sdk/IndexValue';
   value: IndexValueAmino;
 }
 /** IndexValue represents the value of a field in an ORM index expression. */
@@ -299,19 +299,19 @@ export interface IndexValueSDKType {
 }
 function createBaseGetRequest(): GetRequest {
   return {
-    messageName: "",
-    index: "",
-    values: []
+    messageName: '',
+    index: '',
+    values: [],
   };
 }
 export const GetRequest = {
-  typeUrl: "/cosmos.orm.query.v1alpha1.GetRequest",
-  aminoType: "cosmos-sdk/GetRequest",
+  typeUrl: '/cosmos.orm.query.v1alpha1.GetRequest',
+  aminoType: 'cosmos-sdk/GetRequest',
   encode(message: GetRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.messageName !== "") {
+    if (message.messageName !== '') {
       writer.uint32(10).string(message.messageName);
     }
-    if (message.index !== "") {
+    if (message.index !== '') {
       writer.uint32(18).string(message.index);
     }
     for (const v of message.values) {
@@ -321,7 +321,7 @@ export const GetRequest = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): GetRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -344,9 +344,9 @@ export const GetRequest = {
   },
   fromPartial(object: DeepPartial<GetRequest>): GetRequest {
     const message = createBaseGetRequest();
-    message.messageName = object.messageName ?? "";
-    message.index = object.index ?? "";
-    message.values = object.values?.map(e => IndexValue.fromPartial(e)) || [];
+    message.messageName = object.messageName ?? '';
+    message.index = object.index ?? '';
+    message.values = object.values?.map((e) => IndexValue.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: GetRequestAmino): GetRequest {
@@ -357,15 +357,15 @@ export const GetRequest = {
     if (object.index !== undefined && object.index !== null) {
       message.index = object.index;
     }
-    message.values = object.values?.map(e => IndexValue.fromAmino(e)) || [];
+    message.values = object.values?.map((e) => IndexValue.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: GetRequest): GetRequestAmino {
     const obj: any = {};
-    obj.message_name = message.messageName === "" ? undefined : message.messageName;
-    obj.index = message.index === "" ? undefined : message.index;
+    obj.message_name = message.messageName === '' ? undefined : message.messageName;
+    obj.index = message.index === '' ? undefined : message.index;
     if (message.values) {
-      obj.values = message.values.map(e => e ? IndexValue.toAmino(e) : undefined);
+      obj.values = message.values.map((e) => (e ? IndexValue.toAmino(e) : undefined));
     } else {
       obj.values = message.values;
     }
@@ -376,8 +376,8 @@ export const GetRequest = {
   },
   toAminoMsg(message: GetRequest): GetRequestAminoMsg {
     return {
-      type: "cosmos-sdk/GetRequest",
-      value: GetRequest.toAmino(message)
+      type: 'cosmos-sdk/GetRequest',
+      value: GetRequest.toAmino(message),
     };
   },
   fromProtoMsg(message: GetRequestProtoMsg): GetRequest {
@@ -388,19 +388,19 @@ export const GetRequest = {
   },
   toProtoMsg(message: GetRequest): GetRequestProtoMsg {
     return {
-      typeUrl: "/cosmos.orm.query.v1alpha1.GetRequest",
-      value: GetRequest.encode(message).finish()
+      typeUrl: '/cosmos.orm.query.v1alpha1.GetRequest',
+      value: GetRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseGetResponse(): GetResponse {
   return {
-    result: undefined
+    result: undefined,
   };
 }
 export const GetResponse = {
-  typeUrl: "/cosmos.orm.query.v1alpha1.GetResponse",
-  aminoType: "cosmos-sdk/GetResponse",
+  typeUrl: '/cosmos.orm.query.v1alpha1.GetResponse',
+  aminoType: 'cosmos-sdk/GetResponse',
   encode(message: GetResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.result !== undefined) {
       Any.encode(message.result, writer.uint32(10).fork()).ldelim();
@@ -409,7 +409,7 @@ export const GetResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): GetResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -446,8 +446,8 @@ export const GetResponse = {
   },
   toAminoMsg(message: GetResponse): GetResponseAminoMsg {
     return {
-      type: "cosmos-sdk/GetResponse",
-      value: GetResponse.toAmino(message)
+      type: 'cosmos-sdk/GetResponse',
+      value: GetResponse.toAmino(message),
     };
   },
   fromProtoMsg(message: GetResponseProtoMsg): GetResponse {
@@ -458,28 +458,28 @@ export const GetResponse = {
   },
   toProtoMsg(message: GetResponse): GetResponseProtoMsg {
     return {
-      typeUrl: "/cosmos.orm.query.v1alpha1.GetResponse",
-      value: GetResponse.encode(message).finish()
+      typeUrl: '/cosmos.orm.query.v1alpha1.GetResponse',
+      value: GetResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseListRequest(): ListRequest {
   return {
-    messageName: "",
-    index: "",
+    messageName: '',
+    index: '',
     prefix: undefined,
     range: undefined,
-    pagination: undefined
+    pagination: undefined,
   };
 }
 export const ListRequest = {
-  typeUrl: "/cosmos.orm.query.v1alpha1.ListRequest",
-  aminoType: "cosmos-sdk/ListRequest",
+  typeUrl: '/cosmos.orm.query.v1alpha1.ListRequest',
+  aminoType: 'cosmos-sdk/ListRequest',
   encode(message: ListRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-    if (message.messageName !== "") {
+    if (message.messageName !== '') {
       writer.uint32(10).string(message.messageName);
     }
-    if (message.index !== "") {
+    if (message.index !== '') {
       writer.uint32(18).string(message.index);
     }
     if (message.prefix !== undefined) {
@@ -495,7 +495,7 @@ export const ListRequest = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ListRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -524,8 +524,8 @@ export const ListRequest = {
   },
   fromPartial(object: DeepPartial<ListRequest>): ListRequest {
     const message = createBaseListRequest();
-    message.messageName = object.messageName ?? "";
-    message.index = object.index ?? "";
+    message.messageName = object.messageName ?? '';
+    message.index = object.index ?? '';
     message.prefix = object.prefix !== undefined && object.prefix !== null ? ListRequest_Prefix.fromPartial(object.prefix) : undefined;
     message.range = object.range !== undefined && object.range !== null ? ListRequest_Range.fromPartial(object.range) : undefined;
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageRequest.fromPartial(object.pagination) : undefined;
@@ -552,8 +552,8 @@ export const ListRequest = {
   },
   toAmino(message: ListRequest): ListRequestAmino {
     const obj: any = {};
-    obj.message_name = message.messageName === "" ? undefined : message.messageName;
-    obj.index = message.index === "" ? undefined : message.index;
+    obj.message_name = message.messageName === '' ? undefined : message.messageName;
+    obj.index = message.index === '' ? undefined : message.index;
     obj.prefix = message.prefix ? ListRequest_Prefix.toAmino(message.prefix) : undefined;
     obj.range = message.range ? ListRequest_Range.toAmino(message.range) : undefined;
     obj.pagination = message.pagination ? PageRequest.toAmino(message.pagination) : undefined;
@@ -564,8 +564,8 @@ export const ListRequest = {
   },
   toAminoMsg(message: ListRequest): ListRequestAminoMsg {
     return {
-      type: "cosmos-sdk/ListRequest",
-      value: ListRequest.toAmino(message)
+      type: 'cosmos-sdk/ListRequest',
+      value: ListRequest.toAmino(message),
     };
   },
   fromProtoMsg(message: ListRequestProtoMsg): ListRequest {
@@ -576,19 +576,19 @@ export const ListRequest = {
   },
   toProtoMsg(message: ListRequest): ListRequestProtoMsg {
     return {
-      typeUrl: "/cosmos.orm.query.v1alpha1.ListRequest",
-      value: ListRequest.encode(message).finish()
+      typeUrl: '/cosmos.orm.query.v1alpha1.ListRequest',
+      value: ListRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseListRequest_Prefix(): ListRequest_Prefix {
   return {
-    values: []
+    values: [],
   };
 }
 export const ListRequest_Prefix = {
-  typeUrl: "/cosmos.orm.query.v1alpha1.Prefix",
-  aminoType: "cosmos-sdk/Prefix",
+  typeUrl: '/cosmos.orm.query.v1alpha1.Prefix',
+  aminoType: 'cosmos-sdk/Prefix',
   encode(message: ListRequest_Prefix, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.values) {
       IndexValue.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -597,7 +597,7 @@ export const ListRequest_Prefix = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ListRequest_Prefix {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListRequest_Prefix();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -614,18 +614,18 @@ export const ListRequest_Prefix = {
   },
   fromPartial(object: DeepPartial<ListRequest_Prefix>): ListRequest_Prefix {
     const message = createBaseListRequest_Prefix();
-    message.values = object.values?.map(e => IndexValue.fromPartial(e)) || [];
+    message.values = object.values?.map((e) => IndexValue.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: ListRequest_PrefixAmino): ListRequest_Prefix {
     const message = createBaseListRequest_Prefix();
-    message.values = object.values?.map(e => IndexValue.fromAmino(e)) || [];
+    message.values = object.values?.map((e) => IndexValue.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: ListRequest_Prefix): ListRequest_PrefixAmino {
     const obj: any = {};
     if (message.values) {
-      obj.values = message.values.map(e => e ? IndexValue.toAmino(e) : undefined);
+      obj.values = message.values.map((e) => (e ? IndexValue.toAmino(e) : undefined));
     } else {
       obj.values = message.values;
     }
@@ -636,8 +636,8 @@ export const ListRequest_Prefix = {
   },
   toAminoMsg(message: ListRequest_Prefix): ListRequest_PrefixAminoMsg {
     return {
-      type: "cosmos-sdk/Prefix",
-      value: ListRequest_Prefix.toAmino(message)
+      type: 'cosmos-sdk/Prefix',
+      value: ListRequest_Prefix.toAmino(message),
     };
   },
   fromProtoMsg(message: ListRequest_PrefixProtoMsg): ListRequest_Prefix {
@@ -648,20 +648,20 @@ export const ListRequest_Prefix = {
   },
   toProtoMsg(message: ListRequest_Prefix): ListRequest_PrefixProtoMsg {
     return {
-      typeUrl: "/cosmos.orm.query.v1alpha1.Prefix",
-      value: ListRequest_Prefix.encode(message).finish()
+      typeUrl: '/cosmos.orm.query.v1alpha1.Prefix',
+      value: ListRequest_Prefix.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseListRequest_Range(): ListRequest_Range {
   return {
     start: [],
-    end: []
+    end: [],
   };
 }
 export const ListRequest_Range = {
-  typeUrl: "/cosmos.orm.query.v1alpha1.Range",
-  aminoType: "cosmos-sdk/Range",
+  typeUrl: '/cosmos.orm.query.v1alpha1.Range',
+  aminoType: 'cosmos-sdk/Range',
   encode(message: ListRequest_Range, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.start) {
       IndexValue.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -673,7 +673,7 @@ export const ListRequest_Range = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ListRequest_Range {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListRequest_Range();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -693,25 +693,25 @@ export const ListRequest_Range = {
   },
   fromPartial(object: DeepPartial<ListRequest_Range>): ListRequest_Range {
     const message = createBaseListRequest_Range();
-    message.start = object.start?.map(e => IndexValue.fromPartial(e)) || [];
-    message.end = object.end?.map(e => IndexValue.fromPartial(e)) || [];
+    message.start = object.start?.map((e) => IndexValue.fromPartial(e)) || [];
+    message.end = object.end?.map((e) => IndexValue.fromPartial(e)) || [];
     return message;
   },
   fromAmino(object: ListRequest_RangeAmino): ListRequest_Range {
     const message = createBaseListRequest_Range();
-    message.start = object.start?.map(e => IndexValue.fromAmino(e)) || [];
-    message.end = object.end?.map(e => IndexValue.fromAmino(e)) || [];
+    message.start = object.start?.map((e) => IndexValue.fromAmino(e)) || [];
+    message.end = object.end?.map((e) => IndexValue.fromAmino(e)) || [];
     return message;
   },
   toAmino(message: ListRequest_Range): ListRequest_RangeAmino {
     const obj: any = {};
     if (message.start) {
-      obj.start = message.start.map(e => e ? IndexValue.toAmino(e) : undefined);
+      obj.start = message.start.map((e) => (e ? IndexValue.toAmino(e) : undefined));
     } else {
       obj.start = message.start;
     }
     if (message.end) {
-      obj.end = message.end.map(e => e ? IndexValue.toAmino(e) : undefined);
+      obj.end = message.end.map((e) => (e ? IndexValue.toAmino(e) : undefined));
     } else {
       obj.end = message.end;
     }
@@ -722,8 +722,8 @@ export const ListRequest_Range = {
   },
   toAminoMsg(message: ListRequest_Range): ListRequest_RangeAminoMsg {
     return {
-      type: "cosmos-sdk/Range",
-      value: ListRequest_Range.toAmino(message)
+      type: 'cosmos-sdk/Range',
+      value: ListRequest_Range.toAmino(message),
     };
   },
   fromProtoMsg(message: ListRequest_RangeProtoMsg): ListRequest_Range {
@@ -734,20 +734,20 @@ export const ListRequest_Range = {
   },
   toProtoMsg(message: ListRequest_Range): ListRequest_RangeProtoMsg {
     return {
-      typeUrl: "/cosmos.orm.query.v1alpha1.Range",
-      value: ListRequest_Range.encode(message).finish()
+      typeUrl: '/cosmos.orm.query.v1alpha1.Range',
+      value: ListRequest_Range.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseListResponse(): ListResponse {
   return {
     results: [],
-    pagination: undefined
+    pagination: undefined,
   };
 }
 export const ListResponse = {
-  typeUrl: "/cosmos.orm.query.v1alpha1.ListResponse",
-  aminoType: "cosmos-sdk/ListResponse",
+  typeUrl: '/cosmos.orm.query.v1alpha1.ListResponse',
+  aminoType: 'cosmos-sdk/ListResponse',
   encode(message: ListResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     for (const v of message.results) {
       Any.encode(v!, writer.uint32(10).fork()).ldelim();
@@ -759,7 +759,7 @@ export const ListResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): ListResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -779,13 +779,13 @@ export const ListResponse = {
   },
   fromPartial(object: DeepPartial<ListResponse>): ListResponse {
     const message = createBaseListResponse();
-    message.results = object.results?.map(e => Any.fromPartial(e)) || [];
+    message.results = object.results?.map((e) => Any.fromPartial(e)) || [];
     message.pagination = object.pagination !== undefined && object.pagination !== null ? PageResponse.fromPartial(object.pagination) : undefined;
     return message;
   },
   fromAmino(object: ListResponseAmino): ListResponse {
     const message = createBaseListResponse();
-    message.results = object.results?.map(e => Any.fromAmino(e)) || [];
+    message.results = object.results?.map((e) => Any.fromAmino(e)) || [];
     if (object.pagination !== undefined && object.pagination !== null) {
       message.pagination = PageResponse.fromAmino(object.pagination);
     }
@@ -794,7 +794,7 @@ export const ListResponse = {
   toAmino(message: ListResponse): ListResponseAmino {
     const obj: any = {};
     if (message.results) {
-      obj.results = message.results.map(e => e ? Any.toAmino(e) : undefined);
+      obj.results = message.results.map((e) => (e ? Any.toAmino(e) : undefined));
     } else {
       obj.results = message.results;
     }
@@ -806,8 +806,8 @@ export const ListResponse = {
   },
   toAminoMsg(message: ListResponse): ListResponseAminoMsg {
     return {
-      type: "cosmos-sdk/ListResponse",
-      value: ListResponse.toAmino(message)
+      type: 'cosmos-sdk/ListResponse',
+      value: ListResponse.toAmino(message),
     };
   },
   fromProtoMsg(message: ListResponseProtoMsg): ListResponse {
@@ -818,10 +818,10 @@ export const ListResponse = {
   },
   toProtoMsg(message: ListResponse): ListResponseProtoMsg {
     return {
-      typeUrl: "/cosmos.orm.query.v1alpha1.ListResponse",
-      value: ListResponse.encode(message).finish()
+      typeUrl: '/cosmos.orm.query.v1alpha1.ListResponse',
+      value: ListResponse.encode(message).finish(),
     };
-  }
+  },
 };
 function createBaseIndexValue(): IndexValue {
   return {
@@ -832,12 +832,12 @@ function createBaseIndexValue(): IndexValue {
     enum: undefined,
     bool: undefined,
     timestamp: undefined,
-    duration: undefined
+    duration: undefined,
   };
 }
 export const IndexValue = {
-  typeUrl: "/cosmos.orm.query.v1alpha1.IndexValue",
-  aminoType: "cosmos-sdk/IndexValue",
+  typeUrl: '/cosmos.orm.query.v1alpha1.IndexValue',
+  aminoType: 'cosmos-sdk/IndexValue',
   encode(message: IndexValue, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.uint !== undefined) {
       writer.uint32(8).uint64(message.uint);
@@ -867,7 +867,7 @@ export const IndexValue = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): IndexValue {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseIndexValue();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -960,8 +960,8 @@ export const IndexValue = {
   },
   toAminoMsg(message: IndexValue): IndexValueAminoMsg {
     return {
-      type: "cosmos-sdk/IndexValue",
-      value: IndexValue.toAmino(message)
+      type: 'cosmos-sdk/IndexValue',
+      value: IndexValue.toAmino(message),
     };
   },
   fromProtoMsg(message: IndexValueProtoMsg): IndexValue {
@@ -972,8 +972,8 @@ export const IndexValue = {
   },
   toProtoMsg(message: IndexValue): IndexValueProtoMsg {
     return {
-      typeUrl: "/cosmos.orm.query.v1alpha1.IndexValue",
-      value: IndexValue.encode(message).finish()
+      typeUrl: '/cosmos.orm.query.v1alpha1.IndexValue',
+      value: IndexValue.encode(message).finish(),
     };
-  }
+  },
 };

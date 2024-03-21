@@ -1,9 +1,9 @@
-import { BinaryReader, BinaryWriter } from "../../../../binary";
-import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpers";
+import { BinaryReader, BinaryWriter } from '../../../../binary';
+import { DeepPartial, bytesFromBase64, base64FromBytes } from '../../../../helpers';
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
  * pagination. Ex:
- * 
+ *
  *  message SomeRequest {
  *          Foo some_parameter = 1;
  *          PageRequest pagination = 2;
@@ -11,44 +11,44 @@ import { DeepPartial, bytesFromBase64, base64FromBytes } from "../../../../helpe
  */
 export interface PageRequest {
   /**
-   * key is a value returned in PageResponse.next_key to begin
+   * Key is a value returned in PageResponse.next_key to begin
    * querying the next page most efficiently. Only one of offset or key
    * should be set.
    */
   key: Uint8Array;
   /**
-   * offset is a numeric offset that can be used when key is unavailable.
+   * Offset is a numeric offset that can be used when key is unavailable.
    * It is less efficient than using key. Only one of offset or key should
    * be set.
    */
   offset: bigint;
   /**
-   * limit is the total number of results to be returned in the result page.
+   * Limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    */
   limit: bigint;
   /**
-   * count_total is set to true  to indicate that the result set should include
+   * Count_total is set to true  to indicate that the result set should include
    * a count of the total number of items available for pagination in UIs.
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
   countTotal: boolean;
   /**
-   * reverse is set to true if results are to be returned in the descending order.
-   * 
+   * Reverse is set to true if results are to be returned in the descending order.
+   *
    * Since: cosmos-sdk 0.43
    */
   reverse: boolean;
 }
 export interface PageRequestProtoMsg {
-  typeUrl: "/cosmos.base.query.v1beta1.PageRequest";
+  typeUrl: '/cosmos.base.query.v1beta1.PageRequest';
   value: Uint8Array;
 }
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
  * pagination. Ex:
- * 
+ *
  *  message SomeRequest {
  *          Foo some_parameter = 1;
  *          PageRequest pagination = 2;
@@ -56,44 +56,44 @@ export interface PageRequestProtoMsg {
  */
 export interface PageRequestAmino {
   /**
-   * key is a value returned in PageResponse.next_key to begin
+   * Key is a value returned in PageResponse.next_key to begin
    * querying the next page most efficiently. Only one of offset or key
    * should be set.
    */
   key?: string;
   /**
-   * offset is a numeric offset that can be used when key is unavailable.
+   * Offset is a numeric offset that can be used when key is unavailable.
    * It is less efficient than using key. Only one of offset or key should
    * be set.
    */
   offset?: string;
   /**
-   * limit is the total number of results to be returned in the result page.
+   * Limit is the total number of results to be returned in the result page.
    * If left empty it will default to a value to be set by each app.
    */
   limit?: string;
   /**
-   * count_total is set to true  to indicate that the result set should include
+   * Count_total is set to true  to indicate that the result set should include
    * a count of the total number of items available for pagination in UIs.
    * count_total is only respected when offset is used. It is ignored when key
    * is set.
    */
   count_total?: boolean;
   /**
-   * reverse is set to true if results are to be returned in the descending order.
-   * 
+   * Reverse is set to true if results are to be returned in the descending order.
+   *
    * Since: cosmos-sdk 0.43
    */
   reverse?: boolean;
 }
 export interface PageRequestAminoMsg {
-  type: "cosmos-sdk/PageRequest";
+  type: 'cosmos-sdk/PageRequest';
   value: PageRequestAmino;
 }
 /**
  * PageRequest is to be embedded in gRPC request messages for efficient
  * pagination. Ex:
- * 
+ *
  *  message SomeRequest {
  *          Foo some_parameter = 1;
  *          PageRequest pagination = 2;
@@ -109,7 +109,7 @@ export interface PageRequestSDKType {
 /**
  * PageResponse is to be embedded in gRPC response messages where the
  * corresponding request message has used PageRequest.
- * 
+ *
  *  message SomeResponse {
  *          repeated Bar results = 1;
  *          PageResponse page = 2;
@@ -117,25 +117,25 @@ export interface PageRequestSDKType {
  */
 export interface PageResponse {
   /**
-   * next_key is the key to be passed to PageRequest.key to
+   * Next_key is the key to be passed to PageRequest.key to
    * query the next page most efficiently. It will be empty if
    * there are no more results.
    */
   nextKey: Uint8Array;
   /**
-   * total is total number of results available if PageRequest.count_total
+   * Total is total number of results available if PageRequest.count_total
    * was set, its value is undefined otherwise
    */
   total: bigint;
 }
 export interface PageResponseProtoMsg {
-  typeUrl: "/cosmos.base.query.v1beta1.PageResponse";
+  typeUrl: '/cosmos.base.query.v1beta1.PageResponse';
   value: Uint8Array;
 }
 /**
  * PageResponse is to be embedded in gRPC response messages where the
  * corresponding request message has used PageRequest.
- * 
+ *
  *  message SomeResponse {
  *          repeated Bar results = 1;
  *          PageResponse page = 2;
@@ -143,25 +143,25 @@ export interface PageResponseProtoMsg {
  */
 export interface PageResponseAmino {
   /**
-   * next_key is the key to be passed to PageRequest.key to
+   * Next_key is the key to be passed to PageRequest.key to
    * query the next page most efficiently. It will be empty if
    * there are no more results.
    */
   next_key?: string;
   /**
-   * total is total number of results available if PageRequest.count_total
+   * Total is total number of results available if PageRequest.count_total
    * was set, its value is undefined otherwise
    */
   total?: string;
 }
 export interface PageResponseAminoMsg {
-  type: "cosmos-sdk/PageResponse";
+  type: 'cosmos-sdk/PageResponse';
   value: PageResponseAmino;
 }
 /**
  * PageResponse is to be embedded in gRPC response messages where the
  * corresponding request message has used PageRequest.
- * 
+ *
  *  message SomeResponse {
  *          repeated Bar results = 1;
  *          PageResponse page = 2;
@@ -177,12 +177,12 @@ function createBasePageRequest(): PageRequest {
     offset: BigInt(0),
     limit: BigInt(0),
     countTotal: false,
-    reverse: false
+    reverse: false,
   };
 }
 export const PageRequest = {
-  typeUrl: "/cosmos.base.query.v1beta1.PageRequest",
-  aminoType: "cosmos-sdk/PageRequest",
+  typeUrl: '/cosmos.base.query.v1beta1.PageRequest',
+  aminoType: 'cosmos-sdk/PageRequest',
   encode(message: PageRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.key.length !== 0) {
       writer.uint32(10).bytes(message.key);
@@ -203,7 +203,7 @@ export const PageRequest = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PageRequest {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -272,8 +272,8 @@ export const PageRequest = {
   },
   toAminoMsg(message: PageRequest): PageRequestAminoMsg {
     return {
-      type: "cosmos-sdk/PageRequest",
-      value: PageRequest.toAmino(message)
+      type: 'cosmos-sdk/PageRequest',
+      value: PageRequest.toAmino(message),
     };
   },
   fromProtoMsg(message: PageRequestProtoMsg): PageRequest {
@@ -284,20 +284,20 @@ export const PageRequest = {
   },
   toProtoMsg(message: PageRequest): PageRequestProtoMsg {
     return {
-      typeUrl: "/cosmos.base.query.v1beta1.PageRequest",
-      value: PageRequest.encode(message).finish()
+      typeUrl: '/cosmos.base.query.v1beta1.PageRequest',
+      value: PageRequest.encode(message).finish(),
     };
-  }
+  },
 };
 function createBasePageResponse(): PageResponse {
   return {
     nextKey: new Uint8Array(),
-    total: BigInt(0)
+    total: BigInt(0),
   };
 }
 export const PageResponse = {
-  typeUrl: "/cosmos.base.query.v1beta1.PageResponse",
-  aminoType: "cosmos-sdk/PageResponse",
+  typeUrl: '/cosmos.base.query.v1beta1.PageResponse',
+  aminoType: 'cosmos-sdk/PageResponse',
   encode(message: PageResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
     if (message.nextKey.length !== 0) {
       writer.uint32(10).bytes(message.nextKey);
@@ -309,7 +309,7 @@ export const PageResponse = {
   },
   decode(input: BinaryReader | Uint8Array, length?: number): PageResponse {
     const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -354,8 +354,8 @@ export const PageResponse = {
   },
   toAminoMsg(message: PageResponse): PageResponseAminoMsg {
     return {
-      type: "cosmos-sdk/PageResponse",
-      value: PageResponse.toAmino(message)
+      type: 'cosmos-sdk/PageResponse',
+      value: PageResponse.toAmino(message),
     };
   },
   fromProtoMsg(message: PageResponseProtoMsg): PageResponse {
@@ -366,8 +366,8 @@ export const PageResponse = {
   },
   toProtoMsg(message: PageResponse): PageResponseProtoMsg {
     return {
-      typeUrl: "/cosmos.base.query.v1beta1.PageResponse",
-      value: PageResponse.encode(message).finish()
+      typeUrl: '/cosmos.base.query.v1beta1.PageResponse',
+      value: PageResponse.encode(message).finish(),
     };
-  }
+  },
 };

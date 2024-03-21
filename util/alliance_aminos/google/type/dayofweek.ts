@@ -23,31 +23,31 @@ export const DayOfWeekAmino = DayOfWeek;
 export function dayOfWeekFromJSON(object: any): DayOfWeek {
   switch (object) {
     case 0:
-    case "DAY_OF_WEEK_UNSPECIFIED":
+    case 'DAY_OF_WEEK_UNSPECIFIED':
       return DayOfWeek.DAY_OF_WEEK_UNSPECIFIED;
     case 1:
-    case "MONDAY":
+    case 'MONDAY':
       return DayOfWeek.MONDAY;
     case 2:
-    case "TUESDAY":
+    case 'TUESDAY':
       return DayOfWeek.TUESDAY;
     case 3:
-    case "WEDNESDAY":
+    case 'WEDNESDAY':
       return DayOfWeek.WEDNESDAY;
     case 4:
-    case "THURSDAY":
+    case 'THURSDAY':
       return DayOfWeek.THURSDAY;
     case 5:
-    case "FRIDAY":
+    case 'FRIDAY':
       return DayOfWeek.FRIDAY;
     case 6:
-    case "SATURDAY":
+    case 'SATURDAY':
       return DayOfWeek.SATURDAY;
     case 7:
-    case "SUNDAY":
+    case 'SUNDAY':
       return DayOfWeek.SUNDAY;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return DayOfWeek.UNRECOGNIZED;
   }
@@ -55,23 +55,23 @@ export function dayOfWeekFromJSON(object: any): DayOfWeek {
 export function dayOfWeekToJSON(object: DayOfWeek): string {
   switch (object) {
     case DayOfWeek.DAY_OF_WEEK_UNSPECIFIED:
-      return "DAY_OF_WEEK_UNSPECIFIED";
+      return 'DAY_OF_WEEK_UNSPECIFIED';
     case DayOfWeek.MONDAY:
-      return "MONDAY";
+      return 'MONDAY';
     case DayOfWeek.TUESDAY:
-      return "TUESDAY";
+      return 'TUESDAY';
     case DayOfWeek.WEDNESDAY:
-      return "WEDNESDAY";
+      return 'WEDNESDAY';
     case DayOfWeek.THURSDAY:
-      return "THURSDAY";
+      return 'THURSDAY';
     case DayOfWeek.FRIDAY:
-      return "FRIDAY";
+      return 'FRIDAY';
     case DayOfWeek.SATURDAY:
-      return "SATURDAY";
+      return 'SATURDAY';
     case DayOfWeek.SUNDAY:
-      return "SUNDAY";
+      return 'SUNDAY';
     case DayOfWeek.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
