@@ -21,6 +21,7 @@ export type DashboardData = {
     totalStaked: number
     totalValueStaked: number
     rewardWeight: number
+    takeRate: number
     apr: number
 }
 
@@ -110,6 +111,22 @@ const columns: ColumnDef<DashboardData, any>[] = [
       maximumFractionDigits: 2,
     })}%`,
   }),
+  columnHelper.accessor('takeRate', {
+    enableSorting: true,
+    header: () => (
+      <Text
+        as="span"
+        color="brand.50"
+        flex={1}
+        fontSize="sm">
+        Take Rate
+      </Text>
+    ),
+    cell: (info) => `${info.getValue()?.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}%`,
+  }),
   columnHelper.accessor('apr', {
     enableSorting: true,
     header: () => (
@@ -170,7 +187,7 @@ const AssetTable = ({ dashboardData, initialized }) => {
           {headerGroup.headers.map((header, index) => (
             <Box
               key={header.id}
-              minW={index === 0 ? '15px' : index === 1 ? '180px' : index === 2 ? '145px' : index === 3 ? '145px' : index === 4 ? '180px' : index === 5 ? '180px' : 'unset'}
+              minW={index === 0 ? '15px' : index === 1 ? '180px' : index === 2 ? '145px' : index === 3 ? '145px' : index === 4 ? '180px' : index === 5 ? '150px' :index === 6 ? '150px' : 'unset'}
               cursor={header.column.getCanSort() ? 'pointer' : 'default'}
               onClick={header.column.getToggleSortingHandler()}
             >
@@ -214,7 +231,7 @@ const AssetTable = ({ dashboardData, initialized }) => {
           {row.getVisibleCells().map((cell, index) => (
             <Text
               key={cell.id}
-              minW={index === 0 ? '20px' : index === 1 ? '185px' : index === 2 ? '145px' : index === 3 ? '145px' : index === 4 ? '180px' : index === 5 ? '180px' : 'unset'}
+              minW={index === 0 ? '20px' : index === 1 ? '185px' : index === 2 ? '145px' : index === 3 ? '145px' : index === 4 ? '180px' : index === 5 ? '150px' : index === 6 ? '150px' : 'unset'}
             >
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </Text>

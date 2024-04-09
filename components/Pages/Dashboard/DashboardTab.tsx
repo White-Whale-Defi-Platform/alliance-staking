@@ -11,6 +11,7 @@ import { USDCWhaleLogo } from 'components/Pages/Dashboard/USDCWhaleLogo';
 import { WhaleBtcLogo } from 'components/Pages/Dashboard/WhaleBtcLogo';
 import { Apr, useCalculateAprs } from 'components/Pages/Ecosystem/hooks/useCalculateAprs';
 import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
+import { useAlliances } from 'hooks/useAlliances';
 import useValidators from 'hooks/useValidators';
 import tokens from 'public/mainnet/tokens.json';
 import { useRecoilValue } from 'recoil';
@@ -22,6 +23,7 @@ export const DashboardTab = ({ priceList }) => {
   const { address } = useChain(walletChainName)
   const [dashboardData, setDashboardData] = useState<DashboardData[]>([])
   const lpTokenPrices = useGetLPTokenPrices()
+  const { alliances: allianceData } = useAlliances()
   const [initialized, setInitialized] = useState<boolean>(false)
 
   const { vtRewardShares, totalStakedBalances } = useAssetsData()
@@ -32,7 +34,7 @@ export const DashboardTab = ({ priceList }) => {
   const otherAprs = useCalculateAprs()
 
   useEffect(() => {
-    if (allianceAPRs?.length === 0 || otherAprs.length === 0 || !vtRewardShares) {
+    if (allianceAPRs?.length === 0 || otherAprs.length === 0 || allianceData?.alliances.length === 0 || !vtRewardShares) {
       return
     }
     const aprs = [...allianceAPRs, ...otherAprs].map((apr) => {
@@ -77,6 +79,7 @@ export const DashboardTab = ({ priceList }) => {
           break
       }
       const apr = aprs?.find((apr) => apr.name === symbol)
+      const takeRate = allianceData?.alliances?.find((alliance) => alliance.name === symbol)?.takeRate
       return {
         logo: symbol === 'USDC-WHALE-LP' ? <USDCWhaleLogo /> : symbol === 'WHALE-wBTC-LP' ? <WhaleBtcLogo /> :
           <Image
@@ -91,6 +94,7 @@ export const DashboardTab = ({ priceList }) => {
         totalStaked: totalAmount,
         totalValueStaked: (symbol?.includes('-LP') ? lpTokenPrices?.[symbol] || 0 : symbol === Token.mUSDC ? 1 : priceList[asset.name]) * totalAmount,
         rewardWeight: (apr?.weight || 0) * 100,
+        takeRate: takeRate || 0,
         apr: apr?.apr || 0,
       }
     })

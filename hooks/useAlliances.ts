@@ -22,8 +22,7 @@ const fetchAlliances = async (client: LCDClient, priceList) => {
     await client.alliance.alliances(MIGALOO_CHAIN_ID)
   ).alliances;
   const alliances: Alliance[] = whiteListedTokens.map((token) => {
-    const alliance = allianceAssets?.find((asset) => asset.denom === token.denom);
-
+    const alliance = allianceAssets?.find((asset) => String(asset.denom).toLowerCase() === String(token.denom).toLowerCase());
     return {
       name: token.symbol,
       weight: Number(alliance?.reward_weight),
@@ -32,10 +31,9 @@ const fetchAlliances = async (client: LCDClient, priceList) => {
         priceList[token.name],
       totalTokens: convertMicroDenomToDenom(alliance?.total_tokens,
         token.decimals),
-      takeRate: Number(alliance?.take_rate),
+      takeRate: Number(alliance?.take_rate) * 1e6,
     };
   });
-
   return { alliances }
 }
 
