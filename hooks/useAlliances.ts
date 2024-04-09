@@ -31,7 +31,7 @@ const fetchAlliances = async (client: LCDClient, priceList) => {
         priceList[token.name],
       totalTokens: convertMicroDenomToDenom(alliance?.total_tokens,
         token.decimals),
-      takeRate: Number(alliance?.take_rate) * 1e6,
+      takeRate: Number(alliance?.take_rate) * 1e7,
     };
   });
   return { alliances }
