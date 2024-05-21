@@ -19,7 +19,7 @@ export const getColorByTokenSymbol = (symbol: string): string => {
     case Token.wBTC:
       return 'darkorange'
     case Token.ampOSMO:
-      return 'purple'
+      return '#BAA8FD'
     case Token.bOSMO:
       return 'purple'
     case Token.OPHIR:
@@ -33,9 +33,15 @@ export const getColorByTokenSymbol = (symbol: string): string => {
     case Token.FROG:
       return 'green'
     case Token.XUSK:
-      return 'purple'
+      return '#BAAAAD'
     case Token.arbWHALE:
       return 'green'
+    case Token.lsdSHARK:
+        return '#AFD700'
+    case Token.LAB:
+        return '#FFD700'
+    case Token.SAIL:
+        return '#FFA700'
     default:
       return 'grey'
   }
