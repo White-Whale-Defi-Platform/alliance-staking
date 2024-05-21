@@ -23,6 +23,7 @@ const getUndelegations = async (
     let url: string = 'terra/alliances/unbondings/'
     url += `/${encodeURIComponent(encodeURIComponent(token.token_address))}/${delegatorAddress}`;
     const resAlliance: any = await client.alliance.getReqFromAddress(delegatorAddress).get(url)
+
     if (resAlliance.unbondings.length > 0) {
       resAlliance.unbondings.forEach((undelegation) => {
         const amount = convertMicroDenomToDenom(undelegation.amount,
@@ -43,7 +44,7 @@ const getUndelegations = async (
   const nativeUndelegations = nativeRes[0].map((undelegation) => {
     const undelegationJson = undelegation.toProto()
     const amount = convertMicroDenomToDenom(undelegationJson.entries[0].balance,
-      6);
+      6)
     const dollarValue = priceList[stakingToken] * amount
     return {
       validatorAddress: undelegation.validator_address,
