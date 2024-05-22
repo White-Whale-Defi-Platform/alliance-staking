@@ -38,6 +38,13 @@ const getLCDClient = () => new LCDClient({
     gasPrices: { uosmo: 0.0025 },
     prefix: 'osmo',
   },
+  'juno-1': {
+    lcd: 'https://ww-juno-rest.polkachu.com',
+    chainID: 'juno-1',
+    gasAdjustment: 0.1,
+    gasPrices: { ujuno: 0.075 },
+    prefix: 'juno',
+  },
 })
 
 const getPriceFromPool = async ({
