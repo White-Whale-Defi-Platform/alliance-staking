@@ -42,6 +42,8 @@ export const getColorByTokenSymbol = (symbol: string): string => {
         return '#FFD700'
     case Token.SAIL:
         return '#FFA700'
+       case Token.WIND:
+        return '#00ffff'
     default:
       return 'grey'
   }

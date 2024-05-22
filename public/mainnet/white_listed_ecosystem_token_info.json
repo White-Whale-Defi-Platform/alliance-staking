@@ -18,7 +18,9 @@
     "name": "Ash",
     "decimals": 6,
     "logoURI": "/logos/ash.svg",
-    "tags": ["native"],
+    "tags": [
+      "native"
+    ],
     "denom": "factory/migaloo1erul6xyq0gk6ws98ncj7lnq9l4jn4gnnu9we73gdz78yyl2lr7qqrvcgup/ash",
     "native": true,
     "color": "#3273F6"
@@ -30,7 +32,9 @@
     "name": "RAC",
     "decimals": 6,
     "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/migaloo/images/rac.svg",
-    "tags": ["native"],
+    "tags": [
+      "native"
+    ],
     "denom": "factory/migaloo1eqntnl6tzcj9h86psg4y4h6hh05g2h9nj8e09l/urac",
     "native": true,
     "color": "#009076"
@@ -42,7 +46,9 @@
     "name": "MOAR",
     "decimals": 6,
     "logoURI": "https://raw.githubusercontent.com/terra-money/station-assets/master/img/coins/moar.png",
-    "tags": ["native"],
+    "tags": [
+      "native"
+    ],
     "denom": "ibc/DAB7EEB14B61CA588F013729604B01017A5FE0E860E1CCBAA5A1A5D9763737D6",
     "native": true,
     "color": "#32527b"
@@ -54,7 +60,9 @@
     "name": "gASH",
     "decimals": 6,
     "logoURI": "https://raw.githubusercontent.com/White-Whale-Defi-Platform/white-whale-frontend/main/public/logos/gASH.png",
-    "tags": ["native"],
+    "tags": [
+      "native"
+    ],
     "denom": "factory/migaloo1r9x8fz4alekzr78k42rpmr9unpa7egsldpqeynmwl2nfvzexue9sn8l5rg/gash",
     "native": true,
     "color": "blue"
@@ -66,7 +74,9 @@
     "name": "OPHIR",
     "decimals": 6,
     "logoURI": "https://raw.githubusercontent.com/terra-money/station-assets/master/img/coins/ophir.png",
-    "tags": ["native"],
+    "tags": [
+      "native"
+    ],
     "denom": "factory/migaloo1t862qdu9mj5hr3j727247acypym3ej47axu22rrapm4tqlcpuseqltxwq5/ophir",
     "native": true,
     "color": "yellow"
@@ -78,7 +88,9 @@
     "name": "arbWHALE",
     "decimals": 6,
     "logoURI": "https://raw.githubusercontent.com/White-Whale-Defi-Platform/white-whale-frontend/main/public/logos/whale.svg",
-    "tags": ["native"],
+    "tags": [
+      "native"
+    ],
     "denom": "factory/migaloo1ey4sn2mkmhew4pdrzk90l9acluvas25qlhuvsfgssw42ugz8yjlqx92j9l/arbWHALE",
     "native": true,
     "color": "green"
@@ -90,7 +102,9 @@
     "name": "Ghost Vault USK",
     "decimals": 6,
     "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/kujira/images/xusk.png",
-    "tags": ["native"],
+    "tags": [
+      "native"
+    ],
     "denom": "ibc/6A368710043EEB6A499E805196E2552EF36926CBBC4F6FA4F4076411AC21A8ED",
     "native": true,
     "color": "purple"
@@ -102,7 +116,9 @@
     "name": "Frogztrik NFT Token",
     "decimals": 6,
     "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/terra/images/FROG.png",
-    "tags": ["native"],
+    "tags": [
+      "native"
+    ],
     "denom": "ibc/B1BD4EF49A2E051EFC85E8C6A932B559CE62F9519E0E83BE29A8F0BDF89BD1D3",
     "native": true,
     "color": "green"
@@ -114,7 +130,9 @@
     "name": "lsdSHARK",
     "decimals": 6,
     "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/migaloo/images/lsdshark.png",
-    "tags": ["native"],
+    "tags": [
+      "native"
+    ],
     "denom": "factory/migaloo1p3aj9f09d7c4jxhgue0hpdpw370j6gzc59nxxx6l8d0gc9f9rfwsdwetus/lsdSHARK",
     "native": true,
     "color": "grey"
@@ -142,5 +160,17 @@
     "tabType": "restaking",
     "logoURI": "/logos/sail.png",
     "color": "purple"
+  },
+  {
+    "name": "wind",
+    "symbol": "WIND",
+    "chainId": "juno-1",
+    "native": true,
+    "denom": "ibc/721B42229246EEDA7A656DB17E494127F91E84AD63E21852737628321892A928",
+    "token_address": "ibc/721B42229246EEDA7A656DB17E494127F91E84AD63E21852737628321892A928",
+    "decimals": 6,
+    "tabType": "restaking",
+    "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/juno/images/wind.png",
+    "color": "#00ffff"
   }
 ]
