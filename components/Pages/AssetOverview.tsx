@@ -34,6 +34,7 @@ export enum Token {
   lsdSHARK = 'lsdSHARK',
   LAB = 'LAB',
   SAIL = 'SAIL',
+  WIND = 'WIND',
 }
 
 export enum TokenType {
