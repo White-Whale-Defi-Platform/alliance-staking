@@ -172,5 +172,31 @@
     "tabType": "restaking",
     "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/juno/images/wind.png",
     "color": "#00ffff"
+  },
+  {
+    "chainId": "migaloo-1",
+    "token_address": "ibc/EC48B819FC1D955ED1708A8E8E230B37217CC6D953448D3B4BCCF5B29BD1FCF9",
+    "symbol": "bOSMO",
+    "tabType": "restaking",
+    "name": "bOSMO",
+    "decimals": 6,
+    "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/osmosis/images/bOSMO.png",
+    "tags": ["native"],
+    "denom": "ibc/EC48B819FC1D955ED1708A8E8E230B37217CC6D953448D3B4BCCF5B29BD1FCF9",
+    "native": true,
+    "color": "purple"
+  },
+  {
+    "chainId": "migaloo-1",
+    "tabType": "restaking",
+    "token_address": "ibc/BEFB9AB13AB43157A0AF6214AD4B1F565AC0CA0C1760B8337BE7B9E2996F7752",
+    "symbol": "ampOSMO",
+    "name": "ampOSMO",
+    "decimals": 6,
+    "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/osmosis/images/amposmo.png",
+    "tags": ["native"],
+    "denom": "ibc/BEFB9AB13AB43157A0AF6214AD4B1F565AC0CA0C1760B8337BE7B9E2996F7752",
+    "native": true,
+    "color": "purple"
   }
 ]

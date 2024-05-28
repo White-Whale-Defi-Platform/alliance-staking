@@ -51,57 +51,65 @@ export const DashboardTab = ({ priceList }) => {
     if (!totalStakedBalances || !stakedAmpLuna || !stakedBLuna || !stakedWhale || !stakedWBtc || !stakedAmpOSMO || !stakedbOsmo || !priceList || !lpTokenPrices || aprs.length === 0) {
       return
     }
-    const dashboardData = dashboardTokenSymbols.map((symbol) => {
-      const asset = tokens.find((token) => token.symbol === symbol)
-      const totalStakedBalance = totalStakedBalances.find((balance) => balance.tokenSymbol === symbol)
-      let totalAmount = 0
-      switch (asset.symbol) {
-        case Token.bLUNA:
-          totalAmount = stakedBLuna
-          break
-        case Token.ampLUNA:
-          totalAmount = stakedAmpLuna
-          break
-        case Token.WHALE:
-          totalAmount = stakedWhale;
-          break
-        case Token.wBTC:
-          totalAmount = stakedWBtc
-          break
-        case Token.ampOSMO:
-          totalAmount = stakedAmpOSMO
-          break
-        case Token.bOSMO:
-          totalAmount = stakedbOsmo
-          break
-        default:
+    const dashboardData = []
+    dashboardTokenSymbols.map((symbol) => {
+      let assets = tokens.filter((token) => token.symbol === symbol)
+      return assets.forEach((asset: any) => {
+        const totalStakedBalance = totalStakedBalances.find((balance) => balance.tokenSymbol === symbol)
+        let totalAmount = 0
+        let takeRate = 0
+        if (asset.tabType == "alliance") {
+          switch (asset.symbol) {
+            case Token.bLUNA:
+              totalAmount = stakedBLuna
+              break
+            case Token.ampLUNA:
+              totalAmount = stakedAmpLuna
+              break
+            case Token.WHALE:
+              totalAmount = stakedWhale;
+              break
+            case Token.wBTC:
+              totalAmount = stakedWBtc
+              break
+            case Token.ampOSMO:
+              totalAmount = stakedAmpOSMO
+              break
+            case Token.bOSMO:
+              totalAmount = stakedbOsmo
+              break
+            default:
+              totalAmount = totalStakedBalance?.totalAmount || 0
+              break
+          }
+          takeRate = allianceData?.alliances?.find((alliance) => alliance.name === symbol)?.takeRate
+        } else {
           totalAmount = totalStakedBalance?.totalAmount || 0
-          break
-      }
-      const apr = aprs?.find((apr) => apr.name === symbol)
-      const takeRate = allianceData?.alliances?.find((alliance) => alliance.name === symbol)?.takeRate
-      return {
-        logo: symbol === 'USDC-WHALE-LP' ? <USDCWhaleLogo /> : symbol === 'WHALE-wBTC-LP' ? <WhaleBtcLogo /> :
-          <Image
-            src={asset.logoURI}
-            alt="logo-small"
-            width="auto"
-            maxW="1.5rem"
-            maxH="1.5rem"
-          />,
-        symbol,
-        category: asset.tabType,
-        totalStaked: totalAmount,
-        totalValueStaked: (symbol?.includes('-LP') ? lpTokenPrices?.[symbol] || 0 : symbol === Token.mUSDC ? 1 : priceList[asset.name]) * totalAmount,
-        rewardWeight: (apr?.weight || 0) * 100,
-        takeRate: takeRate || 0,
-        apr: apr?.apr || 0,
-      }
+        }
+
+        const apr = aprs?.find((apr) => (apr.name === symbol && apr.tabType == asset.tabType))
+        dashboardData.push({
+          logo: symbol === 'USDC-WHALE-LP' ? <USDCWhaleLogo /> : symbol === 'WHALE-wBTC-LP' ? <WhaleBtcLogo /> :
+            <Image
+              src={asset.logoURI}
+              alt="logo-small"
+              width="auto"
+              maxW="1.5rem"
+              maxH="1.5rem"
+            />,
+          symbol,
+          category: asset.tabType,
+          totalStaked: totalAmount,
+          totalValueStaked: (symbol?.includes('-LP') ? lpTokenPrices?.[symbol] || 0 : symbol === Token.mUSDC ? 1 : priceList[asset.name]) * totalAmount,
+          rewardWeight: (apr?.weight || 0) * 100,
+          takeRate: takeRate || 0,
+          apr: apr?.apr || 0,
+        })
+      })
     })
     setDashboardData(dashboardData)
     setInitialized(true)
   }, [vtRewardShares, totalStakedBalances, stakedAmpLuna, stakedBLuna, stakedWhale, stakedWBtc, stakedAmpOSMO, stakedbOsmo, priceList, lpTokenPrices, aprs])
-
   return <VStack
     pt={12}
     alignItems={'flex-start'}

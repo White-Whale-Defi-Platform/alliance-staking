@@ -8,6 +8,7 @@ import { useTotalYearlyWhaleEmission } from 'hooks/useWhaleInfo';
 import { getTokenPrice } from 'util/getTokenPrice';
 
 export interface Apr {
+    tabType: any;
     name: string
     apr: number
     weight?: number
@@ -31,6 +32,7 @@ export const useCalculateAprs = () => {
         stakedBalance, priceList, lpTokenPrices,
       )
       return {
+        tabType: "restaking",
         name: info.tokenSymbol,
         apr: (info.distribution * vtEmission * priceList.Whale / ((stakedBalance?.totalAmount || 0) * stakedTokenPrice)) * 100,
       } as Apr

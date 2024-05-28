@@ -29,6 +29,7 @@ export const useCalculateAllianceAprs = ({ address }) => {
                         (validatorData?.stakedWhale || 0)) *
                     100)
       return {
+        tabType: "native",
         name: Token.WHALE,
         apr,
         weight: 1 - summedAllianceWeights || 1,
@@ -40,6 +41,7 @@ export const useCalculateAllianceAprs = ({ address }) => {
                     100
         : 0;
       return {
+        tabType: "alliance",
         name: alliance.name,
         apr,
         weight: alliance?.weight,
