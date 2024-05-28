@@ -53,12 +53,12 @@ export const DashboardTab = ({ priceList }) => {
     }
     const dashboardData = []
     dashboardTokenSymbols.map((symbol) => {
-      let assets = tokens.filter((token) => token.symbol === symbol)
+      const assets = tokens.filter((token) => token.symbol === symbol)
       return assets.forEach((asset: any) => {
         const totalStakedBalance = totalStakedBalances.find((balance) => balance.tokenSymbol === symbol)
         let totalAmount = 0
         let takeRate = 0
-        if (asset.tabType == "alliance") {
+        if (asset.tabType === 'alliance') {
           switch (asset.symbol) {
             case Token.bLUNA:
               totalAmount = stakedBLuna
@@ -87,7 +87,7 @@ export const DashboardTab = ({ priceList }) => {
           totalAmount = totalStakedBalance?.totalAmount || 0
         }
 
-        const apr = aprs?.find((apr) => (apr.name === symbol && apr.tabType == asset.tabType))
+        const apr = aprs?.find((apr) => (apr.name === symbol && apr.tabType === asset.tabType))
         dashboardData.push({
           logo: symbol === 'USDC-WHALE-LP' ? <USDCWhaleLogo /> : symbol === 'WHALE-wBTC-LP' ? <WhaleBtcLogo /> :
             <Image

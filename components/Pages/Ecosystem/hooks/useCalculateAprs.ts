@@ -32,7 +32,7 @@ export const useCalculateAprs = () => {
         stakedBalance, priceList, lpTokenPrices,
       )
       return {
-        tabType: "restaking",
+        tabType: 'restaking',
         name: info.tokenSymbol,
         apr: (info.distribution * vtEmission * priceList.Whale / ((stakedBalance?.totalAmount || 0) * stakedTokenPrice)) * 100,
       } as Apr
