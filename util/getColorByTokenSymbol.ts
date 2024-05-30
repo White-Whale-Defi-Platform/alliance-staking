@@ -29,7 +29,7 @@ export const getColorByTokenSymbol = (symbol: string): string => {
     case Token.gASH:
       return 'blue'
     case Token.RAC:
-        return '#009076'
+      return '#009076'
     case Token.FROG:
       return 'green'
     case Token.XUSK:
@@ -37,13 +37,15 @@ export const getColorByTokenSymbol = (symbol: string): string => {
     case Token.arbWHALE:
       return 'green'
     case Token.lsdSHARK:
-        return '#AFD700'
+      return '#AFD700'
     case Token.LAB:
-        return '#FFD700'
+      return '#FFD700'
     case Token.SAIL:
-        return '#FFA700'
-       case Token.WIND:
-        return '#00ffff'
+      return '#FFA700'
+    case Token.WIND:
+      return '#00ffff'
+    case Token.ampKUJI:
+      return 'red'
     default:
       return 'grey'
   }

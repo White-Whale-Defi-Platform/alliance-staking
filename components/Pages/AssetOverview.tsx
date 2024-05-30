@@ -35,6 +35,7 @@ export enum Token {
   LAB = 'LAB',
   SAIL = 'SAIL',
   WIND = 'WIND',
+  ampKUJI = 'ampKUJI',
 }
 
 export enum TokenType {

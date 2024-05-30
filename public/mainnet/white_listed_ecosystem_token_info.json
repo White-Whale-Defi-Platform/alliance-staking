@@ -198,5 +198,18 @@
     "denom": "ibc/BEFB9AB13AB43157A0AF6214AD4B1F565AC0CA0C1760B8337BE7B9E2996F7752",
     "native": true,
     "color": "purple"
+  },
+  {
+    "chainId": "migaloo-1",
+    "tabType": "restaking",
+    "token_address": "ibc/50D7251763B4D5E9DD7A8A6C6B012353E998CDE95C546C1F96D68F7CCB060918",
+    "symbol": "ampKUJI",
+    "name": "ampKUJI",
+    "decimals": 6,
+    "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/kujira/images/ampkuji.svg",
+    "tags": ["native"],
+    "denom": "ibc/50D7251763B4D5E9DD7A8A6C6B012353E998CDE95C546C1F96D68F7CCB060918",
+    "native": true,
+    "color": "red"
   }
 ]
