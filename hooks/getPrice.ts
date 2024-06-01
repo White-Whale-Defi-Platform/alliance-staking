@@ -10,6 +10,7 @@ type PoolInfo = {
   basedOn?: string
   chainId: string
   name: string
+  symbol: string
 }
 
 type TokenPrice = {
@@ -61,7 +62,7 @@ const getPriceFromPool = async ({
     const prices = (await priceData.json()).data
     return prices?.[token?.coinGeckoId]?.usd ?? 1
   }
-  if (!contract){
+  if (!contract) {
     return 0
   }
   return client.wasm.
@@ -93,15 +94,38 @@ const getPriceFromPool = async ({
     })
 }
 
-const getPrice = (tokens: PoolInfo[], basePrice?: TokenPrice) => {
+const getPrice = async (tokens: PoolInfo[], basePrice?: TokenPrice) => {
   const promises = tokens.map((token) => getPriceFromPool(token, basePrice))
-  return Promise.all(promises).then((prices) => {
+  const results = await Promise.all(promises).then((prices) => {
     const tokenPrice: TokenPrice = {}
     tokens.forEach((token, index) => {
       tokenPrice[token.name] = prices[index]
     })
     return tokenPrice
   })
+  const missingTokens = []
+  for (const res in results) {
+    if (results[res] === 0 && !res.includes('-LP')) {
+      missingTokens.push(tokens.find((token) => token.name === res))
+    }
+  }
+  if (missingTokens.length > 0) {
+    // get missing prices from api
+    const ids = new Set() 
+    missingTokens.forEach((token) => ids.add(token.chainId))
+    const url = "https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices/pools/"
+    for (const chain of [...ids]) {
+      const response = await fetch(url + chain)
+      const data = await response.json()
+      const prices = data?.data
+      missingTokens.map((token) => {
+        if (token.chainId == chain) {
+        results[token.name] = prices[token.name].price
+        }
+      })
+    }
+  }
+  return results
 }
 
 export const getTokenPrice = async (): Promise<[TokenPrice, number]> => {
@@ -110,6 +134,8 @@ export const getTokenPrice = async (): Promise<[TokenPrice, number]> => {
   const otherTokens = tokens.filter((token) => !token.base)
   const basePrice = await getPrice(baseTokens)
   const otherPrice = await getPrice(otherTokens, basePrice)
-  return [{ ...basePrice,
-    ...otherPrice }, new Date().getTime()]
+  return [{
+    ...basePrice,
+    ...otherPrice
+  }, new Date().getTime()]
 }

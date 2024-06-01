@@ -22,7 +22,6 @@ export const claimRewards = async (
       },
     }
     const isNative = isNativeToken(d)
-    console.log(isNative)
       messages.push(createExecuteMessage({
         senderAddress: address,
         contractAddress: file.alliance_contract,
