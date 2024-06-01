@@ -20,7 +20,7 @@ export const useCalculateAllianceAprs = ({ address }) => {
 
   const summedAllianceWeights = useMemo(() => (alliances?.
     map((alliance) => Number(alliance?.weight))?.
-    reduce((acc, e) => acc + (isNaN(e) ? 0 : e), 0) ?? 0) + 0.05, // 5% for VT,
+    reduce((acc, e) => acc + (isNaN(e) ? 0 : e), 0) ?? 0),
   [alliances])
 
   const allianceAPRs : Apr[] = useMemo(() => alliances?.map((alliance) => {

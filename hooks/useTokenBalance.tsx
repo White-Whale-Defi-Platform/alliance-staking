@@ -60,7 +60,6 @@ const fetchTokenBalances = async ({
   stargateClient: StargateClient
 }) => {
   const nativeBalances = await stargateClient.getAllBalances(address)
-  console.log(nativeBalances, tokenSymbols)
   const out = await Promise.all(tokenSymbols.map(async (symbol) => {
     const token = getTokenInfoFromTokenList(symbol, tokens)
     let balance = 0
@@ -75,7 +74,6 @@ const fetchTokenBalances = async ({
     }
     return balance || 0
   }))
-  console.log(out)
   return out
 }
 

@@ -6,19 +6,21 @@ import { useGetVTRewardShares } from 'hooks/useGetVTRewardShares';
 import usePrices from 'hooks/usePrices';
 import { useTotalYearlyWhaleEmission } from 'hooks/useWhaleInfo';
 import { getTokenPrice } from 'util/getTokenPrice';
+import { useAlliances } from '../../../../hooks/useAlliances';
 
 export interface Apr {
-    tabType: any;
-    name: string
-    apr: number
-    weight?: number
+  tabType: any;
+  name: string
+  apr: number
+  weight?: number
 }
 export const useCalculateAprs = () => {
   const [aprs, setAprs] = useState<Apr[]>([])
   const { totalStakedBalances } = useGetTotalStakedBalances()
   const { vtRewardShares } = useGetVTRewardShares()
   const { totalYearlyWhaleEmission } = useTotalYearlyWhaleEmission()
-  const vtEmission = useMemo(() => 0.05 / 1.1 * totalYearlyWhaleEmission, [totalYearlyWhaleEmission])
+  const { alliances } = useAlliances()
+  const vtEmission = useMemo(() => alliances?.alliances.find((alliance) => alliance.name == "restaking")?.weight / 1.1 * totalYearlyWhaleEmission, [totalYearlyWhaleEmission, alliances])
   const [priceList] = usePrices() || []
   const lpTokenPrices = useGetLPTokenPrices()
 

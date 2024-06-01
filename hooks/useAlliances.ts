@@ -25,15 +25,17 @@ const fetchAlliances = async (client: LCDClient, priceList) => {
     const alliance = allianceAssets?.find((asset) => String(asset.denom).toLowerCase() === String(token.denom).toLowerCase());
     return {
       name: token.symbol,
-      weight: Number(alliance?.reward_weight),
+      weight: Number(alliance?.reward_weight) || 0,
       totalDollarAmount:
         convertMicroDenomToDenom(alliance?.total_tokens, token.decimals) *
         priceList[token.name],
       totalTokens: convertMicroDenomToDenom(alliance?.total_tokens,
         token.decimals),
-      takeRate: Number(alliance?.take_rate) * 1e7,
+      takeRate: Number(alliance?.take_rate) * 1e7 || 0,
     };
   });
+  const vA = allianceAssets.find((a) => a.denom === 'factory/migaloo190qz7q5fu4079svf890h4h3f8u46ty6cxnlt78eh486k9qm995hquuv9kd/ualliance')
+  alliances.push({ name: "restaking", weight: Number(vA.reward_weight), totalDollarAmount: 0, totalTokens: 0, takeRate: 0 })
   return { alliances }
 }
 
