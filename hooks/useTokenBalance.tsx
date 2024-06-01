@@ -12,15 +12,16 @@ import { DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL } from 'util/constants';
 import { convertMicroDenomToDenom } from 'util/conversion';
 
 import { getTokenInfoFromTokenList } from './useTokenInfo';
+import { StargateClient } from '@cosmjs/stargate';
 
 const fetchTokenBalance = async ({
   client,
   token = {},
   address,
 }: {
-    client: CosmWasmClient
-    token: any;
-    address: string;
+  client: CosmWasmClient
+  token: any;
+  address: string;
 }) => {
   const { denom, native, token_address: tokenAddress, decimals } = token || {};
 
@@ -50,25 +51,38 @@ const fetchTokenBalances = async ({
   tokenSymbols,
   address,
   tokens,
+  stargateClient,
 }: {
-    client: CosmWasmClient
-    tokenSymbols: Array<string>
-    address: string;
-    tokens: any
-}) => await Promise.all(tokenSymbols.map(async (symbol) => {
-  const token = getTokenInfoFromTokenList(symbol, tokens)
-  const balance = await fetchTokenBalance({
-    client,
-    token,
-    address,
-  })
-  return balance || 0
-}))
+  client: CosmWasmClient
+  tokenSymbols: Array<string>
+  address: string;
+  tokens: any
+  stargateClient: StargateClient
+}) => {
+  const nativeBalances = await stargateClient.getAllBalances(address)
+  console.log(nativeBalances, tokenSymbols)
+  const out = await Promise.all(tokenSymbols.map(async (symbol) => {
+    const token = getTokenInfoFromTokenList(symbol, tokens)
+    let balance = 0
+    if (!token?.native) {
+      balance = await fetchTokenBalance({
+        client,
+        token,
+        address,
+      })
+    } else {
+      balance = convertMicroDenomToDenom((nativeBalances.find((b) => b.denom === token.denom)?.amount || 0), token.decimals)
+    }
+    return balance || 0
+  }))
+  console.log(out)
+  return out
+}
 
 export const useMultipleTokenBalance = (tokenSymbols?: Array<string>) => {
   const { walletChainName } = useRecoilValue(chainState)
   const { isWalletConnected, address } = useChain(walletChainName)
-  const { cosmWasmClient: client } = useClients()
+  const { cosmWasmClient: client, stargateClient } = useClients()
   const { tokens } = useAllTokenList()
   const queryKey = useMemo(() => `multipleTokenBalances/${tokenSymbols?.join('+')}`,
     [tokenSymbols])
@@ -80,12 +94,13 @@ export const useMultipleTokenBalance = (tokenSymbols?: Array<string>) => {
       tokenSymbols,
       address,
       tokens,
+      stargateClient
     }),
     {
       enabled: Boolean(isWalletConnected &&
-                tokenSymbols &&
-                tokens &&
-                address && client),
+        tokenSymbols &&
+        tokens &&
+        address && client),
 
       refetchOnMount: 'always',
       refetchInterval: DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL,
@@ -95,6 +110,8 @@ export const useMultipleTokenBalance = (tokenSymbols?: Array<string>) => {
       },
     },
   )
-  return { data,
-    isLoading } as const;
+  return {
+    data,
+    isLoading
+  } as const;
 }

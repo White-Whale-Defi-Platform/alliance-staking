@@ -10,6 +10,7 @@ export const useClients = () => {
   const {
     getCosmWasmClient,
     getSigningCosmWasmClient,
+    getStargateClient,
     getOfflineSigner,
     isWalletConnected,
     setDefaultSignOptions,
@@ -65,6 +66,11 @@ export const useClients = () => {
       },
       enabled: isWalletConnected,
     },
+    {
+      queryKey: ['stargateClient'],
+      queryFn: async () => await getStargateClient(),
+      enabled: isWalletConnected,
+    },
   ])
 
   // Check if both queries are in loading state
@@ -75,5 +81,6 @@ export const useClients = () => {
     cosmWasmClient: queries[0].data,
     signingClient: queries[1].data,
     allianceSigningClient: queries[2].data,
+    stargateClient: queries[3].data,
   }
 }

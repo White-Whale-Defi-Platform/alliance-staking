@@ -149,7 +149,7 @@ const AssetTable = ({ dashboardData, initialized }) => {
   const [sorting, setSorting] = useState<any>([
     {
       desc: true,
-      id: 'symbol',
+      id: 'totalValueStaked',
     },
   ])
 
