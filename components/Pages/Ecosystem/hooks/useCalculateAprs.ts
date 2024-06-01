@@ -20,7 +20,7 @@ export const useCalculateAprs = () => {
   const { vtRewardShares } = useGetVTRewardShares()
   const { totalYearlyWhaleEmission } = useTotalYearlyWhaleEmission()
   const { alliances } = useAlliances()
-  const vtEmission = useMemo(() => (alliances?.alliances.find((alliance) => alliance.name === 'restaking')?.weight) || 0.075 / 1.1 * totalYearlyWhaleEmission, [totalYearlyWhaleEmission, alliances])
+  const vtEmission = useMemo(() => ((alliances?.alliances.find((alliance) => alliance.name === 'restaking')?.weight) || 0.075) / 1.1 * totalYearlyWhaleEmission, [totalYearlyWhaleEmission, alliances])
   const [priceList] = usePrices() || []
   const lpTokenPrices = useGetLPTokenPrices()
 
