@@ -41,7 +41,7 @@ export const DashboardTab = ({ priceList }) => {
       const vtRewardShare = vtRewardShares.find((info) => info.tokenSymbol === apr.name)
       return {
         ...apr,
-        weight: apr?.weight ?? ((vtRewardShare?.distribution || 0) * allianceData.alliances.find((alliance) => alliance.name === 'restaking')?.weight || 0),
+        weight: apr?.weight ?? ((vtRewardShare?.distribution || 0) * (allianceData?.alliances.find((alliance) => alliance.name === 'restaking')?.weight || 0)),
       }
     })
     setAprs(aprs)
@@ -87,7 +87,7 @@ export const DashboardTab = ({ priceList }) => {
           totalAmount = totalStakedBalance?.totalAmount || 0
         }
 
-        const apr = aprs?.find((apr) => (apr.name === symbol && (apr.tabType === asset.tabType || asset.symbol == Token.WHALE)))
+        const apr = aprs?.find((apr) => (apr.name === symbol && (apr.tabType === asset.tabType || asset.symbol === Token.WHALE)))
         dashboardData.push({
           logo: symbol === 'USDC-WHALE-LP' ? <USDCWhaleLogo /> : symbol === 'WHALE-wBTC-LP' ? <WhaleBtcLogo /> :
             <Image
