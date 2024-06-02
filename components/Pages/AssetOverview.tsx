@@ -78,7 +78,7 @@ const AssetOverview = ({
           justifyContent="center"
           alignItems="center"
         >
-          <Loader/>
+          <Loader />
         </HStack>
       ) : (
         <HStack
@@ -93,7 +93,7 @@ const AssetOverview = ({
             <Table variant="simple">
               <Thead>
                 <Tr>
-                  <Th borderBottomWidth="0"><Text color={'grey'}as="span"
+                  <Th borderBottomWidth="0"><Text color={'grey'} as="span"
                     minW="150px">{'Delegated Assets'}</Text></Th>
                   <Th borderBottomWidth="0"></Th>
                 </Tr>
@@ -101,19 +101,23 @@ const AssetOverview = ({
               <Tbody>
                 {data?.map((e) => {
                   const apr = aprs?.find((apr) => apr.name === e.tokenSymbol)
-                  return (
-                    <Tr key={`row-${e.token}`}>
-                      <Td borderBottomWidth="0">
-                        <VStack alignItems="start">
-                          <HStack><Box bg={e.color} w="4" h="4" borderRadius="50%" mr="2"></Box><Text paddingBottom={2}>{e.token}</Text></HStack>
-                          <Text color="gray">APR ≈ {apr?.apr.toFixed(1)}%</Text>
-                        </VStack>
-                      </Td>
-                      <Td isNumeric borderBottomWidth="0">
-                        <Text>{isWalletConnected ? `$${e.dollarValue?.toFixed(2)}` : '$0'}</Text>
-                      </Td>
-                    </Tr>
-                  )
+                  if (e.value > 0) {
+                    return (
+                      <Tr key={`row-${e.token}`}>
+                        <Td borderBottomWidth="0">
+                          <VStack alignItems="start">
+                            <HStack><Box bg={e.color} w="4" h="4" borderRadius="50%" mr="2"></Box><Text paddingBottom={2}>{e.token}</Text></HStack>
+                            <Text color="gray">APR ≈ {apr?.apr.toFixed(1)}%</Text>
+                          </VStack>
+                        </Td>
+                        <Td isNumeric borderBottomWidth="0">
+                          <Text>{isWalletConnected ? `$${e.dollarValue?.toFixed(2)}` : '$0'}</Text>
+                        </Td>
+                      </Tr>
+                    )
+                  } else {
+                    return null
+                  }
                 })}
               </Tbody>
             </Table>
@@ -134,10 +138,10 @@ const AssetOverview = ({
             >
               {isWalletConnected ? (
                 data?.map((e, index: number) => (
-                  <Cell key={`cell-${index}-${e.symbol}`} fill={data[index].color}/>
+                  <Cell key={`cell-${index}-${e.symbol}`} fill={data[index].color} />
                 ))
               ) : (
-                <Cell fill="grey"/>
+                <Cell fill="grey" />
               )}
             </Pie>
           </PieChart>
