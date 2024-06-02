@@ -57,7 +57,7 @@ const RewardsComponent: FC<UndelegationsProps> = ({
           justifyContent="center"
           alignItems="center"
         >
-          <Loader/>
+          <Loader />
         </HStack>
       ) : (
         <>
@@ -76,7 +76,7 @@ const RewardsComponent: FC<UndelegationsProps> = ({
             </Text>
             <HStack gap={1}>
               {(currentTabState !== TabType.alliance && isWalletConnected) &&
-                <UpdateRewardsButton/>}
+                <UpdateRewardsButton />}
               <ClaimButton
                 isWalletConnected={isWalletConnected}
                 onOpenModal={openView}
@@ -99,14 +99,20 @@ const RewardsComponent: FC<UndelegationsProps> = ({
             flexDirection={showRewards ? null : 'column'}>
             {showRewards ? data?.map((reward, index) => {
               const token = tokens.find((token) => token.symbol === reward.symbol)
+              const source = tokens.find((token) => token.denom === reward?.stakedDenom)
               return (<Box key={index} marginY={3}>
                 <HStack justifyContent="space-between" width="100%" pr={3}>
                   <HStack>
+                    {source?.logoURI && <Image
+                      src={source?.logoURI}
+                      width={5}
+                      height={5}
+                      marginRight={0} />}
                     {token?.logoURI && <Image
                       src={token?.logoURI}
                       width={5}
                       height={5}
-                      marginRight={2}/>}
+                      marginRight={2} />}
                     <Text>{reward.symbol}</Text>
                   </HStack>
                   <Text>
@@ -120,7 +126,7 @@ const RewardsComponent: FC<UndelegationsProps> = ({
                     color={'white'}
                   >{`≈$${reward.dollarValue?.toFixed(2).toString()}`}</Text>
                 </HStack>
-                {(index < (data?.length || 0) - 1) && <Divider/>}
+                {(index < (data?.length || 0) - 1) && <Divider />}
               </Box>
               )
             }) : <Text textAlign="center" marginTop="auto" marginBottom="auto"
