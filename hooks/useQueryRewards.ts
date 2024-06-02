@@ -10,23 +10,23 @@ import { TabType } from 'state/tabState';
 import { convertMicroDenomToDenom } from 'util/conversion';
 
 interface Asset {
-    native: string
-    cw20: string
+  native: string
+  cw20: string
 }
 
 interface RawRewardInfo {
-    reward_asset: Asset
-    rewards: string
-    staked_asset: Asset
+  reward_asset: Asset
+  rewards: string
+  staked_asset: Asset
 }
 
 export interface RewardInfo {
-    tabType: TabType
-    tokenSymbol: string
-    name: string
-    denom: string
-    amount: number
-    stakedDenom: string
+  tabType: TabType
+  tokenSymbol: string
+  name: string
+  denom: string
+  amount: number
+  stakedDenom: string
 }
 const getRewards = async (
   contractAddress: string, address: string, client: CosmWasmClient,
@@ -36,17 +36,17 @@ const getRewards = async (
       address,
     },
   }
-  const rawRewards : RawRewardInfo[] = await client.queryContractSmart(contractAddress, msg)
+  const rawRewards: RawRewardInfo[] = await client.queryContractSmart(contractAddress, msg)
   return rawRewards.map((info) => {
-    const stakedToken = tokens?.find((token) => token.denom === (info?.staked_asset?.native ?? info?.staked_asset?.cw20))
-    const rewardToken = tokens?.find((token) => token.denom === (info?.reward_asset?.native ?? info?.reward_asset?.cw20))
+    const stakedToken = tokens?.find((token) => (token.denom === (info?.staked_asset?.native ?? info?.staked_asset?.cw20) && token.tabType === TabType.ecosystem))
+    const rewardToken = tokens?.find((token) => (token.denom === (info?.reward_asset?.native ?? info?.reward_asset?.cw20) && token.tabType === TabType.ecosystem))
 
     return {
       tabType: stakedToken.tabType as TabType,
       tokenSymbol: rewardToken?.symbol,
       name: rewardToken?.name,
       denom: rewardToken?.denom,
-      amount: convertMicroDenomToDenom(info?.rewards, 6),
+      amount: convertMicroDenomToDenom(info?.rewards, rewardToken.decimals),
       stakedDenom: stakedToken?.denom,
     }
   })
@@ -62,6 +62,8 @@ export const useQueryRewards = () => {
     refetchInterval: 15000,
     enabled: Boolean(file.alliance_contract) && Boolean(client) && Boolean(address),
   })
-  return { data,
-    isLoading }
+  return {
+    data,
+    isLoading
+  }
 }
