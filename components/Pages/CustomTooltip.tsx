@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, Fragment } from 'react';
+import { useRef, Fragment } from 'react';
 
 import { Box, Divider, HStack, Text, VStack, Tooltip } from '@chakra-ui/react';
 import { Token } from 'components/Pages/AssetOverview';
@@ -28,14 +28,11 @@ export const CustomTooltip = ({
     </HStack>
   );
   const textRef = useRef(null);
-  const [textWidth, setTextWidth] = useState(0);
 
-  useEffect(() => {
-    setTextWidth(textRef.current.offsetWidth);
-  }, [label]);
-
+  const tooltipActive = Boolean(data.find((e) => e.value > 0))
   return (
     <Tooltip
+      isDisabled={!tooltipActive}
       sx={{ boxShadow: 'none' }}
       label={
         <VStack
@@ -50,18 +47,23 @@ export const CustomTooltip = ({
           justifyContent="center"
           alignItems="center"
         >
-          {data?.map((e, index) => (
-            <Fragment key={e.token}>
-              <TokenDetail tokenType={e.token} value={e.value} />
-              {(index !== (data?.length || 0) - 1) && (
-                <Divider
-                  width="93%"
-                  borderWidth="0.1px"
-                  color="whiteAlpha.300"
-                />
-              )}
-            </Fragment>
-          ))}
+          {data?.map((e, index) => {
+            if (e.value > 0) {
+              return (<Fragment key={e.token}>
+                <TokenDetail tokenType={e.token} value={e.value} />
+                {(index !== (data?.length || 0) - 1) && (
+                  <Divider
+                    width="93%"
+                    borderWidth="0.1px"
+                    color="whiteAlpha.300"
+                  />
+                )}
+              </Fragment>
+              )
+            } else {
+              return null
+            }
+          })}
         </VStack>
       }
       bg="transparent"
@@ -76,11 +78,11 @@ export const CustomTooltip = ({
         >
           {label}
         </Text>
-        <Box pb={1}>
-          {label !== '$0' && (
+        {(label !== '$0' && tooltipActive) && (
+          <Box pb={1} pl={1} width={'auto'}>
             <div
               style={{
-                width: `${textWidth}px`,
+                width: `${label.length * 15}px`,
                 height: '1px',
                 background: `repeating-linear-gradient(
             to right,
@@ -91,8 +93,7 @@ export const CustomTooltip = ({
           )`,
               }}
             />
-          )}
-        </Box>
+          </Box>)}
       </VStack>
     </Tooltip>
   )
