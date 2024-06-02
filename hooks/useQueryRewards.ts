@@ -38,15 +38,14 @@ const getRewards = async (
   }
   const rawRewards: RawRewardInfo[] = await client.queryContractSmart(contractAddress, msg)
   return rawRewards.map((info) => {
-    const stakedToken = tokens?.find((token) => (token.denom === (info?.staked_asset?.native ?? info?.staked_asset?.cw20) && token.tabType === TabType.ecosystem))
-    const rewardToken = tokens?.find((token) => (token.denom === (info?.reward_asset?.native ?? info?.reward_asset?.cw20) && token.tabType === TabType.ecosystem))
-
+    const stakedToken = tokens?.find((token) => (token.denom === (info?.staked_asset?.native ?? info?.staked_asset?.cw20) && token?.tabType === TabType.ecosystem))
+    const rewardToken = tokens?.find((token) => token.denom === (info?.reward_asset?.native ?? info?.reward_asset?.cw20))
     return {
-      tabType: stakedToken.tabType as TabType,
+      tabType: stakedToken?.tabType as TabType,
       tokenSymbol: rewardToken?.symbol,
       name: rewardToken?.name,
       denom: rewardToken?.denom,
-      amount: convertMicroDenomToDenom(info?.rewards, rewardToken.decimals),
+      amount: convertMicroDenomToDenom(info?.rewards, rewardToken?.decimals || 6),
       stakedDenom: stakedToken?.denom,
     }
   })
