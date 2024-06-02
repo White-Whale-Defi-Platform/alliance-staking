@@ -59,7 +59,7 @@ const fetchTokenBalances = async ({
   tokens: any
   stargateClient: StargateClient
 }) => {
-  const nativeBalances = await stargateClient.getAllBalances(address)
+  const nativeBalances = await stargateClient?.getAllBalances(address)
   const out = await Promise.all(tokenSymbols.map(async (symbol) => {
     const token = getTokenInfoFromTokenList(symbol, tokens)
     let balance = 0
@@ -98,7 +98,7 @@ export const useMultipleTokenBalance = (tokenSymbols?: Array<string>) => {
       enabled: Boolean(isWalletConnected &&
         tokenSymbols &&
         tokens &&
-        address && client),
+        address && client && stargateClient),
 
       refetchOnMount: 'always',
       refetchInterval: DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL,
