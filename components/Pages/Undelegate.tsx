@@ -19,7 +19,6 @@ import useTransaction from 'hooks/useTransaction';
 import { useRouter } from 'next/router';
 import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
 import whiteListedEcosystemTokens from 'public/mainnet/white_listed_ecosystem_token_info.json'
-import whiteListedLiquidityTokens from 'public/mainnet/white_listed_liquidity_token_info.json'
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { chainState } from 'state/chainState';
 import { delegationState, DelegationState } from 'state/delegationState';
@@ -47,8 +46,6 @@ export const Undelegate = ({ tokenSymbol }) => {
   const whiteListedTokens = useMemo(() => {
     if (tabFromUrl === TabType.ecosystem) {
       return whiteListedEcosystemTokens
-    } else if (tabFromUrl === TabType.liquidity) {
-      return whiteListedLiquidityTokens
     }
     return null
   }, [tabFromUrl])
@@ -56,8 +53,6 @@ export const Undelegate = ({ tokenSymbol }) => {
   useEffect(() => {
     if (tabFromUrl === TabType.ecosystem) {
       setTabType(TabType.ecosystem)
-    } else if (tabFromUrl === TabType.liquidity) {
-      setTabType(TabType.liquidity)
     }
   }, [tabFromUrl])
 

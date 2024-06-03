@@ -36,6 +36,7 @@ export enum Token {
   SAIL = 'SAIL',
   WIND = 'WIND',
   ampKUJI = 'ampKUJI',
+  shitmos = 'SHITMOS',
 }
 
 export enum TokenType {

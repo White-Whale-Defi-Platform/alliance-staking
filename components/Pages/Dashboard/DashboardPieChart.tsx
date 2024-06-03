@@ -25,8 +25,10 @@ const TokenBox = ({ symbol, color }) => (
 const CustomTooltip = ({ active, payload, dashboardData }) => {
   if (active && payload && payload.length) {
     return (
-      <Box style={{ background: 'rgba(0, 0, 0, 0.75)',
-        padding: '5px 10px' }}>
+      <Box style={{
+        background: 'rgba(0, 0, 0, 0.75)',
+        padding: '5px 10px',
+      }}>
         <Text>{`${dashboardData[payload[0].name].symbol}: ${payload[0].payload.percentage}`}</Text>
       </Box>
     )
@@ -67,11 +69,16 @@ export const DashboardPieChart = ({ dashboardData }) => {
             fontWeight="900"
             style={{ textTransform: 'capitalize' }}>Total Values Staked</Text>
         )}
-        {data?.map((e) => (
-          <VStack key={`tokenBox-${e.tokenSymbol}`} alignItems={'flex-start'}>
-            <TokenBox symbol={e.tokenSymbol} color={e.color} />
-          </VStack>
-        ))}
+        {data?.map((e, index) => {
+          if (e?.percentage.split('%')[0].valueOf() > 0.1) {
+            return (
+              <VStack key={`tokenBox-${e.tokenSymbol + index}`} alignItems={'flex-start'}>
+                <TokenBox symbol={e.tokenSymbol} color={e.color} />
+              </VStack>
+            )
+          }
+          return null
+        })}
       </VStack>
       <PieChart width={500} height={355}>
         <Pie
@@ -88,7 +95,7 @@ export const DashboardPieChart = ({ dashboardData }) => {
             <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Pie>
-        <Tooltip content={<CustomTooltip dashboardData={dashboardData}/>} />
+        <Tooltip content={<CustomTooltip dashboardData={dashboardData} />} />
       </PieChart>
     </HStack>
   )

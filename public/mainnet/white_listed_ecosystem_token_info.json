@@ -211,5 +211,43 @@
     "denom": "ibc/50D7251763B4D5E9DD7A8A6C6B012353E998CDE95C546C1F96D68F7CCB060918",
     "native": true,
     "color": "red"
+  },
+  {
+    "chainId": "migaloo-1",
+    "token_address": "factory/migaloo1xv4ql6t6r8zawlqn2tyxqsrvjpmjfm6kvdfvytaueqe3qvcwyr7shtx0hj/uLP",
+    "symbol": "USDC-WHALE-LP",
+    "name": "USDC-WHALE LP",
+    "decimals": 6,
+    "logoURI": null,
+    "tags": ["native"],
+    "denom": "factory/migaloo1xv4ql6t6r8zawlqn2tyxqsrvjpmjfm6kvdfvytaueqe3qvcwyr7shtx0hj/uLP",
+    "native": true,
+    "color": "#7CFB7D"
+  },
+  {
+    "chainId": "migaloo-1",
+    "token_address": "factory/migaloo1axtz4y7jyvdkkrflknv9dcut94xr5k8m6wete4rdrw4fuptk896su44x2z/uLP",
+    "symbol": "WHALE-wBTC-LP",
+    "name": "WHALE-wBTC-LP",
+    "decimals": 6,
+    "logoURI": null,
+    "tags": ["native"],
+    "denom": "factory/migaloo1axtz4y7jyvdkkrflknv9dcut94xr5k8m6wete4rdrw4fuptk896su44x2z/uLP",
+    "native": true,
+    "color": "red"
+  },
+  {
+    "chainId": "migaloo-1",
+    "token_address": "ibc/0E1B883A15D5FCA533332CBAB1A672934C3936920399F2A3EB4F438E3EBAD0E9",
+    "symbol": "SHITMOS",
+    "name": "Shitmos",
+    "decimals": 6,
+    "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/osmosis/images/SHITMOS.png",
+    "tags": [
+      "native"
+    ],
+    "denom": "ibc/0E1B883A15D5FCA533332CBAB1A672934C3936920399F2A3EB4F438E3EBAD0E9",
+    "native": true,
+    "color": "brown"
   }
 ]

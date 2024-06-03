@@ -120,7 +120,7 @@ const getPrice = async (tokens: PoolInfo[], basePrice?: TokenPrice) => {
       const prices = data?.data
       missingTokens.map((token) => {
         if (token.chainId == chain) {
-        results[token.name] = prices[token.name].price
+        results[token.name] = prices[token.name]?.price || 0
         }
       })
     }

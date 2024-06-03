@@ -14,14 +14,14 @@ import Loader from 'components/Loader'
 import { Token } from 'components/Pages/AssetOverview'
 
 export type DashboardData = {
-    logo: any
-    symbol: string
-    category: string
-    totalStaked: number
-    totalValueStaked: number
-    rewardWeight: number
-    takeRate: number
-    apr: number
+  logo: any
+  symbol: string
+  category: string
+  totalStaked: number
+  totalValueStaked: number
+  rewardWeight: number
+  takeRate: number
+  apr: number
 }
 
 const columnHelper = createColumnHelper<DashboardData>()
@@ -40,7 +40,7 @@ const columns: ColumnDef<DashboardData, any>[] = [
         color="brand.50"
         fontSize="sm"
         textTransform="capitalize">
-                Symbol
+        Symbol
       </Text>
     ),
     cell: (info) => info.getValue(),
@@ -51,7 +51,7 @@ const columns: ColumnDef<DashboardData, any>[] = [
         as="span"
         color="brand.50"
         fontSize="sm">
-                Category
+        Category
       </Text>
     ),
     cell: (info) => (info.row.original.symbol === 'WHALE' ? 'Native' : info.getValue().charAt(0).
@@ -66,7 +66,7 @@ const columns: ColumnDef<DashboardData, any>[] = [
         minW="150px"
         fontSize="sm"
       >
-                Total Staked
+        Total Staked
       </Text>
     ),
     cell: (info) => (info.row.original.symbol === Token.wBTC ? info.getValue()?.toLocaleString('en-US', {
@@ -135,7 +135,7 @@ const columns: ColumnDef<DashboardData, any>[] = [
         flex={1}
         fontSize="sm"
         textTransform="capitalize">
-                APR
+        APR
       </Text>
     ),
     cell: (info) => `${info.getValue()?.toLocaleString('en-US', {
@@ -218,29 +218,36 @@ const AssetTable = ({ dashboardData, initialized }) => {
           ))}
         </HStack>
       ))}
-      {table.getRowModel().rows?.map((row) => (
-        <HStack
-          key={row.id}
-          width="full"
-          borderRadius="30px"
-          backgroundColor="rgba(0, 0, 0, 0.5)"
-          py="5"
-          px="8"
-        >
-          {row.getVisibleCells().map((cell, index) => (
-            <Text
-              key={cell.id}
-              minW={index === 0 ? '20px' : index === 1 ? '185px' : index === 2 ? '145px' : index === 3 ? '145px' : index === 4 ? '180px' : index === 5 ? '150px' : index === 6 ? '150px' : 'unset'}
-            >
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </Text>
-          ))}
-        </HStack>
-      ))}
-      {!initialized && <Loader height={'7rem'} width={'7rem'} /> }
+      {table.getRowModel().rows?.map((row) => {
+        const columnMinWidths = ['20px', '185px', '145px', '145px', '180px', '150px', '150px'];
+        const visibleCells = row.getVisibleCells();
+        const noRewards = visibleCells[5].getContext().getValue() === 0;
+        return (
+          <HStack
+            key={row.id + row.index}
+            width="full"
+            borderRadius="30px"
+            backgroundColor="rgba(0, 0, 0, 0.5)"
+            py="5"
+            px="8"
+          >
+            {visibleCells.map((cell, index) => (
+              <Text
+                color={noRewards ? 'brand.50' : 'white'}
+                key={cell.id + row.id}
+                minW={columnMinWidths[index] || 'unset'}
+              >
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </Text>
+            ))}
+          </HStack>
+        );
+      })}
+
+      {!initialized && <Loader height={'7rem'} width={'7rem'} />}
       {(dashboardData?.length === 0 && initialized) && (
         <Text color="brand.50" fontSize="sm" textTransform="capitalize">
-                    No whitelisted assets found
+          No whitelisted assets found
         </Text>
       )}
     </VStack>

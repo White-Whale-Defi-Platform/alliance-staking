@@ -19,9 +19,7 @@ export const useTokenList = () => {
     url = `/${network}/white_listed_alliance_token_info.json`;
   } else if (tabType === TabType.ecosystem) {
     url = `/${network}/white_listed_ecosystem_token_info.json`;
-  } else if (tabType === TabType.liquidity) {
-    url = `/${network}/white_listed_liquidity_token_info.json`;
-  }
+  } 
 
   const { data: tokenInfoList, isLoading } = useQuery<TokenInfo[]>(
     ['tokenInfo', chainId, network, tabType], // The query key includes tabType to ensure uniqueness

@@ -11,11 +11,8 @@ import { Token } from 'components/Pages/AssetOverview'
 import { DashboardTab } from 'components/Pages/Dashboard/DashboardTab'
 import { calculateEcosystemData } from 'components/Pages/Ecosystem/calculateEcosystemData'
 import { EcosystemTab } from 'components/Pages/Ecosystem/EcosystemTab'
-import { calculateLiquidityData } from 'components/Pages/Liquidity/calculateLiquidityData'
-import { LiquidityTab } from 'components/Pages/Liquidity/LiquidityTab'
 import { MIGALOO_CHAIN_NAME } from 'constants/common';
 import useDelegations from 'hooks/useDelegations'
-import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices'
 import usePrices from 'hooks/usePrices'
 import { useQueryRewards } from 'hooks/useQueryRewards'
 import { useQueryStakedBalances } from 'hooks/useQueryStakedBalances'
@@ -23,7 +20,6 @@ import { useMultipleTokenBalance } from 'hooks/useTokenBalance'
 import useUndelegations from 'hooks/useUndelegations'
 import whiteListedAllianceTokens from 'public/mainnet/white_listed_alliance_token_info.json'
 import whiteListedEcosystemTokens from 'public/mainnet/white_listed_ecosystem_token_info.json'
-import whiteListedLiquidityTokens from 'public/mainnet/white_listed_liquidity_token_info.json'
 import { useRecoilState } from 'recoil'
 import { tabState, TabType } from 'state/tabState'
 
@@ -69,15 +65,6 @@ const Dashboard = () => {
     color: t.color,
   })), [])
 
-  const rawLiquidityTokenData = useMemo(() => whiteListedLiquidityTokens?.map((t) => ({
-    token: Token[t.symbol],
-    tokenSymbol: t.symbol,
-    name: t.name,
-    dollarValue: 0,
-    value: 0,
-    color: t.color,
-  })), [])
-
   const rawEcosystemTokenData = useMemo(() => whiteListedEcosystemTokens.map((t) => ({
     token: Token[t.symbol],
     tokenSymbol: t.symbol,
@@ -107,16 +94,6 @@ const Dashboard = () => {
     rewards: [],
   })), [])
 
-  const liquidityRewardsTokenData = useMemo(() => whiteListedLiquidityTokens.map((t) => ({
-    token: Token[t.symbol],
-    tokenSymbol: t.symbol,
-    name: t.name,
-    dollarValue: 0,
-    value: 0,
-    totalRewardDollarValue: 0,
-    rewards: [],
-  })), [])
-
   const [priceList] = usePrices() || []
 
   // TODO: useDelegations should return 1 list of delegations which includes both native staking and alliance staking entries for the given address
@@ -128,7 +105,6 @@ const Dashboard = () => {
 
   const { data: allianceBalances } = useMultipleTokenBalance(whiteListedAllianceTokens?.map((e) => e.symbol))
   const { data: ecosystemBalances } = useMultipleTokenBalance(whiteListedEcosystemTokens?.map((e) => e.symbol))
-  const { data: liquidityBalances } = useMultipleTokenBalance(whiteListedLiquidityTokens?.map((e) => e.symbol))
   const { data: undelegationData } = useUndelegations({ address })
 
   const allianceAPRs = useCalculateAllianceAprs({ address })
@@ -148,9 +124,6 @@ const Dashboard = () => {
       case 2:
         setCurrentTab(TabType.ecosystem)
         break;
-      case 3:
-        setCurrentTab(TabType.liquidity)
-        break
       default:
         throw new Error('Invalid tab index')
     }
@@ -163,8 +136,6 @@ const Dashboard = () => {
         return 1
       case TabType.ecosystem:
         return 2
-      case TabType.liquidity:
-        return 3
       default:
         throw new Error('Invalid tab type')
     }
@@ -184,13 +155,6 @@ const Dashboard = () => {
     total: rawEcosystemTokenData,
   })
 
-  const [updatedLiquidityData, setLiquidityData] = useState({
-    delegated: rawLiquidityTokenData,
-    liquid: rawLiquidityTokenData,
-    rewards: liquidityRewardsTokenData,
-    total: rawLiquidityTokenData,
-  })
-
   const { data: rewards } = useQueryRewards()
 
   const [isLoading, setLoading] = useState<boolean>(true);
@@ -207,41 +171,28 @@ const Dashboard = () => {
     )
   }, [ecosystemBalances, stakedBalances, rewards, rawEcosystemTokenData, priceList])
 
-  const lpTokenPrices = useGetLPTokenPrices()
-  useEffect(() => {
-    calculateLiquidityData(
-      rawLiquidityTokenData, priceList, lpTokenPrices, liquidityBalances, stakedBalances, rewards, setLiquidityData,
-    )
-  }, [stakedBalances, rewards, liquidityBalances, rawLiquidityTokenData, priceList, lpTokenPrices])
-
   useEffect(() => {
     setLoading(updatedAllianceData === null ||
             !priceList)
   }, [updatedAllianceData, priceList])
 
   return (
-    <VStack
-      w="full"
-      alignSelf="start"
-      alignItems={'flex-start'}
-      justifyContent={'center'}
-      justify={'center'}>
+    <VStack>
       <Tabs variant={'brand'} index={tabTypeToIndex(currentTab)} onChange={(index) => setTabType(index)} mr={100}>
-        <HStack justifyItems={'space-evenly'}>
+        <HStack>
           <Box flex="1">
             <Logo/>
           </Box>
           <TabList
             display={['flex']}
             flexWrap={['wrap']}
-            justifyContent="flex-start"
             borderRadius={30}
+            marginRight={isWalletConnected ? 0 : 150}
             backgroundColor="rgba(0, 0, 0, 0.5)"
             mt={0}>
             <Tab>Dashboard</Tab>
             <Tab>Portfolio</Tab>
             <Tab>ReStaking</Tab>
-            <Tab>Liquidity</Tab>
           </TabList>
           <Header/>
         </HStack>
@@ -256,10 +207,6 @@ const Dashboard = () => {
           <TabPanel>
             <EcosystemTab isWalletConnected={isWalletConnected} isLoading={isLoading} address={address}
               updatedData={updatedEcosystemData}/>
-          </TabPanel>
-          <TabPanel>
-            <LiquidityTab isWalletConnected={isWalletConnected} isLoading={isLoading} address={address}
-              updatedData={updatedLiquidityData}/>
           </TabPanel>
         </TabPanels>
       </Tabs>

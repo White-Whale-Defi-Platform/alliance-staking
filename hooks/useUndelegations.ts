@@ -18,25 +18,28 @@ const getUndelegations = async (
   priceList: any,
   delegatorAddress: string,
 ): Promise<any> => {
-  const undelegations:Undelegation[] = []
-  for (const token of tokens) {
-    let url: string = 'terra/alliances/unbondings/'
-    url += `/${encodeURIComponent(encodeURIComponent(token.token_address))}/${delegatorAddress}`;
-    const resAlliance: any = await client.alliance.getReqFromAddress(delegatorAddress).get(url)
-
-    if (resAlliance.unbondings.length > 0) {
-      resAlliance.unbondings.forEach((undelegation) => {
-        const amount = convertMicroDenomToDenom(undelegation.amount,
+  const undelegations: Undelegation[] = []
+  let url: string = `${client.config['migaloo-1'].lcd}/cosmos/tx/v1beta1/txs?events=message.action=%27/alliance.alliance.MsgUndelegate%27&events=message.sender=%27${delegatorAddress}%27`
+  const resAlliance: any = await (await fetch(url)).json()
+  for (const txs of resAlliance.tx_responses) {
+    const event = txs.events.find((e) => e.type === 'alliance.alliance.UndelegateAllianceEvent')
+    if (event) {
+      const completion = Date.parse(event.attributes.find((attr) => attr.key === "completionTime")?.value.replace("\"", "").replace("\"", ""))
+      if (completion > Date.now()) {
+        const coin = JSON.parse(event.attributes.find((attr) => attr.key === "coin")?.value)
+        const token = tokens.find((t) => t.denom === coin.denom)
+        const validator_address = JSON.parse(event.attributes.find((attr) => attr.key === "validator")?.value)
+        const amount = convertMicroDenomToDenom(coin.amount,
           token.decimals)
         const dollarValue = priceList[token.name] * amount;
         undelegations.push({
-          validatorAddress: undelegation.validator_address,
+          validatorAddress: validator_address,
           delegatorAddress,
           amount,
           dollarValue,
           symbol: token.symbol,
         })
-      })
+      }
     }
   }
   const stakingToken = 'Whale'
