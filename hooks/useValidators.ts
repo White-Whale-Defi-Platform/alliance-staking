@@ -90,7 +90,7 @@ type UseValidatorsResult = {
   isFetching: boolean
 }
 const getStakedWBtc = async ({ validatorData }) => {
-  const wBTC = allianceTokens.find((token) => token.symbol === Token.wBTC)
+  const wBTC = allianceTokens.find((token) => token.symbol === 'wBTC')
   let totalWBtcAmount = 0
   validatorData.validators.forEach((v) => {
     const wBTCAmount = v.total_staked.find((token) => token.denom === wBTC.denom)?.amount || 0
@@ -100,7 +100,7 @@ const getStakedWBtc = async ({ validatorData }) => {
 }
 
 const getStakedAmpOsmo = async ({ validatorData }) => {
-  const ampOsmo = allianceTokens.find((token) => token.symbol === Token.ampOSMO)
+  const ampOsmo = allianceTokens.find((token) => token.symbol === 'ampOSMO')
   let totalampOsmoAmount = 0
   validatorData.validators.forEach((v) => {
     const ampOsmoAmount = v.total_staked.find((token) => token.denom === ampOsmo.denom)?.amount || 0
@@ -110,7 +110,7 @@ const getStakedAmpOsmo = async ({ validatorData }) => {
 }
 
 const getStakedbOsmo = async ({ validatorData }) => {
-  const bOsmo = allianceTokens.find((token) => token.symbol === Token.bOSMO)
+  const bOsmo = allianceTokens.find((token) => token.symbol === 'bOSMO')
   let totalbOsmoAmount = 0
   validatorData.validators.forEach((v) => {
     const bosmoAmount = v.total_staked.find((token) => token.denom === bOsmo.denom)?.amount || 0

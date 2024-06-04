@@ -7,7 +7,6 @@ import Logo from 'components/Header/Logo'
 import { AllianceTab } from 'components/Pages/Alliance/AllianceTab'
 import { calculateAllianceData } from 'components/Pages/Alliance/hooks/calculateAllianceData'
 import { useCalculateAllianceAprs } from 'components/Pages/Alliance/hooks/useCalculateAllianceAprs'
-import { Token } from 'components/Pages/AssetOverview'
 import { DashboardTab } from 'components/Pages/Dashboard/DashboardTab'
 import { calculateEcosystemData } from 'components/Pages/Ecosystem/calculateEcosystemData'
 import { EcosystemTab } from 'components/Pages/Ecosystem/EcosystemTab'
@@ -24,40 +23,40 @@ import { useRecoilState } from 'recoil'
 import { tabState, TabType } from 'state/tabState'
 
 export interface Reward {
-    amount: number;
-    denom: string;
-    dollarValue: number;
+  amount: number;
+  denom: string;
+  dollarValue: number;
 }
 
 export enum ActionType {
-    delegate,
-    redelegate,
-    undelegate,
-    claim,
-    updateRewards
+  delegate,
+  redelegate,
+  undelegate,
+  claim,
+  updateRewards
 }
 
 export type TokenData = {
-    color: string;
-    value: number;
-    dollarValue: number;
-    token?: Token;
-    tokenSymbol?: string;
+  color: string;
+  value: number;
+  dollarValue: number;
+  token?: Token;
+  tokenSymbol?: string;
 };
 
 export interface DelegationData {
-    delegated: TokenData[];
-    undelegated: TokenData[];
-    liquid: TokenData[];
-    rewards: any;
-    total?: TokenData[];
+  delegated: TokenData[];
+  undelegated: TokenData[];
+  liquid: TokenData[];
+  rewards: any;
+  total?: TokenData[];
 }
 
 const Dashboard = () => {
   const { address, isWalletConnected } = useChain(MIGALOO_CHAIN_NAME)
 
   const rawAllianceTokenData = useMemo(() => whiteListedAllianceTokens.map((t) => ({
-    token: Token[t.symbol],
+    token: t.symbol,
     tokenSymbol: t.symbol,
     name: t.name,
     dollarValue: 0,
@@ -66,7 +65,7 @@ const Dashboard = () => {
   })), [])
 
   const rawEcosystemTokenData = useMemo(() => whiteListedEcosystemTokens.map((t) => ({
-    token: Token[t.symbol],
+    token: t.symbol,
     tokenSymbol: t.symbol,
     name: t.name,
     dollarValue: 0,
@@ -75,7 +74,7 @@ const Dashboard = () => {
   })), [])
 
   const allianceRewardsTokenData = useMemo(() => whiteListedAllianceTokens.map((t) => ({
-    token: Token[t.symbol],
+    token: t.symbol,
     tokenSymbol: t.symbol,
     name: t.name,
     dollarValue: 0,
@@ -85,7 +84,7 @@ const Dashboard = () => {
   })), [])
 
   const ecosystemRewardsTokenData = useMemo(() => whiteListedEcosystemTokens.map((t) => ({
-    token: Token[t.symbol],
+    token: t.symbol,
     tokenSymbol: t.symbol,
     name: t.name,
     dollarValue: 0,
@@ -173,7 +172,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     setLoading(updatedAllianceData === null ||
-            !priceList)
+      !priceList)
   }, [updatedAllianceData, priceList])
 
   return (
@@ -181,7 +180,7 @@ const Dashboard = () => {
       <Tabs variant={'brand'} index={tabTypeToIndex(currentTab)} onChange={(index) => setTabType(index)} mr={100}>
         <HStack>
           <Box flex="1">
-            <Logo/>
+            <Logo />
           </Box>
           <TabList
             display={['flex']}
@@ -194,19 +193,19 @@ const Dashboard = () => {
             <Tab>Portfolio</Tab>
             <Tab>ReStaking</Tab>
           </TabList>
-          <Header/>
+          <Header />
         </HStack>
         <TabPanels p={4}>
           <TabPanel>
-            <DashboardTab priceList={priceList}/>
+            <DashboardTab priceList={priceList} />
           </TabPanel>
           <TabPanel>
             <AllianceTab isWalletConnected={isWalletConnected} isLoading={isLoading} address={address}
-              updatedData={updatedAllianceData} allianceAPRs={allianceAPRs}/>
+              updatedData={updatedAllianceData} allianceAPRs={allianceAPRs} />
           </TabPanel>
           <TabPanel>
             <EcosystemTab isWalletConnected={isWalletConnected} isLoading={isLoading} address={address}
-              updatedData={updatedEcosystemData}/>
+              updatedData={updatedEcosystemData} />
           </TabPanel>
         </TabPanels>
       </Tabs>

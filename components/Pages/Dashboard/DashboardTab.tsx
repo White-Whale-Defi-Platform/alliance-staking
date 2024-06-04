@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { HStack, Image, Text, VStack } from '@chakra-ui/react'
 import { useChain } from '@cosmos-kit/react-lite';
 import { useCalculateAllianceAprs } from 'components/Pages/Alliance/hooks/useCalculateAllianceAprs';
-import { Token } from 'components/Pages/AssetOverview';
 import AssetTable, { DashboardData } from 'components/Pages/Dashboard/AssetTable';
 import { DashboardPieChart } from 'components/Pages/Dashboard/DashboardPieChart';
 import { useAssetsData } from 'components/Pages/Dashboard/hooks/useAssetsData';
@@ -16,9 +15,10 @@ import useValidators from 'hooks/useValidators';
 import tokens from 'public/mainnet/tokens.json';
 import { useRecoilValue } from 'recoil';
 import { chainState } from 'state/chainState';
+import { useAllTokenList } from '../../../hooks/useAllTokenList';
 
-const dashboardTokenSymbols = Object.values(Token)
 export const DashboardTab = ({ priceList }) => {
+  const { tokensList } = useAllTokenList()
   const { walletChainName } = useRecoilValue(chainState)
   const { address } = useChain(walletChainName)
   const [dashboardData, setDashboardData] = useState<DashboardData[]>([])
@@ -26,9 +26,12 @@ export const DashboardTab = ({ priceList }) => {
   const { alliances: allianceData } = useAlliances()
   const [initialized, setInitialized] = useState<boolean>(false)
 
+  const dashboardTokenSymbols = useMemo(() => {return [...new Set(tokensList?.map((tok) => tok.symbol))]}, [tokensList])
+
   const { vtRewardShares, totalStakedBalances } = useAssetsData()
 
   const { data: { stakedAmpLuna, stakedBLuna, stakedWhale, stakedWBtc, stakedAmpOSMO, stakedbOsmo } } = useValidators({ address })
+  console.log(stakedAmpLuna, stakedBLuna, stakedWhale, stakedWBtc, stakedAmpOSMO, stakedbOsmo)
   const [aprs, setAprs] = useState<Apr[]>([])
   const allianceAPRs = useCalculateAllianceAprs({ address })
   const otherAprs = useCalculateAprs()
@@ -56,26 +59,27 @@ export const DashboardTab = ({ priceList }) => {
       const assets = tokens.filter((token) => token.symbol === symbol)
       return assets.forEach((asset: any) => {
         const totalStakedBalance = totalStakedBalances.find((balance) => balance.tokenSymbol === symbol)
+        const color = tokensList.find((token) => token.symbol === symbol)?.color
         let totalAmount = 0
         let takeRate = 0
         if (asset.tabType === 'alliance') {
           switch (asset.symbol) {
-            case Token.bLUNA:
+            case 'bLUNA':
               totalAmount = stakedBLuna
               break
-            case Token.ampLUNA:
+            case 'ampLUNA':
               totalAmount = stakedAmpLuna
               break
-            case Token.WHALE:
+            case 'WHALE':
               totalAmount = stakedWhale;
               break
-            case Token.wBTC:
+            case 'wBTC':
               totalAmount = stakedWBtc
               break
-            case Token.ampOSMO:
+            case 'ampOSMO':
               totalAmount = stakedAmpOSMO
               break
-            case Token.bOSMO:
+            case 'bOSMO':
               totalAmount = stakedbOsmo
               break
             default:
@@ -87,7 +91,7 @@ export const DashboardTab = ({ priceList }) => {
           totalAmount = totalStakedBalance?.totalAmount || 0
         }
 
-        const apr = aprs?.find((apr) => (apr.name === symbol && (apr.tabType === asset.tabType || asset.symbol === Token.WHALE)))
+        const apr = aprs?.find((apr) => (apr.name === symbol && (apr.tabType === asset.tabType || asset.symbol === 'WHALE')))
         dashboardData.push({
           logo: symbol === 'USDC-WHALE-LP' ? <USDCWhaleLogo /> : symbol === 'WHALE-wBTC-LP' ? <WhaleBtcLogo /> :
             <Image
@@ -100,10 +104,11 @@ export const DashboardTab = ({ priceList }) => {
           symbol,
           category: asset.tabType,
           totalStaked: totalAmount,
-          totalValueStaked: (symbol?.includes('-LP') ? lpTokenPrices?.[symbol] || 0 : symbol === Token.mUSDC ? 1 : priceList[asset.name]) * totalAmount,
+          totalValueStaked: (symbol?.includes('-LP') ? lpTokenPrices?.[symbol] || 0 : symbol === 'mUSDC' ? 1 : priceList[asset.name]) * totalAmount,
           rewardWeight: (apr?.weight || 0) * 100,
           takeRate: takeRate || 0,
           apr: apr?.apr || 0,
+          color: color,
         })
       })
     })

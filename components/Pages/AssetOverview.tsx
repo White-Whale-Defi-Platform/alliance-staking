@@ -13,32 +13,6 @@ import {
 import Loader from 'components/Loader'
 import { Cell, Pie, PieChart } from 'recharts'
 
-export enum Token {
-  WHALE = 'WHALE',
-  ampLUNA = 'ampLUNA',
-  bLUNA = 'bLUNA',
-  mUSDC = 'mUSDC',
-  ASH = 'ASH',
-  wBTC = 'wBTC',
-  'USDC-WHALE-LP' = 'USDC-WHALE-LP',
-  'WHALE-wBTC-LP' = 'WHALE-wBTC-LP',
-  ampOSMO = 'ampOSMO',
-  bOSMO = 'bOSMO',
-  OPHIR = 'OPHIR',
-  MOAR = 'MOAR',
-  gASH = 'gASH',
-  RAC = 'RAC',
-  FROG = 'FROG',
-  XUSK = 'xUSK',
-  arbWHALE = 'arbWHALE',
-  lsdSHARK = 'lsdSHARK',
-  LAB = 'LAB',
-  SAIL = 'SAIL',
-  WIND = 'WIND',
-  ampKUJI = 'ampKUJI',
-  shitmos = 'SHITMOS',
-}
-
 export enum TokenType {
   liquid,
   delegated,
@@ -55,6 +29,7 @@ const AssetOverview = ({
   const borderRadius = '30px';
 
   const aggregatedAssets = data?.reduce((acc, e) => acc + (e?.value ?? 0), 0);
+  const orderedData = data?.sort((a, b) => b.dollarValue - a.dollarValue);
   return (
     <VStack
       width="full"
@@ -100,7 +75,7 @@ const AssetOverview = ({
                 </Tr>
               </Thead>
               <Tbody>
-                {data?.map((e) => {
+                {orderedData?.map((e) => {
                   const apr = aprs?.find((apr) => apr.name === e.tokenSymbol)
                   if (e.value > 0) {
                     return (
@@ -127,19 +102,19 @@ const AssetOverview = ({
             <Pie
               data={
                 isWalletConnected && aggregatedAssets !== 0
-                  ? data
+                  ? orderedData
                   : [{ value: 1 }]
               }
               cx="42%"
               cy="50%"
               innerRadius={95}
               outerRadius={120}
-              dataKey="value"
+              dataKey="dollarValue"
               stroke="none"
             >
               {isWalletConnected ? (
-                data?.map((e, index: number) => (
-                  <Cell key={`cell-${index}-${e.symbol}`} fill={data[index].color} />
+                orderedData?.map((e, index: number) => (
+                  <Cell key={`cell-${index}-${e.symbol}`} fill={orderedData[index].color} />
                 ))
               ) : (
                 <Cell fill="grey" />

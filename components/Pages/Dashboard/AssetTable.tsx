@@ -69,7 +69,7 @@ const columns: ColumnDef<DashboardData, any>[] = [
         Total Staked
       </Text>
     ),
-    cell: (info) => (info.row.original.symbol === Token.wBTC ? info.getValue()?.toLocaleString('en-US', {
+    cell: (info) => (info.row.original.symbol === 'wBTC' ? info.getValue()?.toLocaleString('en-US', {
       minimumFractionDigits: 8,
       maximumFractionDigits: 8,
     }) : info.getValue()?.toLocaleString('en-US', {

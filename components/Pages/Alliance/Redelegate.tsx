@@ -85,7 +85,7 @@ const Redelegate = ({
   const router = useRouter();
   const lpTokenPrices = useGetLPTokenPrices()
 
-  const price = useMemo(() => (currentDelegationState.tokenSymbol === Token.mUSDC ? 1 : currentDelegationState.tokenSymbol?.includes('-LP') ? lpTokenPrices?.[currentDelegationState.tokenSymbol] :
+  const price = useMemo(() => (currentDelegationState.tokenSymbol === 'mUSDC' ? 1 : currentDelegationState.tokenSymbol?.includes('-LP') ? lpTokenPrices?.[currentDelegationState.tokenSymbol] :
     priceList?.[
       tokens?.find((e) => e.symbol === currentDelegationState.tokenSymbol)?.
         name

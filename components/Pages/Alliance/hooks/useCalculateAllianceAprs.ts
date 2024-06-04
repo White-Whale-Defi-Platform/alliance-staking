@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 
-import { Token } from 'components/Pages/AssetOverview';
 import { Apr } from 'components/Pages/Ecosystem/hooks/useCalculateAprs';
 import { useAlliances } from 'hooks/useAlliances';
 import usePrices from 'hooks/usePrices';
@@ -24,13 +23,13 @@ export const useCalculateAllianceAprs = ({ address }) => {
   [alliances])
 
   const allianceAPRs : Apr[] = useMemo(() => alliances?.map((alliance) => {
-    if (alliance.name === Token.WHALE) {
+    if (alliance.name === 'WHALE') {
       const apr = Number(((totalYearlyWhaleEmission * (1 - summedAllianceWeights)) /
                         (validatorData?.stakedWhale || 0)) *
                     100)
       return {
         tabType: 'native',
-        name: Token.WHALE,
+        name: 'WHALE',
         apr,
         weight: 1 - summedAllianceWeights || 1,
       };

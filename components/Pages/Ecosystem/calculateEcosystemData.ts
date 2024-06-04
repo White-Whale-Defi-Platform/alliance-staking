@@ -15,7 +15,7 @@ export const calculateEcosystemData = (
     const balance = ecosystemBalances?.[index] ? ecosystemBalances?.[index] : 0
     return {
       ...token,
-      dollarValue: token.tokenSymbol === Token.mUSDC ? balance :
+      dollarValue: token.tokenSymbol === 'mUSDC' ? balance :
         priceList && priceList[token.name]
           ? priceList[token.name] * balance
           : 0,
@@ -29,7 +29,7 @@ export const calculateEcosystemData = (
 
     return {
       ...tokenData,
-      dollarValue: Number(aggregatedAmount) * (tokenData.tokenSymbol === Token.mUSDC ? 1 : Number(priceList[tokenData.name] ?? 0)),
+      dollarValue: Number(aggregatedAmount) * (tokenData.tokenSymbol === 'mUSDC' ? 1 : Number(priceList[tokenData.name] ?? 0)),
       value: Number(aggregatedAmount),
     }
   }
@@ -38,7 +38,7 @@ export const calculateEcosystemData = (
     map((reward) => ({
       symbol: reward.tokenSymbol,
       amount: reward.amount || 0,
-      dollarValue: reward.tokenSymbol === Token.mUSDC ? 1 : (Number(reward.amount) * Number(priceList?.[reward.name] || 0)),
+      dollarValue: reward.tokenSymbol === 'mUSDC' ? 1 : (Number(reward.amount) * Number(priceList?.[reward.name] || 0)),
       denom: reward.denom,
       stakedDenom: reward.stakedDenom,
     }))
