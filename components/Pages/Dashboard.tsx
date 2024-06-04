@@ -7,7 +7,6 @@ import Logo from 'components/Header/Logo'
 import { AllianceTab } from 'components/Pages/Alliance/AllianceTab'
 import { calculateAllianceData } from 'components/Pages/Alliance/hooks/calculateAllianceData'
 import { useCalculateAllianceAprs } from 'components/Pages/Alliance/hooks/useCalculateAllianceAprs'
-import { Token } from 'components/Pages/AssetOverview'
 import { DashboardTab } from 'components/Pages/Dashboard/DashboardTab'
 import { calculateEcosystemData } from 'components/Pages/Ecosystem/calculateEcosystemData'
 import { EcosystemTab } from 'components/Pages/Ecosystem/EcosystemTab'
@@ -16,7 +15,7 @@ import useDelegations from 'hooks/useDelegations'
 import usePrices from 'hooks/usePrices'
 import { useQueryRewards } from 'hooks/useQueryRewards'
 import { useQueryStakedBalances } from 'hooks/useQueryStakedBalances'
-import { useMultipleTokenBalance } from 'hooks/useTokenBalance'
+import { useAllianceTokenBalance, useRestakeTokenBalance } from 'hooks/useTokenBalance'
 import useUndelegations from 'hooks/useUndelegations'
 import whiteListedAllianceTokens from 'public/mainnet/white_listed_alliance_token_info.json'
 import whiteListedEcosystemTokens from 'public/mainnet/white_listed_ecosystem_token_info.json'
@@ -24,40 +23,40 @@ import { useRecoilState } from 'recoil'
 import { tabState, TabType } from 'state/tabState'
 
 export interface Reward {
-    amount: number;
-    denom: string;
-    dollarValue: number;
+  amount: number;
+  denom: string;
+  dollarValue: number;
 }
 
 export enum ActionType {
-    delegate,
-    redelegate,
-    undelegate,
-    claim,
-    updateRewards
+  delegate,
+  redelegate,
+  undelegate,
+  claim,
+  updateRewards
 }
 
 export type TokenData = {
-    color: string;
-    value: number;
-    dollarValue: number;
-    token?: Token;
-    tokenSymbol?: string;
+  color: string;
+  value: number;
+  dollarValue: number;
+  token?: any;
+  tokenSymbol?: string;
 };
 
 export interface DelegationData {
-    delegated: TokenData[];
-    undelegated: TokenData[];
-    liquid: TokenData[];
-    rewards: any;
-    total?: TokenData[];
+  delegated: TokenData[];
+  undelegated: TokenData[];
+  liquid: TokenData[];
+  rewards: any;
+  total?: TokenData[];
 }
 
 const Dashboard = () => {
   const { address, isWalletConnected } = useChain(MIGALOO_CHAIN_NAME)
 
   const rawAllianceTokenData = useMemo(() => whiteListedAllianceTokens.map((t) => ({
-    token: Token[t.symbol],
+    token: t.symbol,
     tokenSymbol: t.symbol,
     name: t.name,
     dollarValue: 0,
@@ -66,7 +65,7 @@ const Dashboard = () => {
   })), [])
 
   const rawEcosystemTokenData = useMemo(() => whiteListedEcosystemTokens.map((t) => ({
-    token: Token[t.symbol],
+    token: t.symbol,
     tokenSymbol: t.symbol,
     name: t.name,
     dollarValue: 0,
@@ -75,7 +74,7 @@ const Dashboard = () => {
   })), [])
 
   const allianceRewardsTokenData = useMemo(() => whiteListedAllianceTokens.map((t) => ({
-    token: Token[t.symbol],
+    token: t.symbol,
     tokenSymbol: t.symbol,
     name: t.name,
     dollarValue: 0,
@@ -85,7 +84,7 @@ const Dashboard = () => {
   })), [])
 
   const ecosystemRewardsTokenData = useMemo(() => whiteListedEcosystemTokens.map((t) => ({
-    token: Token[t.symbol],
+    token: t.symbol,
     tokenSymbol: t.symbol,
     name: t.name,
     dollarValue: 0,
@@ -96,15 +95,14 @@ const Dashboard = () => {
 
   const [priceList] = usePrices() || []
 
-  // TODO: useDelegations should return 1 list of delegations which includes both native staking and alliance staking entries for the given address
-  const { data } = useDelegations({ address })
+  const { data } = useDelegations()
 
   const { data: stakedBalances } = useQueryStakedBalances()
 
   const delegations = useMemo(() => data?.delegations || [], [data])
 
-  const { data: allianceBalances } = useMultipleTokenBalance(whiteListedAllianceTokens?.map((e) => e.symbol))
-  const { data: ecosystemBalances } = useMultipleTokenBalance(whiteListedEcosystemTokens?.map((e) => e.symbol))
+  const { data: allianceBalances } = useAllianceTokenBalance()
+  const { data: ecosystemBalances } = useRestakeTokenBalance()
   const { data: undelegationData } = useUndelegations({ address })
 
   const allianceAPRs = useCalculateAllianceAprs({ address })
@@ -173,7 +171,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     setLoading(updatedAllianceData === null ||
-            !priceList)
+      !priceList)
   }, [updatedAllianceData, priceList])
 
   return (
@@ -181,7 +179,7 @@ const Dashboard = () => {
       <Tabs variant={'brand'} index={tabTypeToIndex(currentTab)} onChange={(index) => setTabType(index)} mr={100}>
         <HStack>
           <Box flex="1">
-            <Logo/>
+            <Logo />
           </Box>
           <TabList
             display={['flex']}
@@ -194,19 +192,19 @@ const Dashboard = () => {
             <Tab>Portfolio</Tab>
             <Tab>ReStaking</Tab>
           </TabList>
-          <Header/>
+          <Header />
         </HStack>
         <TabPanels p={4}>
           <TabPanel>
-            <DashboardTab priceList={priceList}/>
+            <DashboardTab priceList={priceList} />
           </TabPanel>
           <TabPanel>
             <AllianceTab isWalletConnected={isWalletConnected} isLoading={isLoading} address={address}
-              updatedData={updatedAllianceData} allianceAPRs={allianceAPRs}/>
+              updatedData={updatedAllianceData} allianceAPRs={allianceAPRs} />
           </TabPanel>
           <TabPanel>
             <EcosystemTab isWalletConnected={isWalletConnected} isLoading={isLoading} address={address}
-              updatedData={updatedEcosystemData}/>
+              updatedData={updatedEcosystemData} />
           </TabPanel>
         </TabPanels>
       </Tabs>

@@ -15,7 +15,6 @@ export const EcosystemTab = ({
   const router = useRouter()
   const openDelegate = async () => await router.push('/restaking/delegate?tokenSymbol=mUSDC')
   const openUndelegate = async () => await router.push('/restaking/undelegate?tokenSymbol=mUSDC')
-
   const aprs = useCalculateAprs()
   return <VStack
     pt={12}

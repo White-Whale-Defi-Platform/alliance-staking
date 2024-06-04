@@ -5,7 +5,6 @@ import { Text, VStack } from '@chakra-ui/react';
 import { useChain } from '@cosmos-kit/react-lite';
 import AssetInput from 'components/AssetInput/index';
 import ValidatorInput from 'components/Pages/Alliance/ValidatorInput/ValidatorInput';
-import { Token } from 'components/Pages/AssetOverview';
 import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
 import usePrices from 'hooks/usePrices';
 import useValidators from 'hooks/useValidators';
@@ -67,7 +66,7 @@ const Delegate: FC<ActionProps> = ({
   const [priceList] = usePrices() || [];
   const lpTokenPrices = useGetLPTokenPrices()
 
-  const price = useMemo(() => (currentDelegationState.tokenSymbol === Token.mUSDC ? 1 : (currentDelegationState.tokenSymbol?.includes('-LP')) ? lpTokenPrices?.[currentDelegationState.tokenSymbol] :
+  const price = useMemo(() => (currentDelegationState.tokenSymbol === 'mUSDC' ? 1 : (currentDelegationState.tokenSymbol?.includes('-LP')) ? lpTokenPrices?.[currentDelegationState.tokenSymbol] :
     priceList?.[
       tokens?.find((e) => e.symbol === currentDelegationState.tokenSymbol)?.
         name

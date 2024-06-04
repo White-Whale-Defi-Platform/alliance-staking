@@ -159,7 +159,7 @@
     "decimals": 6,
     "tabType": "restaking",
     "logoURI": "/logos/sail.png",
-    "color": "purple"
+    "color": "#cc6ac8"
   },
   {
     "name": "wind",

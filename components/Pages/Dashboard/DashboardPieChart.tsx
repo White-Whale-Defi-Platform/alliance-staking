@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import { Box, HStack, Text, VStack } from '@chakra-ui/react'
 import { Cell, Pie, PieChart, Tooltip } from 'recharts'
-import { getColorByTokenSymbol } from 'util/getColorByTokenSymbol'
 
 const TokenBox = ({ symbol, color }) => (
   <HStack mr="10">
@@ -44,7 +43,7 @@ export const DashboardPieChart = ({ dashboardData }) => {
     const adjustedData = dashboardData.map((data) => ({
       tokenSymbol: data.symbol,
       value: data.totalValueStaked,
-      color: getColorByTokenSymbol(data.symbol),
+      color: data.color,
       percentage: `${((data.totalValueStaked / totalValue) * 100).toFixed(2)}%`,
     }));
     setData(adjustedData);

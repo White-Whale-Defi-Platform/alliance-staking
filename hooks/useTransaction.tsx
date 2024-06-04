@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { useToast } from '@chakra-ui/react';
 import { useChain } from '@cosmos-kit/react-lite';
@@ -23,6 +23,7 @@ export const useTransaction = () => {
   const [txHash, setTxHash] = useState<string>(null)
   const [error, setError] = useState(null)
   const [buttonLabel, setButtonLabel] = useState(null)
+  const queryClient = useQueryClient();
 
   const { data: fee } = useQuery(
     ['fee', error],
@@ -172,6 +173,10 @@ export const useTransaction = () => {
           isClosable: true,
         })
       }, 2000);
+      queryClient.invalidateQueries('restakeTokenBalances')
+      queryClient.invalidateQueries('allianceTokenBalances')
+      queryClient.invalidateQueries('stakedBalances')
+      queryClient.invalidateQueries('delegations')
     },
   });
 

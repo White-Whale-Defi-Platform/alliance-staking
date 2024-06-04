@@ -106,7 +106,7 @@ const ValidatorTable = ({ selectedStatus, address }: Props) => {
 
   const { data: { validators = [] } = {} } = useValidators({ address });
 
-  const { data: { delegations = [] } = {} } = useDelegations({ address });
+  const { data: { delegations = [] } = {} } = useDelegations();
 
   const tableData = useMemo(() => {
     if (!validators?.length) {

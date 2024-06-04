@@ -49,7 +49,7 @@ export const useQueryStakedBalances = () => {
   const { address } = useChain(MIGALOO_CHAIN_NAME)
   const { cosmWasmClient: client } = useClients()
   const { data, isLoading } = useQuery({
-    queryKey: ['balances', file.alliance_contract, address],
+    queryKey: ['stakedBalances', file.alliance_contract, address],
     queryFn: () => getStakedBalances(
       file.alliance_contract, address, client,
     ),

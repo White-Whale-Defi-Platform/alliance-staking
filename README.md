@@ -25,25 +25,6 @@ Run locally
     3. Fork this repo.
 
     4. Apply changes on the following files:
-         components/Pages/AssetOverview.tsx Add token to Token enum line 16++
-
-         util/getColorByTokenSymbol.ts Add color for Token Line 3++
-
-         public/mainnet/all_white_listed_tokens.json Add Token with infos from registry Example RAC:
-
-            {
-                "chainId": "migaloo-1",
-                "token_address": "factory/migaloo1eqntnl6tzcj9h86psg4y4h6hh05g2h9nj8e09l/urac",
-                "symbol": "RAC",
-                "name": "RAC",
-                "decimals": 6,
-                "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/migaloo/images/rac.svg",
-                "tags": ["native"],
-                "denom": "factory/migaloo1eqntnl6tzcj9h86psg4y4h6hh05g2h9nj8e09l/urac",
-                "native": true,
-                "color": "#009076" // Color on Charts
-            }
-
         public/mainnet/tokens.json Add Token with infos from registry (Used for Price calculation):
 
             {

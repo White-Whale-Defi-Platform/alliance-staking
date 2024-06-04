@@ -17,7 +17,7 @@ import Redelegate from 'components/Pages/Alliance/Redelegate';
 import Undelegate from 'components/Pages/Alliance/Undelegate';
 import { ActionType } from 'components/Pages/Dashboard';
 import useDelegations from 'hooks/useDelegations';
-import { useMultipleTokenBalance } from 'hooks/useTokenBalance';
+import { useAllianceTokenBalance } from 'hooks/useTokenBalance';
 import { useRouter } from 'next/router';
 import whiteListedTokens from 'public/mainnet/white_listed_alliance_token_info.json';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -39,7 +39,7 @@ const ActionsComponent = ({
   tokenSymbol = 'ampLUNA',
 }: ActionsComponentProps) => {
   const { walletChainName } = useRecoilValue(chainState)
-  const { address, isWalletConnected, openView } = useChain(walletChainName)
+  const { isWalletConnected, openView } = useChain(walletChainName)
 
   const router = useRouter()
 
@@ -48,9 +48,9 @@ const ActionsComponent = ({
 
   const { submit, txStep } = useAllianceTransaction()
 
-  const { data: { delegations = [] } = {} } = useDelegations({ address })
+  const { data: { delegations = [] } = {} } = useDelegations()
 
-  const { data: balances } = useMultipleTokenBalance(whiteListedTokens?.map((e) => e.symbol) ?? [])
+  const { data: balances } = useAllianceTokenBalance()
 
   const liquidTokenPriceBalances: TokenBalance[] =
     whiteListedTokens?.map((tokenInfo, index) => ({

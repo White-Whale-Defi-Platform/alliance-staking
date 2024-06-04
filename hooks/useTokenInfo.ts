@@ -9,6 +9,7 @@ export type TokenInfo = {
   tags: string[];
   denom: string;
   native: boolean;
+  color: string;
 }
 
 export const getTokenInfoFromTokenList = (tokenSymbol: string,

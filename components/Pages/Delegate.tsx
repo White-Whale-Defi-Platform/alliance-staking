@@ -7,11 +7,10 @@ import { useChain } from '@cosmos-kit/react-lite';
 import AssetInput from 'components/AssetInput/index';
 import CustomButton from 'components/CustomButton';
 import { TokenBalance } from 'components/Pages/Alliance/Delegate';
-import { Token } from 'components/Pages/AssetOverview';
 import { ActionType } from 'components/Pages/Dashboard';
 import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
 import usePrices from 'hooks/usePrices';
-import { useMultipleTokenBalance } from 'hooks/useTokenBalance';
+import { useRestakeTokenBalance } from 'hooks/useTokenBalance';
 import useTransaction from 'hooks/useTransaction';
 import { useRouter } from 'next/router';
 import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
@@ -52,7 +51,7 @@ export const Delegate = ({ tokenSymbol }) => {
     }
   }, [tabFromUrl])
 
-  const { data: balances } = useMultipleTokenBalance(whiteListedTokens?.map((e) => e.symbol) ?? [])
+  const { data: balances } = useRestakeTokenBalance()
   const liquidTokenPriceBalances: TokenBalance[] =
         whiteListedTokens?.map((tokenInfo, index) => ({
           balance: balances?.[index],
@@ -88,7 +87,7 @@ export const Delegate = ({ tokenSymbol }) => {
   useEffect(() => {
     router.push(`/${tabFromUrl}/delegate?tokenSymbol=${currentDelegationState.tokenSymbol}`)
   }, [tabFromUrl, currentDelegationState])
-  const price = useMemo(() => (currentDelegationState.tokenSymbol === Token.mUSDC ? 1 : currentDelegationState.tokenSymbol?.includes('-LP') ? lpTokenPrices?.[currentDelegationState.tokenSymbol] :
+  const price = useMemo(() => (currentDelegationState.tokenSymbol === 'mUSDC' ? 1 : currentDelegationState.tokenSymbol?.includes('-LP') ? lpTokenPrices?.[currentDelegationState.tokenSymbol] :
     priceList?.[
       tokens?.find((e) => e.symbol === currentDelegationState.tokenSymbol)?.
         name
