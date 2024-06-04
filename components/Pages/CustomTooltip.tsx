@@ -1,7 +1,6 @@
 import { useRef, Fragment } from 'react';
 
 import { Box, Divider, HStack, Text, VStack, Tooltip } from '@chakra-ui/react';
-import { Token } from 'components/Pages/AssetOverview';
 import { TokenData } from 'components/Pages/Dashboard';
 
 export interface TooltipProps {
@@ -49,7 +48,7 @@ export const CustomTooltip = ({
         >
           {data?.map((e, index) => {
             if (e.value > 0) {
-              return (<Fragment key={e.token+index}>
+              return (<Fragment key={e.token + index}>
                 <TokenDetail tokenType={e.token} value={e.value} />
                 {(index !== (data?.length || 0) - 1) && (
                   <Divider

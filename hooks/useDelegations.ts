@@ -6,16 +6,22 @@ import usePrices from 'hooks/usePrices';
 import { num } from 'libs/num';
 import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
 import { TabType } from 'state/tabState'
+import { useChain } from '@cosmos-kit/react-lite';
+import { MIGALOO_CHAIN_NAME } from '../constants/common';
+
+const getAllianceDelegations = async (client: LCDClient | null, delegatorAddress: string) => {
+  return (await client?.alliance.alliancesDelegation(delegatorAddress)).delegations
+}
 
 export const getDelegation = async (
   client: LCDClient | null,
   priceList: any,
   delegatorAddress: string,
+  allianceDelegation: any,
 ): Promise<any> => {
   if (!client) {
     return Promise.resolve([]);
   }
-
   // This needs to be reworked such that if denom is whale we use client.distribution.rewards instead
   const getRewards = (delegations: any) => Promise.all(delegations?.map(async (item: any) => {
     const { delegator_address: delegatorAddress, validator_address: validatorAddress, denom } = item.delegation;
@@ -47,7 +53,6 @@ export const getDelegation = async (
         }));
   }));
 
-  const allianceDelegation = (await client?.alliance.alliancesDelegation(delegatorAddress)).delegations
   const nativeStake = (await client.staking.delegations(delegatorAddress))[0];
   const delegations = [
     ...nativeStake.map((item: any) => ({
@@ -124,7 +129,7 @@ export const getDelegation = async (
           dollarValue: acc.dollarValue + dollarValue,
         }
       },
-      { dollarValue: 0 })
+        { dollarValue: 0 })
       return {
         delegations: data,
         totalDelegation: totalDelegation?.dollarValue?.toFixed(2),
@@ -132,15 +137,28 @@ export const getDelegation = async (
     })
 }
 
-const useDelegations = ({ address }) => {
+const useDelegations = () => {
+  const { address } = useChain(MIGALOO_CHAIN_NAME)
   const client = useLCDClient()
   const [priceList] = usePrices() || []
+  const { data: getAllianceDelegations } = useAllianceDelegations({ address })
   return useQuery({
     queryKey: ['delegations', priceList, address],
     queryFn: () => getDelegation(
-      client, priceList, address,
+      client, priceList, address, getAllianceDelegations
     ),
-    enabled: Boolean(client) && Boolean(address) && Boolean(priceList),
+    enabled: Boolean(client) && Boolean(address) && Boolean(priceList) && Boolean(getAllianceDelegations),
+  })
+}
+
+const useAllianceDelegations = ({ address }) => {
+  const client = useLCDClient()
+  return useQuery({
+    queryKey: ['allianceDelegations', address],
+    queryFn: () => getAllianceDelegations(
+      client, address,
+    ),
+    enabled: Boolean(client) && Boolean(address),
   })
 }
 

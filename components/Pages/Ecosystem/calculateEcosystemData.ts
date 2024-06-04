@@ -1,4 +1,3 @@
-import { Token } from 'components/Pages/AssetOverview';
 import { RewardInfo } from 'hooks/useQueryRewards';
 import { EnhancedStakeInfo } from 'hooks/useQueryStakedBalances';
 import { TabType } from 'state/tabState';
@@ -10,7 +9,6 @@ export const calculateEcosystemData = (
   if (!priceList || !ecosystemBalances || !stakedBalances || !rewards) {
     return
   }
-
   const liquidData = rawEcosystemTokenData.map((token, index) => {
     const balance = ecosystemBalances?.[index] ? ecosystemBalances?.[index] : 0
     return {

@@ -3,16 +3,21 @@ import { FC, useMemo } from 'react';
 import { Box, Button, HStack, Image, Text } from '@chakra-ui/react'
 import FallbackImage from 'components/FallbackImage'
 import { ActionType } from 'components/Pages/Dashboard'
+import useDelegations from 'hooks/useDelegations';
 import useFilter from 'hooks/useFilter'
-import { useMultipleTokenBalance } from 'hooks/useTokenBalance'
+import { useQueryStakedBalances } from 'hooks/useQueryStakedBalances';
+import { useMultipleTokenBalanceAssetlist } from 'hooks/useTokenBalance'
 import { useTokenList } from 'hooks/useTokenList'
+import { useRouter } from 'next/router';
+import { useRecoilValue } from 'recoil';
+import { tabState } from 'state/tabState';
 
 type AssetListProps = {
-    onChange: (token: any, isTokenChange?: boolean) => void;
-    search: string;
-    currentTokenSymbol: string;
-    amount?: number
-    actionType?: ActionType
+  onChange: (token: any, isTokenChange?: boolean) => void;
+  search: string;
+  currentTokenSymbol: string;
+  amount?: number
+  actionType?: ActionType
 };
 
 const AssetList: FC<AssetListProps> = ({
@@ -21,9 +26,15 @@ const AssetList: FC<AssetListProps> = ({
   currentTokenSymbol,
   amount,
 }) => {
+  const tabType = useRecoilValue(tabState)
   const { tokens } = useTokenList();
+  const router = useRouter()
+  const { data: restakedBalances } = useQueryStakedBalances()
+  const { data: delegations } = useDelegations()
 
-  const { data: tokenBalance = [] } = useMultipleTokenBalance(tokens?.map(({ symbol }) => symbol))
+  const tokenBalance = useMultipleTokenBalanceAssetlist(
+    tabType, router, delegations, restakedBalances,
+  )
 
   const tokensWithBalance = useMemo(() => {
     if (tokenBalance?.length === 0) {
@@ -32,7 +43,8 @@ const AssetList: FC<AssetListProps> = ({
     return tokens?.
       map((token, index) => ({
         ...token,
-        balance: tokenBalance?.[index] })).
+        balance: tokenBalance?.[index],
+      })).
       filter(({ symbol }) => currentTokenSymbol !== symbol)
   }, [tokens, tokenBalance, currentTokenSymbol])
 
@@ -79,8 +91,7 @@ const AssetList: FC<AssetListProps> = ({
           onClick={() => onChange({
             tokenSymbol: item?.symbol,
             amount,
-          },
-          true)
+          }, true)
           }
         >
           <HStack>
@@ -90,7 +101,7 @@ const AssetList: FC<AssetListProps> = ({
               width="auto"
               maxW="1.5rem"
               maxH="1.5rem"
-              fallback={<FallbackImage/>}
+              fallback={<FallbackImage />}
             />
             <Text fontSize="18" fontWeight="400">
               {item?.symbol}
@@ -111,7 +122,7 @@ const AssetList: FC<AssetListProps> = ({
           paddingX={4}
         >
           <Text fontSize="18" fontWeight="400">
-                        No asset found
+            No asset found
           </Text>
         </HStack>
       )}

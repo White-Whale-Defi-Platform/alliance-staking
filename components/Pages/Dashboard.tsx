@@ -15,7 +15,7 @@ import useDelegations from 'hooks/useDelegations'
 import usePrices from 'hooks/usePrices'
 import { useQueryRewards } from 'hooks/useQueryRewards'
 import { useQueryStakedBalances } from 'hooks/useQueryStakedBalances'
-import { useMultipleTokenBalance } from 'hooks/useTokenBalance'
+import { useAllianceTokenBalance, useRestakeTokenBalance } from 'hooks/useTokenBalance'
 import useUndelegations from 'hooks/useUndelegations'
 import whiteListedAllianceTokens from 'public/mainnet/white_listed_alliance_token_info.json'
 import whiteListedEcosystemTokens from 'public/mainnet/white_listed_ecosystem_token_info.json'
@@ -40,7 +40,7 @@ export type TokenData = {
   color: string;
   value: number;
   dollarValue: number;
-  token?: Token;
+  token?: any;
   tokenSymbol?: string;
 };
 
@@ -95,15 +95,14 @@ const Dashboard = () => {
 
   const [priceList] = usePrices() || []
 
-  // TODO: useDelegations should return 1 list of delegations which includes both native staking and alliance staking entries for the given address
-  const { data } = useDelegations({ address })
+  const { data } = useDelegations()
 
   const { data: stakedBalances } = useQueryStakedBalances()
 
   const delegations = useMemo(() => data?.delegations || [], [data])
 
-  const { data: allianceBalances } = useMultipleTokenBalance(whiteListedAllianceTokens?.map((e) => e.symbol))
-  const { data: ecosystemBalances } = useMultipleTokenBalance(whiteListedEcosystemTokens?.map((e) => e.symbol))
+  const { data: allianceBalances } = useAllianceTokenBalance()
+  const { data: ecosystemBalances } = useRestakeTokenBalance()
   const { data: undelegationData } = useUndelegations({ address })
 
   const allianceAPRs = useCalculateAllianceAprs({ address })

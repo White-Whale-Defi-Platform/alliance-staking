@@ -30,7 +30,7 @@ export const useAllianceTransaction = () => {
   const [error, setError] = useState(null)
   const [buttonLabel, setButtonLabel] = useState<string>(null)
   const { signingClient: client, allianceSigningClient } = useClients()
-  const { data: { delegations = [] } = {} } = useDelegations({ address })
+  const { data: { delegations = [] } = {} } = useDelegations()
 
   const { data: fee } = useQuery(
     ['fee'],

@@ -7,7 +7,6 @@ import { useChain } from '@cosmos-kit/react-lite';
 import AssetInput from 'components/AssetInput/index';
 import CustomButton from 'components/CustomButton';
 import { TokenBalance } from 'components/Pages/Alliance/Delegate';
-import { Token } from 'components/Pages/AssetOverview';
 import { ActionType } from 'components/Pages/Dashboard';
 import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
 import usePrices from 'hooks/usePrices';

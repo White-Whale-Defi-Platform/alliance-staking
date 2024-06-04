@@ -39,7 +39,7 @@ const ActionsComponent = ({
   tokenSymbol = 'ampLUNA',
 }: ActionsComponentProps) => {
   const { walletChainName } = useRecoilValue(chainState)
-  const { address, isWalletConnected, openView } = useChain(walletChainName)
+  const { isWalletConnected, openView } = useChain(walletChainName)
 
   const router = useRouter()
 
@@ -48,7 +48,7 @@ const ActionsComponent = ({
 
   const { submit, txStep } = useAllianceTransaction()
 
-  const { data: { delegations = [] } = {} } = useDelegations({ address })
+  const { data: { delegations = [] } = {} } = useDelegations()
 
   const { data: balances } = useMultipleTokenBalance(whiteListedTokens?.map((e) => e.symbol) ?? [])
 

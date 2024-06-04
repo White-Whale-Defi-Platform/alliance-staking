@@ -86,6 +86,7 @@ type UseValidatorsResult = {
     stakedWBtc: number
     stakedAmpOSMO: number
     stakedbOsmo: number
+    delegations: any[]
   }
   isFetching: boolean
 }
@@ -137,9 +138,7 @@ const getStakedLSTLunaAmounts = async ({ validatorData }) => {
 const useValidators = ({ address }): UseValidatorsResult => {
   const client = useLCDClient();
 
-  const { data: { delegations = [] } = {}, isFetched } = useDelegations({
-    address,
-  })
+  const { data: { delegations = [] } = {}, isFetched } = useDelegations()
 
   const { data: validatorInfo } = useQuery({
     queryKey: ['validatorInfo'],
@@ -192,6 +191,7 @@ const useValidators = ({ address }): UseValidatorsResult => {
       stakedWBtc: stakedWBtc?.totalWBtcAmount || 0,
       stakedAmpOSMO: stakedAmpOSMO?.totalampOsmoAmount || 0,
       stakedbOsmo: stakedbOsmo?.totalbOsmoAmount || 0,
+      delegations: delegations || [],
     },
     isFetching,
   }

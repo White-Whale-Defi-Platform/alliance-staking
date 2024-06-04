@@ -11,7 +11,6 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 import Loader from 'components/Loader'
-import { Token } from 'components/Pages/AssetOverview'
 
 export type DashboardData = {
   logo: any

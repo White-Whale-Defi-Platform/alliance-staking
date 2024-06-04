@@ -5,7 +5,6 @@ import { Text, VStack } from '@chakra-ui/react';
 import { useChain } from '@cosmos-kit/react-lite';
 import AssetInput from 'components/AssetInput/index';
 import ValidatorInput from 'components/Pages/Alliance/ValidatorInput/ValidatorInput';
-import { Token } from 'components/Pages/AssetOverview';
 import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
 import usePrices from 'hooks/usePrices';
 import useValidators from 'hooks/useValidators';

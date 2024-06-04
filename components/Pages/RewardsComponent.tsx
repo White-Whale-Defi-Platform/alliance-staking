@@ -3,7 +3,6 @@ import { FC, useMemo } from 'react'
 import { Box, Divider, Image, HStack, Text, VStack } from '@chakra-ui/react'
 import { useChain } from '@cosmos-kit/react-lite'
 import Loader from 'components/Loader'
-import { Token } from 'components/Pages/AssetOverview'
 import ClaimButton from 'components/Pages/ClaimButton'
 import UpdateRewardsButton from 'components/Pages/UpdateRewardsButton';
 import { MIGALOO_CHAIN_NAME } from 'constants/common'
