@@ -25,8 +25,6 @@ Run locally
     3. Fork this repo.
 
     4. Apply changes on the following files:
-         components/Pages/AssetOverview.tsx Add token to Token enum line 16++
-
         public/mainnet/tokens.json Add Token with infos from registry (Used for Price calculation):
 
             {
