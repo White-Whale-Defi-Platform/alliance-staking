@@ -10,7 +10,7 @@ import { TokenBalance } from 'components/Pages/Alliance/Delegate';
 import { ActionType } from 'components/Pages/Dashboard';
 import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
 import usePrices from 'hooks/usePrices';
-import { useMultipleTokenBalance } from 'hooks/useTokenBalance';
+import { useRestakeTokenBalance } from 'hooks/useTokenBalance';
 import useTransaction from 'hooks/useTransaction';
 import { useRouter } from 'next/router';
 import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
@@ -51,7 +51,7 @@ export const Delegate = ({ tokenSymbol }) => {
     }
   }, [tabFromUrl])
 
-  const { data: balances } = useMultipleTokenBalance(whiteListedTokens?.map((e) => e.symbol) ?? [])
+  const { data: balances } = useRestakeTokenBalance()
   const liquidTokenPriceBalances: TokenBalance[] =
         whiteListedTokens?.map((tokenInfo, index) => ({
           balance: balances?.[index],

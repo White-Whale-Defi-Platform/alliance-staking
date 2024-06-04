@@ -175,6 +175,8 @@ export const useTransaction = () => {
       }, 2000);
       queryClient.invalidateQueries('restakeTokenBalances')
       queryClient.invalidateQueries('allianceTokenBalances')
+      queryClient.invalidateQueries('stakedBalances')
+      queryClient.invalidateQueries('delegations')
     },
   });
 

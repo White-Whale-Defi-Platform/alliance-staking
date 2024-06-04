@@ -16,6 +16,7 @@ import { updateRewards } from 'hooks/updateRewards';
 import { useClients } from 'hooks/useClients';
 import useDelegations from 'hooks/useDelegations';
 import { useRecoilValue } from 'recoil';
+import { queryClient } from 'services/queryClient';
 import { chainState } from 'state/chainState';
 import { TxStep } from 'types/blockchain';
 import { convertDenomToMicroDenom } from 'util/conversion';
@@ -251,6 +252,11 @@ export const useAllianceTransaction = () => {
           isClosable: true,
         })
       }, 2000)
+      // Invalidate the query to update the balances
+      queryClient.invalidateQueries('restakeTokenBalances')
+      queryClient.invalidateQueries('allianceTokenBalances')
+      queryClient.invalidateQueries('stakedBalances')
+      queryClient.invalidateQueries('delegations')
     },
   })
 
