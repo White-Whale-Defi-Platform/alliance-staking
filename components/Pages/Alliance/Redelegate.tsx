@@ -25,7 +25,7 @@ const Redelegate = ({
   const [currentDelegationState, setCurrentDelegationState] =
     useRecoilState<DelegationState>(delegationState);
 
-  const { data: { validators = [] } = {} } = useValidators({ address });
+  const { data: { validators = [], allValidators } = {} } = useValidators({ address });
 
   const chosenDestValidator = useMemo(() => validators.find((v) => v.operator_address === validatorDestAddress),
     [validatorDestAddress, validators]);
@@ -101,6 +101,7 @@ const Redelegate = ({
           <ValidatorInput
             delegatedOnly={true}
             validatorName={currentDelegationState.validatorSrcName}
+            validatorList={allValidators}
             onChange={async (validator) => {
               field.onChange(validator);
               setCurrentDelegationState({
@@ -131,6 +132,7 @@ const Redelegate = ({
           <ValidatorInput
             delegatedOnly={false}
             validatorName={currentDelegationState.validatorDestName}
+            validatorList={validators}
             onChange={async (validator) => {
               field.onChange(validator);
               setCurrentDelegationState({

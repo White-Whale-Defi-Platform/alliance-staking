@@ -35,7 +35,7 @@ const Delegate: FC<ActionProps> = ({
   const [currentDelegationState, setCurrentDelegationState] =
     useRecoilState<DelegationState>(delegationState);
 
-  const { data: { validators = [] } = {} } = useValidators({ address })
+  const { data: { validators = [] } = {} } = useValidators({ address });
 
   const chosenValidator = useMemo(() => validators.find((v) => v.operator_address === validatorDestAddress),
     [validatorDestAddress, validators]);
@@ -83,6 +83,7 @@ const Delegate: FC<ActionProps> = ({
           <ValidatorInput
             delegatedOnly={false}
             validatorName={currentDelegationState.validatorDestName}
+            validatorList={validators}
             onChange={async (validator) => {
               field.onChange(validator)
               setCurrentDelegationState({

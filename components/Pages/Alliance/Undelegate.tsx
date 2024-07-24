@@ -87,6 +87,7 @@ const Undelegate = ({ delegations, validatorSrcAddress, tokenSymbol }) => {
           <ValidatorInput
             validatorName={currentDelegationState?.validatorSrcName}
             delegatedOnly={true}
+            validatorList={allValidators}
             onChange={async (validator) => {
               field.onChange(validator);
               setCurrentDelegationState({

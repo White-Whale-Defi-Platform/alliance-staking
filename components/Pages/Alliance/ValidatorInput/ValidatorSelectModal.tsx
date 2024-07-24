@@ -10,14 +10,14 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react';
-import ValidatorList from 'components/Pages/Alliance/ValidatorInput/ValidatorList';
+import ValidatorList, { ValidatorInfo } from 'components/Pages/Alliance/ValidatorInput/ValidatorList';
 import ValidatorSearchInput from 'components/Pages/Alliance/ValidatorInput/ValidatorSearchInput';
 
 interface ValidatorSelectModalProps {
   children: ReactNode;
   currentValidator: string;
   address: string;
-  validatorList: string[];
+  validatorList: ValidatorInfo[];
   onChange: (validator: any) => void;
   disabled: boolean;
   delegatedOnly: boolean;
@@ -29,6 +29,7 @@ const ValidatorSelectModal: FC<ValidatorSelectModalProps> = ({
   onChange,
   delegatedOnly,
   address,
+  validatorList,
   disabled,
   amount,
 }) => {
@@ -74,7 +75,7 @@ const ValidatorSelectModal: FC<ValidatorSelectModalProps> = ({
               amount={amount}
               onChange={onValidatorChange}
               search={search}
-              validatorList={[]}
+              validatorList={validatorList}
               currentValidator={''}
               address={address}
             />

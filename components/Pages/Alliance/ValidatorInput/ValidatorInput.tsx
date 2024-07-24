@@ -16,6 +16,7 @@ interface ValidatorInputProps {
   delegatedOnly: boolean;
   ignoreSlack?: boolean;
   validatorName?: string;
+  validatorList?: any[];
 }
 
 const ValidatorInput: FC<ValidatorInputProps> = (props) => {
@@ -36,7 +37,7 @@ const ValidatorInput: FC<ValidatorInputProps> = (props) => {
           address={address}
           delegatedOnly={props.delegatedOnly}
           currentValidator={'Validator'} // [tokenInfo?.symbol || hideToken]
-          validatorList={[]}
+          validatorList={props?.validatorList || []}
           disabled={false}
         >
           {props.showList && (

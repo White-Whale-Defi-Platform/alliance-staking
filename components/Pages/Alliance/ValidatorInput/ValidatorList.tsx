@@ -2,41 +2,38 @@ import { FC, useMemo } from 'react';
 
 import { Box, Button, HStack, Text } from '@chakra-ui/react';
 import { Validator } from '@terra-money/feather.js';
-import useValidators from 'hooks/useValidators';
-
-type ValidatorListProps = {
-  onChange: (validator) => void;
-  search: string;
-  address: string;
-  currentValidator: string;
-  validatorList: string[];
-  amount?: number;
-  delegatedOnly: boolean;
-}
 
 export interface ValidatorInfo extends Validator {
   votingPower: number
   delegated: boolean
 }
 
+type ValidatorListProps = {
+  onChange: (validator) => void;
+  search: string;
+  address: string;
+  currentValidator: string;
+  validatorList: ValidatorInfo[];
+  amount?: number;
+  delegatedOnly: boolean;
+}
+
 const ValidatorList: FC<ValidatorListProps> = ({
   onChange,
   search,
   delegatedOnly = false,
-  address,
+  validatorList,
 }) => {
-  const { data: { validators = [] } = {} } = useValidators({ address });
-
   const validatorsWithDelegation = useMemo(() => {
-    if (!validators?.length) {
+    if (!validatorList?.length) {
       return [];
     }
-    return validators?.
+    return validatorList?.
       map((validator) => ({
         ...validator,
       })).
       filter((v) => (delegatedOnly ? v.delegated : true));
-  }, [validators, delegatedOnly])
+  }, [validatorList, delegatedOnly])
 
   const filteredValidators = useMemo(() => {
     if (!search) {
