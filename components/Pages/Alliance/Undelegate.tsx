@@ -20,10 +20,10 @@ const Undelegate = ({ delegations, validatorSrcAddress, tokenSymbol }) => {
   const [currentDelegationState, setCurrentDelegationState] =
     useRecoilState<DelegationState>(delegationState);
 
-  const { data: { validators = [] } = {} } = useValidators({ address });
+  const { data: { allValidators } = {} } = useValidators({ address });
 
-  const chosenSrcValidator = useMemo(() => validators.find((v) => v.operator_address === validatorSrcAddress),
-    [validatorSrcAddress, validators]);
+  const chosenSrcValidator = useMemo(() => allValidators.find((v) => v.operator_address === validatorSrcAddress),
+    [validatorSrcAddress, allValidators]);
 
   const onInputChange = (tokenSymbol: string | null, amount: number) => {
     const newState = { ...currentDelegationState,

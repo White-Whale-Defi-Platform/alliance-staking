@@ -3,7 +3,6 @@ import { useQuery } from 'react-query';
 import { LCDClient, Validator } from '@terra-money/feather.js';
 import { Pagination } from '@terra-money/feather.js/dist/client/lcd/APIRequester';
 import { ValidatorInfo } from 'components/Pages/Alliance/ValidatorInput/ValidatorList';
-import { Token } from 'components/Pages/AssetOverview';
 import useLCDClient from 'hooks/useLCDClient';
 import { num } from 'libs/num';
 import allianceTokens from 'public/mainnet/white_listed_alliance_token_info.json'
@@ -36,8 +35,7 @@ const getValidators = ({
       const totalShares = validators.reduce((acc, v) => acc.plus(v.delegator_shares.toString()),
         num(0));
       const delegatedValidators = data?.validators as any[];
-
-      const validatorsWithInfo = validators?.
+      const validatorsTMP = validators?.
         map((validator) => {
           const delegatedValidator = delegatedValidators?.find((v) => v?.validator_addr === validator.operator_address);
           const delegated = getIsDelegated(delegatedValidator);
@@ -57,11 +55,15 @@ const getValidators = ({
             commission,
             votingPower,
           };
-        }).
+        })
+      const validatorsWithInfo = validatorsTMP.
         filter((v: any) => v.status === 'BOND_STATUS_BONDED');
 
-      return { validators: validatorsWithInfo,
-        pagination };
+      const unbondedValidators = validatorsTMP.filter((v: any) => v.status === 'BOND_STATUS_UNBONDED');
+      return {
+        validators: validatorsWithInfo, allValidators: [...validatorsWithInfo, ...unbondedValidators],
+        pagination
+      };
     }).
     catch((error) => {
       console.log({ error });
@@ -87,6 +89,7 @@ type UseValidatorsResult = {
     stakedAmpOSMO: number
     stakedbOsmo: number
     delegations: any[]
+    allValidators: ValidatorInfo[]
   }
   isFetching: boolean
 }
@@ -132,8 +135,10 @@ const getStakedLSTLunaAmounts = async ({ validatorData }) => {
     totalBLunaAmount = totalAmpLunaAmount + convertMicroDenomToDenom(bLuna, 6)
     return null
   })
-  return { totalAmpLunaAmount,
-    totalBLunaAmount }
+  return {
+    totalAmpLunaAmount,
+    totalBLunaAmount
+  }
 }
 const useValidators = ({ address }): UseValidatorsResult => {
   const client = useLCDClient();
@@ -148,9 +153,11 @@ const useValidators = ({ address }): UseValidatorsResult => {
 
   const { data: validatorData, isFetching } = useQuery({
     queryKey: ['validators', isFetched],
-    queryFn: () => getValidators({ client,
+    queryFn: () => getValidators({
+      client,
       validatorInfo,
-      delegations }),
+      delegations
+    }),
     enabled: Boolean(client) && Boolean(validatorInfo) && Boolean(delegations),
   })
 
@@ -192,6 +199,7 @@ const useValidators = ({ address }): UseValidatorsResult => {
       stakedAmpOSMO: stakedAmpOSMO?.totalampOsmoAmount || 0,
       stakedbOsmo: stakedbOsmo?.totalbOsmoAmount || 0,
       delegations: delegations || [],
+      allValidators: validatorData?.allValidators || [],
     },
     isFetching,
   }
