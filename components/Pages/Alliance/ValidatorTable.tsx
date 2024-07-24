@@ -104,7 +104,7 @@ const ValidatorTable = ({ selectedStatus, address }: Props) => {
   ]);
   const router = useRouter();
 
-  const { data: { validators = [] } = {} } = useValidators({ address });
+  const { data: { validators = [], allValidators } = {} } = useValidators({ address });
 
   const { data: { delegations = [] } = {} } = useDelegations();
 
@@ -142,13 +142,14 @@ const ValidatorTable = ({ selectedStatus, address }: Props) => {
       return delegation ? 'active' : 'inactive';
     };
     // Shuffle the validators before returning
-    return validators?.
+    return allValidators?.
       sort(() => Math.random() - 0.5)?.
       map((validator) => ({
         name: validator?.description?.moniker,
         votingPower: validator.votingPower,
         commission: validator.commission,
         status: getIsActive(validator),
+        info: validator.status,
         actionButtons: (
           <HStack spacing={5}>
             <Button
@@ -181,10 +182,16 @@ const ValidatorTable = ({ selectedStatus, address }: Props) => {
   }, [validators]);
 
   const dataRows = useMemo(() => {
-    if (selectedStatus === 'all') {
-      return tableData;
+    switch (selectedStatus) {
+      case 'all':
+        return tableData.filter(({ status, info }: any) => status === 'active' || info === 'BOND_STATUS_BONDED');
+      case 'active':
+        return tableData.filter(({ status }: any) => status === 'active');
+      case 'inactive':
+        return tableData.filter(({ info }: any) => info !== 'BOND_STATUS_BONDED');
+      default:
+        return [];
     }
-    return tableData.filter((item) => item.status === selectedStatus);
   }, [selectedStatus, tableData]);
 
   const table = useReactTable({
