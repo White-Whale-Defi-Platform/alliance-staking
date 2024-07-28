@@ -11,6 +11,7 @@ import {
   StaticWalletProvider,
   WalletControllerChainOptions,
 } from '@terra-money/wallet-provider'
+import version from 'app_version.json'
 import { chains, assets } from 'chain-registry'
 import AppLoading from 'components/AppLoading'
 import AppLayout from 'components/Layout/AppLayout'
@@ -29,14 +30,19 @@ const MyApp: FC<AppProps> = ({
   defaultNetwork,
 }: AppProps & WalletControllerChainOptions) => {
   const [mounted, setMounted] = useState<boolean>(false)
-  useEffect(() => {
-    setMounted(true)
-  }, [])
   const wallets = [
     ...keplrWallets,
     ...stationWallets,
     ...leapWallets,
   ]
+  useEffect(() => {
+    const localVersion = localStorage.getItem('ww-version');
+    if (!localVersion || version?.version !== localVersion) {
+      localStorage.clear()
+      localStorage.setItem('ww-version', version?.version)
+    }
+    setMounted(true)
+  }, [])
 
   return (
     <>
