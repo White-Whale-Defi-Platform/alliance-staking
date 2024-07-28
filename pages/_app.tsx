@@ -11,6 +11,7 @@ import {
   StaticWalletProvider,
   WalletControllerChainOptions,
 } from '@terra-money/wallet-provider'
+import version from 'app_version.json'
 import { chains, assets } from 'chain-registry'
 import AppLoading from 'components/AppLoading'
 import AppLayout from 'components/Layout/AppLayout'
@@ -22,8 +23,6 @@ import Head from 'next/head'
 import { RecoilRoot } from 'recoil'
 import { queryClient } from 'services/queryClient'
 import theme from 'theme'
-import version from 'app_version.json'
-
 
 const MyApp: FC<AppProps> = ({
   Component,
