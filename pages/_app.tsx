@@ -22,6 +22,8 @@ import Head from 'next/head'
 import { RecoilRoot } from 'recoil'
 import { queryClient } from 'services/queryClient'
 import theme from 'theme'
+import version from 'app_version.json'
+
 
 const MyApp: FC<AppProps> = ({
   Component,
@@ -29,14 +31,19 @@ const MyApp: FC<AppProps> = ({
   defaultNetwork,
 }: AppProps & WalletControllerChainOptions) => {
   const [mounted, setMounted] = useState<boolean>(false)
-  useEffect(() => {
-    setMounted(true)
-  }, [])
   const wallets = [
     ...keplrWallets,
     ...stationWallets,
     ...leapWallets,
   ]
+  useEffect(() => {
+    const localVersion = localStorage.getItem('ww-version');
+    if (!localVersion || version?.version !== localVersion) {
+      localStorage.clear()
+      localStorage.setItem('ww-version', version?.version)
+    }
+    setMounted(true)
+  }, [])
 
   return (
     <>
