@@ -97,7 +97,7 @@ const getStakedWBtc = async ({ validatorData }) => {
   const wBTC = allianceTokens.find((token) => token.symbol === 'wBTC')
   let totalWBtcAmount = 0
   validatorData.validators.forEach((v) => {
-    const wBTCAmount = v.total_staked.find((token) => token.denom === wBTC.denom)?.amount || 0
+    const wBTCAmount = v.total_staked?.find((token) => token.denom === wBTC.denom)?.amount || 0
     totalWBtcAmount += convertMicroDenomToDenom(wBTCAmount, wBTC.decimals)
   })
   return { totalWBtcAmount }
@@ -107,7 +107,7 @@ const getStakedAmpOsmo = async ({ validatorData }) => {
   const ampOsmo = allianceTokens.find((token) => token.symbol === 'ampOSMO')
   let totalampOsmoAmount = 0
   validatorData.validators.forEach((v) => {
-    const ampOsmoAmount = v.total_staked.find((token) => token.denom === ampOsmo.denom)?.amount || 0
+    const ampOsmoAmount = v.total_staked?.find((token) => token.denom === ampOsmo.denom)?.amount || 0
     totalampOsmoAmount += convertMicroDenomToDenom(ampOsmoAmount, ampOsmo.decimals)
   })
   return { totalampOsmoAmount }
@@ -117,7 +117,7 @@ const getStakedbOsmo = async ({ validatorData }) => {
   const bOsmo = allianceTokens.find((token) => token.symbol === 'bOSMO')
   let totalbOsmoAmount = 0
   validatorData.validators.forEach((v) => {
-    const bosmoAmount = v.total_staked.find((token) => token.denom === bOsmo.denom)?.amount || 0
+    const bosmoAmount = v.total_staked?.find((token) => token.denom === bOsmo.denom)?.amount || 0
     totalbOsmoAmount += convertMicroDenomToDenom(bosmoAmount, bOsmo.decimals)
   })
   return { totalbOsmoAmount }
@@ -129,8 +129,8 @@ const getStakedLSTLunaAmounts = async ({ validatorData }) => {
   let totalAmpLunaAmount = 0
   let totalBLunaAmount = 0
   validatorData.validators.map((v) => {
-    const bLuna = v.total_staked.find((token) => token.denom === bLunaDenom)?.amount || 0
-    const ampLuna = v.total_staked.find((token) => token.denom === ampLunaDenom)?.amount || 0
+    const bLuna = v.total_staked?.find((token) => token.denom === bLunaDenom)?.amount || 0
+    const ampLuna = v.total_staked?.find((token) => token.denom === ampLunaDenom)?.amount || 0
     totalAmpLunaAmount += convertMicroDenomToDenom(ampLuna, 6)
     totalBLunaAmount = totalAmpLunaAmount + convertMicroDenomToDenom(bLuna, 6)
     return null
