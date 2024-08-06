@@ -110,22 +110,14 @@ const getPrice = async (tokens: PoolInfo[], basePrice?: TokenPrice) => {
     }
   }
   if (missingTokens.length > 0) {
-    const apis = ["https://fd60qhijvtes7do71ou6moc14s.ingress.pcgameservers.com/api/prices/pools/","https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices/pools/"]
     // get missing prices from api
     const ids = new Set() 
     missingTokens.forEach((token) => ids.add(token.chainId))
-    let url = apis[0]
     for (const chain of [...ids]) {
       let response
       let data
-      try {
-       response = await fetch(url + chain)
+       response = await Promise.race([ fetch('https://fd60qhijvtes7do71ou6moc14s.ingress.pcgameservers.com/api/prices/pools/'+chain), fetch('https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices/pools/'+chain)])
        data = await response.json()
-      } catch {
-        url = apis[1]
-        response = await fetch(url + chain)
-       data = await response.json()
-      }
       const prices = data?.data
       missingTokens.map((token) => {
         if (token.chainId == chain) {
