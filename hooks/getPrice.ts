@@ -40,7 +40,7 @@ const getLCDClient = () => new LCDClient({
     prefix: 'osmo',
   },
   'juno-1': {
-    lcd: 'https://ww-juno-rest.polkachu.com',
+    lcd: 'https://rest-juno.ecostake.com/',
     chainID: 'juno-1',
     gasAdjustment: 0.1,
     gasPrices: { ujuno: 0.075 },
@@ -111,19 +111,28 @@ const getPrice = async (tokens: PoolInfo[], basePrice?: TokenPrice) => {
   }
   if (missingTokens.length > 0) {
     // get missing prices from api
-    const ids = new Set() 
+    const ids = new Set()
     missingTokens.forEach((token) => ids.add(token.chainId))
+
     for (const chain of [...ids]) {
-      let response
       let data
-       response = await Promise.race([ fetch('https://fd60qhijvtes7do71ou6moc14s.ingress.pcgameservers.com/api/prices/pools/'+chain), fetch('https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices/pools/'+chain)])
-       data = await response.json()
-      const prices = data?.data
-      missingTokens.map((token) => {
+      try {
+        const response = await Promise.any([
+          fetch('https://fd60qhijvtes7do71ou6moc14s.ingress.pcgameservers.com/api/prices/pools/' + chain),
+          fetch('https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices/pools/' + chain)
+        ]);
+        data = await response.json()
+      } catch (error) {
+        console.error(`Error fetching data for chain ${chain}:`, error)
+        continue; 
+      }
+
+      const prices = data?.data;
+      missingTokens.forEach((token) => {
         if (token.chainId == chain) {
-        results[token.name] = prices[token.name]?.price || 0
+          results[token.name] = prices?.[token.name]?.price || 0
         }
-      })
+      });
     }
   }
   return results
