@@ -40,7 +40,7 @@ const getLCDClient = () => new LCDClient({
     prefix: 'osmo',
   },
   'juno-1': {
-    lcd: 'https://rest-juno.ecostake.com/',
+    lcd: 'https://juno-api.lavenderfive.com/',
     chainID: 'juno-1',
     gasAdjustment: 0.1,
     gasPrices: { ujuno: 0.075 },
