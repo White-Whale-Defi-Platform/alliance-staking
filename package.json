@@ -32,7 +32,7 @@
     "framer-motion": "^10.10.0",
     "intercept-stdout": "^0.1.2",
     "migaloojs": "^0.0.9",
-    "next": "13.5.4",
+    "next": "14.2.5",
     "numeral": "^2.0.6",
     "react": "18.3.1",
     "react-device-detect": "^2.2.3",
