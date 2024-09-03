@@ -116,10 +116,7 @@ const getPrice = async (tokens: PoolInfo[], basePrice?: TokenPrice) => {
     for (const chain of [...ids]) {
       let data
       try {
-        const response = await Promise.any([
-          fetch('https://fd60qhijvtes7do71ou6moc14s.ingress.pcgameservers.com/api/prices/pools/' + chain),
-          fetch('https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices/pools/' + chain)
-        ]);
+        const response = await fetch('https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices/pools/' + chain)
         data = await response.json()
       } catch (error) {
         console.error(`Error fetching data for chain ${chain}:`, error)
@@ -150,10 +147,7 @@ export const getTokenPrice = async (): Promise<[TokenPrice, number]> => {
 }
 
 export const getPricesAPI = async () => {
-  const pricesResponse = await Promise.any([
-    fetch('https://fd60qhijvtes7do71ou6moc14s.ingress.pcgameservers.com/api/prices'),
-    fetch('https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices'),
-  ])
+  const pricesResponse = await fetch('https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices')
 
   const guppyWhalePoolResponse = await fetch('https://ww-migaloo-rest.polkachu.com/cosmwasm/wasm/v1/contract/migaloo14p3r422qp04p345mnqe5umjy3vqx75hpxf54f8enf59wf27fksvqltavjp/smart/eyJwb29sIjp7fX0=')
 
