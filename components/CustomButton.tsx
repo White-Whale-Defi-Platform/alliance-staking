@@ -47,7 +47,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   };
   const handleClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    onClick(event);
+    onClick(event)
   }
 
   return (
@@ -62,7 +62,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         buttonLabel
       )}
     </button>
-  );
-};
+  )
+}
 
-export default CustomButton;
+export default CustomButton

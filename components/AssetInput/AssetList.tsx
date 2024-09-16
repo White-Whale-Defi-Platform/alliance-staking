@@ -27,7 +27,7 @@ const AssetList: FC<AssetListProps> = ({
   amount,
 }) => {
   const tabType = useRecoilValue(tabState)
-  const { tokens } = useTokenList();
+  const { tokens } = useTokenList()
   const router = useRouter()
   const { data: restakedBalances } = useQueryStakedBalances()
   const { data: delegations } = useDelegations()

@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
-import { useQuery } from 'react-query';
+import { useMemo } from 'react'
+import { useQuery } from 'react-query'
 
-import { getTokenPrice } from 'hooks/getPrice';
+import { getTokenPrice } from 'hooks/getPrice'
 
 const usePrices = () => {
   const { data: priceList } = useQuery({

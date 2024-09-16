@@ -46,15 +46,24 @@ const getLCDClient = () => new LCDClient({
     gasPrices: { ujuno: 0.075 },
     prefix: 'juno',
   },
+  'injective-1': {
+    lcd: 'https://injective-api.polkachu.com/',
+    chainID: 'injective-1',
+    gasAdjustment: 0.1,
+    gasPrices: { inj: 160_000_000 },
+    prefix: 'inj',
+  },
 })
 
-const getPriceFromPool = async ({
-  denom,
-  decimals,
-  contract,
-  base,
-  basedOn,
-}: PoolInfo, prices: any, basePrice?: TokenPrice): Promise<number> => {
+const getPriceFromPool = async (
+  {
+    denom,
+    decimals,
+    contract,
+    base,
+    basedOn,
+  }: PoolInfo, prices: any, basePrice?: TokenPrice,
+): Promise<number> => {
   const client = getLCDClient()
   if (base) {
     const token = tokens.find((token) => token.denom === denom)
@@ -94,7 +103,9 @@ const getPriceFromPool = async ({
 
 const getPrice = async (tokens: PoolInfo[], basePrice?: TokenPrice) => {
   const apiPrices = await getPricesAPI()
-  const promises = tokens.map((token) => getPriceFromPool(token, apiPrices, basePrice))
+  const promises = tokens.map((token) => getPriceFromPool(
+    token, apiPrices, basePrice,
+  ))
   const results = await Promise.all(promises).then((prices) => {
     const tokenPrice: TokenPrice = {}
     tokens.forEach((token, index) => {
@@ -109,14 +120,14 @@ const getPrice = async (tokens: PoolInfo[], basePrice?: TokenPrice) => {
     }
   }
   if (missingTokens.length > 0) {
-    // get missing prices from api
+    // Get missing prices from api
     const ids = new Set()
     missingTokens.forEach((token) => ids.add(token.chainId))
 
     for (const chain of [...ids]) {
       let data
       try {
-        const response = await fetch('https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices/pools/' + chain)
+        const response = await fetch(`https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices/pools/${chain}`)
         data = await response.json()
       } catch (error) {
         console.error(`Error fetching data for chain ${chain}:`, error)
@@ -142,7 +153,7 @@ export const getTokenPrice = async (): Promise<[TokenPrice, number]> => {
   const otherPrice = await getPrice(otherTokens, basePrice)
   return [{
     ...basePrice,
-    ...otherPrice
+    ...otherPrice,
   }, new Date().getTime()]
 }
 

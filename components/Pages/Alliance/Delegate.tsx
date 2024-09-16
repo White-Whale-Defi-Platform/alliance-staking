@@ -53,8 +53,8 @@ const Delegate: FC<ActionProps> = ({
       validatorDestAddress,
       validatorDestName: chosenValidator?.description.moniker,
       denom: token.denom,
-    });
-  }, [chosenValidator]);
+    })
+  }, [chosenValidator])
 
   const { control } = useForm({
     mode: 'onChange',
@@ -149,4 +149,4 @@ const Delegate: FC<ActionProps> = ({
     </VStack>
   )
 }
-export default Delegate;
+export default Delegate

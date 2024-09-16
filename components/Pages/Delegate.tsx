@@ -70,7 +70,7 @@ export const Delegate = ({ tokenSymbol }) => {
       setCurrentDelegationState({
         ...currentDelegationState,
         tokenSymbol: token.symbol,
-        decimals: 6,
+        decimals: token.decimals,
         denom: token?.denom,
       })
     } else {
@@ -78,7 +78,7 @@ export const Delegate = ({ tokenSymbol }) => {
       setCurrentDelegationState({
         ...currentDelegationState,
         tokenSymbol: token?.symbol,
-        decimals: 6,
+        decimals: token?.decimals,
         denom: token?.denom,
       })
     }
@@ -158,7 +158,7 @@ export const Delegate = ({ tokenSymbol }) => {
             minMax={false}
             disabled={false}
             onChange={(value, isTokenChange) => {
-              field.onChange(value);
+              field.onChange(value)
               if (isTokenChange) {
                 const denom = whiteListedTokens?.find((t) => t.symbol === value.tokenSymbol).denom;
                 setCurrentDelegationState({
@@ -185,6 +185,7 @@ export const Delegate = ({ tokenSymbol }) => {
               ActionType.delegate,
               currentDelegationState.amount,
               currentDelegationState.denom,
+              currentDelegationState.decimals,
             )
           } else {
             openView()

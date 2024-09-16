@@ -1,20 +1,20 @@
-import { useMemo } from 'react';
-import { useQuery } from 'react-query';
+import { useMemo } from 'react'
+import { useQuery } from 'react-query'
 
-import { CosmWasmClient } from '@cosmjs/cosmwasm-stargate';
-import { useChain } from '@cosmos-kit/react-lite';
-import { useAllTokenList } from 'hooks/useAllTokenList';
-import { useClients } from 'hooks/useClients';
-import { useRecoilValue } from 'recoil';
-import { CW20 } from 'services/cw20';
-import { chainState } from 'state/chainState';
-import { DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL } from 'util/constants';
-import { convertMicroDenomToDenom } from 'util/conversion';
+import { CosmWasmClient } from '@cosmjs/cosmwasm-stargate'
+import { StargateClient } from '@cosmjs/stargate'
+import { useChain } from '@cosmos-kit/react-lite'
+import { useAllTokenList } from 'hooks/useAllTokenList'
+import { useClients } from 'hooks/useClients'
 import whiteListedAllianceTokens from 'public/mainnet/white_listed_alliance_token_info.json'
 import whiteListedEcosystemTokens from 'public/mainnet/white_listed_ecosystem_token_info.json'
-
-import { getTokenInfoFromTokenList } from './useTokenInfo';
-import { StargateClient } from '@cosmjs/stargate';
+import { useRecoilValue } from 'recoil'
+import { CW20 } from 'services/cw20'
+import { chainState } from 'state/chainState'
+import { TabType } from 'state/tabState'
+import { DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL } from 'util/constants'
+import { convertMicroDenomToDenom } from 'util/conversion'
+import { getTokenInfoFromTokenList } from './useTokenInfo'
 
 const fetchTokenBalance = async ({
   client,
@@ -94,7 +94,7 @@ export const useMultipleTokenBalance = (tokenSymbols?: Array<string>) => {
       tokenSymbols,
       address,
       tokens: tokensList,
-      stargateClient
+      stargateClient,
     }),
     {
       enabled: Boolean(isWalletConnected &&
@@ -106,16 +106,15 @@ export const useMultipleTokenBalance = (tokenSymbols?: Array<string>) => {
       refetchInterval: DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL,
       refetchIntervalInBackground: true,
       onError(error) {
-        console.error('Cannot fetch token balance bc:', error);
+        console.error('Cannot fetch token balance bc:', error)
       },
     },
   )
   return {
     data,
-    isLoading
-  } as const;
+    isLoading,
+  } as const
 }
-
 
 export const useAllianceTokenBalance = () => {
   const { walletChainName } = useRecoilValue(chainState)
@@ -123,7 +122,7 @@ export const useAllianceTokenBalance = () => {
   const { cosmWasmClient: client, stargateClient } = useClients()
   const { tokensList } = useAllTokenList()
   const tokenSymbols = whiteListedAllianceTokens.map((e) => e.symbol)
-  const queryKey = useMemo(() => `allianceTokenBalances`,
+  const queryKey = useMemo(() => 'allianceTokenBalances',
     [tokenSymbols])
 
   const { data, isLoading } = useQuery(
@@ -133,7 +132,7 @@ export const useAllianceTokenBalance = () => {
       tokenSymbols,
       address,
       tokens: tokensList,
-      stargateClient
+      stargateClient,
     }),
     {
       enabled: Boolean(isWalletConnected &&
@@ -151,27 +150,27 @@ export const useAllianceTokenBalance = () => {
   )
   return {
     data,
-    isLoading
+    isLoading,
   } as const;
 }
 
-export const useMultipleTokenBalanceAssetlist = (type: string, router?: any, delegations?: any, restakedAssets?: any) => {
-  const tokenSymbols = type === 'restaking' ? whiteListedEcosystemTokens.map((e) => e.symbol) : whiteListedAllianceTokens.map((e) => e.symbol)
+export const useMultipleTokenBalanceAssetlist = (
+  type: string, router?: any, delegations?: any, restakedAssets?: any,
+) => {
+  const tokenSymbols = type === TabType.ecosystem ? whiteListedEcosystemTokens.map((e) => e.symbol) : whiteListedAllianceTokens.map((e) => e.symbol)
   const isUndelegate = router.pathname.includes('undelegate') || router.pathname.includes('redelegate')
 
   if (isUndelegate) {
-    if (type === 'alliance') {
+    if (type === TabType.alliance) {
       const val = router.query?.validatorSrcAddress
       if (val) {
         let balances = tokenSymbols.map((e) => (delegations?.delegations.filter((d) => d.delegation.validator_address === val).find((s) => s.token.symbol === e)))
-        balances = balances.map((e) => e?.token.amount || 0)
+        balances = balances.map((e) => e?.token?.amount ?? 0)
         return balances
-
       }
-    } else if (type === 'restaking') {
-      let balances = tokenSymbols.map((e) => (restakedAssets?.find((s) => s.tokenSymbol === e).
-        amount || 0))
-      return balances
+    } else if (type === TabType.ecosystem) {
+      return tokenSymbols.map((e) => (restakedAssets?.find((s) => s.tokenSymbol === e)?.
+        amount ?? 0))
     }
   }
   switch (type) {
@@ -182,14 +181,13 @@ export const useMultipleTokenBalanceAssetlist = (type: string, router?: any, del
   }
 }
 
-
 export const useRestakeTokenBalance = () => {
   const { walletChainName } = useRecoilValue(chainState)
   const { isWalletConnected, address } = useChain(walletChainName)
   const { cosmWasmClient: client, stargateClient } = useClients()
   const { tokensList } = useAllTokenList()
   const tokenSymbols = whiteListedEcosystemTokens.map((e) => e.symbol)
-  const queryKey = useMemo(() => `restakeTokenBalances`,
+  const queryKey = useMemo(() => 'restakeTokenBalances',
     [tokenSymbols])
 
   const { data, isLoading } = useQuery(
@@ -199,7 +197,7 @@ export const useRestakeTokenBalance = () => {
       tokenSymbols,
       address,
       tokens: tokensList,
-      stargateClient
+      stargateClient,
     }),
     {
       enabled: Boolean(isWalletConnected &&
@@ -217,6 +215,6 @@ export const useRestakeTokenBalance = () => {
   )
   return {
     data,
-    isLoading
-  } as const;
+    isLoading,
+  } as const
 }

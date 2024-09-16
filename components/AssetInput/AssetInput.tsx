@@ -52,16 +52,16 @@ const AssetInput = forwardRef((props: AssetInputProps, ref) => {
   }
 
   const numberOfTokens = useMemo(() => `${token?.amount} ${token?.tokenSymbol}`,
-    [token]);
+    [token])
 
   const dollarValue = useMemo(() => num(tokenPrice).times(token?.amount).
     dp(6).
-    toString(), [tokenPrice, token?.amount]);
+    toString(), [tokenPrice, token?.amount])
 
   const balanceWithDecimals = useMemo(() => num(balance).
-    dp(token?.decimals || 6).
+    dp(6).
     toString(),
-  [balance, token?.decimals]);
+  [balance, token?.decimals])
 
   return (
     <VStack width="full">
@@ -80,4 +80,4 @@ const AssetInput = forwardRef((props: AssetInputProps, ref) => {
   )
 })
 
-export default AssetInput;
+export default AssetInput
