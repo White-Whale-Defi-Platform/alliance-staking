@@ -40,7 +40,7 @@ const getStakedBalances = async (
       denom: token.denom,
       tokenSymbol: token.symbol,
       name: token.name,
-      amount: convertMicroDenomToDenom(info?.balance, 6),
+      amount: convertMicroDenomToDenom(info?.balance, token?.decimals ?? 6),
       isNative: Boolean(info?.asset?.native),
     }
   })

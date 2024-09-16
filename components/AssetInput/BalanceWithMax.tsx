@@ -131,6 +131,6 @@ const BalanceWithMaxNHalf = ({
       hideMax={hideMax}
     />
   </HStack>
-);
+)
 
-export default BalanceWithMaxNHalf;
+export default BalanceWithMaxNHalf

@@ -74,14 +74,13 @@ export const useTransaction = () => {
   )
 
   const { mutate } = useMutation((data: any) => {
-    console.log({ data })
     if (data.action === ActionType.delegate) {
-      const adjustedAmount = convertDenomToMicroDenom(data?.amount ?? 0, 6).toString();
+      const adjustedAmount = convertDenomToMicroDenom(data?.amount ?? 0, data?.decimals).toString()
       return delegate(
         allianceSigningClient, address, adjustedAmount, data.denom,
       )
     } else if (data.action === ActionType.undelegate) {
-      const adjustedAmount = convertDenomToMicroDenom(data?.amount ?? 0, 6).toString();
+      const adjustedAmount = convertDenomToMicroDenom(data?.amount ?? 0, data?.decimals).toString()
       return undelegate(
         allianceSigningClient, address, adjustedAmount, data.denom, isNativeToken(data.denom),
       )
@@ -205,6 +204,7 @@ export const useTransaction = () => {
     action: ActionType,
     amount: number | null,
     denom: string | null | string[],
+    decimals: number,
   ) => {
     setDelegationAction(action)
     mutate({
@@ -212,6 +212,7 @@ export const useTransaction = () => {
       action,
       denom,
       amount,
+      decimals,
     });
   },
   [fee, mutate, client]);

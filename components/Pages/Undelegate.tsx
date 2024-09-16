@@ -81,7 +81,7 @@ export const Undelegate = ({ tokenSymbol }) => {
       setCurrentDelegationState({
         ...currentDelegationState,
         tokenSymbol: token.symbol,
-        decimals: 6,
+        decimals: token?.decimals,
         denom: token?.denom,
       })
     } else {
@@ -89,11 +89,11 @@ export const Undelegate = ({ tokenSymbol }) => {
       setCurrentDelegationState({
         ...currentDelegationState,
         tokenSymbol: token?.symbol,
-        decimals: 6,
+        decimals: token.decimals,
         denom: token?.denom,
       })
     }
-  }, [tokenSymbol]);
+  }, [tokenSymbol])
 
   return (
     <VStack
@@ -156,13 +156,14 @@ export const Undelegate = ({ tokenSymbol }) => {
               minMax={false}
               disabled={false}
               onChange={(value, isTokenChange) => {
-                field.onChange(value);
+                field.onChange(value)
                 if (isTokenChange) {
-                  const { denom } = whiteListedTokens.find((t) => t.symbol === value.tokenSymbol);
+                  const { denom } = whiteListedTokens.find((t) => t.symbol === value.tokenSymbol)
                   setCurrentDelegationState({
                     ...currentDelegationState,
                     tokenSymbol: value.tokenSymbol,
                     amount: value.amount === '' ? 0 : Number(value.amount),
+                    decimals: whiteListedTokens.find((t) => t.symbol === value.tokenSymbol).decimals,
                     denom,
                   })
                 } else {
@@ -177,12 +178,13 @@ export const Undelegate = ({ tokenSymbol }) => {
         />
         <CustomButton
           buttonLabel={'Undelegate'}
-          onClick={async () => {
+          onClick={() => {
             if (isWalletConnected) {
-              await submit(
+              submit(
                 ActionType.undelegate,
                 currentDelegationState.amount,
                 currentDelegationState.denom,
+                currentDelegationState.decimals,
               )
             } else {
               openView()
