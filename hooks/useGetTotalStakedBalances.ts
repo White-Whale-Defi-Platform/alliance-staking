@@ -43,7 +43,7 @@ export const fetchTotalStakedBalances = async (client: LCDClient) => {
       denom: token.denom,
       name: token.name,
       tokenSymbol: token.symbol,
-      totalAmount: convertMicroDenomToDenom(info.balance, 6),
+      totalAmount: convertMicroDenomToDenom(info.balance, token?.decimals ?? 6),
     } as TotalStakedBalance
   })
   return { totalStakedBalances }
