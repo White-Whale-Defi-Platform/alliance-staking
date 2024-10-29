@@ -152,6 +152,20 @@ const AssetTable = ({ dashboardData, initialized }) => {
     },
   ])
 
+  const columnMinWidths = [
+    '15px', // Logo
+    '180px', // Symbol
+    '145px', // Category
+    '145px', // Total Staked
+    '180px', // Total Value Staked
+    '150px', // Reward Weight
+    '150px', // Take Rate
+    '150px', // APR
+  ];
+
+  const rewardAssets = dashboardData.filter((asset: any) => asset.rewardWeight !== 0);
+  const inactiveAssets = dashboardData.filter((asset: any) => asset.rewardWeight === 0);
+
   const table = useReactTable({
     data: dashboardData,
     columns,
@@ -174,75 +188,152 @@ const AssetTable = ({ dashboardData, initialized }) => {
 
   return (
     <VStack width="full" minW="1270px" borderRadius={'30px'} pr={5} pb={5}>
-      {initialized && table.getHeaderGroups()?.map((headerGroup) => (
-        <HStack
-          key={headerGroup.id}
-          width="full"
-          py="4"
-          px="8"
-          position="relative"
-        >
-          {headerGroup.headers.map((header, index) => (
-            <Box
-              key={header.id}
-              minW={index === 0 ? '15px' : index === 1 ? '180px' : index === 2 ? '145px' : index === 3 ? '145px' : index === 4 ? '180px' : index === 5 ? '150px' : index === 6 ? '150px' : 'unset'}
-              cursor={header.column.getCanSort() ? 'pointer' : 'default'}
-              onClick={header.column.getToggleSortingHandler()}
+      {initialized && (
+        <>
+          {table.getHeaderGroups()?.map((headerGroup) => (
+            <HStack
+              key={headerGroup.id}
+              width="full"
+              py="4"
+              px="8"
+              position="relative"
             >
-              <HStack>
-                <Box>
-                  {flexRender(header.column.columnDef.header,
-                    header.getContext())}
+              {headerGroup.headers.map((header, index) => (
+                <Box
+                  key={header.id}
+                  minW={index === 0 ? '15px' : index === 1 ? '180px' : index === 2 ? '145px' : index === 3 ? '145px' : index === 4 ? '180px' : index === 5 ? '150px' : index === 6 ? '150px' : 'unset'}
+                  cursor={header.column.getCanSort() ? 'pointer' : 'default'}
+                  onClick={header.column.getToggleSortingHandler()}
+                >
+                  <HStack>
+                    <Box>
+                      {flexRender(header.column.columnDef.header,
+                        header.getContext())}
+                    </Box>
+                    {header?.column?.columnDef?.enableSorting && (
+                      <VStack width="fit-content" p="0" m="0" spacing="0">
+                        <TriangleUpIcon
+                          fontSize="8px"
+                          color={
+                            header.column.getIsSorted() === 'asc' ? 'white' : 'gray'
+                          }
+                        />
+                        <TriangleDownIcon
+                          fontSize="8px"
+                          color={
+                            header.column.getIsSorted() === 'desc'
+                              ? 'white'
+                              : 'gray'
+                          }
+                        />
+                      </VStack>
+                    )}
+                  </HStack>
                 </Box>
-                {header?.column?.columnDef?.enableSorting && (
-                  <VStack width="fit-content" p="0" m="0" spacing="0">
-                    <TriangleUpIcon
-                      fontSize="8px"
-                      color={
-                        header.column.getIsSorted() === 'asc' ? 'white' : 'gray'
-                      }
-                    />
-                    <TriangleDownIcon
-                      fontSize="8px"
-                      color={
-                        header.column.getIsSorted() === 'desc'
-                          ? 'white'
-                          : 'gray'
-                      }
-                    />
-                  </VStack>
-                )}
-              </HStack>
-            </Box>
+              ))}
+            </HStack>
           ))}
-        </HStack>
-      ))}
-      {table.getRowModel().rows?.map((row) => {
-        const columnMinWidths = ['20px', '185px', '145px', '145px', '180px', '150px', '150px'];
-        const visibleCells = row.getVisibleCells();
-        const noRewards = visibleCells[5].getContext().getValue() === 0;
-        return (
-          <HStack
-            key={row.id + row.index}
-            width="full"
-            borderRadius="30px"
-            backgroundColor="rgba(0, 0, 0, 0.5)"
-            py="5"
-            px="8"
-          >
-            {visibleCells.map((cell, index) => (
-              <Text
-                color={noRewards ? 'brand.50' : 'white'}
-                key={cell.id + row.id}
-                minW={columnMinWidths[index] || 'unset'}
+          {table.getRowModel().rows.filter((row: any) => rewardAssets.includes(row.original)).map((row) => {
+            const visibleCells = row.getVisibleCells();
+            const noRewards = visibleCells[5].getContext().getValue() === 0;
+            return (
+              <HStack
+                key={row.id + row.index}
+                width="full"
+                borderRadius="30px"
+                backgroundColor="rgba(0, 0, 0, 0.5)"
+                py="5"
+                px="8"
               >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </Text>
-            ))}
-          </HStack>
-        );
-      })}
+                {visibleCells.map((cell, index) => (
+                  <Text
+                    color={noRewards ? 'brand.50' : 'white'}
+                    key={cell.id + row.id}
+                    minW={columnMinWidths[index] || 'unset'}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Text>
+                ))}
+              </HStack>
+            );
+          })}
 
+          <HStack width={'full'} justifyContent={'space-between'} py={8}> {/* Added padding on the y-axis */}
+            <Text as="h2"
+              fontSize="30"
+              fontWeight="700">
+              Inactive Assets
+            </Text>
+          </HStack>
+          {table.getHeaderGroups()?.map((headerGroup) => (
+            <HStack
+              key={headerGroup.id}
+              width="full"
+              py="4"
+              px="8"
+              position="relative"
+            >
+              {headerGroup.headers.map((header, index) => (
+                <Box
+                  key={header.id}
+                  minW={index === 0 ? '15px' : index === 1 ? '180px' : index === 2 ? '145px' : index === 3 ? '145px' : index === 4 ? '180px' : index === 5 ? '150px' : index === 6 ? '150px' : 'unset'}
+                  cursor={header.column.getCanSort() ? 'pointer' : 'default'}
+                  onClick={header.column.getToggleSortingHandler()}
+                >
+                  <HStack>
+                    <Box>
+                      {flexRender(header.column.columnDef.header,
+                        header.getContext())}
+                    </Box>
+                    {header?.column?.columnDef?.enableSorting && (
+                      <VStack width="fit-content" p="0" m="0" spacing="0">
+                        <TriangleUpIcon
+                          fontSize="8px"
+                          color={
+                            header.column.getIsSorted() === 'asc' ? 'white' : 'gray'
+                          }
+                        />
+                        <TriangleDownIcon
+                          fontSize="8px"
+                          color={
+                            header.column.getIsSorted() === 'desc'
+                              ? 'white'
+                              : 'gray'
+                          }
+                        />
+                      </VStack>
+                    )}
+                  </HStack>
+                </Box>
+              ))}
+            </HStack>
+          ))}
+          {table.getRowModel().rows.filter((row: any) => inactiveAssets.includes(row.original)).map((row) => {
+            const visibleCells = row.getVisibleCells();
+            const noRewards = visibleCells[5].getContext().getValue() === 0;
+            return (
+              <HStack
+                key={row.id + row.index}
+                width="full"
+                borderRadius="30px"
+                backgroundColor="rgba(0, 0, 0, 0.5)"
+                py="5"
+                px="8"
+              >
+                {visibleCells.map((cell, index) => (
+                  <Text
+                    color={noRewards ? 'brand.50' : 'white'}
+                    key={cell.id + row.id}
+                    minW={columnMinWidths[index] || 'unset'}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Text>
+                ))}
+              </HStack>
+            );
+          })}
+        </>
+      )}
       {!initialized && <Loader height={'7rem'} width={'7rem'} />}
       {(dashboardData?.length === 0 && initialized) && (
         <Text color="brand.50" fontSize="sm" textTransform="capitalize">
