@@ -277,5 +277,19 @@
     "native": true,
     "color": "#74AAF5",
     "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/injective/images/binj.png"
+  },
+  {
+    "chainId": "migaloo-1",
+    "token_address": "ibc/4725376E0682CFA116C4B67494AFA010B5204F1B6DAF3606516F18A0AD67B4B3",
+    "symbol": "DRUGS",
+    "name": "DRUGS",
+    "decimals": 6,
+    "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/injective/images/drugs.png",
+    "tags": [
+      "native"
+    ],
+    "denom": "ibc/4725376E0682CFA116C4B67494AFA010B5204F1B6DAF3606516F18A0AD67B4B3",
+    "native": true,
+    "color": "#acf65a"
   }
 ]
