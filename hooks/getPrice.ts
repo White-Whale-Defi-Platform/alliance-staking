@@ -19,14 +19,14 @@ type TokenPrice = {
 
 const getLCDClient = () => new LCDClient({
   'migaloo-1': {
-    lcd: 'https://ww-migaloo-rest.polkachu.com/',
+    lcd: 'https://migaloo-api.polkachu.com/',
     chainID: 'migaloo-1',
     gasAdjustment: 0.1,
     gasPrices: { uwhale: 0.05 },
     prefix: 'migaloo',
   },
   'phoenix-1': {
-    lcd: 'https://ww-terra-rest.polkachu.com/',
+    lcd: 'https://terra-api.polkachu.com/',
     chainID: 'phoenix-1',
     gasAdjustment: 1.75,
     gasPrices: { uluna: 0.015 },
@@ -160,7 +160,7 @@ export const getTokenPrice = async (): Promise<[TokenPrice, number]> => {
 export const getPricesAPI = async () => {
   const pricesResponse = await fetch('https://9c0pbpbijhepr6ijm4lk85uiuc.ingress.europlots.com/api/prices')
 
-  const guppyWhalePoolResponse = await fetch('https://ww-migaloo-rest.polkachu.com/cosmwasm/wasm/v1/contract/migaloo14p3r422qp04p345mnqe5umjy3vqx75hpxf54f8enf59wf27fksvqltavjp/smart/eyJwb29sIjp7fX0=')
+  const guppyWhalePoolResponse = await fetch('https://migaloo-api.polkachu.com/cosmwasm/wasm/v1/contract/migaloo14p3r422qp04p345mnqe5umjy3vqx75hpxf54f8enf59wf27fksvqltavjp/smart/eyJwb29sIjp7fX0=')
 
   if (!pricesResponse.ok) {
     throw new Error(`Failed to fetch prices: ${pricesResponse.status}`)
