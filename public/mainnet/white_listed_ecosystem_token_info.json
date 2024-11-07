@@ -291,5 +291,17 @@
     "denom": "ibc/4725376E0682CFA116C4B67494AFA010B5204F1B6DAF3606516F18A0AD67B4B3",
     "native": true,
     "color": "#acf65a"
+  },
+  {
+    "chainId": "migaloo-1",
+    "token_address": "ibc/8BCD0F0B96370890811638AF4190489DEDC569EC46F1AA9C6B78D1B7D6606B3E",
+    "symbol": "ROAR-AMPROAR-LP",
+    "name": "ROAR-AMPROAR LP",
+    "decimals": 6,
+    "logoURI": null,
+    "tags": ["native"],
+    "denom": "ibc/8BCD0F0B96370890811638AF4190489DEDC569EC46F1AA9C6B78D1B7D6606B3E",
+    "native": true,
+    "color": "gold"
   }
 ]
