@@ -8,6 +8,7 @@ import { DashboardPieChart } from 'components/Pages/Dashboard/DashboardPieChart'
 import { useAssetsData } from 'components/Pages/Dashboard/hooks/useAssetsData';
 import { USDCWhaleLogo } from 'components/Pages/Dashboard/USDCWhaleLogo';
 import { WhaleBtcLogo } from 'components/Pages/Dashboard/WhaleBtcLogo';
+import { WindWhaleLogo } from 'components/Pages/Dashboard/WindWhaleLogo';
 import { Apr, useCalculateAprs } from 'components/Pages/Ecosystem/hooks/useCalculateAprs';
 import { useAlliances } from 'hooks/useAlliances';
 import { useAllTokenList } from 'hooks/useAllTokenList';
@@ -92,7 +93,7 @@ export const DashboardTab = ({ priceList }) => {
 
         const apr = aprs?.find((apr) => (apr.name === symbol && (apr.tabType === asset.tabType || asset.symbol === 'WHALE')))
         dashboardData.push({
-          logo: symbol === 'USDC-WHALE-LP' ? <USDCWhaleLogo /> : symbol === 'WHALE-wBTC-LP' ? <WhaleBtcLogo /> :
+          logo: symbol === 'USDC-WHALE-LP' ? <USDCWhaleLogo /> : symbol === 'WHALE-wBTC-LP' ? <WhaleBtcLogo /> : symbol === 'WIND-WHALE-LP' ? <WindWhaleLogo /> :
             <Image
               src={asset.logoURI}
               alt="logo-small"

@@ -29,6 +29,9 @@ export const fetchTotalPoolSuppliesAndCalculatePrice = async (client: LCDClient,
   const whaleBtcPoolInfo : PoolInfo = await client.wasm.contractQuery('migaloo1axtz4y7jyvdkkrflknv9dcut94xr5k8m6wete4rdrw4fuptk896su44x2z', {
     pool: {},
   })
+  const windWhalePoolInfo : PoolInfo = await client.wasm.contractQuery('migaloo1sp6jxvrkym8j2zf5uszmmp0huwae43j5hlhagrn38pprazqnzxuqtufyha', {
+    pool: {},
+  })
 
   const totalWhaleUsdcDollarAmount = (whaleUsdcPoolInfo?.assets.map((asset) => {
     if (asset.info.native_token.denom === 'uwhale') {
@@ -45,9 +48,17 @@ export const fetchTotalPoolSuppliesAndCalculatePrice = async (client: LCDClient,
     return 0
   }).reduce((a, b) => a + b, 0) || 0) / convertMicroDenomToDenom(whaleBtcPoolInfo.total_share, 6)
 
+  const totalWindWhaleDollarAmount = (windWhalePoolInfo?.assets.map((asset) => {
+    if (asset.info.native_token.denom === 'uwhale') {
+      return convertMicroDenomToDenom(asset.amount, 6) * whalePrice * 2
+    }
+    return 0
+  }).reduce((a, b) => a + b, 0) || 0) / convertMicroDenomToDenom(windWhalePoolInfo.total_share, 6)
+
   return {
     'USDC-WHALE-LP': totalWhaleUsdcDollarAmount,
     'WHALE-wBTC-LP': totalWhaleBtcDollarAmount,
+    'WIND-WHALE-LP': totalWindWhaleDollarAmount,
   }
 }
 
