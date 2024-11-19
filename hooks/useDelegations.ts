@@ -1,17 +1,15 @@
 import { useQuery } from 'react-query';
 
+import { useChain } from '@cosmos-kit/react-lite';
 import { Coins, LCDClient } from '@terra-money/feather.js';
+import { MIGALOO_CHAIN_NAME } from 'constants/common'
 import useLCDClient from 'hooks/useLCDClient';
 import usePrices from 'hooks/usePrices';
 import { num } from 'libs/num';
-import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
+import tokens from 'public/mainnet/white_listed_alliance_token_info.json'
 import { TabType } from 'state/tabState'
-import { useChain } from '@cosmos-kit/react-lite';
-import { MIGALOO_CHAIN_NAME } from '../constants/common';
 
-const getAllianceDelegations = async (client: LCDClient | null, delegatorAddress: string) => {
-  return (await client?.alliance.alliancesDelegation(delegatorAddress)).delegations
-}
+const getAllianceDelegations = async (client: LCDClient | null, delegatorAddress: string) => (await client?.alliance.alliancesDelegation(delegatorAddress)).delegations
 
 export const getDelegation = async (
   client: LCDClient | null,
@@ -53,7 +51,7 @@ export const getDelegation = async (
         }));
   }));
 
-  const nativeStake = (await client.staking.delegations(delegatorAddress))[0];
+  const nativeStake = (await client.staking.delegations(delegatorAddress))[0]
   const delegations = [
     ...nativeStake.map((item: any) => ({
       type: 'native',
@@ -79,10 +77,10 @@ export const getDelegation = async (
       const delegatedToken = tokens.find((token) => token.denom === item.delegation?.denom);
       // If item type is native we need to return the uwhale token with 0 amount
       const rewardTokens = item.rewards.map((r) => {
-        const token = tokens.find((t) => t.denom === r.denom);
+        const token = tokens.find((t) => t.denom === r.denom)
         return {
           amount: r?.amount,
-          name: token.name,
+          name: token?.name,
           decimals: token.decimals,
           denom: token.denom,
         }
@@ -92,12 +90,12 @@ export const getDelegation = async (
         ? num(item.balance?.amount).
           div(10 ** delegatedToken.decimals).
           toNumber()
-        : 0;
+        : 0
       const dollarValue = delegatedToken
         ? num(amount).times(priceList[delegatedToken.name]).
           dp(2).
           toNumber()
-        : 0;
+        : 0
 
       const rewards = rewardTokens.map((rt) => {
         const amount = num(rt.amount).
@@ -129,7 +127,7 @@ export const getDelegation = async (
           dollarValue: acc.dollarValue + dollarValue,
         }
       },
-        { dollarValue: 0 })
+      { dollarValue: 0 })
       return {
         delegations: data,
         totalDelegation: totalDelegation?.dollarValue?.toFixed(2),
@@ -145,7 +143,7 @@ const useDelegations = () => {
   return useQuery({
     queryKey: ['delegations', priceList, address],
     queryFn: () => getDelegation(
-      client, priceList, address, getAllianceDelegations
+      client, priceList, address, getAllianceDelegations,
     ),
     enabled: Boolean(client) && Boolean(address) && Boolean(priceList) && Boolean(getAllianceDelegations),
   })
@@ -155,9 +153,7 @@ const useAllianceDelegations = ({ address }) => {
   const client = useLCDClient()
   return useQuery({
     queryKey: ['allianceDelegations', address],
-    queryFn: () => getAllianceDelegations(
-      client, address,
-    ),
+    queryFn: () => getAllianceDelegations(client, address),
     enabled: Boolean(client) && Boolean(address),
   })
 }

@@ -313,7 +313,7 @@
     "token_address": "factory/migaloo1sp6jxvrkym8j2zf5uszmmp0huwae43j5hlhagrn38pprazqnzxuqtufyha/uLP",
     "decimals": 6,
     "logoURI": null,
-    "tags": ["native"],
+    "native": true,
     "color": "lightblue"
   },
   {
@@ -323,7 +323,7 @@
     "chainId": "migaloo-1",
     "denom": "ibc/F9905FB2922CEE27015C339B2B870FB854314AA1CBC2D3F56C5E8BA2691C3B61",
     "token_address": "ibc/F9905FB2922CEE27015C339B2B870FB854314AA1CBC2D3F56C5E8BA2691C3B61",
-    "tags": ["native"],
+    "native": true,
     "decimals": 6,
     "tabType": "restaking",
     "logoURI": null,
@@ -335,7 +335,7 @@
     "chainId": "migaloo-1",
     "denom": "ibc/4F5CB28CE3E351058D4CE671EAF935CA6D728C6DF34C1AC662B495310FECBBDA",
     "token_address": "ibc/4F5CB28CE3E351058D4CE671EAF935CA6D728C6DF34C1AC662B495310FECBBDA",
-    "tags": ["native"],
+    "native": true,
     "decimals": 6,
     "tabType": "restaking",
     "logoURI": null,

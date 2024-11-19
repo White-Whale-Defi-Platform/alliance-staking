@@ -14,6 +14,7 @@ import { chainState } from 'state/chainState'
 import { TabType } from 'state/tabState'
 import { DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL } from 'util/constants'
 import { convertMicroDenomToDenom } from 'util/conversion'
+
 import { getTokenInfoFromTokenList } from './useTokenInfo'
 
 const fetchTokenBalance = async ({
@@ -62,58 +63,18 @@ const fetchTokenBalances = async ({
   stargateClient: StargateClient
 }) => {
   const nativeBalances = await stargateClient?.getAllBalances(address)
-  const out = await Promise.all(tokenSymbols.map(async (symbol) => {
+  return await Promise.all(tokenSymbols.map(async (symbol) => {
     const token = getTokenInfoFromTokenList(symbol, tokens)
-    let balance = 0
     if (!token?.native) {
-      balance = await fetchTokenBalance({
+      return await fetchTokenBalance({
         client,
         token,
         address,
       })
     } else {
-      balance = convertMicroDenomToDenom((nativeBalances.find((b) => b.denom === token.denom)?.amount || 0), token.decimals)
+      return convertMicroDenomToDenom((nativeBalances.find((b) => b.denom === token.denom)?.amount || 0), token.decimals)
     }
-    return balance || 0
   }))
-  return out
-}
-
-export const useMultipleTokenBalance = (tokenSymbols?: Array<string>) => {
-  const { walletChainName } = useRecoilValue(chainState)
-  const { isWalletConnected, address } = useChain(walletChainName)
-  const { cosmWasmClient: client, stargateClient } = useClients()
-  const { tokensList } = useAllTokenList()
-  const queryKey = useMemo(() => `multipleTokenBalances/${tokenSymbols?.join('+')}`,
-    [tokenSymbols])
-
-  const { data, isLoading } = useQuery(
-    [queryKey, address, isWalletConnected],
-    async () => await fetchTokenBalances({
-      client,
-      tokenSymbols,
-      address,
-      tokens: tokensList,
-      stargateClient,
-    }),
-    {
-      enabled: Boolean(isWalletConnected &&
-        tokenSymbols &&
-        tokensList &&
-        address && client && stargateClient),
-
-      refetchOnMount: 'always',
-      refetchInterval: DEFAULT_TOKEN_BALANCE_REFETCH_INTERVAL,
-      refetchIntervalInBackground: true,
-      onError(error) {
-        console.error('Cannot fetch token balance bc:', error)
-      },
-    },
-  )
-  return {
-    data,
-    isLoading,
-  } as const
 }
 
 export const useAllianceTokenBalance = () => {
