@@ -32,6 +32,9 @@ export const fetchTotalPoolSuppliesAndCalculatePrice = async (client: LCDClient,
   const windWhalePoolInfo : PoolInfo = await client.wasm.contractQuery('migaloo1sp6jxvrkym8j2zf5uszmmp0huwae43j5hlhagrn38pprazqnzxuqtufyha', {
     pool: {},
   })
+  // const ampRoarRoarPoolInfo : PoolInfo = await client.wasm.contractQuery('terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze', {
+  //   pool: {},
+  // })
 
   const totalWhaleUsdcDollarAmount = (whaleUsdcPoolInfo?.assets.map((asset) => {
     if (asset.info.native_token.denom === 'uwhale') {

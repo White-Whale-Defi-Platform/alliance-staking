@@ -315,5 +315,30 @@
     "logoURI": null,
     "tags": ["native"],
     "color": "lightblue"
+  },
+  {
+    "coinGeckoId": "",
+    "name": "ampWHALE-WHALE-AMP-LP",
+    "symbol": "ampWHALE-WHALE-AMP-LP",
+    "chainId": "migaloo-1",
+    "denom": "ibc/F9905FB2922CEE27015C339B2B870FB854314AA1CBC2D3F56C5E8BA2691C3B61",
+    "token_address": "ibc/F9905FB2922CEE27015C339B2B870FB854314AA1CBC2D3F56C5E8BA2691C3B61",
+    "tags": ["native"],
+    "decimals": 6,
+    "tabType": "restaking",
+    "logoURI": null,
+    "color": "orange"
+  },
+  {
+    "name": "bWHALE-WHALE-AMP-LP",
+    "symbol": "bWHALE-WHALE-AMP-LP",
+    "chainId": "migaloo-1",
+    "denom": "ibc/4F5CB28CE3E351058D4CE671EAF935CA6D728C6DF34C1AC662B495310FECBBDA",
+    "token_address": "ibc/4F5CB28CE3E351058D4CE671EAF935CA6D728C6DF34C1AC662B495310FECBBDA",
+    "tags": ["native"],
+    "decimals": 6,
+    "tabType": "restaking",
+    "logoURI": null,
+    "color": "orange"
   }
 ]
