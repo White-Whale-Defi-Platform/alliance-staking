@@ -29,7 +29,7 @@ export const fetchTotalPoolSuppliesAndCalculatePrice = async (client: LCDClient,
   const whaleBtcPoolInfo : PoolInfo = await client.wasm.contractQuery('migaloo1axtz4y7jyvdkkrflknv9dcut94xr5k8m6wete4rdrw4fuptk896su44x2z', {
     pool: {},
   })
-  const windWhalePoolInfo : PoolInfo = await client.wasm.contractQuery('migaloo1sp6jxvrkym8j2zf5uszmmp0huwae43j5hlhagrn38pprazqnzxuqtufyh', {
+  const windWhalePoolInfo : PoolInfo = await client.wasm.contractQuery('migaloo1sp6jxvrkym8j2zf5uszmmp0huwae43j5hlhagrn38pprazqnzxuqtufyha', {
     pool: {},
   })
 
