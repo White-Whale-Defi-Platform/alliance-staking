@@ -303,5 +303,17 @@
     "denom": "ibc/8BCD0F0B96370890811638AF4190489DEDC569EC46F1AA9C6B78D1B7D6606B3E",
     "native": true,
     "color": "gold"
+  },
+  {
+    "coinGeckoId": "",
+    "symbol": "WIND-WHALE-LP",
+    "name": "WIND-WHALE-LP",
+    "chainId": "migaloo-1",
+    "denom": "factory/migaloo1sp6jxvrkym8j2zf5uszmmp0huwae43j5hlhagrn38pprazqnzxuqtufyha/uLP",
+    "token_address": "factory/migaloo1sp6jxvrkym8j2zf5uszmmp0huwae43j5hlhagrn38pprazqnzxuqtufyha/uLP",
+    "decimals": 6,
+    "logoURI": null,
+    "tags": ["native"],
+    "color": "lightblue"
   }
 ]
