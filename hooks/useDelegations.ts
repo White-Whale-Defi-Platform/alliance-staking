@@ -6,7 +6,7 @@ import { MIGALOO_CHAIN_NAME } from 'constants/common'
 import useLCDClient from 'hooks/useLCDClient';
 import usePrices from 'hooks/usePrices';
 import { num } from 'libs/num';
-import tokens from 'public/mainnet/white_listed_alliance_token_info.json'
+import tokens from 'public/mainnet/tokens.json'
 import { TabType } from 'state/tabState'
 
 const getAllianceDelegations = async (client: LCDClient | null, delegatorAddress: string) => (await client?.alliance.alliancesDelegation(delegatorAddress)).delegations
@@ -35,10 +35,10 @@ export const getDelegation = async (
         })).
         catch(() => ({
           ...item,
-          rewards: null,
+          rewards: [],
         }))
       : await client?.alliance.
-        getReqFromAddress(delegatorAddress).
+        getReqFromAddress(delegatorAddress)?.
         get<{ rewards?: Coins }>(`/terra/alliances/rewards/${delegatorAddress}/${validatorAddress}/${denom}`,
           {}).
         then(({ rewards }) => ({
@@ -47,9 +47,9 @@ export const getDelegation = async (
         })).
         catch(() => ({
           ...item,
-          rewards: null,
-        }));
-  }));
+          rewards: [],
+        }))
+  }))
 
   const nativeStake = (await client.staking.delegations(delegatorAddress))[0]
   const delegations = [
@@ -80,7 +80,7 @@ export const getDelegation = async (
         const token = tokens.find((t) => t.denom === r.denom)
         return {
           amount: r?.amount,
-          name: token?.name,
+          name: token.name,
           decimals: token.decimals,
           denom: token.denom,
         }
@@ -100,7 +100,7 @@ export const getDelegation = async (
       const rewards = rewardTokens.map((rt) => {
         const amount = num(rt.amount).
           div(10 ** rt.decimals).
-          toNumber();
+          toNumber()
         return {
           amount,
           dollarValue: num(amount).times(priceList[rt.name]).
@@ -128,6 +128,7 @@ export const getDelegation = async (
         }
       },
       { dollarValue: 0 })
+      console.log({data})
       return {
         delegations: data,
         totalDelegation: totalDelegation?.dollarValue?.toFixed(2),

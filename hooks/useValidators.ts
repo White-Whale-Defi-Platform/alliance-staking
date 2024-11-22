@@ -24,7 +24,7 @@ const getValidators = ({
   const getIsDelegated = (validator: any) => {
     const delegation = delegations.find(({ delegation }) => delegation?.validator_address === validator?.validator_addr);
     return Boolean(delegation);
-  };
+  }
 
   return client?.alliance.
     alliancesByValidators('migaloo-1').
@@ -62,7 +62,7 @@ const getValidators = ({
       const unbondedValidators = validatorsTMP.filter((v: any) => v.status === 'BOND_STATUS_UNBONDED');
       return {
         validators: validatorsWithInfo, allValidators: [...validatorsWithInfo, ...unbondedValidators],
-        pagination
+        pagination,
       };
     }).
     catch((error) => {
@@ -83,18 +83,14 @@ type UseValidatorsResult = {
     validators: ValidatorInfo[]
     pagination: any;
     stakedWhale: number
-    stakedAmpLuna: number
-    stakedBLuna: number
-    stakedWBtc: number
-    stakedAmpOSMO: number
-    stakedbOsmo: number
+    stakedWhaleWBtc: number
     delegations: any[]
     allValidators: ValidatorInfo[]
   }
   isFetching: boolean
 }
-const getStakedWBtc = async ({ validatorData }) => {
-  const wBTC = allianceTokens.find((token) => token.symbol === 'wBTC')
+const getStakedWhaleWBtc = async ({ validatorData }) => {
+  const wBTC = allianceTokens.find((token) => token.symbol === 'WHALE-wBTC-LP')
   let totalWBtcAmount = 0
   validatorData.validators.forEach((v) => {
     const wBTCAmount = v.total_staked?.find((token) => token.denom === wBTC.denom)?.amount || 0
@@ -103,45 +99,8 @@ const getStakedWBtc = async ({ validatorData }) => {
   return { totalWBtcAmount }
 }
 
-const getStakedAmpOsmo = async ({ validatorData }) => {
-  const ampOsmo = allianceTokens.find((token) => token.symbol === 'ampOSMO')
-  let totalampOsmoAmount = 0
-  validatorData.validators.forEach((v) => {
-    const ampOsmoAmount = v.total_staked?.find((token) => token.denom === ampOsmo.denom)?.amount || 0
-    totalampOsmoAmount += convertMicroDenomToDenom(ampOsmoAmount, ampOsmo.decimals)
-  })
-  return { totalampOsmoAmount }
-}
-
-const getStakedbOsmo = async ({ validatorData }) => {
-  const bOsmo = allianceTokens.find((token) => token.symbol === 'bOSMO')
-  let totalbOsmoAmount = 0
-  validatorData.validators.forEach((v) => {
-    const bosmoAmount = v.total_staked?.find((token) => token.denom === bOsmo.denom)?.amount || 0
-    totalbOsmoAmount += convertMicroDenomToDenom(bosmoAmount, bOsmo.decimals)
-  })
-  return { totalbOsmoAmount }
-}
-
-const getStakedLSTLunaAmounts = async ({ validatorData }) => {
-  const bLunaDenom = allianceTokens.find((token) => token.symbol === 'bLUNA').denom
-  const ampLunaDenom = allianceTokens.find((token) => token.symbol === 'ampLUNA').denom
-  let totalAmpLunaAmount = 0
-  let totalBLunaAmount = 0
-  validatorData.validators.map((v) => {
-    const bLuna = v.total_staked?.find((token) => token.denom === bLunaDenom)?.amount || 0
-    const ampLuna = v.total_staked?.find((token) => token.denom === ampLunaDenom)?.amount || 0
-    totalAmpLunaAmount += convertMicroDenomToDenom(ampLuna, 6)
-    totalBLunaAmount = totalAmpLunaAmount + convertMicroDenomToDenom(bLuna, 6)
-    return null
-  })
-  return {
-    totalAmpLunaAmount,
-    totalBLunaAmount
-  }
-}
-const useValidators = ({ address }): UseValidatorsResult => {
-  const client = useLCDClient();
+const useValidators = (): UseValidatorsResult => {
+  const client = useLCDClient()
 
   const { data: { delegations = [] } = {}, isFetched } = useDelegations()
 
@@ -156,7 +115,7 @@ const useValidators = ({ address }): UseValidatorsResult => {
     queryFn: () => getValidators({
       client,
       validatorInfo,
-      delegations
+      delegations,
     }),
     enabled: Boolean(client) && Boolean(validatorInfo) && Boolean(delegations),
   })
@@ -166,26 +125,10 @@ const useValidators = ({ address }): UseValidatorsResult => {
     queryFn: () => getStakedWhale({ validatorData }),
     enabled: Boolean(validatorData),
   })
-  const { data: lunaLSTData } = useQuery({
-    queryKey: ['stakedLSTs'],
-    queryFn: () => getStakedLSTLunaAmounts({ validatorData }),
-    enabled: Boolean(validatorData),
-  })
 
-  const { data: stakedWBtc } = useQuery({
-    queryKey: ['stakedWBtc'],
-    queryFn: () => getStakedWBtc({ validatorData }),
-    enabled: Boolean(validatorData),
-  })
-
-  const { data: stakedAmpOSMO } = useQuery({
-    queryKey: ['stakedAmpOsmo'],
-    queryFn: () => getStakedAmpOsmo({ validatorData }),
-    enabled: Boolean(validatorData),
-  })
-  const { data: stakedbOsmo } = useQuery({
-    queryKey: ['stakedbOsmo'],
-    queryFn: () => getStakedbOsmo({ validatorData }),
+  const { data: stakedWhaleWBtc } = useQuery({
+    queryKey: ['stakedWhaleWBtc'],
+    queryFn: () => getStakedWhaleWBtc({ validatorData }),
     enabled: Boolean(validatorData),
   })
   return {
@@ -193,11 +136,7 @@ const useValidators = ({ address }): UseValidatorsResult => {
       validators: validatorData?.validators || [],
       pagination: validatorData?.pagination || {},
       stakedWhale: stakedWhale || 0,
-      stakedAmpLuna: lunaLSTData?.totalAmpLunaAmount || 0,
-      stakedBLuna: lunaLSTData?.totalBLunaAmount || 0,
-      stakedWBtc: stakedWBtc?.totalWBtcAmount || 0,
-      stakedAmpOSMO: stakedAmpOSMO?.totalampOsmoAmount || 0,
-      stakedbOsmo: stakedbOsmo?.totalbOsmoAmount || 0,
+      stakedWhaleWBtc: stakedWhaleWBtc?.totalWBtcAmount || 0,
       delegations: delegations || [],
       allValidators: validatorData?.allValidators || [],
     },

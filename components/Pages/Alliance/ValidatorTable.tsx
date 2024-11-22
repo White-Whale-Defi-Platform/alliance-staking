@@ -21,8 +21,7 @@ import Commission = Validator.Commission;
 
 type Props = {
   selectedStatus: any;
-  address: string;
-};
+}
 type TableProps = {
   name: string;
   votingPower: any;
@@ -95,7 +94,7 @@ const columns: ColumnDef<TableProps, any>[] = [
   columnHelper.accessor('status', {}),
 ];
 
-const ValidatorTable = ({ selectedStatus, address }: Props) => {
+const ValidatorTable = ({ selectedStatus }: Props) => {
   const [sorting, setSorting] = useState<any>([
     {
       desc: false,
@@ -104,43 +103,43 @@ const ValidatorTable = ({ selectedStatus, address }: Props) => {
   ]);
   const router = useRouter();
 
-  const { data: { validators = [], allValidators } = {} } = useValidators({ address });
+  const { data: { validators = [], allValidators } = {} } = useValidators()
 
-  const { data: { delegations = [] } = {} } = useDelegations();
+  const { data: { delegations = [] } = {} } = useDelegations()
 
   const tableData = useMemo(() => {
     if (!validators?.length) {
-      return [];
+      return []
     }
     const onClick = async (action: ActionType, validatorAddress: string) => {
-      const tokenSymbol = 'ampLUNA'
+      const tokenSymbol = 'WHALE-wBTC-LP'
       if (action === ActionType.delegate) {
         const validatorDestAddress = validatorAddress;
         await router.push({
           pathname: `/alliance/${ActionType[action]}`,
           query: { validatorDestAddress,
             tokenSymbol },
-        });
+        })
       } else if (action === ActionType.undelegate) {
         const validatorSrcAddress = validatorAddress;
         await router.push({
           pathname: `/alliance/${ActionType[action]}`,
           query: { validatorSrcAddress,
             tokenSymbol },
-        });
+        })
       } else if (action === ActionType.redelegate) {
         const validatorSrcAddress = validatorAddress;
         await router.push({
           pathname: `/alliance/${ActionType[action]}`,
           query: { validatorSrcAddress,
             tokenSymbol },
-        });
+        })
       }
-    };
+    }
     const getIsActive = (validator) => {
       const delegation = delegations.find(({ delegation }) => delegation.validator_address === validator.validator_addr);
-      return delegation ? 'active' : 'inactive';
-    };
+      return delegation ? 'active' : 'inactive'
+    }
     // Shuffle the validators before returning
     return allValidators?.
       sort(() => Math.random() - 0.5)?.

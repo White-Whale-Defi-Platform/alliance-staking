@@ -226,18 +226,6 @@
   },
   {
     "chainId": "migaloo-1",
-    "token_address": "factory/migaloo1axtz4y7jyvdkkrflknv9dcut94xr5k8m6wete4rdrw4fuptk896su44x2z/uLP",
-    "symbol": "WHALE-wBTC-LP",
-    "name": "WHALE-wBTC-LP",
-    "decimals": 6,
-    "logoURI": null,
-    "tags": ["native"],
-    "denom": "factory/migaloo1axtz4y7jyvdkkrflknv9dcut94xr5k8m6wete4rdrw4fuptk896su44x2z/uLP",
-    "native": true,
-    "color": "red"
-  },
-  {
-    "chainId": "migaloo-1",
     "token_address": "ibc/0E1B883A15D5FCA533332CBAB1A672934C3936920399F2A3EB4F438E3EBAD0E9",
     "symbol": "SHITMOS",
     "name": "Shitmos",

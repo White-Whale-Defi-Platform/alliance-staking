@@ -6,11 +6,11 @@ import usePrices from 'hooks/usePrices';
 import useValidators from 'hooks/useValidators';
 import { useTotalYearlyWhaleEmission } from 'hooks/useWhaleInfo';
 
-export const useCalculateAllianceAprs = ({ address }) => {
+export const useCalculateAllianceAprs = () => {
   const { totalYearlyWhaleEmission } = useTotalYearlyWhaleEmission()
   const { alliances: allianceData } = useAlliances()
 
-  const { data: validatorData } = useValidators({ address });
+  const { data: validatorData } = useValidators()
   const [priceList] = usePrices() || []
   const whalePrice = priceList?.Whale
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { HStack, Image, Text, VStack } from '@chakra-ui/react'
-import { useChain } from '@cosmos-kit/react-lite';
 import { useCalculateAllianceAprs } from 'components/Pages/Alliance/hooks/useCalculateAllianceAprs';
 import AssetTable, { DashboardData } from 'components/Pages/Dashboard/AssetTable';
 import { DashboardPieChart } from 'components/Pages/Dashboard/DashboardPieChart';
@@ -9,19 +8,15 @@ import { useAssetsData } from 'components/Pages/Dashboard/hooks/useAssetsData';
 import { USDCWhaleLogo } from 'components/Pages/Dashboard/USDCWhaleLogo';
 import { WhaleBtcLogo } from 'components/Pages/Dashboard/WhaleBtcLogo';
 import { WindWhaleLogo } from 'components/Pages/Dashboard/WindWhaleLogo';
-import { Apr, useCalculateAprs } from 'components/Pages/Ecosystem/hooks/useCalculateAprs';
-import { useAlliances } from 'hooks/useAlliances';
-import { useAllTokenList } from 'hooks/useAllTokenList';
-import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
-import useValidators from 'hooks/useValidators';
-import tokens from 'public/mainnet/tokens.json';
-import { useRecoilValue } from 'recoil';
-import { chainState } from 'state/chainState';
+import { Apr, useCalculateAprs } from 'components/Pages/Ecosystem/hooks/useCalculateAprs'
+import { useAlliances } from 'hooks/useAlliances'
+import { useAllTokenList } from 'hooks/useAllTokenList'
+import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices'
+import useValidators from 'hooks/useValidators'
+import tokens from 'public/mainnet/tokens.json'
 
 export const DashboardTab = ({ priceList }) => {
   const { tokensList } = useAllTokenList()
-  const { walletChainName } = useRecoilValue(chainState)
-  const { address } = useChain(walletChainName)
   const [dashboardData, setDashboardData] = useState<DashboardData[]>([])
   const lpTokenPrices = useGetLPTokenPrices()
   const { alliances: allianceData } = useAlliances()
@@ -31,9 +26,9 @@ export const DashboardTab = ({ priceList }) => {
 
   const { vtRewardShares, totalStakedBalances } = useAssetsData()
 
-  const { data: { stakedAmpLuna, stakedBLuna, stakedWhale, stakedWBtc, stakedAmpOSMO, stakedbOsmo } } = useValidators({ address })
+  const { data: { stakedWhale, stakedWhaleWBtc } } = useValidators()
   const [aprs, setAprs] = useState<Apr[]>([])
-  const allianceAPRs = useCalculateAllianceAprs({ address })
+  const allianceAPRs = useCalculateAllianceAprs()
   const otherAprs = useCalculateAprs()
 
   useEffect(() => {
@@ -51,7 +46,7 @@ export const DashboardTab = ({ priceList }) => {
   }, [vtRewardShares, allianceAPRs, otherAprs])
 
   useEffect(() => {
-    if (!totalStakedBalances || !stakedAmpLuna || !stakedBLuna || !stakedWhale || !stakedWBtc || !stakedAmpOSMO || !stakedbOsmo || !priceList || !lpTokenPrices || aprs.length === 0) {
+    if (!totalStakedBalances || !stakedWhale || !stakedWhaleWBtc || !priceList || !lpTokenPrices || aprs.length === 0) {
       return
     }
     const dashboardData = []
@@ -64,23 +59,11 @@ export const DashboardTab = ({ priceList }) => {
         let takeRate = 0
         if (asset.tabType === 'alliance') {
           switch (asset.symbol) {
-            case 'bLUNA':
-              totalAmount = stakedBLuna
-              break
-            case 'ampLUNA':
-              totalAmount = stakedAmpLuna
-              break
             case 'WHALE':
               totalAmount = stakedWhale;
               break
-            case 'wBTC':
-              totalAmount = stakedWBtc
-              break
-            case 'ampOSMO':
-              totalAmount = stakedAmpOSMO
-              break
-            case 'bOSMO':
-              totalAmount = stakedbOsmo
+            case 'WHALE-wBTC-LP':
+              totalAmount = stakedWhaleWBtc
               break
             default:
               totalAmount = totalStakedBalance?.totalAmount || 0
@@ -92,6 +75,7 @@ export const DashboardTab = ({ priceList }) => {
         }
 
         const apr = aprs?.find((apr) => (apr.name === symbol && (apr.tabType === asset.tabType || asset.symbol === 'WHALE')))
+
         dashboardData.push({
           logo: symbol === 'USDC-WHALE-LP' ? <USDCWhaleLogo /> : symbol === 'WHALE-wBTC-LP' ? <WhaleBtcLogo /> : symbol === 'WIND-WHALE-LP' ? <WindWhaleLogo /> :
             <Image
@@ -114,7 +98,7 @@ export const DashboardTab = ({ priceList }) => {
     })
     setDashboardData(dashboardData)
     setInitialized(true)
-  }, [vtRewardShares, totalStakedBalances, stakedAmpLuna, stakedBLuna, stakedWhale, stakedWBtc, stakedAmpOSMO, stakedbOsmo, priceList, lpTokenPrices, aprs])
+  }, [vtRewardShares, totalStakedBalances, stakedWhale, stakedWhaleWBtc, priceList, lpTokenPrices, aprs])
   return <VStack
     pt={12}
     alignItems={'flex-start'}

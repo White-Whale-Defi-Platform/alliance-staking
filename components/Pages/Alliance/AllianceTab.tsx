@@ -62,5 +62,5 @@ export const AllianceTab = ({
       address={address}
     />
   </HStack>
-  <Validators address={address} />
+  <Validators />
 </VStack>

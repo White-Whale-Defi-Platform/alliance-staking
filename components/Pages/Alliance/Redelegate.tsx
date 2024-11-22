@@ -1,18 +1,16 @@
-import React, { useEffect, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import React, { useEffect, useMemo } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 
-import { Text, VStack } from '@chakra-ui/react';
-import { useChain } from '@cosmos-kit/react-lite';
-import AssetInput from 'components/AssetInput/index';
-import ValidatorInput from 'components/Pages/Alliance/ValidatorInput/ValidatorInput';
-import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
-import usePrices from 'hooks/usePrices';
-import useValidators from 'hooks/useValidators';
-import { useRouter } from 'next/router';
-import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { chainState } from 'state/chainState';
-import { delegationState, DelegationState } from 'state/delegationState';
+import { Text, VStack } from '@chakra-ui/react'
+import AssetInput from 'components/AssetInput/index'
+import ValidatorInput from 'components/Pages/Alliance/ValidatorInput/ValidatorInput'
+import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices'
+import usePrices from 'hooks/usePrices'
+import useValidators from 'hooks/useValidators'
+import { useRouter } from 'next/router'
+import tokens from 'public/mainnet/white_listed_alliance_token_info.json'
+import { useRecoilState } from 'recoil'
+import { delegationState, DelegationState } from 'state/delegationState'
 
 const Redelegate = ({
   validatorDestAddress,
@@ -20,18 +18,16 @@ const Redelegate = ({
   delegations,
   tokenSymbol,
 }) => {
-  const { walletChainName } = useRecoilValue(chainState)
-  const { address } = useChain(walletChainName)
   const [currentDelegationState, setCurrentDelegationState] =
-    useRecoilState<DelegationState>(delegationState);
+    useRecoilState<DelegationState>(delegationState)
 
-  const { data: { validators = [], allValidators } = {} } = useValidators({ address });
+  const { data: { validators = [], allValidators } = {} } = useValidators()
 
   const chosenDestValidator = useMemo(() => validators.find((v) => v.operator_address === validatorDestAddress),
-    [validatorDestAddress, validators]);
+    [validatorDestAddress, validators])
 
   const chosenSrcValidator = useMemo(() => validators.find((v) => v.operator_address === validatorSrcAddress),
-    [validatorSrcAddress, validators]);
+    [validatorSrcAddress, validators])
 
   const onInputChange = (tokenSymbol: string | null, amount: number) => {
     if (tokenSymbol) {
@@ -39,17 +35,17 @@ const Redelegate = ({
         ...currentDelegationState,
         tokenSymbol,
         amount: Number(amount),
-      });
+      })
     } else {
       setCurrentDelegationState({
         ...currentDelegationState,
         amount: Number(amount),
-      });
+      })
     }
-  };
+  }
 
   useEffect(() => {
-    const token = tokens.find((e) => e.symbol === tokenSymbol);
+    const token = tokens.find((e) => e.symbol === tokenSymbol)
     setCurrentDelegationState({
       ...currentDelegationState,
       validatorDestAddress: chosenDestValidator?.operator_address,
@@ -60,8 +56,8 @@ const Redelegate = ({
       validatorSrcAddress: chosenSrcValidator?.operator_address,
       validatorSrcName: chosenSrcValidator?.description.moniker,
       decimals: token.decimals,
-    });
-  }, [chosenDestValidator, chosenSrcValidator]);
+    })
+  }, [chosenDestValidator, chosenSrcValidator])
 
   const { control } = useForm({
     mode: 'onChange',
@@ -78,10 +74,10 @@ const Redelegate = ({
 
   const aggregatedAmount = allSingleTokenDelegations?.
     reduce((acc, e) => acc + Number(e?.token?.amount ?? 0), 0).
-    toFixed(6);
-  const [priceList] = usePrices() || [];
+    toFixed(6)
+  const [priceList] = usePrices() || []
 
-  const router = useRouter();
+  const router = useRouter()
   const lpTokenPrices = useGetLPTokenPrices()
 
   const price = useMemo(() => (currentDelegationState.tokenSymbol === 'mUSDC' ? 1 : currentDelegationState.tokenSymbol?.includes('-LP') ? lpTokenPrices?.[currentDelegationState.tokenSymbol] :

@@ -46,12 +46,12 @@ const TopBar = ({ setSelectedStatus }) => {
   );
 };
 
-const Validators = ({ address }) => {
+const Validators = () => {
   const [selectedStatus, setSelectedStatus] = useState('all');
   return (
     <VStack width="full">
       <TopBar setSelectedStatus={setSelectedStatus} />
-      <ValidatorTable selectedStatus={selectedStatus} address={address} />
+      <ValidatorTable selectedStatus={selectedStatus} />
     </VStack>
   );
 };

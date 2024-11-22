@@ -105,7 +105,7 @@ const Dashboard = () => {
   const { data: ecosystemBalances } = useRestakeTokenBalance()
   const { data: undelegationData } = useUndelegations({ address })
 
-  const allianceAPRs = useCalculateAllianceAprs({ address })
+  const allianceAPRs = useCalculateAllianceAprs()
 
   const undelegations = useMemo(() => undelegationData?.allUndelegations || [],
     [undelegationData])
