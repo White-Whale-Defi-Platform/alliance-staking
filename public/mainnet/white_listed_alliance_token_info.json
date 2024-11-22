@@ -13,62 +13,14 @@
   },
   {
     "chainId": "migaloo-1",
-    "token_address": "ibc/6E5BF71FE1BEBBD648C8A7CB7A790AEF0081120B2E5746E6563FC95764716D61",
-    "symbol": "wBTC",
-    "name": "wBTC",
-    "decimals": 8,
-    "logoURI": "/logos/wbtc.svg",
-    "tags": ["native"],
-    "denom": "ibc/6E5BF71FE1BEBBD648C8A7CB7A790AEF0081120B2E5746E6563FC95764716D61",
-    "native": true,
-    "color": "orange"
-  },
-  {
-    "chainId": "migaloo-1",
-    "token_address": "ibc/05238E98A143496C8AF2B6067BABC84503909ECE9E45FBCBAC2CBA5C889FD82A",
-    "symbol": "ampLUNA",
-    "name": "ampLuna",
+    "token_address": "factory/migaloo1axtz4y7jyvdkkrflknv9dcut94xr5k8m6wete4rdrw4fuptk896su44x2z/uLP",
+    "symbol": "WHALE-wBTC-LP",
+    "name": "WHALE-wBTC-LP",
     "decimals": 6,
-    "logoURI": "/logos/ampLuna.png",
+    "logoURI": null,
     "tags": ["native"],
-    "denom": "ibc/05238E98A143496C8AF2B6067BABC84503909ECE9E45FBCBAC2CBA5C889FD82A",
+    "denom": "factory/migaloo1axtz4y7jyvdkkrflknv9dcut94xr5k8m6wete4rdrw4fuptk896su44x2z/uLP",
     "native": true,
-    "color": "#7CFB7D"
-  },
-  {
-    "chainId": "migaloo-1",
-    "token_address": "ibc/40C29143BF4153B365089E40E437B7AA819672646C45BB0A5F1E10915A0B6708",
-    "symbol": "bLUNA",
-    "name": "bLuna",
-    "decimals": 6,
-    "logoURI": "/logos/bLuna.png",
-    "tags": ["native"],
-    "denom": "ibc/40C29143BF4153B365089E40E437B7AA819672646C45BB0A5F1E10915A0B6708",
-    "native": true,
-    "color": "#3273F6"
-  },
-  {
-    "chainId": "migaloo-1",
-    "token_address": "ibc/BEFB9AB13AB43157A0AF6214AD4B1F565AC0CA0C1760B8337BE7B9E2996F7752",
-    "symbol": "ampOSMO",
-    "name": "ampOSMO",
-    "decimals": 6,
-    "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/osmosis/images/amposmo.png",
-    "tags": ["native"],
-    "denom": "ibc/BEFB9AB13AB43157A0AF6214AD4B1F565AC0CA0C1760B8337BE7B9E2996F7752",
-    "native": true,
-    "color": "purple"
-  },
-  {
-    "chainId": "migaloo-1",
-    "token_address": "ibc/EC48B819FC1D955ED1708A8E8E230B37217CC6D953448D3B4BCCF5B29BD1FCF9",
-    "symbol": "bOSMO",
-    "name": "bOSMO",
-    "decimals": 6,
-    "logoURI": "https://raw.githubusercontent.com/cosmos/chain-registry/master/osmosis/images/bOSMO.png",
-    "tags": ["native"],
-    "denom": "ibc/EC48B819FC1D955ED1708A8E8E230B37217CC6D953448D3B4BCCF5B29BD1FCF9",
-    "native": true,
-    "color": "purple"
+    "color": "red"
   }
 ]

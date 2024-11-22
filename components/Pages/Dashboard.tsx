@@ -96,7 +96,7 @@ const Dashboard = () => {
   const [priceList] = usePrices() || []
 
   const { data } = useDelegations()
-
+  console.log("dashbord", data)
   const { data: stakedBalances } = useQueryStakedBalances()
 
   const delegations = useMemo(() => data?.delegations || [], [data])

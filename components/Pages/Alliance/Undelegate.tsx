@@ -2,7 +2,6 @@ import React, { useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { Text, VStack } from '@chakra-ui/react';
-import { useChain } from '@cosmos-kit/react-lite';
 import AssetInput from 'components/AssetInput/index';
 import ValidatorInput from 'components/Pages/Alliance/ValidatorInput/ValidatorInput';
 import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
@@ -10,32 +9,29 @@ import usePrices from 'hooks/usePrices';
 import useValidators from 'hooks/useValidators';
 import { useRouter } from 'next/router';
 import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { chainState } from 'state/chainState';
+import { useRecoilState } from 'recoil';
 import { delegationState, DelegationState } from 'state/delegationState';
 
 const Undelegate = ({ delegations, validatorSrcAddress, tokenSymbol }) => {
-  const { walletChainName } = useRecoilValue(chainState)
-  const { address } = useChain(walletChainName)
   const [currentDelegationState, setCurrentDelegationState] =
-    useRecoilState<DelegationState>(delegationState);
+    useRecoilState<DelegationState>(delegationState)
 
-  const { data: { allValidators } = {} } = useValidators({ address });
+  const { data: { allValidators } = {} } = useValidators()
 
   const chosenSrcValidator = useMemo(() => allValidators.find((v) => v.operator_address === validatorSrcAddress),
     [validatorSrcAddress, allValidators]);
 
   const onInputChange = (tokenSymbol: string | null, amount: number) => {
     const newState = { ...currentDelegationState,
-      amount: Number(amount) };
+      amount: Number(amount) }
     if (tokenSymbol) {
-      newState.tokenSymbol = tokenSymbol;
+      newState.tokenSymbol = tokenSymbol
     }
-    setCurrentDelegationState(newState);
+    setCurrentDelegationState(newState)
   };
 
   useEffect(() => {
-    const token = tokens.find((e) => e.symbol === tokenSymbol);
+    const token = tokens.find((e) => e.symbol === tokenSymbol)
 
     setCurrentDelegationState({
       ...currentDelegationState,

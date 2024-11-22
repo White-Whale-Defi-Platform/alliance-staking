@@ -9,7 +9,7 @@ import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
 import usePrices from 'hooks/usePrices';
 import useValidators from 'hooks/useValidators';
 import { useRouter } from 'next/router';
-import tokens from 'public/mainnet/white_listed_alliance_token_info.json';
+import tokens from 'public/mainnet/tokens.json';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { chainState } from 'state/chainState';
 import { delegationState, DelegationState } from 'state/delegationState';
@@ -30,12 +30,10 @@ const Delegate: FC<ActionProps> = ({
   validatorDestAddress,
   tokenSymbol,
 }) => {
-  const { walletChainName } = useRecoilValue(chainState)
-  const { address } = useChain(walletChainName)
   const [currentDelegationState, setCurrentDelegationState] =
     useRecoilState<DelegationState>(delegationState);
 
-  const { data: { validators = [] } = {} } = useValidators({ address });
+  const { data: { validators = [] } = {} } = useValidators()
 
   const chosenValidator = useMemo(() => validators.find((v) => v.operator_address === validatorDestAddress),
     [validatorDestAddress, validators]);
@@ -118,9 +116,9 @@ const Delegate: FC<ActionProps> = ({
             minMax={false}
             disabled={false}
             onChange={async (value, isTokenChange) => {
-              field.onChange(value);
+              field.onChange(value)
               if (isTokenChange) {
-                const { denom, decimals } = tokens.find((t) => t.symbol === value.tokenSymbol);
+                const { denom, decimals } = tokens.find((t) => t.symbol === value.tokenSymbol)
                 setCurrentDelegationState({
                   ...currentDelegationState,
                   tokenSymbol: value.tokenSymbol,
