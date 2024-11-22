@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { HStack, Image, Text, VStack } from '@chakra-ui/react'
-import { useChain } from '@cosmos-kit/react-lite';
 import { useCalculateAllianceAprs } from 'components/Pages/Alliance/hooks/useCalculateAllianceAprs';
 import AssetTable, { DashboardData } from 'components/Pages/Dashboard/AssetTable';
 import { DashboardPieChart } from 'components/Pages/Dashboard/DashboardPieChart';
@@ -19,7 +18,6 @@ import tokens from 'public/mainnet/tokens.json'
 export const DashboardTab = ({ priceList }) => {
   const { tokensList } = useAllTokenList()
   const [dashboardData, setDashboardData] = useState<DashboardData[]>([])
-  console.log({dashboardData})
   const lpTokenPrices = useGetLPTokenPrices()
   const { alliances: allianceData } = useAlliances()
   const [initialized, setInitialized] = useState<boolean>(false)
@@ -48,7 +46,6 @@ export const DashboardTab = ({ priceList }) => {
   }, [vtRewardShares, allianceAPRs, otherAprs])
 
   useEffect(() => {
-    console.log(!totalStakedBalances, !stakedWhale ,!stakedWhaleWBtc,!priceList, !lpTokenPrices,aprs.length === 0)
     if (!totalStakedBalances || !stakedWhale || !stakedWhaleWBtc || !priceList || !lpTokenPrices || aprs.length === 0) {
       return
     }
