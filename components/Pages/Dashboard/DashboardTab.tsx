@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { HStack, Image, Text, VStack } from '@chakra-ui/react'
-import { useCalculateAllianceAprs } from 'components/Pages/Alliance/hooks/useCalculateAllianceAprs';
-import AssetTable, { DashboardData } from 'components/Pages/Dashboard/AssetTable';
-import { DashboardPieChart } from 'components/Pages/Dashboard/DashboardPieChart';
-import { useAssetsData } from 'components/Pages/Dashboard/hooks/useAssetsData';
-import { USDCWhaleLogo } from 'components/Pages/Dashboard/USDCWhaleLogo';
-import { WhaleBtcLogo } from 'components/Pages/Dashboard/WhaleBtcLogo';
-import { WindWhaleLogo } from 'components/Pages/Dashboard/WindWhaleLogo';
+import { useCalculateAllianceAprs } from 'components/Pages/Alliance/hooks/useCalculateAllianceAprs'
+import AssetTable, { DashboardData } from 'components/Pages/Dashboard/AssetTable'
+import { DashboardPieChart } from 'components/Pages/Dashboard/DashboardPieChart'
+import { useAssetsData } from 'components/Pages/Dashboard/hooks/useAssetsData'
+import { USDCWhaleLogo } from 'components/Pages/Dashboard/USDCWhaleLogo'
+import { WhaleBtcLogo } from 'components/Pages/Dashboard/WhaleBtcLogo'
+import { WindWhaleLogo } from 'components/Pages/Dashboard/WindWhaleLogo'
 import { Apr, useCalculateAprs } from 'components/Pages/Ecosystem/hooks/useCalculateAprs'
 import { useAlliances } from 'hooks/useAlliances'
 import { useAllTokenList } from 'hooks/useAllTokenList'
