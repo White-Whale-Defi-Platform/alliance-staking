@@ -128,12 +128,20 @@ export const getDelegation = async (
         }
       },
       { dollarValue: 0 })
-      console.log({data})
       return {
         delegations: data,
         totalDelegation: totalDelegation?.dollarValue?.toFixed(2),
       }
     })
+}
+
+const useAllianceDelegations = ({ address }) => {
+  const client = useLCDClient()
+  return useQuery({
+    queryKey: ['allianceDelegations', address],
+    queryFn: () => getAllianceDelegations(client, address),
+    enabled: Boolean(client) && Boolean(address),
+  })
 }
 
 const useDelegations = () => {
@@ -147,15 +155,6 @@ const useDelegations = () => {
       client, priceList, address, getAllianceDelegations,
     ),
     enabled: Boolean(client) && Boolean(address) && Boolean(priceList) && Boolean(getAllianceDelegations),
-  })
-}
-
-const useAllianceDelegations = ({ address }) => {
-  const client = useLCDClient()
-  return useQuery({
-    queryKey: ['allianceDelegations', address],
-    queryFn: () => getAllianceDelegations(client, address),
-    enabled: Boolean(client) && Boolean(address),
   })
 }
 

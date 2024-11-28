@@ -341,5 +341,18 @@
     "tabType": "restaking",
     "logoURI": null,
     "color":"darkgreen"
+  },
+  {
+    "name": "OPHIR-WHALE-LP",
+    "coinGeckoId": "",
+    "symbol": "OPHIR-WHALE-LP",
+    "chainId": "migaloo-1",
+    "denom": "factory/migaloo1p5adwk3nl9pfmjjx6fu9mzn4xfjry4l2x086yq8u8sahfv6cmuyspryvyu/uLP",
+    "token_address": "factory/migaloo1p5adwk3nl9pfmjjx6fu9mzn4xfjry4l2x086yq8u8sahfv6cmuyspryvyu/uLP",
+    "decimals": 6,
+    "native": true,
+    "tabType": "restaking",
+    "logoURI": null,
+    "color": "yellow"
   }
 ]
