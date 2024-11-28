@@ -40,6 +40,9 @@ export const fetchTotalPoolSuppliesAndCalculatePrice = async (
   const ampRoarRoarPoolInfo : PoolInfo = await terraClient.wasm.contractQuery('terra1d8ap3zyd6tfnruuuwvs0t927lr4zwptruhulfwnxjpqzudvyn8usfgl8ze', {
     pool: {},
   })
+  const frogWhalePoolInfo : PoolInfo = await migalooClient.wasm.contractQuery('migaloo1qu9fdl00ager68lyeh8e2vv3lpgylqryug468vuvy0ujk4tyq9zsnw5qdz', {
+    pool: {},
+  })
 
   const totalWhaleUsdcDollarAmount = (whaleUsdcPoolInfo?.assets.map((asset) => {
     if (asset.info.native_token.denom === 'uwhale') {
@@ -64,18 +67,25 @@ export const fetchTotalPoolSuppliesAndCalculatePrice = async (
   }).reduce((a, b) => a + b, 0) || 0) / convertMicroDenomToDenom(windWhalePoolInfo.total_share, 6)
 
   const totalAmpRoarRoarDollarAmount = (ampRoarRoarPoolInfo?.assets.map((asset) => {
-
     if (asset.info?.token?.contract_addr === 'terra1lxx40s29qvkrcj8fsa3yzyehy7w50umdvvnls2r830rys6lu2zns63eelv') {
       return convertMicroDenomToDenom(asset.amount, 6) * priceList.Roar * 2
     }
     return 0
   }).reduce((a, b) => a + b, 0) || 0) / convertMicroDenomToDenom(ampRoarRoarPoolInfo.total_share, 6)
 
+  const totalFrogWhaleDollarAmount = (frogWhalePoolInfo?.assets.map((asset) => {
+    if (asset.info.native_token.denom === 'uwhale') {
+      return convertMicroDenomToDenom(asset.amount, 6) * priceList.Whale * 2
+    }
+    return 0
+  }).reduce((a, b) => a + b, 0) || 0) / convertMicroDenomToDenom(frogWhalePoolInfo.total_share, 6)
+
   return {
     'USDC-WHALE-LP': totalWhaleUsdcDollarAmount,
     'WHALE-wBTC-LP': totalWhaleBtcDollarAmount,
     'WIND-WHALE-LP': totalWindWhaleDollarAmount,
     'ROAR-AMPROAR-LP': totalAmpRoarRoarDollarAmount,
+    'FROG-WHALE-LP': totalFrogWhaleDollarAmount,
   }
 }
 

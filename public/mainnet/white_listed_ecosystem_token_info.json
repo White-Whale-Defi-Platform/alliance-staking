@@ -328,5 +328,18 @@
     "tabType": "restaking",
     "logoURI": null,
     "color": "orange"
+  },
+  {
+    "name": "FROG-WHALE-LP",
+    "coinGeckoId": "",
+    "symbol": "FROG-WHALE-LP",
+    "chainId": "migaloo-1",
+    "denom": "factory/migaloo1qu9fdl00ager68lyeh8e2vv3lpgylqryug468vuvy0ujk4tyq9zsnw5qdz/uLP",
+    "token_address": "factory/migaloo1qu9fdl00ager68lyeh8e2vv3lpgylqryug468vuvy0ujk4tyq9zsnw5qdz/uLP",
+    "decimals": 6,
+    "native": true,
+    "tabType": "restaking",
+    "logoURI": null,
+    "color":"darkgreen"
   }
 ]

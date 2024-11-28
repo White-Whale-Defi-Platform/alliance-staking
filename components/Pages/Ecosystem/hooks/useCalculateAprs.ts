@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react'
 
-import { useAlliances } from 'hooks/useAlliances';
-import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices';
-import { useGetTotalStakedBalances } from 'hooks/useGetTotalStakedBalances';
-import { useGetVTRewardShares } from 'hooks/useGetVTRewardShares';
-import usePrices from 'hooks/usePrices';
-import { useTotalYearlyWhaleEmission } from 'hooks/useWhaleInfo';
-import { getTokenPrice } from 'util/getTokenPrice';
+import { useAlliances } from 'hooks/useAlliances'
+import { useGetLPTokenPrices } from 'hooks/useGetLPTokenPrices'
+import { useGetTotalStakedBalances } from 'hooks/useGetTotalStakedBalances'
+import { useGetVTRewardShares } from 'hooks/useGetVTRewardShares'
+import usePrices from 'hooks/usePrices'
+import { useTotalYearlyWhaleEmission } from 'hooks/useWhaleInfo'
+import { getTokenPrice } from 'util/getTokenPrice'
 
 export interface Apr {
   tabType: any;
@@ -20,7 +20,8 @@ export const useCalculateAprs = () => {
   const { vtRewardShares } = useGetVTRewardShares()
   const { totalYearlyWhaleEmission } = useTotalYearlyWhaleEmission()
   const { alliances } = useAlliances()
-  const vtEmission = useMemo(() => ((alliances?.alliances.find((alliance) => alliance.name === 'restaking')?.weight) || 0.075) / 1.1 * totalYearlyWhaleEmission, [totalYearlyWhaleEmission, alliances])
+  const restakingWeight = alliances?.alliances.find((alliance) => alliance.name === 'restaking')?.weight
+  const vtEmission = useMemo(() => (restakingWeight || 0.075) / 1.1 * totalYearlyWhaleEmission, [totalYearlyWhaleEmission, alliances])
   const [priceList] = usePrices() || []
   const lpTokenPrices = useGetLPTokenPrices()
 
@@ -37,6 +38,7 @@ export const useCalculateAprs = () => {
         tabType: 'restaking',
         name: info.tokenSymbol,
         apr: (info.distribution * vtEmission * priceList.Whale / ((stakedBalance?.totalAmount || 0) * stakedTokenPrice)) * 100,
+        weight: ((info?.distribution || 0) * restakingWeight || 0),
       } as Apr
     }))
   }, [vtEmission, totalStakedBalances, vtRewardShares, priceList, lpTokenPrices])

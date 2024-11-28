@@ -32,17 +32,10 @@ export const DashboardTab = ({ priceList }) => {
   const otherAprs = useCalculateAprs()
 
   useEffect(() => {
-    if (allianceAPRs?.length === 0 || otherAprs.length === 0 || allianceData?.alliances.length === 0 || !vtRewardShares) {
+    if (allianceAPRs?.length === 0 || otherAprs.length === 0) {
       return
     }
-    const aprs = [...allianceAPRs, ...otherAprs].map((apr) => {
-      const vtRewardShare = vtRewardShares.find((info) => info.tokenSymbol === apr.name)
-      return {
-        ...apr,
-        weight: apr?.weight ?? ((vtRewardShare?.distribution || 0) * (allianceData?.alliances.find((alliance) => alliance.name === 'restaking')?.weight || 0)),
-      }
-    })
-    setAprs(aprs)
+    setAprs([...allianceAPRs, ...otherAprs])
   }, [vtRewardShares, allianceAPRs, otherAprs])
 
   useEffect(() => {

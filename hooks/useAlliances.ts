@@ -33,7 +33,7 @@ const fetchAlliances = async (
         (token.name.includes('LP') ? lpTokenPrices[token.name] : priceList[token.name]),
       totalTokens: convertMicroDenomToDenom(alliance?.total_tokens,
         token.decimals),
-      takeRate: ((1 - Number(alliance?.take_rate)) ** 105120) || 0,
+      takeRate: ((1 - Number(alliance?.take_rate)) ** 105120) * 100 || 0,
     }
   })
   const vA = allianceAssets.find((a) => a.denom === 'factory/migaloo190qz7q5fu4079svf890h4h3f8u46ty6cxnlt78eh486k9qm995hquuv9kd/ualliance')
