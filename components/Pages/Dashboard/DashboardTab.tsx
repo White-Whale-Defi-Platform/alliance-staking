@@ -36,7 +36,7 @@ export const DashboardTab = ({ priceList }) => {
       return
     }
     setAprs([...allianceAPRs, ...otherAprs])
-  }, [vtRewardShares, allianceAPRs, otherAprs])
+  }, [allianceAPRs, otherAprs])
 
   useEffect(() => {
     if (!totalStakedBalances || !stakedWhale || !stakedWhaleWBtc || !priceList || !lpTokenPrices || aprs.length === 0) {

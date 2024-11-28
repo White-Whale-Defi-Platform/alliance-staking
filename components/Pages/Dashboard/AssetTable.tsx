@@ -163,8 +163,8 @@ const AssetTable = ({ dashboardData, initialized }) => {
     '150px', // APR
   ];
 
-  const rewardAssets = dashboardData.filter((asset: any) => asset.rewardWeight !== 0);
-  const inactiveAssets = dashboardData.filter((asset: any) => asset.rewardWeight === 0);
+  const rewardAssets = dashboardData.filter((asset: any) => asset.rewardWeight !== 0)
+  const inactiveAssets = dashboardData.filter((asset: any) => asset.rewardWeight === 0)
 
   const table = useReactTable({
     data: dashboardData,

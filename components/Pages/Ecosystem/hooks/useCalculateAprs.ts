@@ -41,7 +41,7 @@ export const useCalculateAprs = () => {
         weight: ((info?.distribution || 0) * restakingWeight || 0),
       } as Apr
     }))
-  }, [vtEmission, totalStakedBalances, vtRewardShares, priceList, lpTokenPrices])
+  }, [vtEmission, totalStakedBalances, vtRewardShares, priceList, lpTokenPrices, restakingWeight])
 
   return aprs
 }
